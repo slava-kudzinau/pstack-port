@@ -1,11 +1,12 @@
 ---
 name: autopilot-stack
 description: Build and verify one linear Graphite stack with full autonomy, then hand the operator the reviewed chain to land herself. Routed from poteto-mode's Autopilot-stack trigger, or invoked directly for "autopilot-stack", "stack them, don't ship", "build the stack, I'll land it".
-upstream: pstack/skills/poteto-mode/playbooks/autopilot-stack.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Cursor cloud agent owners (autopilot-stack.md:3,6) rewritten to task spawns with isolated:true, one per task batch item; /goal (autopilot-stack.md:3) rewritten to a standing per-turn brief, no named command; the 30-minute /loop audit cadence and cloud-sleeper wake chain (autopilot-stack.md:2) rewritten to hub's wait with a 30-minute timeout, re-issued each tick. Skill cross-references (autopilot-full, no-comments, babysit, show-me-your-work, swarm) rewritten as skill:// pointers; gt/gh stay literal as real external CLIs. Unresolved, left as generic prose rather than an invented OMP feature: the cursor-team-kit deslop skill and the ../references/bugbot-triage.md reference doc (autopilot-stack.md:1) are both outside this port's vendored scope (conventions §5)."
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/autopilot-stack.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Cursor cloud agent owners (autopilot-stack.md:3,6) rewritten to task spawns with isolated:true, one per task batch item; /goal (autopilot-stack.md:3) rewritten to a standing per-turn brief, no named command; the 30-minute /loop audit cadence and cloud-sleeper wake chain (autopilot-stack.md:2) rewritten to hub's wait with a 30-minute timeout, re-issued each tick. Skill cross-references (autopilot-full, no-comments, babysit, show-me-your-work, swarm) rewritten as skill:// pointers; gt/gh stay literal as real external CLIs. Unresolved, left as generic prose rather than an invented OMP feature: the cursor-team-kit deslop skill and the ../references/bugbot-triage.md reference doc (autopilot-stack.md:1) are both outside this port's vendored scope (conventions §5)."
 ---
 
 # Autopilot-stack

@@ -1,11 +1,12 @@
 ---
 name: trace-forensics
 description: Diagnose a captured profiling artifact (cpuprofile, trace, spindump, heap snapshot) by loading it, narrowing to the cause, and attributing to source. Routed from poteto-mode's Trace forensics trigger, or invoked directly for a dropped .cpuprofile, Trace-*.json.gz, Spindump.txt, or .heapsnapshot paired with "why is this slow / unresponsive / leaking / crashing".
-upstream: pstack/skills/poteto-mode/playbooks/trace-forensics.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: No tool-name substitutions needed — the playbook already keeps tooling generic (a trace parser, sqlite, an editor). Bold cross-references to Runtime forensics (line 5), principle-guard-the-context-window (line 7), and Bug fix/Perf issue (line 12) rewritten to skill:// pointers.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/trace-forensics.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'No tool-name substitutions needed — the playbook already keeps tooling generic (a trace parser, sqlite, an editor). Bold cross-references to Runtime forensics (line 5), principle-guard-the-context-window (line 7), and Bug fix/Perf issue (line 12) rewritten to skill:// pointers.'
 ---
 
 # Trace forensics

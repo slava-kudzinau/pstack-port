@@ -1,11 +1,12 @@
 ---
 name: how
 description: "Use for \"how does X work\", code walkthroughs before changing something, and placement / ownership / layering questions (\"where should this live\", \"which package owns this\", \"is this the right layer\"). Explains subsystem architecture, runtime flow, onboarding mental models. Can critique architecture. Use why for motivation."
-upstream: pstack/skills/how/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Per-spawn dispatch fields naming the Cursor subagent-type and read-only flags (how/SKILL.md:47-49,66-68,78-80,115-117) rewritten to the `task` tool's `agent` field (`agent: \"scout\"` for read-only probes, `task/agents.ts:45-76`), dispatched as a single `task` batch call per fan-out step; the four literal vendor model slugs named as explorer/explainer/critic defaults deleted in favor of \"your configured ... role\" (conventions §1); unbolded \"interrogate skill\" mention (how/SKILL.md:126) made addressable as `skill://interrogate`. Upstream has no `disable-model-invocation`, so none is added here. `references/*.md` ported unchanged alongside SKILL.md; they only name generic Read/Grep/Glob tools, already OMP-native."
+metadata:
+  upstream: 'pstack/skills/how/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Per-spawn dispatch fields naming the Cursor subagent-type and read-only flags (how/SKILL.md:47-49,66-68,78-80,115-117) rewritten to the `task` tool's `agent` field (`agent: \"scout\"` for read-only probes, `task/agents.ts:45-76`), dispatched as a single `task` batch call per fan-out step; the four literal vendor model slugs named as explorer/explainer/critic defaults deleted in favor of \"your configured ... role\" (conventions §1); unbolded \"interrogate skill\" mention (how/SKILL.md:126) made addressable as `skill://interrogate`. Upstream has no `disable-model-invocation`, so none is added here. `references/*.md` ported unchanged alongside SKILL.md; they only name generic Read/Grep/Glob tools, already OMP-native."
 ---
 
 # How

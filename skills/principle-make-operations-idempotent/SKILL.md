@@ -1,12 +1,13 @@
 ---
 name: principle-make-operations-idempotent
 description: Apply when designing commands, lifecycle steps, or processing loops that run amid crashes, restarts, and retries. Converge to the same end state regardless of partial prior runs.
-disable-model-invocation: true
-upstream: pstack/skills/principle-make-operations-idempotent/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Upstream body (principle-make-operations-idempotent/SKILL.md:1-24) is generic engineering prose with no Cursor-specific tool names, model slugs, or cross-references to rewrite; ported verbatim aside from the provenance frontmatter.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-make-operations-idempotent/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Upstream body (principle-make-operations-idempotent/SKILL.md:1-24) is generic engineering prose with no Cursor-specific tool names, model slugs, or cross-references to rewrite; ported verbatim aside from the provenance frontmatter.'
 ---
 
 # Make Operations Idempotent

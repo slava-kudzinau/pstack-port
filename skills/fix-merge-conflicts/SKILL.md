@@ -1,0 +1,40 @@
+---
+name: fix-merge-conflicts
+description: Resolve merge conflicts non-interactively, validate build and tests, and finalize conflict resolution
+metadata:
+  menu-description: 'non-interactively resolve merge conflicts, validate, finalize'
+  upstream: 'cursor-team-kit/skills/fix-merge-conflicts/SKILL.md'
+  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
+  upstream_version: '0.14.5'
+  status: 'portable'
+  note: "Copied verbatim from the reference port (refs/ref-port/plugins/pstack/skills/fix-merge-conflicts @ c2ade4b); cursor-team-kit component, not part of the pstack subtree, so it had no Phase A matrix row. The reference port's menu-description one-liner became our description; OMP has no menu-description slot."
+---
+
+
+# Fix merge conflicts
+
+## Trigger
+
+Branch has unresolved merge conflicts and needs a reliable path to a buildable state.
+
+## Workflow
+
+1. Detect all conflicting files from git status and conflict markers.
+2. Resolve each conflict with minimal, correctness-first edits.
+3. Prefer preserving both sides when safe. Otherwise, choose the variant that compiles and keeps public behavior stable.
+4. Regenerate lockfiles with package manager tools instead of hand-editing.
+5. Run compile, lint, and relevant tests.
+6. Stage resolved files and summarize key decisions.
+
+## Guardrails
+
+- Keep changes minimal and readable.
+- Do not leave conflict markers in any file.
+- Avoid broad refactors while resolving conflicts.
+- Do not push or tag during conflict resolution.
+
+## Output
+
+- Files resolved
+- Notable resolution choices
+- Build/test outcome

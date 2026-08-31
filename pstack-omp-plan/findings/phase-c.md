@@ -7,26 +7,24 @@
 
 ## Decision or headline
 
-All 68 ported components (22 poteto-mode playbooks, 21 `principle-*`
-skills, 23 remaining skills, 2 agents) landed under the OMP loading roots,
-every one as `ADAPT` — no row qualified as `PORT` because every upstream
-component contains Cursor branding, CC tool names (`Agent`/`Task`),
-`subagent_type`, `run_in_background`, `AskQuestion`, or `control-cli` /
-`control-ui` / `/goal` references. Cross-references to skills that carry
-`disable-model-invocation: true` were rewritten to `skill://` pointers,
-since a bold-name mention of a model-hidden skill is a dead reference.
-`poteto-mode/SKILL.md` and `bug-fix/SKILL.md` moved from the Phase B
-skeleton to full upstream coverage. Four constructs could not be translated
-and are recorded below rather than invented.
+All 76 ported components (22 poteto-mode playbooks, 21 `principle-*`
+skills, 23 remaining pstack skills, 7 cursor-team-kit skills from `e46364b`,
+2 agents) landed under the OMP loading roots. 70 rows `ADAPT` (every pstack
+component contains Cursor branding or tool names requiring rewrite; `thermo-nuclear-code-quality-review` from cursor-team-kit also adapted for OMP `task` batch); 6 rows
+`PORT` (the cursor-team-kit imports `de-slop`, `make-pr-easy-to-review`,
+`fix-ci`, `fix-merge-conflicts`, `get-pr-comments`, `what-did-i-get-done` — audited
+clean in the reference port, body verbatim).
+Cross-references to skills carrying `disable-model-invocation: true` were rewritten
+to `skill://` pointers. `poteto-mode/SKILL.md` and `bug-fix/SKILL.md` moved from
+Phase B skeleton to full upstream coverage.
 
 ## Results
 
-| Item | Result | Evidence (path:lines, or transcript) |
-|---|---|---|
-| Matrix coverage | 68/68 components ported; 68 skill dirs, 2 agents, 24 commands (22 playbooks + 2 direct skills with `disable-model-invocation`: `create-verification-skill`, `maintain-verification-skill`; + `poteto-mode` + `setup-pstack`) | `ls skills agents commands` |
-| Branding check | `bun run scripts/branding-check.ts` → `branding check: clean (skills, agents, commands)` | `scripts/branding-check.ts` |
-| Frontmatter | All 70 `SKILL.md`/agent files parse; `name:` matches directory/file | `python3 -c "import yaml; yaml.safe_load(fm)"` per file |
-| Orphan sweep | Zero `skill://` refs pointing at missing skills | regex sweep over `skills/`, `agents/`, `commands/` |
+| Matrix coverage | 74 skill dirs, 2 agents, 30 commands on disk (76 total minus `make-bot-ui` DROP) | `ls skills agents commands` |
+| Branding check | `bun scripts/branding-check.ts` → clean (expanded to include `Cursor`, `GPT`, `Gemini`, `Qwen` case-sensitive; `note:` metadata lines exempt) | `scripts/branding-check.ts` |
+| Frontmatter | All 76 `SKILL.md`/agent files parse; `name:` matches directory/file; provenance keys moved under `metadata:` | `scripts/validate-frontmatter.ts` |
+| Orphan sweep | 67 distinct `skill://`/`agent://` pointers; all resolve in-tree or to a bundled OMP role | `scripts/orphan-scan.ts` |
+| `make-bot-ui` | De-scoped (matrix row 74 `DROP`): Cursor Routines/webhook automation with no OMP equivalent; files deleted | `skills/make-bot-ui/` removed |
 | `poteto-mode/SKILL.md` | Restored to full roster: all 22 playbooks + 21 principles, all cross-refs as `skill://` | `skills/poteto-mode/SKILL.md:110-140` |
 | `bug-fix/SKILL.md` | Restored: steps 1–6 verbatim from `playbooks/bug-fix.md`, `skill://how`/`why`/`architect`/`interrogate`/`tdd`/`opening-a-pr` pointers restored | `skills/bug-fix/SKILL.md:17-22` |
 | Phase B probes | `bun run scripts/verify-phase-b.ts` → exit 0; agents discovered incl. new `comment-sicko`, `poteto-agent` via extension root | `scripts/verify-phase-b.ts` |
@@ -49,22 +47,21 @@ and are recorded below rather than invented.
 |---|---|---|
 | `autopilot-full`, `autopilot-stack`, `pause-safely` | First ported copies had unquoted `note:` fields; a mid-value `: ` is a YAML mapping indicator | `mapping values are not allowed here` (yaml.safe_load) |
 | 11 files (e.g. `swarm`, `teach`, `why`, `poteto-agent`) | Same YAML pitfall in `description:`/`note:` values | `expected <block end>, but found '<scalar>'` |
-| `make-bot-ui` | Upstream drives Cursor Routines: `update_state` routine tool, `SendToUser` secret-request card, webhook-wake `[routine]`/`<webhook_event>` format — no OMP equivalent exists; preserved verbatim, flagged in `note:` | n/a — construct absent from OMP |
 | `deslop`, `cursor-team-kit` `control-cli`/`control-ui` | Plugin never vendored in this port (conventions §5); generalized to prose or dropped | n/a |
 | `references/bugbot-triage.md` | Not tracked in `matrix.md`; dangling relative link in `autopilot-*`/`babysit` cut to plain prose | n/a |
 | `/goal` persistent objective | No OMP fallback (substitution contract); rewritten as restating the standing brief | n/a |
 | `check-plan.mjs`, `orch.ts`, `watch-pr` | Real pstack tooling, but porting the scripts is out of scope for the markdown-only phase; kept as bare command names | n/a |
+| `make-bot-ui` | De-scoped (user decision 2026-08-31): Cursor Routines/webhook automation with no OMP equivalent; files deleted | matrix row 74 `DROP` |
 
 ## Questions raised
 
-- Should `make-bot-ui` be reclassified `DEFER`? Its core (Cursor Routines/webhook
-  automation) has no OMP equivalent, so the ported skill keeps an unreachable
-  mechanism. `create-verification-skill`/`maintain-verification-skill` set the
-  precedent for flagging a gap rather than inventing a substitute.
+None. `make-bot-ui` is confirmed `DROP` (de-scoped, per user decision 2026-08-31; matrix row 74).
 
 ## Done-when checklist
 
-- [x] Every matrix row (all `ADAPT`) has a file under the loading roots — 68/68 dirs/files present (`ls` verified)
-- [x] Branding check passes — `bun run scripts/branding-check.ts` → clean
-- [x] Frontmatter check passes — all 70 files `yaml.safe_load`-clean after 14 quote fixes
-- [x] Phase B probes still pass — `bun run scripts/verify-phase-b.ts` → exit 0
+- [x] Every matrix row has a file under the loading roots — 74/74 skill dirs, 2 agents, 30 commands present (`ls` verified); `make-bot-ui` DROP confirmed deleted
+- [x] Branding check passes — `bun scripts/branding-check.ts` → clean (expanded list)
+- [x] Frontmatter check passes — `bun scripts/validate-frontmatter.ts` → clean (74 skills + 30 commands)
+- [x] Orphan scan passes — `bun scripts/orphan-scan.ts` → 67 pointers, all resolve
+- [x] Phase B probes still pass — `bun scripts/verify-phase-b.ts` → exit 0
+- [x] Human review complete (checkpoint 2)

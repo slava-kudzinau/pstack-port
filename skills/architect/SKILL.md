@@ -1,12 +1,13 @@
 ---
 name: architect
 description: "Sketch types, signatures, and module structure before code, then stay in the loop while implementation fills in. Use for /architect, 'architect this', 'design this', or non-trivial work where jumping to code would lock in the wrong shape."
-disable-model-invocation: true
-upstream: pstack/skills/architect/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Bold cross-skill mentions (how, why, arena, interrogate, and five principle skills) rewritten as `skill://` links (architect/SKILL.md:23,25,31,49,61,76-78). The literal architect-runner model slugs on line 33 deleted in favor of 'your configured model roles', per conventions §1. references/ carried over unchanged in path; runner-prompt.md and rationale-template.md ported alongside with their own cross-skill links rewritten."
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/architect/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Bold cross-skill mentions (how, why, arena, interrogate, and five principle skills) rewritten as `skill://` links (architect/SKILL.md:23,25,31,49,61,76-78). The literal architect-runner model slugs on line 33 deleted in favor of 'your configured model roles', per conventions §1. references/ carried over unchanged in path; runner-prompt.md and rationale-template.md ported alongside with their own cross-skill links rewritten."
 ---
 
 # Architect

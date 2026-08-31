@@ -1,11 +1,12 @@
 ---
 name: typescript-best-practices
 description: TypeScript best practices. Use when reading or editing any .ts or .tsx file.
-upstream: pstack/skills/typescript-best-practices/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Bold cross-references to the type-system-discipline and boundary-discipline principle skills (SKILL.md:8,22) rewritten as `skill://` pointers, matching the style in skills/poteto-mode/SKILL.md. The upstream `references/patterns.md` companion file (code examples for each rule) is out of scope for this batch (assignment targets SKILL.md only) and was not ported; the trailing pointer to it was dropped rather than left dangling.
+metadata:
+  upstream: 'pstack/skills/typescript-best-practices/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Bold cross-references to the type-system-discipline and boundary-discipline principle skills (SKILL.md:8,22) rewritten as `skill://` pointers, matching the style in skills/poteto-mode/SKILL.md. The upstream `references/patterns.md` companion file (code examples for each rule) is out of scope for this batch (assignment targets SKILL.md only) and was not ported; the trailing pointer to it was dropped rather than left dangling.'
 ---
 
 # TypeScript best practices

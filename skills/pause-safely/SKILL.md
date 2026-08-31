@@ -1,11 +1,12 @@
 ---
 name: pause-safely
 description: Suspend in-flight work cleanly so it can be resumed later. Routed from poteto-mode's Pause safely trigger, or invoked directly for "pause safely", "I need to go offline", "board my flight", or when context is about to compact or summarize.
-upstream: pstack/skills/poteto-mode/playbooks/pause-safely.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "\"restart Cursor\" generalized to a session-restart trigger; the Autonomous run, show-me-your-work, and Session pickup playbook mentions rewritten as skill:// pointers (pause-safely.md:3,8,10)."
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/pause-safely.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "\"restart Cursor\" generalized to a session-restart trigger; the Autonomous run, show-me-your-work, and Session pickup playbook mentions rewritten as skill:// pointers (pause-safely.md:3,8,10)."
 ---
 
 # Pause safely

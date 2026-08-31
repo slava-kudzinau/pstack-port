@@ -13,6 +13,7 @@ const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SCAN_DIRS = ["skills", "agents", "commands"];
 
 const BANNED = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type", "claude.md"];
+const CASE_SENSITIVE = ["Cursor", "GPT", "Gemini", "Qwen"];
 
 function scan(dir: string): string[] {
 	const hits: string[] = [];
@@ -24,9 +25,14 @@ function scan(dir: string): string[] {
 		}
 		if (relative(repo, full).endsWith("CREDITS.md")) continue;
 		for (const [i, line] of readFileSync(full, "utf-8").split("\n").entries()) {
+			const trimmed = line.trim();
+			if (trimmed.startsWith("note:")) continue;
 			const lower = line.toLowerCase();
 			for (const token of BANNED) {
 				if (lower.includes(token)) hits.push(`${relative(repo, full)}:${i + 1}: "${token}"`);
+			}
+			for (const token of CASE_SENSITIVE) {
+				if (line.includes(token)) hits.push(`${relative(repo, full)}:${i + 1}: "${token}" (case-sensitive)`);
 			}
 		}
 	}

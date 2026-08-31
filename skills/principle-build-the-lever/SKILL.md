@@ -1,12 +1,13 @@
 ---
 name: principle-build-the-lever
 description: "Apply to any non-trivial work, not just bulk work: edits, migrations, analyses, checks. Build the tool that does it or proves it (codemod, script, generator, or a skill your subagents follow) instead of working by hand. The tool is the artifact a reviewer can rerun."
-disable-model-invocation: true
-upstream: pstack/skills/principle-build-the-lever/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Three relative markdown links to sibling principle skills rewritten to `skill://` URLs for OMP's flat skills/ layout (`../principle-laziness-protocol/SKILL.md` → `skill://principle-laziness-protocol`, `../principle-encode-lessons-in-structure/SKILL.md` → `skill://principle-encode-lessons-in-structure`, `../principle-prove-it-works/SKILL.md` → `skill://principle-prove-it-works`). Body otherwise unchanged.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-build-the-lever/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Three relative markdown links to sibling principle skills rewritten to `skill://` URLs for OMP\'s flat skills/ layout (`../principle-laziness-protocol/SKILL.md` → `skill://principle-laziness-protocol`, `../principle-encode-lessons-in-structure/SKILL.md` → `skill://principle-encode-lessons-in-structure`, `../principle-prove-it-works/SKILL.md` → `skill://principle-prove-it-works`). Body otherwise unchanged.'
 ---
 # Build the Lever
 

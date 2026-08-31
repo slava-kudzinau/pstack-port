@@ -1,11 +1,12 @@
 ---
 name: autonomous-run
 description: Drive a long task to completion without stopping, against a checkable exit predicate you state up front. Routed from poteto-mode's Autonomous run trigger, or invoked directly for "run this until it's done, I'm going to bed", "keep going until every PR merges", "loop on this until the repro is fixed".
-upstream: pstack/skills/poteto-mode/playbooks/autonomous-run.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Cursor's /loop (autonomous-run.md:6) rewritten to a watcher subagent dispatched via task, reporting back over hub with hub's wait as the block/heartbeat mechanism, replacing the named loop command with plain iterate-and-recheck language. AskQuestion (autonomous-run.md:9) rewritten to OMP's ask tool. sequence-verifiable-units, show-me-your-work, and poteto-mode cross-references rewritten as skill:// pointers.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/autonomous-run.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Cursor\'s /loop (autonomous-run.md:6) rewritten to a watcher subagent dispatched via task, reporting back over hub with hub\'s wait as the block/heartbeat mechanism, replacing the named loop command with plain iterate-and-recheck language. AskQuestion (autonomous-run.md:9) rewritten to OMP\'s ask tool. sequence-verifiable-units, show-me-your-work, and poteto-mode cross-references rewritten as skill:// pointers.'
 ---
 
 # Autonomous run

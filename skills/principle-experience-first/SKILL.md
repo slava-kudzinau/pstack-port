@@ -1,12 +1,13 @@
 ---
 name: principle-experience-first
 description: Apply when product, UX, or feature-scope tradeoffs come up. Choose user delight over implementation convenience; ship fewer polished features over more rough ones.
-disable-model-invocation: true
-upstream: pstack/skills/principle-experience-first/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: portable
-note: No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-experience-first/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'portable'
+  note: 'No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter.'
 ---
 
 # Experience First

@@ -1,11 +1,12 @@
 ---
 name: shipping
 description: Independently verify a green PR stack, then land the contiguous verified run with Graphite merge-when-ready. Routed from poteto-mode's Shipping trigger, or invoked directly for "land the stack", "ship it", "enable merge when ready", or the second half of a stack the babysit skill already drove to green.
-upstream: pstack/skills/poteto-mode/playbooks/shipping.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Cursor cloud agent + control-ui/control-cli from cursor-team-kit (shipping.md:3,7) rewritten to a task tool batch, one isolated item per PR checked out at its own head, exercising bash/browser/debug per surface; /loop dynamic-mode watch (line 17) rewritten to plain re-checking language, dropping the loop-mode terminology that has no OMP equivalent. Bold cross-references to Babysit (lines 3,5) rewritten to skill:// pointers. gt/gh CLI invocations kept literal, per the substitution contract — they are real external CLIs, not Cursor-internal.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/shipping.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Cursor cloud agent + control-ui/control-cli from cursor-team-kit (shipping.md:3,7) rewritten to a task tool batch, one isolated item per PR checked out at its own head, exercising bash/browser/debug per surface; /loop dynamic-mode watch (line 17) rewritten to plain re-checking language, dropping the loop-mode terminology that has no OMP equivalent. Bold cross-references to Babysit (lines 3,5) rewritten to skill:// pointers. gt/gh CLI invocations kept literal, per the substitution contract — they are real external CLIs, not Cursor-internal.'
 ---
 
 # Shipping

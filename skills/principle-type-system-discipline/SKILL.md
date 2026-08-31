@@ -1,12 +1,13 @@
 ---
 name: principle-type-system-discipline
 description: Apply when designing types, reviewing a function signature, or writing code in any statically-typed language. Make illegal states unrepresentable, brand semantic primitives, parse external data at boundaries, refuse to lie to the compiler, exhaust variants, derive from authoritative schemas.
-disable-model-invocation: true
-upstream: pstack/skills/principle-type-system-discipline/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: No Cursor tool or model-slug references in the body. Cross-references to typescript-best-practices (SKILL.md:11), principle-boundary-discipline (:18), and principle-encode-lessons-in-structure (:21) rewritten from bare bold/backtick names to skill:// URLs, since disable-model-invocation:true hides all three from auto-discovery.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-type-system-discipline/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'No Cursor tool or model-slug references in the body. Cross-references to typescript-best-practices (SKILL.md:11), principle-boundary-discipline (:18), and principle-encode-lessons-in-structure (:21) rewritten from bare bold/backtick names to skill:// URLs, since disable-model-invocation:true hides all three from auto-discovery.'
 ---
 
 # Type System Discipline

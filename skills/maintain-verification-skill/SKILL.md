@@ -1,12 +1,13 @@
 ---
 name: maintain-verification-skill
 description: 'Periodic pass that keeps a project''s verification skill and feature map honest: parallel source readers per feature, one live session driving every feature, at most one PR of proven corrections. Use for /maintain-verification-skill or "audit the verify skill".'
-disable-model-invocation: true
-upstream: pstack/skills/maintain-verification-skill/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: 'Two edits: the Cursor project-skill path `.cursor/skills/verify-*/` (SKILL.md:25) rewritten to OMP''s flat `skills/verify-*/` project skill root; the bold cross-reference to `/create-verification-skill` (SKILL.md:9,25) rewritten to `skill://create-verification-skill` per the cross-batch skill:// convention, since that skill is ported by a sibling batch in this wave. The "one read-only subagent per feature file" source wave (SKILL.md:29) is named as an explicit `task` batch call for clarity; the parallel-source-reader mechanism itself was already tool-agnostic prose, not a Cursor-specific construct.'
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/maintain-verification-skill/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Two edits: the Cursor project-skill path `.cursor/skills/verify-*/` (SKILL.md:25) rewritten to OMP''s flat `skills/verify-*/` project skill root; the bold cross-reference to `/create-verification-skill` (SKILL.md:9,25) rewritten to `skill://create-verification-skill` per the cross-batch skill:// convention, since that skill is ported by a sibling batch in this wave. The "one read-only subagent per feature file" source wave (SKILL.md:29) is named as an explicit `task` batch call for clarity; the parallel-source-reader mechanism itself was already tool-agnostic prose, not a Cursor-specific construct.'
 ---
 
 # Maintain a verification skill

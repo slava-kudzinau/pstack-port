@@ -1,12 +1,13 @@
 ---
 name: figure-it-out
 description: "Design an auditable playbook when no narrower one fits: a large migration, an ambitious multi-part change, or work a human reviews after stepping away. Scales rigor to the task, runs a hypothesis loop, and logs decisions via show-me-your-work. Use for /figure-it-out, 'figure it out', a large migration, or when no narrower playbook applies."
-disable-model-invocation: true
-upstream: pstack/skills/figure-it-out/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Bold cross-references to other pstack skills (poteto-mode, prove-it-works, never-block-on-the-human, foundational-thinking, architect, arena, laziness-protocol, separate-before-serializing-shared-state, sequence-verifiable-units, show-me-your-work, encode-lessons-in-structure — figure-it-out/SKILL.md:15,21,25,29,32-33,41,49,53) made addressable as skill:// URLs, since disable-model-invocation hides them from auto-discovery. No Cursor per-spawn dispatch fields, delegation tool names, model slugs, or background-flag constructs appear in the upstream body to rewrite."
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/figure-it-out/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Bold cross-references to other pstack skills (poteto-mode, prove-it-works, never-block-on-the-human, foundational-thinking, architect, arena, laziness-protocol, separate-before-serializing-shared-state, sequence-verifiable-units, show-me-your-work, encode-lessons-in-structure — figure-it-out/SKILL.md:15,21,25,29,32-33,41,49,53) made addressable as skill:// URLs, since disable-model-invocation hides them from auto-discovery. No Cursor per-spawn dispatch fields, delegation tool names, model slugs, or background-flag constructs appear in the upstream body to rewrite."
 ---
 
 # Figure it out

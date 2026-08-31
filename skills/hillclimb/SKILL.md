@@ -1,11 +1,12 @@
 ---
 name: hillclimb
 description: Sustained, scientific improvement of one measurable metric against a target, looping hypotheses with before/after measurement and one commit per accepted win. Routed from poteto-mode's Hillclimb trigger, or invoked directly for "hillclimb on X", "make startup 50% faster", "systematically drive down <metric>", "keep trying until <metric> improves by N%".
-upstream: pstack/skills/poteto-mode/playbooks/hillclimb.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Bold/bare skill and principle-skill mentions (`how`, `prove-it-works`, `build-the-lever`, `show-me-your-work`, `guard-the-context-window`, `separate-before-serializing-shared-state`, `sequence-verifiable-units`, `laziness-protocol`, hillclimb.md:5,7-9,12,16-17) rewritten to `skill://` pointers. The `Autonomous run playbook` cross-reference (hillclimb.md:16) rewritten to `skill://autonomous-run`. The `gpt-5.6-sol-max` model slug (hillclimb.md:12) replaced with a generic configured-role phrase. `Run **Opening a PR**` (hillclimb.md:19) rewritten to `skill://opening-a-pr`.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/hillclimb.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Bold/bare skill and principle-skill mentions (`how`, `prove-it-works`, `build-the-lever`, `show-me-your-work`, `guard-the-context-window`, `separate-before-serializing-shared-state`, `sequence-verifiable-units`, `laziness-protocol`, hillclimb.md:5,7-9,12,16-17) rewritten to `skill://` pointers. The `Autonomous run playbook` cross-reference (hillclimb.md:16) rewritten to `skill://autonomous-run`. The `gpt-5.6-sol-max` model slug (hillclimb.md:12) replaced with a generic configured-role phrase. `Run **Opening a PR**` (hillclimb.md:19) rewritten to `skill://opening-a-pr`.'
 ---
 
 # Hillclimb

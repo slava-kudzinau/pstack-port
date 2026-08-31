@@ -7,9 +7,9 @@ All paths below are relative to `refs/omp-src`.
 
 ## Unresolved
 
-| Question | Answer | Evidence (path:lines) |
-|---|---|---|
-| Should `make-bot-ui` be `DEFER` instead of `ADAPT`? Its core is Cursor's Routines/webhook automation (`update_state` routine tool, `SendToUser` secret-request card, `[routine]`/`<webhook_event>` wake) — no OMP equivalent exists, so the ported skill keeps an unreachable mechanism. `create-verification-skill`/`maintain-verification-skill` set the precedent for flagging a gap rather than inventing a substitute. | — | `upstream/pstack/skills/make-bot-ui/SKILL.md` |
+No open questions. All Phase A discovery, format, task-tool, and extension-API
+questions answered with `path:lines` evidence. `make-bot-ui` resolved as `DROP`
+(de-scoped, per user decision 2026-08-31; matrix row 74).
 
 ## Answered
 
@@ -36,5 +36,4 @@ All paths below are relative to `refs/omp-src`.
 | `on()` event registration? | `api.on(event, handler)` — wired through `createCustomToolsExtension`; events per `shared-events.ts`. | `packages/coding-agent/src/sdk.ts:1042-1053` |
 | Full lifecycle event list? | Shared session events: `session_start`, `session_before_switch`, `session_switch`, `session_before_branch`, `session_branch`, compaction family; `resources_discover` fires post-`session_start` with `reason: "startup" | "reload"`. | `packages/coding-agent/src/extensibility/shared-events.ts:28-63` |
 | Message injection API? | `sendMessage(message, { triggerTurn?, deliverAs?: "steer" | "followUp" | "nextTurn" })` and `sendUserMessage(content, { deliverAs? })`; `appendEntry(customType, data)` persists state without sending to the LLM. | `packages/coding-agent/src/extensibility/extensions/types.ts:1426-1438,1647-1652` |
-| Which model-control APIs need the `open-sdk` fork vs stock OMP? | Neither: `open-sdk` appears nowhere in omp-src (zero hits under `packages/`, `crates/`, `docs/`). OMP ships its own `@oh-my-pi/*` SDK packages; all registration APIs live in that first-party SDK. | `packages/coding-agent/package.json:3,54-60`; `packages/coding-agent/src/sdk.ts:1024-1053` |
-| Extension manifest: does `omp.extensions` in package.json suffice, or is `settings.json` also required? | **`omp.extensions` in `package.json` suffices** — it is the manifest slot extension packages are loaded from (`"omp": { "extensions": […paths…] }`, legacy `pi.extensions` accepted). The `extensions:` key in `settings.json`/`config.yml` is a *different* source (explicit paths, dedup first-wins), not an extra required slot. Sources, in precedence order: legacy settings `extensions` paths (1) → installed/linked plugins' `omp.extensions`/`pi.extensions` manifests (2) → CLI `--extension`/`-e` and `extensions:` config paths (3). Array-valued settings REPLACE, never append. | `docs/skills/authoring-extensions.md:83-85,93,99,101-132`; `docs/extension-loading.md:55,66,81-90,175-186`; `docs/marketplace.md:18`; `docs/skills/authoring-marketplaces.md:208,214`; `docs/settings.md:226,813` |
+| `what-did-i-get-done` should be `PORT` or `ADAPT`? It's a `git log` summary flow with no Cursor constructs. | `PORT` — body is `git log` + `bash` only, no Cursor tool names, model slugs, or `subagent_type` refs. Audited clean in the reference port (`CHANGES.md:222`). | `upstream/cursor-team-kit/skills/what-did-i-get-done/SKILL.md:1-12`; `refs/ref-port/CHANGES.md:222` |

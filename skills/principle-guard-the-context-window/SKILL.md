@@ -1,12 +1,13 @@
 ---
 name: principle-guard-the-context-window
 description: "Apply when context is filling up: large outputs, long files, repeated reads, fan-out planning. Route bulk to subagents; keep summaries in the main thread, not raw payloads."
-disable-model-invocation: true
-upstream: pstack/skills/principle-guard-the-context-window/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: portable
-note: No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter. "Route bulk to subagents" already reads as OMP's `task` design without edits.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-guard-the-context-window/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'portable'
+  note: 'No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter. "Route bulk to subagents" already reads as OMP\'s `task` design without edits.'
 ---
 
 # Guard the Context Window

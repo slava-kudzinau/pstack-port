@@ -88,7 +88,7 @@ If this fails, the format doc is wrong. Fix it before Phase B.
 - [x] All pins recorded (OMP version + sha; `cursor/plugins` sha; pstack `plugin.json` version if present) — in `findings/phase-a.md:3-5`, matches `UPSTREAM.md`
 - [x] Every discovery, format, `task`, and extension-API question answered with `path:lines` — see `findings/phase-a.md` tables
 - [x] `stock vs fork` table has no empty fallback rows — 19 rows in conventions §6, all `Yes`/`n/a`; no fork-only row, so the blocker rule never fires
-- [x] Matrix has no blank actions — all 70 rows `ADAPT`, 0 `NATIVE`/`PORT` (every component carries Cursor-only primitives, incl. architect/arena/interrogate/swarm/how/why whose dispatch plumbing swaps to the OMP `task` tool), 0 `REPLACE`/`DEFER`/`DROP`
+- [x] Matrix has no blank actions — 77 rows: 70 `ADAPT`, 6 `PORT` (cursor-team-kit imports `de-slop`, `make-pr-easy-to-review`, `fix-ci`, `fix-merge-conflicts`, `get-pr-comments`, `what-did-i-get-done`), 1 `DROP` (`make-bot-ui`); 0 `NATIVE`/`REPLACE`/`DEFER`
 - [x] Sanity-check agent loads — `bun run scripts/sanity-poteto-agent.ts` (needs `pi_natives.darwin-arm64.node` copied from the installed 18.0.11 checkout): `discovered: poteto-agent, comment-sicko, scout, designer, reviewer, security-reviewer, librarian, task, sonic`
 - [x] Human review complete (checkpoint 1)
 

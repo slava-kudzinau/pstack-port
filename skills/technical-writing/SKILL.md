@@ -1,12 +1,13 @@
 ---
 name: technical-writing
 description: "Layered technical-writing standard: Diátaxis structure, Google developer style sentences, STE instruction rules, Global English syntax. Use for /technical-writing or when writing or reviewing docs, RFCs, readmes, PR descriptions, or commit messages."
-disable-model-invocation: true
-upstream: pstack/skills/technical-writing/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "The bold mention of the `unslop` skill rewritten as an explicit `skill://unslop` pointer, since `unslop` carries `disable-model-invocation: true` and is hidden from auto-discovery — a bare name mention is a dead reference in OMP. The earlier backtick mention of `unslop`'s abstract-metaphor rule left as-is; the pointer is already established by then. No other Cursor-specific constructs in the body."
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/technical-writing/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "The bold mention of the `unslop` skill rewritten as an explicit `skill://unslop` pointer, since `unslop` carries `disable-model-invocation: true` and is hidden from auto-discovery — a bare name mention is a dead reference in OMP. The earlier backtick mention of `unslop`'s abstract-metaphor rule left as-is; the pointer is already established by then. No other Cursor-specific constructs in the body."
 ---
 
 # Technical writing

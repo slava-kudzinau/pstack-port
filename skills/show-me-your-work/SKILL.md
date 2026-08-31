@@ -1,12 +1,13 @@
 ---
 name: show-me-your-work
 description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Local by default; commit it when a reviewer needs the trail to trust the result. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
-disable-model-invocation: true
-upstream: pstack/skills/show-me-your-work/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Cursor's `~/.cursor/projects/*/agent-transcripts/` (SKILL.md:56) rewritten to OMP's session-file layout plus `history://<id>`. "Spawn a subagent" (:67) made explicit as the `task` tool. `references/decision-log-template.tsv` and `scripts/log.sh` are carried verbatim under `skills/show-me-your-work/` (referenced as `skill://show-me-your-work/...`, which `bash` auto-resolves to a filesystem path) — no frontmatter added, since a shebang/header must stay line 1 for the script and template to keep working.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/show-me-your-work/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Cursor\'s `~/.cursor/projects/*/agent-transcripts/` (SKILL.md:56) rewritten to OMP\'s session-file layout plus `history://<id>`. "Spawn a subagent" (:67) made explicit as the `task` tool. `references/decision-log-template.tsv` and `scripts/log.sh` are carried verbatim under `skills/show-me-your-work/` (referenced as `skill://show-me-your-work/...`, which `bash` auto-resolves to a filesystem path) — no frontmatter added, since a shebang/header must stay line 1 for the script and template to keep working.'
 ---
 
 # Show me your work

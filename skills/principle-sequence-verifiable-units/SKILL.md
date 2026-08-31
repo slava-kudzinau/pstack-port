@@ -1,12 +1,13 @@
 ---
 name: principle-sequence-verifiable-units
 description: Apply to multi-step work (sweeps, migrations, runs of similar edits) and to how you stack commits and PRs. Break work into small units that each end in a verifiable state, check each before the next, and order delivery so the sequence proves itself to a reviewer.
-disable-model-invocation: true
-upstream: pstack/skills/principle-sequence-verifiable-units/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: No Cursor tool or model-slug references in the body. Closing cross-references to the prove-it-works and build-the-lever principle skills (SKILL.md, last line) rewritten from bare bold names to skill:// URLs, since disable-model-invocation:true hides both from auto-discovery.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-sequence-verifiable-units/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'No Cursor tool or model-slug references in the body. Closing cross-references to the prove-it-works and build-the-lever principle skills (SKILL.md, last line) rewritten from bare bold names to skill:// URLs, since disable-model-invocation:true hides both from auto-discovery.'
 ---
 
 # Sequence work into verifiable units

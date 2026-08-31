@@ -1,11 +1,12 @@
 ---
 name: setup-pstack
 description: Configure which models pstack uses per role. Detects your available model roles and writes a config file that overrides the skill defaults. Use for /setup-pstack, "configure pstack models", or changing pstack's model choices.
-upstream: pstack/skills/setup-pstack/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Target file moved from `~/.cursor/rules/pstack-models.mdc` (with Cursor's `alwaysApply: true` rule frontmatter, SKILL.md:8,30) to a plain `~/.omp/agent/pstack-models.md` that pstack skills `read` directly on demand — OMP's task tool sets only `agent`, never a worker model, so model routing is config/agent-frontmatter driven, not a value this file's readers pass into a spawn call (task-agent-discovery.md). The four literal per-model-family slug examples (SKILL.md:39-56) are replaced with generic `@<role>`-shaped placeholders — real OMP role aliases resolve through `modelRoles.<role>` in `~/.omp/agent/config.yml` (models.md). `AskQuestion` (:22) rewritten to the `ask` tool. `inherit-parent`/`auto` (:14,22) rewritten to `@default`, OMP's built-in default-model role alias (models.md: \"`*` selects `@default`\"). `/create-verification-skill` (:68) rewritten to `skill://create-verification-skill`."
+metadata:
+  upstream: 'pstack/skills/setup-pstack/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Target file moved from `~/.cursor/rules/pstack-models.mdc` (with Cursor's `alwaysApply: true` rule frontmatter, SKILL.md:8,30) to a plain `~/.omp/agent/pstack-models.md` that pstack skills `read` directly on demand — OMP's task tool sets only `agent`, never a worker model, so model routing is config/agent-frontmatter driven, not a value this file's readers pass into a spawn call (task-agent-discovery.md). The four literal per-model-family slug examples (SKILL.md:39-56) are replaced with generic `@<role>`-shaped placeholders — real OMP role aliases resolve through `modelRoles.<role>` in `~/.omp/agent/config.yml` (models.md). `AskQuestion` (:22) rewritten to the `ask` tool. `inherit-parent`/`auto` (:14,22) rewritten to `@default`, OMP's built-in default-model role alias (models.md: \"`*` selects `@default`\"). `/create-verification-skill` (:68) rewritten to `skill://create-verification-skill`."
 ---
 
 # Setup pstack

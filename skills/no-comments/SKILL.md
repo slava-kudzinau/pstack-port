@@ -1,12 +1,13 @@
 ---
 name: no-comments
 description: 'Spawn the comment-sicko subagent, fix accepted findings, and offer encodings for claimed constraints.'
-disable-model-invocation: true
-upstream: pstack/skills/no-comments/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: 'The upstream `Task` spawn with a named per-spawn type field (SKILL.md:19) rewritten to the `task` tool with `agent: "comment-sicko"` — that agent is ported by a sibling batch in this same wave (`agents/comment-sicko.md`), referenced here, not inlined. Bold cross-references to `principle-fix-root-causes` and `principle-redesign-from-first-principles` (SKILL.md:22) rewritten to `skill://` pointers. Inline `/how`, `/why`, `/architect` command mentions (SKILL.md:20-21) rewritten to `skill://how`, `skill://why`, `skill://architect` per the cross-batch skill:// convention. The self-referential "fail `/no-comments`" (SKILL.md:20) reworded to "fail this pass" since a skill linking `skill://` to itself is not a meaningful target.'
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/no-comments/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'The upstream `Task` spawn with a named per-spawn type field (SKILL.md:19) rewritten to the `task` tool with `agent: "comment-sicko"` — that agent is ported by a sibling batch in this same wave (`agents/comment-sicko.md`), referenced here, not inlined. Bold cross-references to `principle-fix-root-causes` and `principle-redesign-from-first-principles` (SKILL.md:22) rewritten to `skill://` pointers. Inline `/how`, `/why`, `/architect` command mentions (SKILL.md:20-21) rewritten to `skill://how`, `skill://why`, `skill://architect` per the cross-batch skill:// convention. The self-referential "fail `/no-comments`" (SKILL.md:20) reworded to "fail this pass" since a skill linking `skill://` to itself is not a meaningful target.'
 ---
 
 # No comments

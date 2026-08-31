@@ -1,12 +1,13 @@
 ---
 name: swarm
 description: "Fan out N parallel workers, drain them, and return one report. Use for /swarm, 'swarm this', or parallel coverage, races, gauntlets, and exploration."
-disable-model-invocation: true
-upstream: pstack/skills/swarm/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "Cursor's `environment: \"cloud\"`/`\"local\"` split, `run_in_background`, the Cursor `generalPurpose` subagent field, and `cloud_base_branch` replaced with a single `task` batch call (`{context, tasks[]}`) and per-spawn `agent`/`isolated` fields — OMP subagents already share the caller's filesystem and deliver in the background automatically, so no cloud/local flag or base-branch parameter exists; a worker needing a non-default branch checks it out itself with `bash` inside its own `isolated` worktree. The `~/.cursor/rules/pstack-models.mdc` worker-model file and the `grok-4.6-fast-xhigh` slug replaced with the caller's configured model role (`@role` aliases resolve via `modelRoles.<role>` in `~/.omp/agent/config.yml`)."
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/swarm/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "Cursor's `environment: \"cloud\"`/`\"local\"` split, `run_in_background`, the Cursor `generalPurpose` subagent field, and `cloud_base_branch` replaced with a single `task` batch call (`{context, tasks[]}`) and per-spawn `agent`/`isolated` fields — OMP subagents already share the caller's filesystem and deliver in the background automatically, so no cloud/local flag or base-branch parameter exists; a worker needing a non-default branch checks it out itself with `bash` inside its own `isolated` worktree. The `~/.cursor/rules/pstack-models.mdc` worker-model file and the `grok-4.6-fast-xhigh` slug replaced with the caller's configured model role (`@role` aliases resolve via `modelRoles.<role>` in `~/.omp/agent/config.yml`)."
 ---
 
 # Swarm

@@ -1,11 +1,12 @@
 ---
 name: visual-parity
 description: Pixel-exact UI equivalence, verified by image diff not by eye. Routed from poteto-mode's Visual parity trigger, or invoked directly for "make X match Y exactly", styling-system migrations, or porting a UI across frameworks.
-upstream: pstack/skills/poteto-mode/playbooks/visual-parity.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: "visual-parity.md:4 the control skill replaced with OMP's `browser` tool, the surface that actually drives image-diff verification of a UI; visual-parity.md:8 Cursor's /loop rewritten as plain iteration language; visual-parity.md:7,9 bold cross-references to the separate-before-serializing-shared-state principle and to Opening a PR rewritten as skill:// pointers, since disable-model-invocation hides bare bold-name mentions from OMP's auto-discovered listing."
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/visual-parity.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: "visual-parity.md:4 the control skill replaced with OMP's `browser` tool, the surface that actually drives image-diff verification of a UI; visual-parity.md:8 Cursor's /loop rewritten as plain iteration language; visual-parity.md:7,9 bold cross-references to the separate-before-serializing-shared-state principle and to Opening a PR rewritten as skill:// pointers, since disable-model-invocation hides bare bold-name mentions from OMP's auto-discovered listing."
 ---
 
 # Visual parity

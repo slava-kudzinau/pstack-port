@@ -1,11 +1,12 @@
 ---
 name: authoring-a-skill
 description: Write or edit a SKILL.md with agent-facing prose held to a high bar; validate frontmatter, referenced files, and cross-skill links, then test cases if the skill is structural. Routed from poteto-mode's Authoring a skill trigger, or invoked directly for "write a skill for this workflow", "review this SKILL.md before I ship it", "the frontmatter on this skill looks off".
-upstream: pstack/skills/poteto-mode/playbooks/authoring-a-skill.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Cursor's built-in create-skill skill (authoring-a-skill.md:5, routed via poteto-mode/SKILL.md:5) rewritten to skill:// navigation plus OMP's manage_skill (list/inspect/validate) and learn (guided scaffolding) tools. encode-lessons-in-structure and opening-a-pr cross-references rewritten as skill:// pointers.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/authoring-a-skill.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Cursor\'s built-in create-skill skill (authoring-a-skill.md:5, routed via poteto-mode/SKILL.md:5) rewritten to skill:// navigation plus OMP\'s manage_skill (list/inspect/validate) and learn (guided scaffolding) tools. encode-lessons-in-structure and opening-a-pr cross-references rewritten as skill:// pointers.'
 ---
 
 # Authoring a skill

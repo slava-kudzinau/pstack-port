@@ -1,11 +1,12 @@
 ---
 name: babysit
 description: Drive a PR or a stack to merge-ready — conflicts, review threads, CI. Routed from poteto-mode's Babysit trigger, or invoked directly for "babysit this", "get it green", "merge-ready", "watch CI", "address the bugbot comments", or "check on PR X".
-upstream: pstack/skills/poteto-mode/playbooks/babysit.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Disambiguation from a same-named built-in tool (babysit.md:3) reworded generically since it's OMP's own skill-precedence rule being invoked, not a Cursor product name. `playbooks/shipping.md` and bare `Shipping` mentions (babysit.md:3,5,18,23,25) rewritten to `skill://shipping`. "A cloud one plus a local one" (babysit.md:11) rewritten to a foreground-session-plus-background-`hub`-job example. Step 6's `scripts/watch-pr/watch-pr` script and its JSON verdict protocol plus Cursor's `/loop` (babysit.md:14-20) have no OMP equivalent and aren't ported; rewritten to `gh pr view`/`gh pr checks` polling via `bash`, a `hub` background job for the wait, and plain re-polling language, keeping the drive/background/threads-only/check mode split and the stack/queue stop rules. `../references/bugbot-triage.md` (babysit.md:22-23) is a companion doc outside this port batch and not translated; the relative link is left as upstream had it and will dangle until that reference is ported separately.
+metadata:
+  upstream: 'pstack/skills/poteto-mode/playbooks/babysit.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Disambiguation from a same-named built-in tool (babysit.md:3) reworded generically since it\'s OMP\'s own skill-precedence rule being invoked, not a Cursor product name. `playbooks/shipping.md` and bare `Shipping` mentions (babysit.md:3,5,18,23,25) rewritten to `skill://shipping`. "A cloud one plus a local one" (babysit.md:11) rewritten to a foreground-session-plus-background-`hub`-job example. Step 6\'s `scripts/watch-pr/watch-pr` script and its JSON verdict protocol plus Cursor\'s `/loop` (babysit.md:14-20) have no OMP equivalent and aren\'t ported; rewritten to `gh pr view`/`gh pr checks` polling via `bash`, a `hub` background job for the wait, and plain re-polling language, keeping the drive/background/threads-only/check mode split and the stack/queue stop rules. `../references/bugbot-triage.md` (babysit.md:22-23) is a companion doc outside this port batch and not translated; the relative link is left as upstream had it and will dangle until that reference is ported separately.'
 ---
 
 # Babysit

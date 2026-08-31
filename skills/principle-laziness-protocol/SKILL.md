@@ -1,12 +1,13 @@
 ---
 name: principle-laziness-protocol
 description: Apply when refactoring, evaluating diff size, or tempted to add abstractions, layers, or signal threading. Bias toward deletion and the smallest change that solves the problem.
-disable-model-invocation: true
-upstream: pstack/skills/principle-laziness-protocol/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
-note: Upstream body (principle-laziness-protocol/SKILL.md:1-18) is generic engineering prose with no Cursor-specific tool names, model slugs, or cross-references to rewrite; ported verbatim aside from the provenance frontmatter.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-laziness-protocol/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'adapted'
+  note: 'Upstream body (principle-laziness-protocol/SKILL.md:1-18) is generic engineering prose with no Cursor-specific tool names, model slugs, or cross-references to rewrite; ported verbatim aside from the provenance frontmatter.'
 ---
 
 # Laziness Protocol

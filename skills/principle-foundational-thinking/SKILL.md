@@ -1,12 +1,13 @@
 ---
 name: principle-foundational-thinking
 description: "Apply before writing logic: choosing core types and data structures, sequencing scaffold-vs-feature work, asking what concurrent actors share. Get the data structures right so downstream code becomes obvious."
-disable-model-invocation: true
-upstream: pstack/skills/principle-foundational-thinking/SKILL.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: portable
-note: No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter.
+metadata:
+  disable-model-invocation: 'true'
+  upstream: 'pstack/skills/principle-foundational-thinking/SKILL.md'
+  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
+  upstream_version: '0.14.5'
+  status: 'portable'
+  note: 'No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter.'
 ---
 
 # Foundational Thinking

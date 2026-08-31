@@ -1,0 +1,67 @@
+---
+name: make-pr-easy-to-review
+description: Prepare PRs for review by cleaning noisy history, improving PR descriptions, and adding reviewer guidance without changing code behavior. Use for "make this easy to review", "tidy this PR", "clean up commits", or "annotate the diff".
+metadata:
+  menu-description: 'clean noisy history and improve PR description before review'
+  upstream: 'cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md'
+  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
+  upstream_version: '0.14.5'
+  status: 'portable'
+  note: "Copied verbatim from the reference port (refs/ref-port/plugins/pstack/skills/make-pr-easy-to-review @ c2ade4b); cursor-team-kit component, not part of the pstack subtree, so it had no Phase A matrix row. The reference port's menu-description one-liner became our description; OMP has no menu-description slot."
+---
+
+
+# Make PR Easy to Review
+
+Prepare a PR so a reviewer can quickly understand the intent, important files, and risk. The default goal is reviewability without behavior changes.
+
+## Workflow
+
+1. Resolve the target PR from the user-provided URL or current branch.
+2. Inspect commits, diff size, changed paths, generated files, and PR description.
+3. Identify reviewability issues: noisy commits, stale description, unrelated changes, mixed mechanical and logic changes, missing tests, or unclear reviewer entry points.
+4. Propose a plan before rewriting history or force-pushing.
+5. Apply safe improvements, then verify the tree or diff still matches the intended code.
+
+## History Cleanup
+
+Only rewrite history when the user asks for it or agrees to the plan. Before rewriting:
+
+```bash
+gh pr view <PR> --json title,headRefName,baseRefName,state,commits
+git fetch origin <headRefName> <baseRefName>
+ORIGINAL_TREE=$(git rev-parse origin/<headRefName>^{tree})
+```
+
+Good commit groupings usually follow dependency order:
+
+1. Schema/storage or generated API definitions.
+2. Core logic.
+3. Wiring and integration.
+4. UI or surface behavior.
+5. Tests.
+
+After rewriting, verify content identity:
+
+```bash
+echo "Original tree: $ORIGINAL_TREE"
+echo "Current tree:  $(git rev-parse HEAD^{tree})"
+git diff origin/<headRefName> --stat
+```
+
+Do not push if the tree changed unintentionally.
+
+## Reviewer Guidance
+
+When code behavior should stay untouched, prefer PR description and review notes:
+
+- Add a TL;DR that matches the actual diff.
+- Separate core files from generated or mechanical files.
+- Call out risky behavior changes, migration order, rollout plan, and test coverage.
+- Link issue trackers, dashboards, or design docs when they explain intent.
+
+## Guardrails
+
+- Never hide meaningful behavior changes inside "cleanup".
+- Do not bypass hooks unless the user explicitly asks.
+- If the PR is too large to make reviewable with notes, recommend splitting instead of polishing around the problem.
