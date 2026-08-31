@@ -26,7 +26,7 @@ Open a todolist with one entry per phase before starting. Autonomous mode withou
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run the **how** skill (`skill://how`) over the relevant subsystems. Critique mode if existing structure is the constraint or the design must push back on it.
+Build a real mental model of every system the new code touches. Run the **how** skill (`skill://how`) over the relevant subsystems — it spawns `scout` agents with `effort: "lo"` for read-only probes. Critique mode if existing structure is the constraint or the design must push back on it.
 
 Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill (`skill://why`) on the existing shape so the rationale becomes a constraint, not a guess.
 

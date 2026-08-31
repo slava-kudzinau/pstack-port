@@ -43,10 +43,11 @@ Launch all reviewers in a single `task` batch call: one shared `context` plus on
 
 For each reviewer item in the batch:
 - `agent`: `"reviewer"`
+- `effort: "hi"` — reviewers need full reasoning depth for adversarial review
 - state the reviewer's configured model role in its task instructions when your setup pins one for that slot; omit it and let the reviewer resolve to its default model otherwise
 - state plainly in the task instructions that this reviewer reads and reports only, it never edits files
 
-If a configured model role turns out invalid when you spawn the batch, drop that reviewer's override, spawn the rest of the batch normally, and flag the dropped entry in your reply instead of blocking the review on it.
+Each reviewer has a 200-request budget (the default for non-scout agents). If a configured model role turns out invalid when you spawn the batch, drop that reviewer's override, spawn the rest of the batch normally, and flag the dropped entry in your reply instead of blocking the review on it.
 
 Read `references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent

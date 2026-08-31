@@ -123,8 +123,8 @@ Launch all matching investigators in a single `task` batch call (`{context, task
 
 Subagent config (each):
 - `agent`: `"scout"`. Scout is read-only by design, so every investigator is sandboxed against writes instead of merely being asked to avoid them.
+- `effort: "lo"`. Investigators are read-only probes — scout's 100-request budget is sufficient.
 - Model: the caller's configured model role. Never hardcode a model slug in this skill's text.
-- Scout retains `read`, `web_search`, `bash` (read-only usage), and `mcp://` resource access, so MCP-backed investigators still work.
 
 Each investigator gets:
 1. The base prompt from `references/investigator-prompt.md` (not yet ported; see Reference Files below)

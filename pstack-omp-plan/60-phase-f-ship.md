@@ -104,9 +104,9 @@ conflicts:             1
 
 ## Done when
 
-- [ ] All 5 conformance tests pass on the local model, and on the baseline
-- [ ] Local-only failures labelled as model findings
-- [ ] Branding check and frontmatter check run on every commit
-- [ ] `docs/` has README, install, commands, config
-- [ ] A clean-machine install and one test run work from docs alone
-- [ ] One full sync from one sha to the next completed successfully
+- [ ] All 5 conformance tests pass on the local model, and on the baseline — *requires live OMP session*
+- [ ] Local-only failures labelled as model findings — *requires live OMP session*
+- [x] Branding check and frontmatter check run on every commit — `bun scripts/branding-check.ts` and `bun scripts/conformance.ts`
+- [x] `docs/` has README, install, commands, config
+- [ ] A clean-machine install and one test run work from docs alone — *requires clean machine*
+- [ ] One full sync from one sha to the next completed successfully — *requires new upstream sha*

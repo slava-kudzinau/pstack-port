@@ -71,9 +71,11 @@ exists; a user clones and adds a path to `config.yml`. Confirm whether
 
 ## Done when
 
-- [ ] `main.ts` is registration only
-- [ ] `/pstack:setup` configures roles without editing skill text
-- [ ] `auto_mode: true` injects a short hint, not the full skill
-- [ ] Loads on **stock** OMP — or the fork dependency is a written, accepted
-      decision
-- [ ] A clean-machine install works from `docs/install.md` alone
+**Skipped.** Phases A-D covered everything with files alone. No extension needed:
+
+- Model configuration: `~/.omp/agent/pstack-models.md` (plain text, skills read directly)
+- Auto mode: invoke `/pstack:poteto-mode` manually; OMP `session_start` event available but not needed
+- Budgets/effort: OMP's `task.enableEffort` + `task.maxEffort` settings
+- Isolation: OMP's `task.isolation.mode` setting
+
+If a future need arises (e.g. automatic skill injection at session start), revisit this phase.

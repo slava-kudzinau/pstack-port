@@ -51,8 +51,8 @@ The right decomposition depends on the question. Use your judgment. Narrow quest
 Spawn all explorers in a single `task` batch call (`{context, tasks[]}`, one item per explorer):
 
 - `agent`: `"scout"` — read-only exploration
+- `effort: "lo"` — explorers need speed, not depth; scout's 100-request budget keeps them lean
 - `model`: your configured how-explorer role
-
 Each explorer gets the same base prompt from `references/explorer-prompt.md` plus a specific exploration angle naming its slice. Each explorer should:
 - Start broad: Glob for relevant directories, Grep for key types/interfaces/class names
 - Follow the thread: from an entry point, trace the call chain (callers, callees, data flow, type definitions)
@@ -69,6 +69,7 @@ Then proceed to Step 3.
 Spawn a single subagent via the `task` tool that explores and explains in one pass:
 
 - `agent`: `"scout"` — read-only exploration and explanation in one pass
+- `effort: "lo"` — keeps the direct explain lean; scout's 100-request budget is sufficient for a single-file trace
 - `model`: your configured how-explainer role
 
 The agent does its own exploration (Glob, Grep, Read) and writes the explanation directly. Read `references/explainer-prompt.md` for the communication style and output format. Same structure, just no explorer findings as input.
@@ -80,6 +81,7 @@ Proceed to Step 4.
 Once all explorers return, spawn a single subagent via the `task` tool to synthesize their findings into one coherent explanation:
 
 - `agent`: `"scout"` — read-only synthesis
+- `effort: "lo"` — synthesis is recombination, not deep reasoning; scout's 100-request budget covers it
 - `model`: your configured how-explainer role
 
 The explainer gets all explorers' findings and writes the human-facing explanation (output format below). Read `references/explainer-prompt.md` for the full prompt template. The explainer reconciles overlapping findings, resolves contradictions, and weaves the slices into a unified picture.

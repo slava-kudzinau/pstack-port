@@ -38,13 +38,15 @@ The N candidates will receive the same prompt, so the prompt is the contract. Ge
 
 Spawn all N subagents in one `task` batch call (`{context, tasks[]}`), each with the task, the path to the shared grounding, its own output path, and instructions to produce both the artifact and a short rationale.
 
+Set `effort: "hi"` for candidates producing design artifacts — arena is judgment-heavy and the candidates need full reasoning depth. Each candidate has a 200-request budget (the default for non-scout agents).
+
 The rationale is mandatory. Without it, the parent cannot tell whether a candidate's structure is principled or accidental, which makes Phase E grafting unreliable. Each rationale names the alternatives the candidate considered and what it rejected.
 
 If a candidate fails to produce output, proceed with N-1 and note the dropout in the synthesis record.
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, choose one model from the `arena cross-judge pool` in `~/.omp/agent/pstack-models.md` when present. Otherwise use one of your configured model roles, preferring a different model family from the parent's. Spawn one read-only judge subagent (`agent: "scout"`) on that role. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Spawning while candidates are still writing means the judge sees partial or empty outputs and reports them as dropouts.
+After all Phase B candidates complete, choose one model from the `arena cross-judge pool` in `~/.omp/agent/pstack-models.md` when present. Otherwise use one of your configured model roles, preferring a different model family from the parent's. Spawn one read-only judge subagent (`agent: "scout"`) on that role with `effort: "med"`. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Spawning while candidates are still writing means the judge sees partial or empty outputs and reports them as dropouts. The judge has a 100-request budget (scout's default).
 
 ## Phase D: Pick a base
 

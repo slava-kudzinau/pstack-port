@@ -38,17 +38,17 @@ For each candidate, read the first entry and check that its text contains the co
 
 One `task` tool batch call (`{context, tasks[]}`), three items, `agent: "task"` on each — not the read-only `scout` agent, which strips the full tool access reviewers need for context lookups (tickets, chat threads, observability traces referenced in the transcript, reachable via `read`, `web_search`, or `bash`).
 
-| Lens | Model role | Prompt template |
-|---|---|---|
-| Judgment | your configured reflect-judgment role | `skill://reflect/references/judgment-reviewer.md` |
-| Tooling | your configured reflect-tooling role | `skill://reflect/references/tooling-reviewer.md` |
-| Divergent | your configured reflect-judgment role | `skill://reflect/references/divergent-reviewer.md` |
+| Lens | Model role | Effort | Prompt template |
+|---|---|---|---|
+| Judgment | your configured reflect-judgment role | `hi` | `skill://reflect/references/judgment-reviewer.md` |
+| Tooling | your configured reflect-tooling role | `med` | `skill://reflect/references/tooling-reviewer.md` |
+| Divergent | your configured reflect-judgment role | `hi` | `skill://reflect/references/divergent-reviewer.md` |
 
 Model choice is the caller's configured role (`skill://setup-pstack`); never a literal model ID in this skill's text. Pass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the task result.
 
 ### 3. Synthesize
 
-One `task` call, `agent: "task"` (full tool access, same reasoning as step 2), using your configured reflect-judgment role. The synthesizer's quality check includes spot-verifying citations, which needs that same full tool access. Use `skill://reflect/references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
+One `task` call, `agent: "task"` with `effort: "hi"` (full tool access, same reasoning as step 2), using your configured reflect-judgment role. The synthesizer's quality check includes spot-verifying citations, which needs that same full tool access. Use `skill://reflect/references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.
 
 ### 4. Structural enforcement check
 

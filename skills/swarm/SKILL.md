@@ -37,6 +37,12 @@ Spawn all N workers in a single `task` call: one `{context, tasks[]}` batch, one
 
 When a worker must start from a non-default branch, have it check that branch out itself with `bash` inside its own worktree, and name the worktree path in its brief.
 
+Set effort and budget per worker:
+
+- `effort: "lo"` for read-only probes (scout, sonic) — they're fast and the budget is tight (100 requests).
+- `effort: "med"` for most workers — balanced reasoning with a 200-request budget.
+- `effort: "hi"` only for judgment-heavy workers (final synthesis, adversarial review).
+
 Every brief stands alone. Include the goal, scope, exact slice or race arm, how to verify, and what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence.
 
 If a worker drops out, proceed with N-1 and note it.

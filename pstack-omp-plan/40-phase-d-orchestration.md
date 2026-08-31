@@ -36,7 +36,7 @@ Confirm every one against `omp-src` before you depend on it.
 
 ## Done when
 
-- [ ] `swarm` fans out and aggregates
-- [ ] `arena` and `interrogate` produce multi-perspective reports
-- [ ] Every fan-out skill has an effort level and a budget
-- [ ] No custom orchestration code duplicates OMP `task`
+- [x] `swarm` fans out and aggregates
+- [x] `arena` and `interrogate` produce multi-perspective reports
+- [x] Every fan-out skill has an effort level and a budget
+- [x] No custom orchestration code duplicates OMP `task`
