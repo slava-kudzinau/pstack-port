@@ -32,7 +32,7 @@ in conventions section 6.
 | Item | Result | Evidence (path:lines, or transcript) |
 |---|---|---|
 | Agent search paths | `packages/coding-agent/src/task/discovery.ts:4-11` lists the roots: project `.omp/agents/*.md`, user `~/.omp/agent/agents/*.md`, `<ext>/agents/*.md` per OMP extension root, Claude marketplace plugin `agents/`, then bundled. Only the nearest project dir and first user dir are used (`:94-97`); cross-harness roots like `.claude/agents` are intentionally skipped (`:13-16`). | `refs/omp-src/packages/coding-agent/src/task/discovery.ts:4-16,94-97` |
-| Agent file extension | Only `.md` files; non-files/symlinks skipped; unreadable dir treated as empty | `task/discovery.ts:43-60` |
+| Agent file extension | Only `.md` entries are loaded; symlinks to `.md` files are accepted (`entry.isFile() \|\| entry.isSymbolicLink()`); unreadable dir treated as empty | `task/discovery.ts:43-60` |
 | Skill search paths | Provider layout is non-recursive `<skills-root>/<name>/SKILL.md`; roots: nearest `.omp/skills` per ancestor dir, `~/.omp/agent/skills`, then provider-specific dirs | `docs/skills.md:27-33` |
 | Skill providers + precedence | `native` (100, `.omp` project/user), `omp-plugins` (90), `claude` (80), then `claude-plugins` / `agents` / `codex` (all 70), `opencode` (55), `github` (30), `omp-managed` (5); dedup by skill name, first wins | `docs/skills.md:85-98` |
 | Command search paths | `commands/*.md` under each config dir; native provider scans only `.md` files | `docs/config-usage.md:268-269`; `task/commands.ts:66-68,70-74`; `discovery/builtin.ts:340-358` |
@@ -95,3 +95,14 @@ in conventions section 6.
 - [x] Matrix has no blank actions — filled at `findings/matrix.md`; 70 `ADAPT`, 0 `NATIVE` (reversed 2026-08-31: every component, incl. the six `Task`-dispatch skills, carries Cursor/Claude-only primitives → no component ships verbatim); `0` `PORT`/`REPLACE`/`DEFER`/`DROP`; verified `grep -c` of blank Action cells → no matches
 - [x] Sanity-check agent loads — `scripts/sanity-poteto-agent.ts` runs `discoverAgents` from `task/discovery.ts` against `.omp/agents/poteto-agent.md`; all 9 agents discovered
 - [ ] Human review complete (checkpoint 1) — pending
+
+## Dogfooding notes
+
+- `read` resolves a *missing* exact path via suffix match: `package.json`
+  (cwd `pstack-omp/`) silently resolved to
+  `upstream/pstack/skills/poteto-mode/scripts/package.json` instead of
+  erroring. A missing exact path should report not-found only. Reported via
+  `xd://report_issue`.
+- Rest of Phase A ran clean: discovery, docs, and extension-API claims all
+  verified against `refs/omp-src` files; no API in `98-questions.md` stayed
+  unresolved.

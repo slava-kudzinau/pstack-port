@@ -14,7 +14,7 @@ Discovery order (`packages/coding-agent/src/task/discovery.ts:4-16`):
 4. Claude-marketplace plugin `agents/` dirs
 5. Bundled agents (`task/agents.ts:45-76`)
 
-Only the nearest project dir and the first user dir are scanned (`discovery.ts:62-67,93-134`). Cross-harness roots like `.claude/agents` are deliberately skipped (`discovery.ts:13-16`). Only `.md` files; symlinks/non-files skipped; an unreadable dir is treated as empty (`discovery.ts:43-60`).
+Only the nearest project dir and the first user dir are scanned (`discovery.ts:62-67,93-134`). Cross-harness roots like `.claude/agents` are deliberately skipped (`discovery.ts:13-16`). Only `.md` entries are loaded, but symlinks to `.md` files are accepted — the dir scan admits `entry.isFile() || entry.isSymbolicLink()` (`discovery.ts:43-46`); an unreadable dir is treated as empty (`.catch(() => [])`).
 
 ### Frontmatter
 

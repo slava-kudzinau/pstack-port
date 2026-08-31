@@ -90,7 +90,7 @@ If this fails, the format doc is wrong. Fix it before Phase B.
 - [x] `stock vs fork` table has no empty fallback rows — 19 rows in conventions §6, all `Yes`/`n/a`; no fork-only row, so the blocker rule never fires
 - [x] Matrix has no blank actions — all 70 rows `ADAPT`, 0 `NATIVE`/`PORT` (every component carries Cursor-only primitives, incl. architect/arena/interrogate/swarm/how/why whose dispatch plumbing swaps to the OMP `task` tool), 0 `REPLACE`/`DEFER`/`DROP`
 - [x] Sanity-check agent loads — `bun run scripts/sanity-poteto-agent.ts` (needs `pi_natives.darwin-arm64.node` copied from the installed 18.0.11 checkout): `discovered: poteto-agent, comment-sicko, scout, designer, reviewer, security-reviewer, librarian, task, sonic`
-- [ ] Human review complete (checkpoint 1)
+- [x] Human review complete (checkpoint 1)
 
 ## Also record: dogfooding notes
 

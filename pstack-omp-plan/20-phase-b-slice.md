@@ -45,9 +45,9 @@ Over-firing on the second prompt is a defect.
 
 ## Done when
 
-- [ ] Both probes pass
-- [ ] Branding check passes
-- [ ] Provenance frontmatter valid on every file
-- [ ] `poteto-agent` reads the same skill files as the main agent (no
-      duplicated prompt text)
+- [x] Both probes pass
+- [x] Branding check passes
+- [x] Provenance frontmatter valid on every file
+- [x] `poteto-agent` reads the same skill files as the main agent (no
+  duplicated prompt text)
 - [ ] Human review complete (checkpoint 2)
