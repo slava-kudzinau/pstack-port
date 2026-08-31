@@ -7,7 +7,9 @@ All paths below are relative to `refs/omp-src`.
 
 ## Unresolved
 
-(none — every Phase A question has a `path:lines` answer)
+| Question | Answer | Evidence (path:lines) |
+|---|---|---|
+| Should `make-bot-ui` be `DEFER` instead of `ADAPT`? Its core is Cursor's Routines/webhook automation (`update_state` routine tool, `SendToUser` secret-request card, `[routine]`/`<webhook_event>` wake) — no OMP equivalent exists, so the ported skill keeps an unreachable mechanism. `create-verification-skill`/`maintain-verification-skill` set the precedent for flagging a gap rather than inventing a substitute. | — | `upstream/pstack/skills/make-bot-ui/SKILL.md` |
 
 ## Answered
 

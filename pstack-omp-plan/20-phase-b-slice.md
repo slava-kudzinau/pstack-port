@@ -50,4 +50,4 @@ Over-firing on the second prompt is a defect.
 - [x] Provenance frontmatter valid on every file
 - [x] `poteto-agent` reads the same skill files as the main agent (no
   duplicated prompt text)
-- [ ] Human review complete (checkpoint 2)
+- [x] Human review complete (checkpoint 2)

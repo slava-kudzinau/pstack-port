@@ -1,0 +1,26 @@
+---
+name: refactoring
+description: A behavior-preserving change to structure or shape. Routed from poteto-mode's Refactoring trigger, or invoked directly for "refactor", "rename", "extract", "inline", "dedupe", "restructure", "move this module", "tidy up this area".
+upstream: pstack/skills/poteto-mode/playbooks/refactoring.md
+upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
+upstream_version: 0.14.5
+status: adapted
+note: All bold cross-references (Feature, Bug fix, figure-it-out, how, architect, Opening a PR, and ten principle-* skills) rewritten as skill:// pointers (refactoring.md:3,5,7-14); the grok-4.6-fast-xhigh model slug deleted for a configured model role reached via the task tool, and the control-skill smoke-run step rewritten to bash/browser/debug (refactoring.md:11-12).
+---
+
+# Refactoring
+
+**You own the contract. The structure changes; the behavior does not.** For "refactor", "rename", "extract", "inline", "dedupe", "restructure", "move this module", "tidy up this area". Distinct from `skill://feature`, which adds behavior, and `skill://bug-fix`, which corrects it.
+
+A refactor that smuggles in a behavior change loses its safety net. If the cleanup reveals a missing feature or a real bug, split it out and ship the structural change first against the pinned contract. A redesign is allowed, but name it and route to `skill://feature`. Large or cross-cutting structural work (a migration across many call sites, a coordinated reshape of many subsystems) belongs to `skill://figure-it-out`; this playbook is the focused-to-medium change.
+
+1. Pin the behavior contract first. Run `skill://how` over the affected subsystem to learn the contract, then write a characterization test, snapshot, or equivalence harness that captures current behavior before any structure moves. The harness makes "refactor" a checkable claim (`skill://principle-prove-it-works`). If the area has no coverage, write the pin before touching structure. Type check and lint are not a pin.
+2. Name the structure the code is missing per `skill://principle-model-the-domain`: a state machine over scattered booleans, a table or registry over spread-out branching, a typed model over repeated shape assumptions, a reducer over ad hoc mutations. Boring code stays when the shape is already clear and local; the reshape must delete branches or invalid states, not add indirection.
+3. Name the target shape. State what the module layout, types, and call graph should be if built today (`skill://principle-foundational-thinking`, `skill://principle-redesign-from-first-principles`). If the target crosses a function boundary, run `skill://architect` for parallel design exploration of the shape before the move.
+4. Subtract before you add. Delete dead weight, collapse one-caller wrappers, drop redundant validators, and remove orphan references before introducing the new shape (`skill://principle-subtract-before-you-add`). The smallest change that reaches the target shape ships (`skill://principle-laziness-protocol`). A speculative cleanup that "might help" gets reverted, not left to ride.
+5. Move in small behavior-preserving steps, each keeping the pin green. For API reshapes, migrate every caller and delete the old API in the same wave (`skill://principle-migrate-callers-then-delete-legacy-apis`). No compatibility shims, no parallel old-and-new paths. Spot-check every rename against the actual files; renames silently miss usages in strings, prose, and back-references. Delegate the mechanical edits to a subagent via the `task` tool using your configured refactoring model role, with a specific scope (file paths, the names being moved, the behavior to hold); review the diff yourself.
+6. Prove behavior is unchanged on the real artifact, not "it compiles" (`skill://principle-prove-it-works`). For larger reshapes, run an equivalence check: a script that diffs old-vs-new outputs, a recorded baseline replayed against the new code, or a smoke run on the matching surface (`bash`, `browser`, or `debug`). Own the verification yourself; do not trust a delegate's "looks good" summary.
+7. Confirm the change earns its place. The success measure is reduced reader load (`skill://principle-minimize-reader-load`): fewer layers between question and answer, less hidden state, fewer indirections without a second consumer. If the diff does not lower reader load somewhere, revert it.
+8. Rebase into small ordered commits that tell the story. A subtraction commit, then the reshape, then any follow-on cleanup, so a single revert undoes one slice. Shape them with `skill://principle-sequence-verifiable-units`, so each behavior-preserving slice stays green before the next. Run `skill://opening-a-pr`.
+
+**Reply:** the structure that changed, the pin you held it against, the equivalence proof, the reader-load delta, what shipped and what got reverted. No new behavior.

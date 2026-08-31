@@ -1,7 +1,7 @@
 import { discoverAgents, getAgent } from "/Users/Viachaslau_Kudzinau/Projects/pstack-port/refs/omp-src/packages/coding-agent/src/task/discovery.ts";
 
 const repo = "/Users/Viachaslau_Kudzinau/Projects/pstack-port/pstack-omp";
-const cwd = "/tmp/phaseb-probe"; // deliberately not the port repo — proves extension-root discovery, not project .omp/agents
+const cwd = "/tmp/phaseb-probe";
 const home = "/Users/Viachaslau_Kudzinau";
 
 const { agents, projectAgentsDir } = await discoverAgents(cwd, home, {

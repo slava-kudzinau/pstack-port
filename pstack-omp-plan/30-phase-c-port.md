@@ -30,7 +30,7 @@ each running the checks.
 
 ## Done when
 
-- [ ] Every matrix row (all `ADAPT`) has a file under the loading roots
-- [ ] Branding check passes
-- [ ] Frontmatter check passes
-- [ ] Phase B probes still pass
+- [x] Every matrix row (all `ADAPT`) has a file under the loading roots
+- [x] Branding check passes
+- [x] Frontmatter check passes
+- [x] Phase B probes still pass

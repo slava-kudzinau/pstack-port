@@ -1,0 +1,24 @@
+---
+name: prototype
+description: A throwaway sketch to make a design or behavioral decision cheaply, or to settle an empirical fork by observing it. Routed from poteto-mode's Prototype trigger, or invoked directly for "prototype", "mock it up", "sketch this", "try this layout", or exploring a UI, interaction, or layout before committing.
+upstream: pstack/skills/poteto-mode/playbooks/prototype.md
+upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
+upstream_version: 0.14.5
+status: adapted
+note: Feature, architect, exhaust-the-design-space, and Laziness Protocol mentions rewritten as skill:// pointers (prototype.md:3,5,7,10,12); the control-skill screenshot-verification step rewritten to the browser tool (prototype.md:11).
+---
+
+# Prototype
+
+**You own the design decision, not the code. The prototype is a throwaway instrument; the real build follows `skill://feature`.** For "prototype", "mock it up", "sketch this", "try this layout", or exploring a UI, interaction, or layout before committing. Also for settling an empirical fork (which behavior, which timing, which approach) by observing it run, when you would otherwise ask the human a question a quick sketch could answer for you.
+
+The one playbook where `skill://principle-laziness-protocol`'s "smallest change" and the verification bar invert. Speed over polish, code quality does not matter, no planning. The rigor is in picking the right design cheaply. Be bold: propose variations the user didn't ask for, throw an approach away and try another.
+
+1. Scope the decision the prototype exists to make: which layout, which interaction, which density, or for an empirical fork which behavior, timing, or approach. No decision means no prototype; route to `skill://feature`.
+2. Gather references when the design space is open. Search for prior art, summarize a moodboard of themes, palettes, and layouts, let the user pick directions before building. Skip when the direction is set.
+3. Build throwaway in an isolated scratch dir, separate from production source. For a visual decision, vanilla HTML/CSS/JS or the lightest stack that renders the idea, CDN deps, a dev server with hot reload. For a behavioral or timing decision, the smallest script that exercises the question. No production framework, no tests, no abstractions.
+4. When comparing alternatives, build them behind one switcher (buttons or a keypress), each variant labeled so the user can name it. This is `skill://principle-exhaust-the-design-space` made cheap.
+5. Verify on the matching surface. For a visual decision, screenshot each variant with `browser` and drive the interaction; the eye is the test. For a behavioral or timing decision, observe the thing you are deciding by logging the timing, printing the output, or watching the render. The observation is the test here, not an assertion.
+6. Present alternatives, tradeoffs, and a recommendation. The output is the decision plus the throwaway artifact, not shippable code. Hand the chosen direction to `skill://feature` (or `skill://architect` for the shape) for the real build.
+
+**Reply:** the variants explored, the evidence (screenshots for a visual decision, the observed output or timing for a behavioral one), tradeoffs, your recommendation, and the scratch path. Say plainly that the prototype is throwaway.

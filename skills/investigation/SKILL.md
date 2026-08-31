@@ -1,0 +1,24 @@
+---
+name: investigation
+description: A read-only question. How does X work, why was Y built this way, are we sure. Routed from poteto-mode's Investigation trigger, or invoked directly for "how does X work", "why was Y built this way", "are we sure about Z".
+upstream: pstack/skills/poteto-mode/playbooks/investigation.md
+upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
+upstream_version: 0.14.5
+status: adapted
+note: Bold cross-references to how/why/unslop/architect/babysit/bug-fix/feature rewritten as skill:// pointers so they resolve through OMP's discovery instead of dangling on a description match; the "(see Autonomy)" pointer now names the Autonomy section inside skill://poteto-mode explicitly.
+---
+
+# Investigation
+
+**You own the answer. Plan, route, write.**
+
+Read-only requests: "how does X work?", "why was Y built this way?", "are we sure about Z?", "should we do X or Y?". They produce a cited explanation or a recommendation, not a code change.
+
+1. Route through skill://how (Explain mode for narrow questions, Critique mode for "are we sure?"). For motivation questions, also route through skill://why.
+2. Throughput checkpoint stays one line: `throughput checkpoint: n/a, read-only investigation`. The four-item version is for code-shaped work.
+3. Produce the `how`-shaped output (Overview / Key Concepts / How It Works / Where Things Live / Gotchas), or a recommendation with a tradeoffs table if the request is a decision between alternatives.
+4. Apply skill://unslop to the reply.
+
+No PR, no skill://babysit, no skill://architect unless the investigation precedes a code change. If it does, hand back to the user and re-route to skill://bug-fix or skill://feature.
+
+**Reply:** the investigation output. For "are we sure?" answers, include your real judgment with reasons. Push back if the premise is wrong (see the Autonomy section in skill://poteto-mode).
