@@ -30,6 +30,19 @@ Tilde expands; a relative path resolves against your working directory. This one
 
 If you already have an `extensions:` array, append the path to it. The array is scope-replaced, not merged: a project `.omp/config.yml` overrides the user `config.yml` entirely (`discovery/omp-extension-roots.ts:221-235`).
 
+**Or register it via the CLI** instead of hand-editing YAML. `omp config set` writes to the user-global `~/.omp/agent/config.yml`, and array values are JSON:
+
+```bash
+omp config set extensions '["~/pstack-omp"]'
+```
+
+Two things to know:
+
+- `config set` **overwrites the whole array, it does not append.** Read your current value and merge into one call: `omp config get extensions`, then `omp config set extensions '["<existing>","~/pstack-omp"]'`.
+- Use an absolute or `~/…` path, never a bare relative one. At read time a value is tilde-expanded against your home (stable) or resolved against the launching session's working directory (`discovery/omp-extension-roots.ts:237-240`); a relative path would point at whatever project you next open OMP in.
+
+Verify with `omp config get extensions`.
+
 To try it for one session without editing config, pass the flag instead:
 
 ```bash
