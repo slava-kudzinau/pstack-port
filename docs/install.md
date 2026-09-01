@@ -10,25 +10,43 @@
 
 ### 1. Clone the repo
 
+Clone anywhere — the path doesn't matter, because you register it explicitly in step 2:
+
 ```bash
-git clone <repo-url> ~/.omp/agent/pstack
+git clone <repo-url> ~/pstack-omp
 ```
 
-This places the skills, agents, and commands in OMP's native skill directory. OMP discovers them automatically on restart.
+### 2. Register the extension
 
-### 2. Configure models
+Add the clone path to the `extensions:` array in `~/.omp/agent/config.yml` (user scope, applies everywhere) or `.omp/config.yml` (project scope):
 
-Run the setup command to configure which models each role uses:
+```yaml
+# ~/.omp/agent/config.yml
+extensions:
+  - ~/pstack-omp
+```
+
+Tilde expands; a relative path resolves against your working directory. This one entry wires the package's `skills/`, `commands/`, and `agents/` sub-directories into OMP discovery (`task/discovery.ts:4-11`; `discovery/omp-plugins.ts:46`).
+
+If you already have an `extensions:` array, append the path to it. The array is scope-replaced, not merged: a project `.omp/config.yml` overrides the user `config.yml` entirely (`discovery/omp-extension-roots.ts:221-235`).
+
+To try it for one session without editing config, pass the flag instead:
+
+```bash
+omp --extension ~/pstack-omp
+```
+
+### 3. Configure models (optional)
+
+Run the setup command to map pstack's roles to your available models:
 
 ```bash
 omp /pstack:setup-pstack
 ```
 
-This walks you through mapping roles to your available models. The configuration is written to `~/.omp/agent/pstack-models.md`.
+This writes `~/.omp/agent/pstack-models.md`. Skip it and pstack falls back to OMP's built-in role aliases (`@default`, `@smol`).
 
-If you skip this step, pstack falls back to sensible defaults using OMP's built-in role aliases (`@default`, `@smol`, etc.).
-
-### 3. Restart OMP
+### 4. Restart OMP
 
 Close and reopen your OMP session. The skills, agents, and commands are now available.
 
@@ -37,7 +55,7 @@ Close and reopen your OMP session. The skills, agents, and commands are now avai
 Run the conformance suite to check everything is working:
 
 ```bash
-cd ~/.omp/agent/pstack
+cd ~/pstack-omp
 bun scripts/conformance.ts
 ```
 
@@ -60,11 +78,11 @@ Use `@default` to run on your session's default model. Use `@smol` for cheap, fa
 
 ## Uninstall
 
-```bash
-rm -rf ~/.omp/agent/pstack
-```
+Remove the path from the `extensions:` array in `~/.omp/agent/config.yml` (or `.omp/config.yml`), then restart OMP. Optionally delete the clone:
 
-Restart OMP. The skills and commands are gone.
+```bash
+rm -rf ~/pstack-omp
+```
 
 ## Troubleshooting
 
@@ -73,7 +91,7 @@ Restart OMP. The skills and commands are gone.
 Check that the directory structure is correct:
 
 ```bash
-ls ~/.omp/agent/pstack/skills/
+ls ~/pstack-omp/skills/
 ```
 
 Each skill should be a directory containing a `SKILL.md` file. If a skill is missing its SKILL.md, OMP won't load it.
@@ -86,10 +104,10 @@ bun scripts/conformance.ts
 
 ### Commands not showing up
 
-Check that the commands directory exists and contains `.md` files:
+First confirm the clone path is listed under `extensions:` in `~/.omp/agent/config.yml`, then restart OMP. Then check that the commands directory contains `.md` files:
 
 ```bash
-ls ~/.omp/agent/pstack/commands/
+ls ~/pstack-omp/commands/
 ```
 
 Each command file must have a `description:` field in its frontmatter.

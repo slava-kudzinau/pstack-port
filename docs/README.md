@@ -22,13 +22,14 @@ The routing happens through the **poteto-mode** skill, which matches your reques
 
 ## Quick start
 
-```bash
-git clone <repo> ~/.omp/agent/pstack
-# Configure your models
-omp /pstack:setup-pstack
-# Start using it
-omp /pstack:poteto-mode
+Clone the repo, then register it as an extension by adding its path to `extensions:` in `~/.omp/agent/config.yml`:
+
+```yaml
+extensions:
+  - ~/pstack-omp
 ```
+
+Restart OMP. Configure your models with `/pstack:setup-pstack`, then start with `/pstack:poteto-mode`.
 
 See [install.md](install.md) for the full steps and [config.md](config.md) for model configuration.
 
