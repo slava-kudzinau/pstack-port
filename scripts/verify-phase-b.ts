@@ -1,11 +1,11 @@
 import { discoverAgents, getAgent } from "/Users/Viachaslau_Kudzinau/Projects/pstack-port/refs/omp-src/packages/coding-agent/src/task/discovery.ts";
 
-const repo = "/Users/Viachaslau_Kudzinau/Projects/pstack-port/pstack-omp";
+const pkg = "/Users/Viachaslau_Kudzinau/Projects/pstack-port/pstack-omp/plugin";
 const cwd = "/tmp/phaseb-probe";
 const home = "/Users/Viachaslau_Kudzinau";
 
 const { agents, projectAgentsDir } = await discoverAgents(cwd, home, {
-	explicit: [repo],
+	explicit: [pkg],
 	mode: "merge",
 	configured: [],
 });

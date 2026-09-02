@@ -12,9 +12,10 @@ import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const skillsDir = join(repo, "skills");
-const commandsDir = join(repo, "commands");
-const agentsDir = join(repo, "agents");
+const plugin = join(repo, "plugin");
+const skillsDir = join(plugin, "skills");
+const commandsDir = join(plugin, "commands");
+const agentsDir = join(plugin, "agents");
 const upstreamDir = join(repo, "upstream", "pstack");
 
 const results = {

@@ -17,10 +17,11 @@ import { fileURLToPath } from "node:url";
 import { loadExtensions } from "../../refs/omp-src/packages/coding-agent/src/extensibility/extensions/loader.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const entry = join(repo, "extensions", "pstack-autofire.ts");
+const plugin = join(repo, "plugin");
+const entry = join(plugin, "extensions", "pstack-autofire.ts");
 const MANDATE_TYPE = "com.pstack.poteto-mode.mandate";
 
-const { extensions, errors } = await loadExtensions([entry], repo);
+const { extensions, errors } = await loadExtensions([entry], plugin);
 const failed: string[] = [];
 for (const e of errors) failed.push(`load error ${e.path}: ${e.error}`);
 

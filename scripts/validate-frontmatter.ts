@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { HIDE_KEYS, hasTopLevelHideFlag, referencedSkillNames } from "./skill-refs.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(repo, "plugin");
 
 const SKILL_FIELDS: Record<string, true> = {
 	name: true,
@@ -122,7 +123,7 @@ function parseFrontmatterBlock(content: string): { fm: Frontmatter; rest: string
 }
 
 function auditFile(rel: string, dirName: string, kind: "skill" | "command", mustHide: boolean): string | null {
-	const content = readFileSync(join(repo, rel), "utf-8");
+	const content = readFileSync(join(plugin, rel), "utf-8");
 	const block = parseFrontmatterBlock(content);
 	if (typeof block === "string") return `${rel}: ${block}`;
 	if (kind === "command") {
@@ -146,14 +147,14 @@ function main(fix: boolean): void {
 		console.error("--fix does not rewrite anything in this script. Run: bun scripts/fix-frontmatter.ts");
 		process.exit(1);
 	}
-	const referenced = referencedSkillNames(repo);
-	const skillFiles = readdirSync(join(repo, "skills"), { withFileTypes: true })
+	const referenced = referencedSkillNames(plugin);
+	const skillFiles = readdirSync(join(plugin, "skills"), { withFileTypes: true })
 		.filter((e) => e.isDirectory() && !e.name.startsWith("."))
 		.map((e) => ({ rel: join("skills", e.name, "SKILL.md"), dir: e.name, kind: "skill" as const, mustHide: referenced.has(e.name) }));
-	if (existsSync(join(repo, "skills", "SKILL.md"))) {
+	if (existsSync(join(plugin, "skills", "SKILL.md"))) {
 		console.error("skills/SKILL.md: nested SKILL.md directly under skills/ is not discovered (docs/skills.md:27-33)");
 	}
-	const commandFiles = readdirSync(join(repo, "commands"))
+	const commandFiles = readdirSync(join(plugin, "commands"))
 		.filter((f) => f.endsWith(".md"))
 		.map((f) => ({ rel: join("commands", f), dir: basename(f, ".md"), kind: "command" as const, mustHide: false }));
 	let failed = 0;

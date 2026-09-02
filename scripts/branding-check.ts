@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 // Branding check (pstack-omp-plan/01-conventions.md §1).
 //
-// Fails if any banned Cursor/Claude/Anthropic string appears in shipped
-// content (skills/, agents/, commands/, extensions/, hooks/), outside
+// Fails if any banned Cursor/Claude/Anthropic string appears in the shipped
+// package under plugin/ (skills, agents, commands, extensions, hooks), outside
 // CREDITS.md. `upstream/` is a read-only vendored snapshot and is intentionally
 // exempt.
 
@@ -11,6 +11,7 @@ import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(repo, "plugin");
 const SCAN_DIRS = ["skills", "agents", "commands", "extensions", "hooks"];
 
 const BANNED = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type", "claude.md"];
@@ -39,7 +40,7 @@ function scan(dir: string): string[] {
 }
 
 function main() {
-	const hits = SCAN_DIRS.flatMap((dir) => scan(join(repo, dir)));
+	const hits = SCAN_DIRS.flatMap((dir) => scan(join(plugin, dir)));
 	if (hits.length) {
 		console.error("FAIL: banned strings found:");
 		for (const h of hits) console.error(`  ${h}`);

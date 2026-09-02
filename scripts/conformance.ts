@@ -11,9 +11,10 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const skillsDir = join(repo, "skills");
-const commandsDir = join(repo, "commands");
-const agentsDir = join(repo, "agents");
+const plugin = join(repo, "plugin");
+const skillsDir = join(plugin, "skills");
+const commandsDir = join(plugin, "commands");
+const agentsDir = join(plugin, "agents");
 
 let pass = 0;
 let fail = 0;
@@ -90,7 +91,7 @@ const scanDirs = ["skills", "agents", "commands"];
 const banned = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type"];
 let brandingChecked = 0;
 for (const dir of scanDirs) {
-	const fullPath = join(repo, dir);
+	const fullPath = join(plugin, dir);
 	if (existsSync(fullPath)) {
 		const entries = readdirSync(fullPath, { withFileTypes: true });
 		for (const entry of entries) {

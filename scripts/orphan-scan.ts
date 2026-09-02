@@ -9,12 +9,13 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(repo, "plugin");
 const SCAN = ["skills", "agents", "commands"];
 const BUNDLED = ["scout", "designer", "reviewer", "security-reviewer", "librarian", "task", "sonic"];
 
 function files(dir: string): string[] {
 	const out: string[] = [];
-	for (const e of readdirSync(join(repo, dir), { withFileTypes: true })) {
+	for (const e of readdirSync(join(plugin, dir), { withFileTypes: true })) {
 		const full = join(dir, e.name);
 		if (e.isDirectory()) out.push(...files(full));
 		else if (e.name.endsWith(".md")) out.push(full);
@@ -24,7 +25,7 @@ function files(dir: string): string[] {
 
 const seen = new Map<string, number>();
 for (const file of SCAN.flatMap(files)) {
-	const text = readFileSync(join(repo, file), "utf-8");
+	const text = readFileSync(join(plugin, file), "utf-8");
 	for (const m of text.matchAll(/(skill|agent):\/\/([A-Za-z][A-Za-z0-9_-]*)/g)) {
 		const [, kind, target] = m;
 		seen.set(`${kind}://${target}`, (seen.get(`${kind}://${target}`) ?? 0) + 1);
@@ -36,8 +37,8 @@ for (const [key, sites] of seen) {
 	const [kind, target] = key.split("://");
 	const ok =
 		kind === "skill"
-			? existsSync(join(repo, "skills", target, "SKILL.md"))
-			: existsSync(join(repo, "agents", `${target}.md`)) || BUNDLED.includes(target);
+			? existsSync(join(plugin, "skills", target, "SKILL.md"))
+			: existsSync(join(plugin, "agents", `${target}.md`)) || BUNDLED.includes(target);
 	if (!ok) broken.push(`${key} (${sites} sites)`);
 }
 if (broken.length > 0) {

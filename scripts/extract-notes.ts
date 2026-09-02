@@ -6,22 +6,23 @@
 // OMP strips frontmatter when injecting skills (extensibility/skills.ts:508),
 // but every `skill://` read serves the raw file: the notes cost ~10k tokens
 // per fan-out and carry zero runtime value. This codemod cuts each
-// `note:` line from the frontmatter of every file under skills/, agents/,
-// and commands/ and appends it as a fenced block under the file's
-// repository-relative path in PROVENANCE.md. Idempotent: a second run finds
-// no notes and appends nothing. A `metadata:` block left empty loses the key.
+// `note:` line from the frontmatter of every file under plugin/skills/,
+// plugin/agents/, plugin/commands/ and appends it as a fenced block under the
+// file's package-root-relative path in PROVENANCE.md. Idempotent: a second run
+// finds no notes and appends nothing. A `metadata:` block left empty loses the key.
 
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(repo, "plugin");
 const changelogPath = join(repo, "PROVENANCE.md");
 const dry = process.argv[2] === "--dry";
 
 function shippedFiles(dir: string): string[] {
   const out: string[] = [];
-  for (const entry of readdirSync(join(repo, dir), { withFileTypes: true })) {
+  for (const entry of readdirSync(join(plugin, dir), { withFileTypes: true })) {
     const rel = join(dir, entry.name);
     if (entry.isDirectory()) out.push(...shippedFiles(rel));
     else if (entry.name.endsWith(".md")) out.push(rel);
@@ -81,14 +82,14 @@ function main() {
   const files = ["skills", "agents", "commands"].flatMap(shippedFiles).sort();
   let moved = 0;
   for (const rel of files) {
-    const content = readFileSync(join(repo, rel), "utf-8");
+    const content = readFileSync(join(plugin, rel), "utf-8");
     const stripped = stripNote(content);
     if (!stripped) continue;
     const sha = /upstream_sha:\s*'?([0-9a-f]{40})'?/.exec(content)?.[1] ?? "unknown";
     const version = /upstream_version:\s*'?([^'\n]+)'?/.exec(content)?.[1].trim() ?? "unknown";
     if (!dry) {
       appendEntry(rel, stripped.note, sha, version);
-      writeFileSync(join(repo, rel), stripped.content);
+      writeFileSync(join(plugin, rel), stripped.content);
     }
     moved++;
   }

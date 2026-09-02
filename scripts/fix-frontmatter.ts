@@ -24,6 +24,7 @@ import { fileURLToPath } from "node:url";
 import { HIDE_KEYS, referencedSkillNames } from "./skill-refs.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
+const plugin = join(repo, "plugin");
 const KEPT: Record<string, true> = {
 	name: true,
 	description: true,
@@ -82,14 +83,14 @@ function rewrite(path: string, mustHide: boolean): string | null {
 	return null;
 }
 
-const referenced = referencedSkillNames(repo);
+const referenced = referencedSkillNames(plugin);
 const targets: { path: string; mustHide: boolean }[] = [
-	...readdirSync(join(repo, "skills"), { withFileTypes: true })
+	...readdirSync(join(plugin, "skills"), { withFileTypes: true })
 		.filter((e) => e.isDirectory() && !e.name.startsWith("."))
-		.map((e) => ({ path: join(repo, "skills", e.name, "SKILL.md"), mustHide: referenced.has(e.name) })),
-	...readdirSync(join(repo, "commands"))
+		.map((e) => ({ path: join(plugin, "skills", e.name, "SKILL.md"), mustHide: referenced.has(e.name) })),
+	...readdirSync(join(plugin, "commands"))
 		.filter((f) => f.endsWith(".md"))
-		.map((f) => ({ path: join(repo, "commands", f), mustHide: false })),
+		.map((f) => ({ path: join(plugin, "commands", f), mustHide: false })),
 ];
 const broken: string[] = [];
 for (const target of targets) {
