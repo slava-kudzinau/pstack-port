@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Cursor\'s `~/.cursor/projects/*/agent-transcripts/` (SKILL.md:56) rewritten to OMP\'s session-file layout plus `history://<id>`. "Spawn a subagent" (:67) made explicit as the `task` tool. `references/decision-log-template.tsv` and `scripts/log.sh` are carried verbatim under `skills/show-me-your-work/` (referenced as `skill://show-me-your-work/...`, which `bash` auto-resolves to a filesystem path) — no frontmatter added, since a shebang/header must stay line 1 for the script and template to keep working.'
 ---
 
 # Show me your work

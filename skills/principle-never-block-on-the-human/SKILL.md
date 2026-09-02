@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Upstream body names no literal Cursor tool (its `AskQuestion` tie-in lives only in poteto-mode\'s own routing table, out of scope for this file); ported verbatim aside from provenance frontmatter, keeping disable-model-invocation true as upstream set it.'
 ---
 
 # Never Block on the Human

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Upstream body carries no literal Cursor tool names, model slugs, or cross-references to rewrite; ported verbatim aside from provenance frontmatter, keeping disable-model-invocation true as upstream set it.'
 ---
 
 # Model the Domain

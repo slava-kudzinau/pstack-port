@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'The agent-transcripts/ directory and ~/.cursor/projects/*/ / cloud-agent-URL handoff (session-pickup.md:7) rewritten to OMP\'s history://<id> transcript read plus hub for a still-live peer, dropping the workspace-boundary caveat since history:// is already scoped. Bold cross-references to principle-guard-the-context-window (line 7) and principle-prove-it-works (line 11) rewritten to skill:// pointers.'
 ---
 
 # Session pickup

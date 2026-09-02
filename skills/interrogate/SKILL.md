@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'N-reviewer `Task` spawn (SKILL.md:36) rewritten to one `task` batch call with `agent:"reviewer"` items; the upstream per-reviewer type field and the `readonly` flag, plus the literal vendor model-slug table (SKILL.md:38-48), dropped per conventions §1 (banned vendor slugs), replaced with generic configured-model-role language. The Cursor `~/.cursor/rules/pstack-models.mdc` config path (SKILL.md:36) has no confirmed OMP equivalent in this port — left as "your configured reviewer list" without naming a concrete OMP config path; flagging as unresolved rather than guessing one.'
 ---
 
 # Interrogate

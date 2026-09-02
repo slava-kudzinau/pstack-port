@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Cursor\'s built-in create-skill skill (authoring-a-skill.md:5, routed via poteto-mode/SKILL.md:5) rewritten to skill:// navigation plus OMP\'s manage_skill (list/inspect/validate) and learn (guided scaffolding) tools. encode-lessons-in-structure and opening-a-pr cross-references rewritten as skill:// pointers.'
 ---
 
 # Authoring a skill

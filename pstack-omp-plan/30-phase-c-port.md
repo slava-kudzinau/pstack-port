@@ -10,8 +10,8 @@ each running the checks.
 1. Work through the matrix in order. All 70 rows are `ADAPT`; there are no
    `NATIVE` rows to skip.
 2. `PORT` rows: copy content, add frontmatter, run branding check.
-3. `ADAPT` rows: rewrite runtime parts, mark `adapted`, note the change in the
-   file's `note:` field.
+3. `ADAPT` rows: rewrite runtime parts, mark `adapted`, append a `## <path>`
+   section to `PROVENANCE.md` recording the change.
 4. Add each command as a thin wrapper. A command must not duplicate skill
    text.
 5. Keep degraded orchestration if needed. Full parallel behaviour is Phase D.

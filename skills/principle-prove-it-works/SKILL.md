@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Cross-reference to the show-me-your-work skill (final paragraph) rewritten from a bold mention to skill://show-me-your-work; no other Cursor-specific tool names or model slugs appear in the body.'
 ---
 
 # Prove It Works

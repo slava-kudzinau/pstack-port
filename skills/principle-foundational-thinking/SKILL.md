@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'portable'
-  note: 'No Cursor-specific tool names, model slugs, or cross-skill bold references in the upstream body — copied verbatim aside from provenance frontmatter.'
 ---
 
 # Foundational Thinking

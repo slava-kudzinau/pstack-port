@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'No tool-name substitutions needed — the playbook already keeps tooling generic (a trace parser, sqlite, an editor). Bold cross-references to Runtime forensics (line 5), principle-guard-the-context-window (line 7), and Bug fix/Perf issue (line 12) rewritten to skill:// pointers.'
 ---
 
 # Trace forensics

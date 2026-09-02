@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'The arena skill\'s Phase B/C mentions (eval.md:22-23) rewritten to `skill://arena`\'s Phase B/C. Step 6\'s Cursor-specific transcript path (workspace `agent-transcripts/`, `~/.cursor/projects/*/`, eval.md:24) rewritten to OMP\'s `history://<id>` per candidate agent id, keeping the cross-session privacy guardrail.'
 ---
 
 # Eval

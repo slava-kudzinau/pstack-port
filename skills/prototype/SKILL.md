@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Feature, architect, exhaust-the-design-space, and Laziness Protocol mentions rewritten as skill:// pointers (prototype.md:3,5,7,10,12); the control-skill screenshot-verification step rewritten to the browser tool (prototype.md:11).'
 ---
 
 # Prototype

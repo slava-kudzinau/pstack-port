@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "Bold/backtick cross-skill mentions of how, why, arena, and unslop rewritten as skill:// links at first reference. No literal Task/run_in_background/model-slug tokens found in this file's actual body despite the matrix note's generic description (findings/matrix.md:67) — 'the tool that proves it' step (step 5) already reads as generic script/test language with no Cursor-specific tool name to substitute."
 ---
 
 # Blast radius

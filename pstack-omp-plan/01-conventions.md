@@ -71,6 +71,11 @@ status: portable | adapted | omp-native | new
 
 Changing a `portable` file's wording means changing its status to `adapted`.
 
+`note:` is not a frontmatter field. Migration and sync notes live as
+`## <path>` sections in `PROVENANCE.md` at the repo root. Frontmatter ships
+into every `skill://` read; notes are maintainer-only history. The branding
+check keeps no note exemption: the file lives outside the scanned trees.
+
 Every `SKILL.md` that a `skill://` pointer targets also carries
 `disable-model-invocation: true` at column 0, above `metadata:`. OMP reads only
 the top-level key and compares it with `=== true`

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Body contains no Cursor tool names, subagent references, or model slugs to rewrite; ported verbatim aside from the added provenance frontmatter. Marked adapted (not portable) per the matrix\'s blanket ADAPT classification for this batch, though no wording changed.'
 ---
 
 # Unslop

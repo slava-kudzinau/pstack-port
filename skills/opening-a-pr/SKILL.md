@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "`Task` worktree semantics (line 5) rewritten to the `task` tool's `isolated`/`apply`/`merge` options; `control-cli`/`control-ui` (line 19) rewritten to the `bash`/`browser`/`debug` tools; \"cloud-agent PR tools default to draft\" (line 25) generalized since OMP has no such built-in default. Dropped `/deslop` (lines 7, 29) — a `cursor-team-kit` skill this project never vendors, per pstack-omp-plan/TRANSLATION-NOTES.md; no OMP substitute exists, so the step is cut rather than invented. `/no-comments`, `/technical-writing`, `/unslop`, and `interrogate` rewritten to skill:// pointers."
 ---
 
 # Opening a PR

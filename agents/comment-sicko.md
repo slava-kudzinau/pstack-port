@@ -5,7 +5,6 @@ upstream: pstack/agents/comment-sicko.md
 upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
 upstream_version: 0.14.5
 status: adapted
-note: Frontmatter is name+description only, same shape as upstream (the file never carried Cursor's per-call subagent-role field, a background-execution flag, or a model slug, so there was nothing to drop there). The Cursor slash-command reference to `/how`/`/why` (comment-sicko.md:26) rewritten to `skill://how`/`skill://why` pointers, matching the style in skills/poteto-mode/SKILL.md.
 ---
 
 # Comment Sicko

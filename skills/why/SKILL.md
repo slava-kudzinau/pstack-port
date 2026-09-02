@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "Cursor's `Task` tool, its per-call subagent-role field, and readonly/Ask-mode dispatch (SKILL.md:118-121,165-167) rewritten to the `task` tool's `agent` field — `scout` for the read-only investigators (a real sandbox, not just a posture, since scout has no write access), `task` for the synthesizer, which needs write-capable tool access to spot-verify citations. Literal vendor model slugs deleted per conventions §1; replaced with \"the caller's configured model role\". The Cursor-specific MCP-enumeration mechanism (\"list the available MCPs from the Cursor environment\", \"inspect the `mcps/` directory\") rewritten to OMP's `mcp://` resource discovery plus `read`/`web_search`/`bash` fallbacks (SKILL.md:100,116). \"Launch in a single message\" rewritten to \"one `task` batch call\". Out of scope for this batch (assignment targets SKILL.md only): the upstream `references/*.md` companion files (`epistemics.md`, `investigator-prompt.md`, `source-playbook.md`, `sources/*.md`) were not ported; the Reference Files section below is left as an upstream-layout pointer, flagged inline as not-yet-present."
 ---
 
 # Why

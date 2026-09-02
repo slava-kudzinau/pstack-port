@@ -57,6 +57,18 @@ Phase B skeleton to full upstream coverage.
 
 None. `make-bot-ui` is confirmed `DROP` (de-scoped, per user decision 2026-08-31; matrix row 74).
 
+## Post-phase convention change (2026-09-02)
+
+`note:` fields removed from all 102 shipped files (~39.6 KB, ~10k tokens
+paid on every `skill://` read of raw SKILL.md; OMP's own invocation path
+strips frontmatter — `refs/omp-src/.../extensibility/skills.ts:508`). Notes
+moved verbatim to `PROVENANCE.md` (repo root) as `## <path>` sections with
+`sync:` labels by `scripts/extract-notes.ts` (idempotent). `metadata:` kept
+in frontmatter; the upstream-diff tool (`classify-diff.ts`) depends on those
+four provenance fields. `branding-check.ts` lost its `note:`-line exemption
+(the changelog sits outside the scanned trees; the audit no longer skips
+lines). Conventions §4 and `templates/frontmatter.md` updated.
+
 ## Done-when checklist
 
 - [x] Every matrix row has a file under the loading roots — 74/74 skill dirs, 2 agents, 30 commands present (`ls` verified); `make-bot-ui` DROP confirmed deleted

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "First mentions of the `how`, `why`, and `unslop` skills rewritten as explicit `skill://how`, `skill://why`, `skill://unslop` pointers, since all three carry `disable-model-invocation: true` and are hidden from auto-discovery — a bare name mention is a dead reference in OMP. Later backtick mentions of the same skills left as-is since the pointer is already established. No other Cursor-specific constructs in the body."
 ---
 
 # Teach

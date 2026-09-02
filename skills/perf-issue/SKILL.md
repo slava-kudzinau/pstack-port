@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'control-cli/control-ui baseline-trace step rewritten to bash/browser/debug (perf-issue.md:5); how/architect/sequence-verifiable-units/Opening a PR/Hillclimb playbook mentions rewritten as skill:// references (perf-issue.md:6,16,17,20,22); gpt-5.6-sol-max model slug deleted, replaced with a configured model role reached via the task tool (perf-issue.md:16).'
 ---
 
 # Perf issue

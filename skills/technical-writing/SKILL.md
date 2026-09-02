@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "The bold mention of the `unslop` skill rewritten as an explicit `skill://unslop` pointer, since `unslop` carries `disable-model-invocation: true` and is hidden from auto-discovery — a bare name mention is a dead reference in OMP. The earlier backtick mention of `unslop`'s abstract-metaphor rule left as-is; the pointer is already established by then. No other Cursor-specific constructs in the body."
 ---
 
 # Technical writing

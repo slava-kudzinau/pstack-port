@@ -3,7 +3,6 @@ upstream: pstack/skills/architect/references/runner-prompt.md
 upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
 upstream_version: 0.14.5
 status: adapted
-note: Bold principle-skill mentions rewritten as `skill://` links (six principle skills, plus the architect self-reference on line 5).
 ---
 
 # Architect runner prompt

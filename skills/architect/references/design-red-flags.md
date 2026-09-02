@@ -3,7 +3,6 @@ upstream: pstack/skills/architect/references/design-red-flags.md
 upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
 upstream_version: 0.14.5
 status: portable
-note: No Cursor-specific content; copied unchanged aside from provenance frontmatter.
 ---
 
 # Design red flags

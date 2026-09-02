@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Cursor\'s `.cursor/skills/<name>/` project-skill path (create-verification-skill/SKILL.md:9,25,34) rewritten to OMP\'s flat project-root `skills/<name>/SKILL.md` layout (findings/omp-format.md §2). The `references/feature-map-example/` directory is ported unchanged alongside SKILL.md; it has no Cursor-isms to rewrite.'
 ---
 
 # Create a verification skill

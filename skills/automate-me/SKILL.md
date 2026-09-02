@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "Cursor's built-in create-skill tool (SKILL.md:11,67,102,109) replaced with OMP's manage_skill/learn tools per the substitution contract. AskQuestion (SKILL.md:17,44) replaced with the ask tool. .cursor/skills/**/*-mode/SKILL.md and ~/.cursor/skills/*-mode/SKILL.md (SKILL.md:17,69) replaced with .omp/skills/<handle>-mode/SKILL.md and ~/.omp/agent/skills/<handle>-mode/SKILL.md, by analogy to the documented .omp/agents + ~/.omp/agent/agents split (findings/omp-format.md §1) — exact skill-root literal paths for project/user-personal skills aren't spelled out in findings/omp-format.md §2 beyond the non-recursive-layout fact, so this mapping is inferred by analogy, not independently verified. The upstream category-subdirectory placement option (.cursor/skills/<handle>/<handle>-mode/SKILL.md) dropped outright: OMP skill discovery is flat and non-recursive (findings/omp-format.md §2), so nested category directories aren't loadable. Cursor's agent-transcripts/ system-prompt directory and the ~/.cursor/projects/*/ workspace glob (SKILL.md:29) replaced with OMP's history:// internal URL scheme. 'Task xN' mining fan-out (SKILL.md:31) rewritten to a single task batch call."
 ---
 
 # Automate me

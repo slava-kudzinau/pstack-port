@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Three relative markdown links to sibling principle skills rewritten to `skill://` URLs for OMP\'s flat skills/ layout (`../principle-laziness-protocol/SKILL.md` → `skill://principle-laziness-protocol`, `../principle-encode-lessons-in-structure/SKILL.md` → `skill://principle-encode-lessons-in-structure`, `../principle-prove-it-works/SKILL.md` → `skill://principle-prove-it-works`). Body otherwise unchanged.'
 ---
 # Build the Lever
 

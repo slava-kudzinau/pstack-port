@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "Three `Task` calls with a per-call subagent-type field (SKILL.md:37,49) rewritten to one `task` tool batch call per stage, `agent: \"task\"` (full tool access; not the read-only `scout`), since OMP's task tool has no per-call `readonly` flag — model/tool grants come from agent frontmatter and config, not a spawn-time parameter (task-agent-discovery.md). Per-call literal model defaults dropped for generic configured-role language, matching poteto-mode.md's \"never a literal model ID\" convention — OMP's task tool sets only `agent`, never a worker model (task-agent-discovery.md). `~/.cursor/projects/*/agent-transcripts/` (:25) rewritten to OMP's session-file layout plus `history://<id>`. Cursor's built-in `create-skill` skill (:64-66) rewritten to pstack's own `skill://authoring-a-skill` playbook — OMP has no built-in skill-authoring wizard. The four `references/*.md` reviewer/synthesizer prompt templates are carried under `skills/reflect/references/` with the same `.cursor/skills/`/`Task`/`Read` substitutions, no added frontmatter (they're pasted verbatim into task prompts, not loaded as skills themselves)."
 ---
 
 # Reflect

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "Cursor's `~/.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jsonl` transcript path (SKILL.md:15) rewritten to OMP's session-file layout, `~/.omp/agent/sessions/<encoded-cwd>/<timestamp>_<sessionId>.jsonl` (verified against `session.md` On-Disk Layout and `session-switching-and-recent-listing.md`). \"Spawn parallel subagents\" (:19) made explicit as one `task` tool batch call with `agent: \"scout\"` per item, since scout is OMP's read-only fast-search agent. Cross-references to the why/unslop/session-pickup/automate-me skills rewritten as `skill://` URLs."
 ---
 
 # Recall

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "\"restart Cursor\" generalized to a session-restart trigger; the Autonomous run, show-me-your-work, and Session pickup playbook mentions rewritten as skill:// pointers (pause-safely.md:3,8,10)."
 ---
 
 # Pause safely

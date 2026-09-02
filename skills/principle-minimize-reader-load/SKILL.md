@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "The rest of the body (principle-minimize-reader-load/SKILL.md:1-23) has no other Cursor-specific tool names, model slugs, or content to rewrite; only line 13's cross-reference changed."
 ---
 
 # Minimize Reader Load

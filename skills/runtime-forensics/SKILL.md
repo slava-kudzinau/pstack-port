@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "\"control skill\" (runtime-forensics.md:5) rewritten to OMP's own tools per surface (bash for a CLI/TUI, browser for a web/Electron UI, debug for a running process); \"CDP eval on the running process\" (line 7) rewritten to the browser tool's evaluate for a web surface or the debug tool's evaluate for any other process; bold cross-references to guard-the-context-window (line 6) and Bug fix/Perf (line 11) rewritten to skill:// pointers."
 ---
 
 # Runtime forensics

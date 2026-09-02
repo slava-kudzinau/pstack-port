@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Disambiguation from a same-named built-in tool (babysit.md:3) reworded generically since it\'s OMP\'s own skill-precedence rule being invoked, not a Cursor product name. `playbooks/shipping.md` and bare `Shipping` mentions (babysit.md:3,5,18,23,25) rewritten to `skill://shipping`. "A cloud one plus a local one" (babysit.md:11) rewritten to a foreground-session-plus-background-`hub`-job example. Step 6\'s `scripts/watch-pr/watch-pr` script and its JSON verdict protocol plus Cursor\'s `/loop` (babysit.md:14-20) have no OMP equivalent and aren\'t ported; rewritten to `gh pr view`/`gh pr checks` polling via `bash`, a `hub` background job for the wait, and plain re-polling language, keeping the drive/background/threads-only/check mode split and the stack/queue stop rules. local fix: `../references/bugbot-triage.md` (babysit.md:22-23) is not part of this port, so both body citations are gone. Step 8 states the posture poteto-mode gives, verify each claim against the code on its own merits rather than a checklist. Step 9 offers a dismissal pattern as prose in its own PR instead of an entry in an absent rubric file.'
 ---
 
 # Babysit

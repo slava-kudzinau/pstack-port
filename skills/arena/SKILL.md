@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "N sequential Task spawns with run_in_background: true (SKILL.md:33) rewritten to one task batch call ({context, tasks[]}), per findings/matrix.md's arena row. Literal runner/cross-judge model slugs (SKILL.md:28,41) deleted in favor of 'your configured model roles', per conventions §1; the readonly judge subagent now names OMP's agent: \"scout\" role, its closest bundled read-only equivalent (task/agents.ts per findings/omp-format.md §1). ~/.cursor/rules/pstack-models.mdc rewritten to ~/.omp/agent/pstack-models.md, matching the setup-pstack matrix row's target path (findings/matrix.md:79) — that skill isn't ported in this batch, so the path is forward-referenced. Bold principle-skill mentions rewritten as skill:// links."
 ---
 
 # Arena

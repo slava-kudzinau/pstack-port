@@ -8,7 +8,6 @@ metadata:
   upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
   upstream_version: '0.14.5'
   status: 'portable'
-  note: "Copied verbatim from the reference port (refs/ref-port/plugins/pstack/skills/what-did-i-get-done @ c2ade4b); cursor-team-kit component, not part of the pstack subtree, so it had no Phase A matrix row. The reference port's menu-description one-liner became our description; OMP has no menu-description slot."
 ---
 
 

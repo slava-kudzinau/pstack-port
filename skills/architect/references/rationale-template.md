@@ -3,7 +3,6 @@ upstream: pstack/skills/architect/references/rationale-template.md
 upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
 upstream_version: 0.14.5
 status: adapted
-note: "The cross-skill mention of arena (line 19, previously a relative markdown link) rewritten as a `skill://` link for consistency with the rest of the port. The self-referential link to architect's own Phase A section (line 7) is unchanged since it stays inside the same skill directory."
 ---
 
 # Rationale template

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Ported verbatim. The body names no Cursor tool, model slug, or cross-skill link to rewrite.'
 ---
 
 # Encode Lessons in Structure

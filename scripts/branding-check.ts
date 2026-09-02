@@ -26,8 +26,6 @@ function scan(dir: string): string[] {
 		}
 		if (relative(repo, full).endsWith("CREDITS.md")) continue;
 		for (const [i, line] of readFileSync(full, "utf-8").split("\n").entries()) {
-			const trimmed = line.trim();
-			if (trimmed.startsWith("note:")) continue;
 			const lower = line.toLowerCase();
 			for (const token of BANNED) {
 				if (lower.includes(token)) hits.push(`${relative(repo, full)}:${i + 1}: "${token}"`);

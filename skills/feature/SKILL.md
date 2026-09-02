@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Bare skill mentions (`how`, `architect`, `interrogate`, `arena`, feature.md:5-6,12,16) and principle-skill mentions (`principle-model-the-domain`, `separate-before-serializing-shared-state`, `sequence-verifiable-units`, `Laziness Protocol`, feature.md:10,12,15) rewritten to `skill://` pointers. The `grok-4.6-fast-xhigh` model slug (feature.md:12) replaced with a generic configured-role phrase. `Comments per **Comments**` (feature.md:12) points at poteto-mode\'s own Comments section via `skill://poteto-mode`, since it isn\'t a separate skill. `Run **Opening a PR**` (feature.md:17) rewritten to `skill://opening-a-pr`.'
 ---
 
 # Feature

@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "control-cli/control-ui replaced with OMP's bash/browser/debug tools; the Cursor `Task` tool and its per-spawn subagent-role field replaced with the task tool's agent field; the literal model slugs deleted in favor of configured roles; Cursor's /loop rewritten as plain iteration language; all cross-references (how, why, architect, interrogate, tdd, sequence-verifiable-units, opening-a-pr) rewritten as skill:// pointers, since every target carries disable-model-invocation: true and is otherwise unreachable from the model listing."
 ---
 
 # Bug fix

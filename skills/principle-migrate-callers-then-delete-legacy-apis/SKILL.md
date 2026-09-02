@@ -7,7 +7,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Upstream body (principle-migrate-callers-then-delete-legacy-apis/SKILL.md:1-22) is generic engineering prose with no Cursor-specific tool names, model slugs, or cross-references to rewrite; ported verbatim aside from the provenance frontmatter.'
 ---
 
 # Migrate Callers Then Delete Legacy APIs

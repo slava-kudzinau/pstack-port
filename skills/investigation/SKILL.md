@@ -6,7 +6,6 @@ metadata:
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'Bold cross-references to how/why/unslop/architect/babysit/bug-fix/feature rewritten as skill:// pointers so they resolve through OMP\'s discovery instead of dangling on a description match; the "(see Autonomy)" pointer now names the Autonomy section inside skill://poteto-mode explicitly.'
 ---
 
 # Investigation

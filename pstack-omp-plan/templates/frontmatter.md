@@ -9,7 +9,6 @@ upstream: pstack/skills/architect/SKILL.md
 upstream_sha: 4a1c2f9e0b7d1c8e3a5b6d9f0a2c4e6b8d1f3a5c
 upstream_version: 0.14.2         # from plugin.json if present, else short sha
 status: portable
-note: (optional) one line — why adapted or why native
 ---
 ```
 
@@ -21,7 +20,12 @@ note: (optional) one line — why adapted or why native
 | `upstream_sha` | yes | Full sha of `cursor/plugins` this content came from. |
 | `upstream_version` | yes | `pstack/.cursor-plugin/plugin.json` version if present, else short sha. Human label. |
 | `status` | yes | `portable`, `adapted`, `omp-native`, or `new`. |
-| `note` | no | One line: why adapted, why native. |
+
+Migration notes are not frontmatter. They live as `## <path>` sections in
+`PROVENANCE.md` at the repo root: frontmatter reaches the model on every
+`skill://` read, and note text has no runtime value. Append a section per
+artifact on each sync. `scripts/extract-notes.ts` enforces the rule for
+existing files.
 
 ## `status` values
 
