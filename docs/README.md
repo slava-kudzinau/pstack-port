@@ -22,11 +22,11 @@ The routing happens through the **poteto-mode** skill, which matches your reques
 
 ## Quick start
 
-Clone the repo, then register it as an extension by adding its path to `extensions:` in `~/.omp/agent/config.yml`:
+Clone the repo, then register the shipped package by adding the path of its `plugin/` directory to `extensions:` in `~/.omp/agent/config.yml`:
 
 ```yaml
 extensions:
-  - ~/pstack-omp
+  - ~/pstack-omp/plugin
 ```
 
 Restart OMP. Configure your models with `/pstack:setup-pstack`, then start with `/pstack:poteto-mode`.
@@ -36,10 +36,9 @@ See [install.md](install.md) for the full steps and [config.md](config.md) for m
 ## Structure
 
 ```
-pstack/
-├── skills/          # 74 skill directories, each with SKILL.md
-├── agents/          # 2 custom agents (poteto-agent, comment-sicko)
-├── commands/        # 31 /pstack:* commands
+pstack-omp/
+├── plugin/          # the shipped package: 74 skill dirs, 2 agents, 31 /pstack:* commands,
+│                    # the session-start extension and its hook text
 ├── docs/            # These docs
 ├── scripts/         # Conformance suite, branding check
 └── findings/        # Port decision records

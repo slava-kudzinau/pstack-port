@@ -30,28 +30,33 @@ aliases (`/architect`) are off by default; can be enabled through user config.
 
 ```
 pstack-omp/
+├── plugin/                # the shipped OMP package — the only dir you register
+│   ├── package.json       # omp.extensions manifest slot
+│   ├── skills/            # ported skills at the loading roots
+│   │   └── <name>/SKILL.md
+│   ├── agents/*.md        # task agents (task/discovery.ts:4-11)
+│   ├── commands/*.md      # slash commands (task/commands.ts:66-109)
+│   ├── extensions/*.ts    # session-start mandate injector, wired by package.json
+│   └── hooks/*.md         # mandate text the injector reads
 ├── upstream/pstack/       # vendored Cursor snapshot, pinned sha, read-only
-├── skills/                # ported skills at the loading roots
-│   └── <name>/SKILL.md
-├── agents/*.md            # task agents (task/discovery.ts:4-11)
-├── commands/*.md          # slash commands (task/commands.ts:66-109)
-├── package.json           # omp.extensions manifest slot
-├── src/                   # extension code, added in Phase E
-├── scripts/               # branding check, upstream diff
-├── tests/conformance/
-├── docs/                  # user-facing docs, added in Phase F
+├── scripts/               # branding check, upstream diff, conformance suite
+├── docs/                  # user-facing docs
 ├── findings/              # one file per phase
-├── templates/
-├── UPSTREAM.md            # sha, version, sync date
-└── CREDITS.md
+├── pstack-omp-plan/       # this plan, templates/ inside
+└── UPSTREAM.md            # sha, version, sync date
 ```
 
 Manifest key for extensions: `omp.extensions` (not the legacy `pi.extensions`).
 
+Register only `plugin/` in the config `extensions:` list. OMP discovers the
+capability directories as siblings of the registered directory's `package.json`
+(`refs/omp-src/docs/skills/authoring-extensions.md:99`; `discovery/omp-plugins.ts:46`).
+
 ## 4. Provenance frontmatter
 
-Every ported file (under `skills/`, `agents/`, or `commands/`) starts with
-this block. The template is in `templates/frontmatter.md`. The upstream diff
+Every ported file (under `plugin/skills/`, `plugin/agents/`, or
+`plugin/commands/`) starts with this block. The template is in
+`templates/frontmatter.md`. The upstream diff
 tool depends on it.
 
 ```yaml

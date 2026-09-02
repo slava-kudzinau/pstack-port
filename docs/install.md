@@ -10,7 +10,7 @@
 
 ### 1. Clone the repo
 
-Clone anywhere — the path doesn't matter, because you register it explicitly in step 2:
+Clone anywhere — the path doesn't matter, because you register the clone's `plugin/` sub-directory explicitly in step 2:
 
 ```bash
 git clone <repo-url> ~/pstack-omp
@@ -18,14 +18,14 @@ git clone <repo-url> ~/pstack-omp
 
 ### 2. Register the extension
 
-Add the clone path to the `extensions:` array in `~/.omp/agent/config.yml` (user scope, applies everywhere) or `.omp/config.yml` (project scope):
+Add the path of the clone's `plugin/` directory — the shipped OMP package — to the `extensions:` array in `~/.omp/agent/config.yml` (user scope, applies everywhere) or `.omp/config.yml` (project scope):
 
 Which `config.yml` is authoritative depends on your environment. `OMP_CODING_AGENT_DIR` or `PI_CODING_AGENT_DIR` relocate the whole agent directory, and then the governing file is `$OMP_CODING_AGENT_DIR/config.yml` rather than `~/.omp/agent/config.yml`. Check before editing with `printenv OMP_CODING_AGENT_DIR`. A copy left at the default path is read by nobody, and a session that still loads a stale skill set usually means exactly that.
 
 ```yaml
 # ~/.omp/agent/config.yml
 extensions:
-  - ~/pstack-omp
+  - ~/pstack-omp/plugin
 ```
 
 Tilde expands; a relative path resolves against your working directory. This one entry wires the package's `skills/`, `commands/`, and `agents/` sub-directories into OMP discovery (`task/discovery.ts:4-11`; `discovery/omp-plugins.ts:46`). It also activates `extensions/pstack-autofire.ts`, whose entry point comes from the `omp.extensions` field of `package.json` (`extensibility/extensions/loader.ts:494-536`). That extension injects `hooks/session-start-context.md` at `before_agent_start`, which matters because nearly every skill here hides itself from the system prompt listing.
@@ -35,12 +35,12 @@ If you already have an `extensions:` array, append the path to it. The array is 
 **Or register it via the CLI** instead of hand-editing YAML. `omp config set` writes to the user-global `~/.omp/agent/config.yml`, and array values are JSON:
 
 ```bash
-omp config set extensions '["~/pstack-omp"]'
+omp config set extensions '["~/pstack-omp/plugin"]'
 ```
 
 Two things to know:
 
-- `config set` **overwrites the whole array, it does not append.** Read your current value and merge into one call: `omp config get extensions`, then `omp config set extensions '["<existing>","~/pstack-omp"]'`.
+- `config set` **overwrites the whole array, it does not append.** Read your current value and merge into one call: `omp config get extensions`, then `omp config set extensions '["<existing>","~/pstack-omp/plugin"]'`.
 - Use an absolute or `~/…` path, never a bare relative one. At read time a value is tilde-expanded against your home (stable) or resolved against the launching session's working directory (`discovery/omp-extension-roots.ts:237-240`); a relative path would point at whatever project you next open OMP in.
 
 Verify with `omp config get extensions`.
@@ -48,7 +48,7 @@ Verify with `omp config get extensions`.
 To try it for one session without editing config, pass the flag instead:
 
 ```bash
-omp --extension ~/pstack-omp
+omp --extension ~/pstack-omp/plugin
 ```
 
 ### 3. Configure models (optional)
@@ -120,7 +120,7 @@ rm -rf ~/pstack-omp
 Check that the directory structure is correct:
 
 ```bash
-ls ~/pstack-omp/skills/
+ls ~/pstack-omp/plugin/skills/
 ```
 
 Each skill should be a directory containing a `SKILL.md` file. If a skill is missing its SKILL.md, OMP won't load it.
@@ -136,7 +136,7 @@ bun scripts/conformance.ts
 First confirm the clone path is listed under `extensions:` in `~/.omp/agent/config.yml`, then restart OMP. Then check that the commands directory contains `.md` files:
 
 ```bash
-ls ~/pstack-omp/commands/
+ls ~/pstack-omp/plugin/commands/
 ```
 
 Each command file must have a `description:` field in its frontmatter.
