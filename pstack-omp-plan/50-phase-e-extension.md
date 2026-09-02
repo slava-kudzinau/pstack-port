@@ -71,11 +71,24 @@ exists; a user clones and adds a path to `config.yml`. Confirm whether
 
 ## Done when
 
-**Skipped.** Phases A-D covered everything with files alone. No extension needed:
+**Partly revisited.** Phases A-D covered model configuration, budgets, and
+isolation with files alone:
 
 - Model configuration: `~/.omp/agent/pstack-models.md` (plain text, skills read directly)
-- Auto mode: invoke `/pstack:poteto-mode` manually; OMP `session_start` event available but not needed
 - Budgets/effort: OMP's `task.enableEffort` + `task.maxEffort` settings
 - Isolation: OMP's `task.isolation.mode` setting
 
-If a future need arises (e.g. automatic skill injection at session start), revisit this phase.
+The automatic-injection case this file deferred did arrive. Every skill a
+`skill://` pointer targets now carries `disable-model-invocation: true`, so the
+system prompt listing shows one of them. A session needs an injected reason to
+read `skill://poteto-mode`, and files cannot supply that. Shipped:
+
+- `package.json` declares `omp.extensions`, resolved by
+  `extensibility/extensions/loader.ts:518-536`
+- `extensions/pstack-autofire.ts` injects `hooks/session-start-context.md` once
+  per branch on `before_agent_start`
+- `scripts/autofire-check.ts` proves it loads, fires once, and stays quiet on
+  re-entry
+
+Auto mode stays off. The mandate names the entry pointer and the six direct-entry
+playbooks. It inlines no skill body.

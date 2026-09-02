@@ -1,8 +1,8 @@
 ---
 name: principle-model-the-domain
 description: "Apply when writing stateful logic, or when code branches a lot or repeats a shape assumption across files. Encode the domain in a structure instead of scattered conditionals."
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/principle-model-the-domain/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

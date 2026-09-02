@@ -1,8 +1,8 @@
 ---
 name: principle-subtract-before-you-add
 description: Apply when sequencing an addition, refactor, or rewrite. Remove dead weight, redundant validators, and stub references first, then build on the simpler base.
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/principle-subtract-before-you-add/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

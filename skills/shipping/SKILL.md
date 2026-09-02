@@ -1,6 +1,7 @@
 ---
 name: shipping
 description: Independently verify a green PR stack, then land the contiguous verified run with Graphite merge-when-ready. Routed from poteto-mode's Shipping trigger, or invoked directly for "land the stack", "ship it", "enable merge when ready", or the second half of a stack the babysit skill already drove to green.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/shipping.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

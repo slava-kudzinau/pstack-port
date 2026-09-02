@@ -1,6 +1,7 @@
 ---
 name: typescript-best-practices
 description: TypeScript best practices. Use when reading or editing any .ts or .tsx file.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/typescript-best-practices/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

@@ -1,6 +1,7 @@
 ---
 name: runtime-forensics
 description: Diagnose a live symptom (leak, idle-cpu spin, glitch) by instrumenting the running process, not by theorizing from source. Routed from poteto-mode's Runtime forensics trigger, or invoked directly for "why is X leaking at runtime", "why is this idle but busy", "there's an intermittent glitch in Y".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/runtime-forensics.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

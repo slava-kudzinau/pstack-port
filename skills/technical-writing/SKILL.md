@@ -1,8 +1,8 @@
 ---
 name: technical-writing
 description: "Layered technical-writing standard: Diátaxis structure, Google developer style sentences, STE instruction rules, Global English syntax. Use for /technical-writing or when writing or reviewing docs, RFCs, readmes, PR descriptions, or commit messages."
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/technical-writing/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

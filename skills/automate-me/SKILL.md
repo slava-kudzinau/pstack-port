@@ -1,8 +1,8 @@
 ---
 name: automate-me
 description: "Use for \"automate me\", \"create/update/refresh my -mode skill\", \"turn/capture my preferences or working style into a skill\", or wanting agents to follow how the user works. Drafts or revises a personal -mode skill via OMP's manage_skill/learn tools and the unslop skill, optionally pulling fresh evidence from recent transcripts."
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/automate-me/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

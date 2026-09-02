@@ -1,6 +1,7 @@
 ---
 name: unslop
 description: Cut AI tells from any writing. Must always apply.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/unslop/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

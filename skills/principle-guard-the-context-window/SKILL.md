@@ -1,8 +1,8 @@
 ---
 name: principle-guard-the-context-window
 description: "Apply when context is filling up: large outputs, long files, repeated reads, fan-out planning. Route bulk to subagents; keep summaries in the main thread, not raw payloads."
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/principle-guard-the-context-window/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

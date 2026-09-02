@@ -1,6 +1,7 @@
 ---
 name: autopilot-full
 description: Run a queue of independent PRs to merged, one owner per PR carrying the full lifecycle through the merge, gated on a clean swarm verdict from the root. Routed from poteto-mode's Autopilot-full trigger, or invoked directly for "autopilot this queue", "full autopilot", "land these PRs independently while I'm away".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/autopilot-full.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

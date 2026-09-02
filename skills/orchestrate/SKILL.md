@@ -1,6 +1,7 @@
 ---
 name: orchestrate
 description: A standing project handed to one coordinator chat — multi-day, many stacked PRs, fleets of subagents. Routed from poteto-mode's Orchestrate trigger, or invoked directly when the work outlives any single agent's session budget.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/orchestrate.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

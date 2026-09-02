@@ -8,13 +8,15 @@
 //
 // Command files carry no directory name to match, so `name` is skipped there;
 // a command with a missing or oversized `description` fails exactly as in
-// capability/slash-command.ts:36-46. `--fix` rewrites failing files: every
-// non-closed key (including the rule-4 provenance keys) moves under
-// `metadata:`, the one key that survives OMP parsing.
+// capability/slash-command.ts:36-46. `disable-model-invocation` and `hide` are the
+// two keys OMP reads at the top level with a strict boolean comparison
+// (extensibility/skills.ts:113), so this audit requires them there and rejects a
+// copy buried under `metadata:`. Repairs live in scripts/fix-frontmatter.ts.
 
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { HIDE_KEYS, hasTopLevelHideFlag, referencedSkillNames } from "./skill-refs.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -25,6 +27,8 @@ const SKILL_FIELDS: Record<string, true> = {
 	"allowed-tools": true,
 	metadata: true,
 	compatibility: true,
+	"disable-model-invocation": true,
+	hide: true,
 };
 const SKILL_NAME_CHARS_RE = /^[\p{L}\p{N}-]+$/u;
 
@@ -69,6 +73,16 @@ function validateAgentSkillFrontmatter(fm: Record<string, unknown>, dirName: str
 			}
 		}
 	}
+	for (const key of Object.keys(HIDE_KEYS)) {
+		if (typeof metadata === "object" && metadata !== null && key in metadata) {
+			return `"metadata.${key}" is ignored by OMP, lift it to the top level`;
+		}
+		const value = fm[key];
+		if (value !== undefined && (typeof value !== "string" || (value !== "true" && value !== "false"))) {
+			return `"${key}" must be the bare boolean true or false`;
+		}
+	}
+
 	if (fm["allowed-tools"] !== undefined && typeof fm["allowed-tools"] !== "string") {
 		return `"allowed-tools" must be a string`;
 	}
@@ -107,7 +121,7 @@ function parseFrontmatterBlock(content: string): { fm: Frontmatter; rest: string
 	return { fm, rest: lines.slice(end + 1).join("\n") };
 }
 
-function auditFile(rel: string, dirName: string, kind: "skill" | "command"): string | null {
+function auditFile(rel: string, dirName: string, kind: "skill" | "command", mustHide: boolean): string | null {
 	const content = readFileSync(join(repo, rel), "utf-8");
 	const block = parseFrontmatterBlock(content);
 	if (typeof block === "string") return `${rel}: ${block}`;
@@ -120,22 +134,31 @@ function auditFile(rel: string, dirName: string, kind: "skill" | "command"): str
 		return null;
 	}
 	const violation = validateAgentSkillFrontmatter(block.fm, dirName);
-	return violation === null ? null : `${rel}: ${violation}`;
+	if (violation !== null) return `${rel}: ${violation}`;
+	if (mustHide && !hasTopLevelHideFlag(content)) {
+		return `${rel}: a skill:// pointer targets this skill but it carries no top-level hide flag`;
+	}
+	return null;
 }
 
 function main(fix: boolean): void {
+	if (fix) {
+		console.error("--fix does not rewrite anything in this script. Run: bun scripts/fix-frontmatter.ts");
+		process.exit(1);
+	}
+	const referenced = referencedSkillNames(repo);
 	const skillFiles = readdirSync(join(repo, "skills"), { withFileTypes: true })
 		.filter((e) => e.isDirectory() && !e.name.startsWith("."))
-		.map((e) => ({ rel: join("skills", e.name, "SKILL.md"), dir: e.name, kind: "skill" as const }));
+		.map((e) => ({ rel: join("skills", e.name, "SKILL.md"), dir: e.name, kind: "skill" as const, mustHide: referenced.has(e.name) }));
 	if (existsSync(join(repo, "skills", "SKILL.md"))) {
 		console.error("skills/SKILL.md: nested SKILL.md directly under skills/ is not discovered (docs/skills.md:27-33)");
 	}
 	const commandFiles = readdirSync(join(repo, "commands"))
 		.filter((f) => f.endsWith(".md"))
-		.map((f) => ({ rel: join("commands", f), dir: basename(f, ".md"), kind: "command" as const }));
+		.map((f) => ({ rel: join("commands", f), dir: basename(f, ".md"), kind: "command" as const, mustHide: false }));
 	let failed = 0;
-	for (const { rel, dir, kind } of [...skillFiles, ...commandFiles]) {
-		const violation = auditFile(rel, dir, kind);
+	for (const { rel, dir, kind, mustHide } of [...skillFiles, ...commandFiles]) {
+		const violation = auditFile(rel, dir, kind, mustHide);
 		if (violation !== null) {
 			console.error(`FAIL ${violation}`);
 			failed++;

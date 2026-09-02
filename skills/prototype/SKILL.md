@@ -1,6 +1,7 @@
 ---
 name: prototype
 description: A throwaway sketch to make a design or behavioral decision cheaply, or to settle an empirical fork by observing it. Routed from poteto-mode's Prototype trigger, or invoked directly for "prototype", "mock it up", "sketch this", "try this layout", or exploring a UI, interaction, or layout before committing.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/prototype.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

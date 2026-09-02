@@ -2,15 +2,16 @@
 // Branding check (pstack-omp-plan/01-conventions.md §1).
 //
 // Fails if any banned Cursor/Claude/Anthropic string appears in shipped
-// content (skills/, agents/, commands/), outside CREDITS.md. `upstream/`
-// is a read-only vendored snapshot and is intentionally exempt.
+// content (skills/, agents/, commands/, extensions/, hooks/), outside
+// CREDITS.md. `upstream/` is a read-only vendored snapshot and is intentionally
+// exempt.
 
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SCAN_DIRS = ["skills", "agents", "commands"];
+const SCAN_DIRS = ["skills", "agents", "commands", "extensions", "hooks"];
 
 const BANNED = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type", "claude.md"];
 const CASE_SENSITIVE = ["Cursor", "GPT", "Gemini", "Qwen"];

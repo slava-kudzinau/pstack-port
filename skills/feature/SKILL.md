@@ -1,6 +1,7 @@
 ---
 name: feature
 description: New or changed behavior, built from a named data shape. Routed from poteto-mode's Feature trigger, or invoked directly for building a feature.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/feature.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

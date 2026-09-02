@@ -1,6 +1,7 @@
 ---
 name: authoring-a-skill
 description: Write or edit a SKILL.md with agent-facing prose held to a high bar; validate frontmatter, referenced files, and cross-skill links, then test cases if the skill is structural. Routed from poteto-mode's Authoring a skill trigger, or invoked directly for "write a skill for this workflow", "review this SKILL.md before I ship it", "the frontmatter on this skill looks off".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/authoring-a-skill.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

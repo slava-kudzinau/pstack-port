@@ -1,13 +1,13 @@
 ---
 name: poteto-mode
 description: poteto's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style.
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/poteto-mode/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "All 22 playbooks and 21 principle skills are now ported; every cross-reference uses skill:// pointers, since every target carries disable-model-invocation: true and is otherwise unreachable from the model listing. Dropped: Cursor skill-picker decorations (`mode`, `icon`, `color`) and the `reminder` field (no OMP consumer); the `cursor-team-kit` `control-cli`/`control-ui` tool pair and the `deslop` skill from the `cursor-team-kit` plugin (never vendored here, no OMP substitute — generalized to plain prose); `references/bugbot-triage.md` (not part of this port); Cursor's `/loop` and `/goal` (no OMP equivalents); literal vendor model slugs (OMP routes model choice through configured roles, not per-spawn slugs); the `~/.cursor/rules/pstack-models.mdc` target (moved to `~/.omp/agent/pstack-models.md`, read on demand by pstack skills)."
+  note: "All 22 playbooks and 21 principle skills are now ported; every cross-reference uses skill:// pointers, since every target carries disable-model-invocation: true and is otherwise unreachable from the model listing. Dropped: Cursor skill-picker decorations (`mode`, `icon`, `color`) and the `reminder` field (no OMP consumer); the `cursor-team-kit` `control-cli`/`control-ui` tool pair and the `deslop` skill from the `cursor-team-kit` plugin (never vendored here, no OMP substitute — generalized to plain prose); `references/bugbot-triage.md` (not part of this port); Cursor's `/loop` and `/goal` (no OMP equivalents); literal vendor model slugs (OMP routes model choice through configured roles, not per-spawn slugs); the `~/.cursor/rules/pstack-models.mdc` target (moved to `~/.omp/agent/pstack-models.md`, read on demand by pstack skills). local fix: `typescript-best-practices` and `create-verification-skill` are named nowhere in this index on purpose. Neither is a principle or a playbook. Each is a leaf-only auxiliary reached by cross-pointer, `typescript-best-practices` from `skill://principle-type-system-discipline` as its TypeScript grounding and `create-verification-skill` from `skill://setup-pstack` and `skill://maintain-verification-skill` as the create half of the verification-skill lifecycle. Both also route through their own `/pstack:` commands."
 ---
 
 # Poteto mode

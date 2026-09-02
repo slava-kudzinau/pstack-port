@@ -1,6 +1,7 @@
 ---
 name: hillclimb
 description: Sustained, scientific improvement of one measurable metric against a target, looping hypotheses with before/after measurement and one commit per accepted win. Routed from poteto-mode's Hillclimb trigger, or invoked directly for "hillclimb on X", "make startup 50% faster", "systematically drive down <metric>", "keep trying until <metric> improves by N%".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/hillclimb.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

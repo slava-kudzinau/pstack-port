@@ -1,6 +1,7 @@
 ---
 name: opening-a-pr
 description: Shared PR-opening routine invoked at the end of every other playbook — worktree hygiene, commit shaping, PR title and description conventions, readiness, and stack sizing.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/opening-a-pr.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

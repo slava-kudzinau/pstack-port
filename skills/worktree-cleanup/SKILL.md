@@ -1,12 +1,13 @@
 ---
 name: worktree-cleanup
 description: Reclaim local disk by pruning merged or abandoned git worktrees and stale iOS simulators, safety-gated against deleting anything in use or holding uncommitted work. Routed from poteto-mode's Worktree and simulator cleanup trigger, or invoked directly for "what's using my disk", "clean up worktrees", "prune safe-to-prune worktrees", "free up space", "delete old simulators".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/worktree-cleanup.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: "worktree-cleanup.md:10 the `~/Library/Application Support/Cursor` state-deletion target rewritten to OMP's `~/.omp/agent`, keeping the state.vscdb.backup/snapshots reasoning as prose about the equivalent bloat pattern; worktree-cleanup.md:5-7 parenthetical bare-name principle mentions (principle-build-the-lever, principle-encode-lessons-in-structure, principle-prove-it-works, principle-guard-the-context-window) rewritten as skill:// pointers, since disable-model-invocation hides bare mentions from OMP's auto-discovered listing."
+  note: "worktree-cleanup.md:10 the `~/Library/Application Support/Cursor` state-deletion target rewritten to OMP's `~/.omp/agent`, keeping the state.vscdb.backup/snapshots reasoning as prose about the equivalent bloat pattern; worktree-cleanup.md:5-7 parenthetical bare-name principle mentions (principle-build-the-lever, principle-encode-lessons-in-structure, principle-prove-it-works, principle-guard-the-context-window) rewritten as skill:// pointers, since disable-model-invocation hides bare mentions from OMP's auto-discovered listing. local fix: step 1's `scripts/worktree-audit.sh` is now ported into this skill directory from upstream `pstack/skills/poteto-mode/scripts/worktree-audit.sh`, so the step 1 path resolves. The port retargets its transcript scan to OMP's prompt-history database at `~/.omp/agent/history.db`. That recency signal reads prompt rows and prompt text, weaker than Cursor's full transcript scan, so the step 2 and 3 gates carry the in-use verdict."
 ---
 
 # Worktree and simulator cleanup

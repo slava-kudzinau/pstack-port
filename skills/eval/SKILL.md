@@ -1,6 +1,7 @@
 ---
 name: eval
 description: Test how a skill, structure, or prompt change affects agent behavior before promoting it, run blind to avoid the observer effect. Routed from poteto-mode's Eval trigger, or invoked directly to eval a skill or prompt variant.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/eval.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

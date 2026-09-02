@@ -71,6 +71,17 @@ status: portable | adapted | omp-native | new
 
 Changing a `portable` file's wording means changing its status to `adapted`.
 
+Every `SKILL.md` that a `skill://` pointer targets also carries
+`disable-model-invocation: true` at column 0, above `metadata:`. OMP reads only
+the top-level key and compares it with `=== true`
+(`extensibility/skills.ts:113,260,298,399`), and frontmatter key normalization
+renames keys without lifting them out of `metadata`
+(`packages/utils/src/frontmatter.ts:21-43`). A copy nested under `metadata:` is
+inert, and the skill renders into every system prompt. `scripts/skill-refs.ts`
+defines which skills must carry the flag, `scripts/fix-frontmatter.ts` writes it,
+and `scripts/validate-frontmatter.ts` fails the audit without it.
+`scripts/hide-check.ts` proves the loader honors it.
+
 ## 5. Upstream tracking
 
 `cursor/plugins` is a monorepo with a live `main` and **no releases or tags**.

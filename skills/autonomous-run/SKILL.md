@@ -1,6 +1,7 @@
 ---
 name: autonomous-run
 description: Drive a long task to completion without stopping, against a checkable exit predicate you state up front. Routed from poteto-mode's Autonomous run trigger, or invoked directly for "run this until it's done, I'm going to bed", "keep going until every PR merges", "loop on this until the repro is fixed".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/autonomous-run.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

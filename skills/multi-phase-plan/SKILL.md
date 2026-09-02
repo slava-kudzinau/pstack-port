@@ -1,6 +1,7 @@
 ---
 name: multi-phase-plan
 description: Work that spans phases or stacked PRs. Routed from poteto-mode's Multi-phase or multi-PR plan trigger, or invoked directly when the change is bigger than one or two files with an obvious approach.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/multi-phase-plan.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

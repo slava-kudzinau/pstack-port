@@ -1,8 +1,8 @@
 ---
 name: no-comments
 description: 'Spawn the comment-sicko subagent, fix accepted findings, and offer encodings for claimed constraints.'
+disable-model-invocation: true
 metadata:
-  disable-model-invocation: 'true'
   upstream: 'pstack/skills/no-comments/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'

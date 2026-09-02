@@ -20,13 +20,15 @@ git clone <repo-url> ~/pstack-omp
 
 Add the clone path to the `extensions:` array in `~/.omp/agent/config.yml` (user scope, applies everywhere) or `.omp/config.yml` (project scope):
 
+Which `config.yml` is authoritative depends on your environment. `OMP_CODING_AGENT_DIR` or `PI_CODING_AGENT_DIR` relocate the whole agent directory, and then the governing file is `$OMP_CODING_AGENT_DIR/config.yml` rather than `~/.omp/agent/config.yml`. Check before editing with `printenv OMP_CODING_AGENT_DIR`. A copy left at the default path is read by nobody, and a session that still loads a stale skill set usually means exactly that.
+
 ```yaml
 # ~/.omp/agent/config.yml
 extensions:
   - ~/pstack-omp
 ```
 
-Tilde expands; a relative path resolves against your working directory. This one entry wires the package's `skills/`, `commands/`, and `agents/` sub-directories into OMP discovery (`task/discovery.ts:4-11`; `discovery/omp-plugins.ts:46`).
+Tilde expands; a relative path resolves against your working directory. This one entry wires the package's `skills/`, `commands/`, and `agents/` sub-directories into OMP discovery (`task/discovery.ts:4-11`; `discovery/omp-plugins.ts:46`). It also activates `extensions/pstack-autofire.ts`, whose entry point comes from the `omp.extensions` field of `package.json` (`extensibility/extensions/loader.ts:494-536`). That extension injects `hooks/session-start-context.md` at `before_agent_start`, which matters because nearly every skill here hides itself from the system prompt listing.
 
 If you already have an `extensions:` array, append the path to it. The array is scope-replaced, not merged: a project `.omp/config.yml` overrides the user `config.yml` entirely (`discovery/omp-extension-roots.ts:221-235`).
 
@@ -73,6 +75,20 @@ bun scripts/conformance.ts
 ```
 
 All 74 tests should pass. If any fail, check the output for details.
+
+Then confirm the hide flag is live. Nearly every skill carries `disable-model-invocation: true`, so the loader should exclude them from the rendered listing while `skill://` still reaches them:
+
+```bash
+bun scripts/hide-check.ts
+```
+
+It prints the provider that loaded the package plus the hidden/visible split, and exits non-zero when no skill reports `hide=true`. That is the check which catches a flag that was demoted under `metadata:` and silently stopped working.
+
+The session-start injector gets its own check, since a broken injector leaves the plugin reachable only by slash command:
+
+```bash
+bun scripts/autofire-check.ts
+```
 
 ## Configure
 

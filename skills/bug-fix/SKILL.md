@@ -1,6 +1,7 @@
 ---
 name: bug-fix
 description: Reproduce a defect, root-cause it, and fix with runtime evidence. Routed from poteto-mode's Bug fix trigger, or invoked directly for "fix this bug", "why does X crash", "there's a race in Y".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/bug-fix.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

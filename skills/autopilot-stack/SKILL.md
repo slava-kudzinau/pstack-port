@@ -1,6 +1,7 @@
 ---
 name: autopilot-stack
 description: Build and verify one linear Graphite stack with full autonomy, then hand the operator the reviewed chain to land herself. Routed from poteto-mode's Autopilot-stack trigger, or invoked directly for "autopilot-stack", "stack them, don't ship", "build the stack, I'll land it".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/autopilot-stack.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

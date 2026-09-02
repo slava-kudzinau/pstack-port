@@ -1,6 +1,7 @@
 ---
 name: setup-pstack
 description: Configure which models pstack uses per role. Detects your available model roles and writes a config file that overrides the skill defaults. Use for /setup-pstack, "configure pstack models", or changing pstack's model choices.
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/setup-pstack/SKILL.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'

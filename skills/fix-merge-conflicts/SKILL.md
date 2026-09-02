@@ -1,6 +1,7 @@
 ---
 name: fix-merge-conflicts
 description: Resolve merge conflicts non-interactively, validate build and tests, and finalize conflict resolution
+disable-model-invocation: true
 metadata:
   menu-description: 'non-interactively resolve merge conflicts, validate, finalize'
   upstream: 'cursor-team-kit/skills/fix-merge-conflicts/SKILL.md'

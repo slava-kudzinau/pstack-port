@@ -1,12 +1,13 @@
 ---
 name: refactoring
 description: A behavior-preserving change to structure or shape. Routed from poteto-mode's Refactoring trigger, or invoked directly for "refactor", "rename", "extract", "inline", "dedupe", "restructure", "move this module", "tidy up this area".
+disable-model-invocation: true
 metadata:
   upstream: 'pstack/skills/poteto-mode/playbooks/refactoring.md'
   upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
   upstream_version: '0.14.5'
   status: 'adapted'
-  note: 'All bold cross-references (Feature, Bug fix, figure-it-out, how, architect, Opening a PR, and ten principle-* skills) rewritten as skill:// pointers (refactoring.md:3,5,7-14); the grok-4.6-fast-xhigh model slug deleted for a configured model role reached via the task tool, and the control-skill smoke-run step rewritten to bash/browser/debug (refactoring.md:11-12).'
+  note: 'All bold cross-references (Feature, Bug fix, figure-it-out, how, architect, Opening a PR, and nine principle-* skills) rewritten as skill:// pointers (refactoring.md:3,5,7-14); the grok-4.6-fast-xhigh model slug deleted for a configured model role reached via the task tool, and the control-skill smoke-run step rewritten to bash/browser/debug (refactoring.md:11-12). local fix: the principle count is corrected from ten to nine. Upstream refactoring.md:7-14 and this body each carry nine distinct principle targets, the prove-it-works citation in step 6 repeating the one in step 1, so the note overcounted and no reference was lost in porting.'
 ---
 
 # Refactoring
