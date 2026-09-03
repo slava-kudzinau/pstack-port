@@ -2,11 +2,6 @@
 name: poteto-mode
 description: poteto's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/poteto-mode/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Poteto mode
@@ -88,7 +83,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Use `agent: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/poteto-mode` and `poteto-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `agent` for diverse-model review; respect what the skill prescribes, don't override to `poteto-agent`.
 
-**Defaults for every `task` call.** Background jobs auto-deliver when they finish, so dispatch and keep working; the tool, not the harness, says when a job settles. Pass file pointers, not inlined context. Model choice is the caller's configured role; never a literal model ID in this skill's text. Code delegates tier by difficulty. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your configured judgment role when the task needs judgment or the intent is vague, and to your configured fast role when the work is a precisely specified sequence of steps to execute to the letter; trivial mechanical edits go to the same fast role. Per-role lines live in `~/.omp/agent/pstack-models.md` (see `skill://setup-pstack`).
+**Defaults for every `task` call.** Background jobs auto-deliver when they finish, so dispatch and keep working; the tool, not the harness, says when a job settles. Pass file pointers, not inlined context. Model choice is the caller's configured role; never a literal model ID in this skill's text. Code delegates tier by difficulty. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your configured judgment role both when the task needs judgment or the intent is vague and when the work is a precisely specified sequence of steps to execute to the letter; trivial mechanical edits go to your configured fast role. Per-role lines live in `~/.omp/agent/pstack-models.md` (see `skill://setup-pstack`).
 
 You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. Interrupt-chained resumes silently drop directives, so fire a fresh subagent with consolidated scope rather than trusting a "done" summary. A second opinion is the same prompt against a different model. Agreement is high-signal.
 
@@ -128,11 +123,11 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Authoring or modifying a skill.** Writing or editing a SKILL.md. `skill://authoring-a-skill`.
 - **Eval.** Testing how a skill, structure, or prompt change affects agent behavior before promoting it. `skill://eval`.
 - **Babysit.** Driving a PR or a stack to merge-ready: conflicts, review threads, CI. `skill://babysit`.
-- **Shipping.** The half after Babysit. Independently verifying a green stack, then landing the contiguous verified run with Graphite merge-when-ready. `skill://shipping`.
+- **Shipping.** The half after Babysit. Independently verifying a green stack, then landing the contiguous verified run bottom-up through `gh` by default or Origin when its CLI is available. `skill://shipping`.
 - **Autonomous run.** A long task to drive to completion without stopping ("run until done", "watch it until X"). `skill://autonomous-run`.
 - **Orchestrate.** A standing project handed to one coordinator chat: multi-day, many stacked PRs, dozens to hundreds of subagents, minimal human turns ("run this whole project", "own this migration until it lands"). Distinct from Autonomous run, which drives one task to a predicate; work one agent could finish inside the session's budget routes there, however program-shaped the phrasing sounds. `skill://orchestrate`.
 - **Autopilot-full.** A queue of independent PRs run to merged with full autonomy: one owner per PR carries build through merge, and the root swarm-verifies each merge-ready head before its owner merges ("autopilot this queue", "full autopilot", one-owner-per-PR programs). `skill://autopilot-full`.
-- **Autopilot-stack.** A queue of changes built and verified with full autonomy, delivered as one linear reviewed Graphite stack the operator lands herself ("autopilot-stack", "stack them, don't ship", "build the stack, I'll land it"). `skill://autopilot-stack`.
+- **Autopilot-stack.** A queue of changes built and verified with full autonomy, delivered as one linear reviewed base-branch stack the operator lands herself ("autopilot-stack", "stack them, don't ship", "build the stack, I'll land it"). `skill://autopilot-stack`.
 - **Session pickup.** Resuming or taking over a prior agent's in-flight work from a transcript (`history://<id>`), or a pushed branch. `skill://session-pickup`.
 - **Pause safely.** Suspending in-flight work cleanly so it can be resumed, on an explicit pause, going offline, an OMP restart, or imminent context compaction. The complement to Session pickup. `skill://pause-safely`.
 - **Multi-phase or multi-PR plan.** Work that spans phases or stacked PRs. `skill://multi-phase-plan`.

@@ -2,11 +2,6 @@
 name: recall
 description: "Reconstruct your recent working context from your own chat history, live state, and the shared record (user reports, prior fixes, incidents), then hand back a tight current-state brief. Use for 'recall my work on X', 'catch me up', 'what have I been working on', 'where did I leave off', before starting or resuming work."
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/recall/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Recall

@@ -2,12 +2,6 @@
 name: de-slop
 description: Remove AI-generated code slop and clean up code style
 disable-model-invocation: true
-metadata:
-  menu-description: 'deslop a diff before commit'
-  upstream: 'cursor-team-kit/skills/de-slop/SKILL.md'
-  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 

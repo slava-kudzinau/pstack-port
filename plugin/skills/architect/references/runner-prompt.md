@@ -1,10 +1,3 @@
----
-upstream: pstack/skills/architect/references/runner-prompt.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
----
-
 # Architect runner prompt
 
 The orchestrator passes this file through to every parallel candidate runner during Phase B and fills in the variable inputs around it: the task, the Phase A grounding artifacts, the isolated working directory, and the path to write outputs. The working directory is a git worktree when available, otherwise a per-runner subdirectory under the sketch dir; what matters is independence between candidates.

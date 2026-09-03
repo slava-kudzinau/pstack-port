@@ -1,22 +1,25 @@
 #!/usr/bin/env bun
-// classify-diff.ts — compare ported files vs upstream/ via frontmatter
+// classify-diff.ts — compare shipped artifacts against the upstream snapshots
 //
 // Usage: bun scripts/classify-diff.ts
 //
-// Reads every ported file's frontmatter (upstream: path, upstream_sha) and
-// compares against the vendored snapshot in upstream/pstack/. Classifies each
-// file as unchanged, changed (portable), changed (adapted), or orphaned.
+// Reads the `## Catalog` table in PROVENANCE.md (scripts/provenance.ts owns
+// it; the provenance fields no longer live in shipped frontmatter) and
+// compares each row against the snapshot file. Bodies are compared with
+// frontmatter stripped on both sides: our side carries OMP frontmatter and
+// upstream carries Cursor's, so a raw byte compare could never match and the
+// `unchanged` bucket would be structurally dead. Classifies each row as
+// unchanged, changed (portable), changed (adapted), removed, plus artifacts
+// missing from the table (orphaned) and upstream skills never ported (new).
 
 import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { join, dirname, relative } from "node:path";
+import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseCatalog, shippedArtifacts, stripFrontmatter } from "./provenance.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
-const skillsDir = join(plugin, "skills");
-const commandsDir = join(plugin, "commands");
-const agentsDir = join(plugin, "agents");
-const upstreamDir = join(repo, "upstream", "pstack");
+const upstreamSkills = join(repo, "upstream", "pstack", "skills");
 
 const results = {
 	unchanged: [] as string[],
@@ -28,94 +31,46 @@ const results = {
 	conflicts: [] as string[],
 };
 
-function parseFrontmatter(content: string): Record<string, string> | null {
-	const match = content.match(/^---\n([\s\S]*?)\n---/);
-	if (!match) return null;
-	const fm: Record<string, string> = {};
-	for (const line of match[1].split("\n")) {
-		const idx = line.indexOf(":");
-		if (idx > 0) {
-			const key = line.slice(0, idx).trim();
-			const val = line.slice(idx + 1).trim().replace(/^['"]|['"]$/g, "");
-			fm[key] = val;
-		}
-	}
-	return fm;
+const rows = parseCatalog();
+if (rows === null) {
+	console.error("no ## Catalog table in PROVENANCE.md; run bun scripts/provenance.ts --migrate");
+	process.exit(1);
 }
 
-function classify(file: string, content: string) {
-	const fm = parseFrontmatter(content);
-	if (!fm) {
-		results.orphaned.push(file);
-		return;
-	}
+const body = (file: string): string => stripFrontmatter(readFileSync(file, "utf-8")).replace(/^\n+/, "").replace(/\s+$/, "");
 
-	const upstreamPath = fm.upstream;
-	const status = fm.status;
+const tabled = new Set(rows.map((r) => r.path));
+for (const p of shippedArtifacts()) {
+	if (!tabled.has(p)) results.orphaned.push(p);
+}
 
-	if (!upstreamPath) {
-		// New file, not from upstream
-		return;
-	}
-
-	const upstreamFile = join(upstreamDir, upstreamPath);
+for (const row of rows) {
+	if (row.upstream === "none") continue;
+	const upstreamFile = join(repo, row.upstream);
 	if (!existsSync(upstreamFile)) {
-		// File was removed from upstream
-		results.removed.push(file);
-		return;
+		results.removed.push(row.path);
+		continue;
 	}
-
-	const upstreamContent = readFileSync(upstreamFile, "utf-8");
-	if (content === upstreamContent) {
-		results.unchanged.push(file);
-	} else if (status === "portable") {
-		results.portable.push(file);
-	} else if (status === "adapted") {
-		results.adapted.push(file);
+	if (body(join(plugin, row.path)) === body(upstreamFile)) {
+		results.unchanged.push(row.path);
+	} else if (row.status === "portable") {
+		results.portable.push(row.path);
+	} else if (row.status === "adapted") {
+		results.adapted.push(row.path);
 	} else {
-		// Check for conflicts (both sides changed differently)
-		results.conflicts.push(file);
+		results.conflicts.push(row.path);
 	}
 }
 
-// Scan all ported files
-console.log("Scanning ported files...\n");
-
-for (const dir of [skillsDir, commandsDir, agentsDir]) {
-	if (!existsSync(dir)) continue;
-	const entries = readdirSync(dir, { withFileTypes: true });
-	for (const entry of entries) {
-		if (entry.isDirectory()) {
-			const sk = join(dir, entry.name, "SKILL.md");
-			if (existsSync(sk)) {
-				classify(entry.name + "/SKILL.md", readFileSync(sk, "utf-8"));
-			}
-		} else if (entry.isFile() && entry.name.endsWith(".md")) {
-			classify(entry.name, readFileSync(join(dir, entry.name), "utf-8"));
+if (existsSync(upstreamSkills)) {
+	for (const entry of readdirSync(upstreamSkills, { withFileTypes: true })) {
+		if (!entry.isDirectory()) continue;
+		if (existsSync(join(upstreamSkills, entry.name, "SKILL.md")) && !existsSync(join(plugin, "skills", entry.name, "SKILL.md"))) {
+			results.newInUpstream.push(`skills/${entry.name}/SKILL.md`);
 		}
 	}
 }
 
-// Scan upstream for new files not yet ported
-if (existsSync(upstreamDir)) {
-	const upstreamSkills = join(upstreamDir, "skills");
-	if (existsSync(upstreamSkills)) {
-		const entries = readdirSync(upstreamSkills, { withFileTypes: true });
-		for (const entry of entries) {
-			if (entry.isDirectory()) {
-				const sk = join(upstreamSkills, entry.name, "SKILL.md");
-				if (existsSync(sk)) {
-					const localPath = join(skillsDir, entry.name, "SKILL.md");
-					if (!existsSync(localPath)) {
-						results.newInUpstream.push(`skills/${entry.name}/SKILL.md`);
-					}
-				}
-			}
-		}
-	}
-}
-
-// Print report
 console.log("UPSTREAM STATUS");
 console.log();
 console.log(`unchanged:            ${results.unchanged.length} files`);
@@ -127,15 +82,14 @@ console.log(`conflicts:            ${results.conflicts.length} files`);
 console.log(`orphaned:             ${results.orphaned.length} files`);
 
 if (results.portable.length > 0) {
-	console.log("\nPortable changes (agent can review):");
+	console.log("\nPortable files whose body no longer matches upstream (agent can review):");
 	for (const f of results.portable) console.log(`  - ${f}`);
 }
 
 if (results.adapted.length > 0) {
-	console.log("\nAdapted files (human review required):");
+	console.log("\nAdapted files (diverge from upstream by design; only actionable after a fetch-upstream moves the pin):");
 	for (const f of results.adapted) console.log(`  - ${f}`);
 }
-
 if (results.newInUpstream.length > 0) {
 	console.log("\nNew in upstream (matrix decision needed):");
 	for (const f of results.newInUpstream) console.log(`  - ${f}`);
@@ -152,12 +106,12 @@ if (results.conflicts.length > 0) {
 }
 
 if (results.orphaned.length > 0) {
-	console.log("\nOrphaned (missing frontmatter):");
+	console.log("\nOrphaned (missing a catalog row):");
 	for (const f of results.orphaned) console.log(`  - ${f}`);
 }
 
 console.log();
-if (results.portable.length === 0 && results.adapted.length === 0 && results.conflicts.length === 0 && results.orphaned.length === 0) {
+if (results.portable.length === 0 && results.adapted.length === 0 && results.removed.length === 0 && results.conflicts.length === 0 && results.orphaned.length === 0) {
 	console.log("No changes detected. Port is in sync with upstream.");
 } else {
 	console.log("Next: review changes above, then run bun scripts/generate-report.ts");

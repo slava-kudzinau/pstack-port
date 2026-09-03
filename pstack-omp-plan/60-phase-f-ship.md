@@ -16,12 +16,21 @@ prose.
 | # | Prompt | Expected |
 |---|---|---|
 | 1 | `there is a race in foo, reproduce and fix it` | poteto-mode → bug-fix: reproduce → root cause → fix → verify |
-| 2 | `add caching around X` | poteto-mode → architect: inspect callers/types → alternatives → implement → verify |
+| 2 | `prices come from a remote and can change; add a shared cache the cart and order paths use` | poteto-mode → architect: ground callers + cache ownership → ≥2 whole-shape designs → implement → verify (no stale price after mutation, no concurrent-fetch stampede) |
 | 3 | `review these 12 packages` | swarm → N workers → independent results → aggregation |
 | 4 | `interrogate this PR` | multi-perspective review → findings → one report |
 | 5 | `what does this function return?` | direct answer, no playbook, no subagent |
 
 Test 5 is as important as the others.
+
+- Test 2 grades two separate things and must not conflate them. The neutral
+  prompt above tests *autonomous* routing: on the local model it routes to
+  `feature`, not `architect` (see `findings/conformance-live.md` row 2). A
+  hint-activated variant appends the architect trigger phrase to the same
+  situation to test the `architect` playbook's *mechanics* on OMP: ground via
+  `how`/scout, `arena` with ≥2 whole-shape sketches, synthesize, implement,
+  verify. A hinted run grades mechanics only and never reticks the
+  autonomous-routing result.
 
 ### Run on two models
 

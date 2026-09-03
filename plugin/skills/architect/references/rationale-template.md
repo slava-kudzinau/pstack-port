@@ -1,10 +1,3 @@
----
-upstream: pstack/skills/architect/references/rationale-template.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
----
-
 # Rationale template
 
 The prose that ships alongside the type sketch. One page. Sentence-case headings, no boilerplate. Replace the italic notes with actual content.

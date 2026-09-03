@@ -2,11 +2,6 @@
 name: interrogate
 description: 'Use for "interrogate", "adversarial review", "multi-model review", "challenge this", "stress test this code", "find blind spots", or "tear this apart". Multiple LLM reviewers challenge changes from independent angles.'
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/interrogate/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Interrogate

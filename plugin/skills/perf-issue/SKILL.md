@@ -2,11 +2,6 @@
 name: perf-issue
 description: Trace a measured slowness and improve it against a baseline. Routed from poteto-mode's Perf issue trigger, or invoked directly for a measured slowdown to fix against a captured trace.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/poteto-mode/playbooks/perf-issue.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Perf issue

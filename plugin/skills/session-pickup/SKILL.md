@@ -2,11 +2,6 @@
 name: session-pickup
 description: Resume or take over a prior agent's in-flight work by reading its trail instead of redoing it. Routed from poteto-mode's Session pickup trigger, or invoked directly for "take over this", "resume this conversation", "continue from <transcript path>", "you're taking over", "pick up where X left off", or a pushed branch you're meant to continue.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/poteto-mode/playbooks/session-pickup.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Session pickup

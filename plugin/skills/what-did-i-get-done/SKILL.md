@@ -2,12 +2,6 @@
 name: what-did-i-get-done
 description: Summarize authored commits over a user-specified time period into a concise update
 disable-model-invocation: true
-metadata:
-  menu-description: 'summarize authored commits over a user-chosen period'
-  upstream: 'cursor-team-kit/skills/what-did-i-get-done/SKILL.md'
-  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 

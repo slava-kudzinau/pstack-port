@@ -3,9 +3,9 @@
 //
 // The six closed-schema skill fields stay at column 0 (see
 // refs/omp-src/packages/coding-agent/src/discovery/agent-plugin-format.ts:124-161).
-// Any other top-level key moves under `metadata:`, the one key OMP keeps as free
-// string metadata (refs/omp-src/docs/skills.md:52-60). Values are single-quoted so
-// a value containing ": " still parses as a scalar rather than a mapping.
+// Any other top-level key is a hard error: provenance fields moved to the
+// `## Catalog` table in PROVENANCE.md (scripts/provenance.ts), and OMP reads
+// nothing else, so a stray key is junk to delete, not junk to demote.
 //
 // `disable-model-invocation` and `hide` are exempt. They stay at column 0 as bare
 // booleans, because OMP tests them with a strict top-level comparison (see
@@ -30,15 +30,8 @@ const KEPT: Record<string, true> = {
 	description: true,
 	license: true,
 	compatibility: true,
-	metadata: true,
 	"allowed-tools": true,
 };
-
-function quote(value: string): string {
-	const v = value.trim();
-	if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) return v;
-	return `'${v.replace(/'/g, "\\'")}'`;
-}
 
 function rewrite(path: string, mustHide: boolean): string | null {
 	const lines = readFileSync(path, "utf-8").split("\n");
@@ -47,16 +40,14 @@ function rewrite(path: string, mustHide: boolean): string | null {
 	if (end === -1) return "unterminated frontmatter";
 	const head: string[] = [];
 	const hide: string[] = [];
-	const keptMetadata: string[] = [];
-	const demoted: string[] = [];
 	let inMetadata = false;
 	for (const line of lines.slice(1, end)) {
 		if (line.trim() === "") continue;
 		const nested = /^ {2}([A-Za-z][A-Za-z0-9_-]*):(.*)$/.exec(line);
 		if (nested !== null && inMetadata) {
-			if (HIDE_KEYS[nested[1]] === true)
-				hide.push(`${nested[1]}: ${nested[2].trim().toLowerCase() === "false" ? "false" : "true"}`);
-			else keptMetadata.push(`  ${nested[1]}: ${quote(nested[2])}`);
+			if (HIDE_KEYS[nested[1]] !== true)
+				return `key "${nested[1]}" under metadata; provenance lives in the PROVENANCE.md catalog`;
+			hide.push(`${nested[1]}: ${nested[2].trim().toLowerCase() === "false" ? "false" : "true"}`);
 			continue;
 		}
 		const pair = /^([^ ][^:]*):(.*)$/.exec(line);
@@ -72,14 +63,10 @@ function rewrite(path: string, mustHide: boolean): string | null {
 		inMetadata = false;
 		if (HIDE_KEYS[key] === true) hide.push(`${key}: ${value.toLowerCase() === "false" ? "false" : "true"}`);
 		else if (KEPT[key] === true) head.push(line);
-		else demoted.push(`  ${key}: ${quote(value)}`);
+		else return `unknown key "${key}"; provenance lives in the PROVENANCE.md catalog`;
 	}
 	if (mustHide && hide.length === 0) hide.push("disable-model-invocation: true");
-
-	const block = [...keptMetadata, ...demoted];
-	const frontmatter = [...head, ...hide];
-	if (block.length > 0) frontmatter.push("metadata:", ...block);
-	writeFileSync(path, ["---", ...frontmatter, "---", ...lines.slice(end + 1)].join("\n"));
+	writeFileSync(path, ["---", ...head, ...hide, "---", ...lines.slice(end + 1)].join("\n"));
 	return null;
 }
 

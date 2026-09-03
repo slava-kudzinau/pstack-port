@@ -2,11 +2,6 @@
 name: principle-minimize-reader-load
 description: Apply when reviewing or shaping code that's hard to trace. Count layers between question and answer, and hidden state in the reader's head; collapse one-caller wrappers and shrink mutable scope.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/principle-minimize-reader-load/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Minimize Reader Load

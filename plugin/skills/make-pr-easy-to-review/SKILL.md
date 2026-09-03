@@ -2,12 +2,6 @@
 name: make-pr-easy-to-review
 description: Prepare PRs for review by cleaning noisy history, improving PR descriptions, and adding reviewer guidance without changing code behavior. Use for "make this easy to review", "tidy this PR", "clean up commits", or "annotate the diff".
 disable-model-invocation: true
-metadata:
-  menu-description: 'clean noisy history and improve PR description before review'
-  upstream: 'cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md'
-  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 

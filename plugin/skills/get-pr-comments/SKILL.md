@@ -2,12 +2,6 @@
 name: get-pr-comments
 description: Fetch and summarize review comments from the active pull request
 disable-model-invocation: true
-metadata:
-  menu-description: 'fetch and summarize review comments from the active PR'
-  upstream: 'cursor-team-kit/skills/get-pr-comments/SKILL.md'
-  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 

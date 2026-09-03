@@ -1,13 +1,156 @@
 # Provenance changelog
 
 Migration and sync notes for every ported artifact, one `## <path>` section
-each. Lives outside the shipped trees so OMP never pays these tokens at
-runtime; the four provenance fields (`upstream`, `upstream_sha`,
-`upstream_version`, `status`) stay in each file's frontmatter because
-`scripts/classify-diff.ts` depends on them.
+each, plus the `## Catalog` state table below. All of it lives outside the
+shipped trees so OMP never pays these tokens at runtime: the provenance
+fields (`upstream`, `upstream_sha`, `upstream_version`, `status`) are gone
+from shipped frontmatter, where every `skill://` read served them to the
+model and OMP consumed none of them. The table is the machine state
+(`bun scripts/provenance.ts --check` audits it, `--migrate` appends rows,
+`scripts/classify-diff.ts` and `scripts/generate-report.ts` read it).
 
 Append a section per artifact on each upstream sync. Never rewrite an old
-section; add a newer one below it.
+section; add a newer one below it. Flip an artifact's `Status` by editing
+its table row, never by restating a claim in a section.
+
+## Catalog
+
+One row per shipped artifact (`skills/**`, `commands/*.md`, `agents/*.md`,
+`hooks/*.md`), package-root-relative, sorted. `Upstream` is repo-root
+resolvable or `none`. `Sync` is the 8-char pin the row was authored
+against; full shas live in UPSTREAM.md. `Status` is one of
+portable / adapted / omp-native / new. This table is machine state:
+existing rows are never overwritten by the migrate mode, and
+`bun scripts/provenance.ts --check` audits it. Sections below are
+append-only history. Provenance never returns to shipped frontmatter.
+
+| Path | Upstream | Sync | Status |
+|---|---|---|---|
+| agents/comment-sicko.md | upstream/pstack/agents/comment-sicko.md | efa2a531 | adapted |
+| agents/poteto-agent.md | upstream/pstack/agents/poteto-agent.md | efa2a531 | adapted |
+| commands/pstack:architect.md | none | efa2a531 | new |
+| commands/pstack:arena.md | none | efa2a531 | new |
+| commands/pstack:automate-me.md | none | efa2a531 | new |
+| commands/pstack:blast-radius.md | none | efa2a531 | new |
+| commands/pstack:bro.md | none | efa2a531 | new |
+| commands/pstack:create-verification-skill.md | none | efa2a531 | new |
+| commands/pstack:de-slop.md | none | e46364b8 | new |
+| commands/pstack:figure-it-out.md | none | efa2a531 | new |
+| commands/pstack:fix-ci.md | none | e46364b8 | new |
+| commands/pstack:fix-merge-conflicts.md | none | e46364b8 | new |
+| commands/pstack:get-pr-comments.md | none | e46364b8 | new |
+| commands/pstack:how.md | none | efa2a531 | new |
+| commands/pstack:interrogate.md | none | efa2a531 | new |
+| commands/pstack:maintain-verification-skill.md | none | efa2a531 | new |
+| commands/pstack:make-pr-easy-to-review.md | none | e46364b8 | new |
+| commands/pstack:no-comments.md | none | efa2a531 | new |
+| commands/pstack:poteto-mode.md | none | efa2a531 | new |
+| commands/pstack:recall.md | none | efa2a531 | new |
+| commands/pstack:reflect.md | none | efa2a531 | new |
+| commands/pstack:setup-pstack.md | none | efa2a531 | new |
+| commands/pstack:show-me-your-work.md | none | efa2a531 | new |
+| commands/pstack:swarm.md | none | efa2a531 | new |
+| commands/pstack:tdd.md | none | efa2a531 | new |
+| commands/pstack:teach.md | none | efa2a531 | new |
+| commands/pstack:technical-writing.md | none | efa2a531 | new |
+| commands/pstack:thermo-nuclear-code-quality-review.md | none | e46364b8 | new |
+| commands/pstack:typescript-best-practices.md | none | efa2a531 | new |
+| commands/pstack:unslop.md | none | efa2a531 | new |
+| commands/pstack:what-did-i-get-done.md | none | e46364b8 | new |
+| commands/pstack:why.md | none | efa2a531 | new |
+| hooks/session-start-context.md | refs/ref-port/plugins/pstack/hooks/session-start-context.md | c2ade4bb | adapted |
+| skills/architect/SKILL.md | upstream/pstack/skills/architect/SKILL.md | efa2a531 | adapted |
+| skills/architect/references/design-red-flags.md | upstream/pstack/skills/architect/references/design-red-flags.md | efa2a531 | portable |
+| skills/architect/references/rationale-template.md | upstream/pstack/skills/architect/references/rationale-template.md | efa2a531 | adapted |
+| skills/architect/references/runner-prompt.md | upstream/pstack/skills/architect/references/runner-prompt.md | efa2a531 | adapted |
+| skills/arena/SKILL.md | upstream/pstack/skills/arena/SKILL.md | efa2a531 | adapted |
+| skills/authoring-a-skill/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/authoring-a-skill.md | efa2a531 | adapted |
+| skills/automate-me/SKILL.md | upstream/pstack/skills/automate-me/SKILL.md | efa2a531 | adapted |
+| skills/autonomous-run/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md | efa2a531 | adapted |
+| skills/autopilot-full/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-full.md | efa2a531 | adapted |
+| skills/autopilot-stack/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-stack.md | efa2a531 | adapted |
+| skills/babysit/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/babysit.md | efa2a531 | adapted |
+| skills/blast-radius/SKILL.md | upstream/pstack/skills/blast-radius/SKILL.md | efa2a531 | adapted |
+| skills/bro/SKILL.md | upstream/pstack/skills/bro/SKILL.md | efa2a531 | portable |
+| skills/bug-fix/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md | efa2a531 | adapted |
+| skills/create-verification-skill/SKILL.md | upstream/pstack/skills/create-verification-skill/SKILL.md | efa2a531 | adapted |
+| skills/create-verification-skill/references/feature-map-example/README.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/README.md | efa2a531 | portable |
+| skills/create-verification-skill/references/feature-map-example/create-note.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md | efa2a531 | portable |
+| skills/create-verification-skill/references/feature-map-example/search.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/search.md | efa2a531 | portable |
+| skills/de-slop/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/deslop/SKILL.md | e46364b8 | portable |
+| skills/eval/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/eval.md | efa2a531 | adapted |
+| skills/feature/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/feature.md | efa2a531 | adapted |
+| skills/figure-it-out/SKILL.md | upstream/pstack/skills/figure-it-out/SKILL.md | efa2a531 | adapted |
+| skills/fix-ci/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/fix-ci/SKILL.md | e46364b8 | portable |
+| skills/fix-merge-conflicts/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/fix-merge-conflicts/SKILL.md | e46364b8 | portable |
+| skills/get-pr-comments/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/get-pr-comments/SKILL.md | e46364b8 | portable |
+| skills/hillclimb/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/hillclimb.md | efa2a531 | adapted |
+| skills/how/SKILL.md | upstream/pstack/skills/how/SKILL.md | efa2a531 | adapted |
+| skills/how/references/critic-prompt.md | upstream/pstack/skills/how/references/critic-prompt.md | efa2a531 | portable |
+| skills/how/references/critique-rubric.md | upstream/pstack/skills/how/references/critique-rubric.md | efa2a531 | portable |
+| skills/how/references/explainer-prompt.md | upstream/pstack/skills/how/references/explainer-prompt.md | efa2a531 | portable |
+| skills/how/references/explorer-prompt.md | upstream/pstack/skills/how/references/explorer-prompt.md | efa2a531 | portable |
+| skills/interrogate/SKILL.md | upstream/pstack/skills/interrogate/SKILL.md | efa2a531 | adapted |
+| skills/interrogate/references/code-quality-review.md | upstream/pstack/skills/interrogate/references/code-quality-review.md | efa2a531 | portable |
+| skills/interrogate/references/lead-judgment.md | upstream/pstack/skills/interrogate/references/lead-judgment.md | efa2a531 | portable |
+| skills/interrogate/references/reviewer-prompt.md | upstream/pstack/skills/interrogate/references/reviewer-prompt.md | efa2a531 | portable |
+| skills/interrogate/references/rubric.md | upstream/pstack/skills/interrogate/references/rubric.md | efa2a531 | portable |
+| skills/investigation/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/investigation.md | efa2a531 | adapted |
+| skills/maintain-verification-skill/SKILL.md | upstream/pstack/skills/maintain-verification-skill/SKILL.md | efa2a531 | adapted |
+| skills/make-pr-easy-to-review/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md | e46364b8 | portable |
+| skills/multi-phase-plan/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/multi-phase-plan.md | efa2a531 | adapted |
+| skills/no-comments/SKILL.md | upstream/pstack/skills/no-comments/SKILL.md | efa2a531 | adapted |
+| skills/opening-a-pr/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/opening-a-pr.md | efa2a531 | adapted |
+| skills/orchestrate/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/orchestrate.md | efa2a531 | adapted |
+| skills/pause-safely/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/pause-safely.md | efa2a531 | adapted |
+| skills/perf-issue/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/perf-issue.md | efa2a531 | adapted |
+| skills/poteto-mode/SKILL.md | upstream/pstack/skills/poteto-mode/SKILL.md | efa2a531 | adapted |
+| skills/principle-boundary-discipline/SKILL.md | upstream/pstack/skills/principle-boundary-discipline/SKILL.md | efa2a531 | portable |
+| skills/principle-build-the-lever/SKILL.md | upstream/pstack/skills/principle-build-the-lever/SKILL.md | efa2a531 | adapted |
+| skills/principle-encode-lessons-in-structure/SKILL.md | upstream/pstack/skills/principle-encode-lessons-in-structure/SKILL.md | efa2a531 | portable |
+| skills/principle-exhaust-the-design-space/SKILL.md | upstream/pstack/skills/principle-exhaust-the-design-space/SKILL.md | efa2a531 | portable |
+| skills/principle-experience-first/SKILL.md | upstream/pstack/skills/principle-experience-first/SKILL.md | efa2a531 | portable |
+| skills/principle-fix-root-causes/SKILL.md | upstream/pstack/skills/principle-fix-root-causes/SKILL.md | efa2a531 | portable |
+| skills/principle-foundational-thinking/SKILL.md | upstream/pstack/skills/principle-foundational-thinking/SKILL.md | efa2a531 | portable |
+| skills/principle-guard-the-context-window/SKILL.md | upstream/pstack/skills/principle-guard-the-context-window/SKILL.md | efa2a531 | portable |
+| skills/principle-laziness-protocol/SKILL.md | upstream/pstack/skills/principle-laziness-protocol/SKILL.md | efa2a531 | portable |
+| skills/principle-make-operations-idempotent/SKILL.md | upstream/pstack/skills/principle-make-operations-idempotent/SKILL.md | efa2a531 | portable |
+| skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | upstream/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | efa2a531 | portable |
+| skills/principle-minimize-reader-load/SKILL.md | upstream/pstack/skills/principle-minimize-reader-load/SKILL.md | efa2a531 | adapted |
+| skills/principle-model-the-domain/SKILL.md | upstream/pstack/skills/principle-model-the-domain/SKILL.md | efa2a531 | portable |
+| skills/principle-never-block-on-the-human/SKILL.md | upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md | efa2a531 | portable |
+| skills/principle-outcome-oriented-execution/SKILL.md | upstream/pstack/skills/principle-outcome-oriented-execution/SKILL.md | efa2a531 | portable |
+| skills/principle-prove-it-works/SKILL.md | upstream/pstack/skills/principle-prove-it-works/SKILL.md | efa2a531 | adapted |
+| skills/principle-redesign-from-first-principles/SKILL.md | upstream/pstack/skills/principle-redesign-from-first-principles/SKILL.md | efa2a531 | portable |
+| skills/principle-separate-before-serializing-shared-state/SKILL.md | upstream/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md | efa2a531 | portable |
+| skills/principle-sequence-verifiable-units/SKILL.md | upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md | efa2a531 | adapted |
+| skills/principle-subtract-before-you-add/SKILL.md | upstream/pstack/skills/principle-subtract-before-you-add/SKILL.md | efa2a531 | portable |
+| skills/principle-type-system-discipline/SKILL.md | upstream/pstack/skills/principle-type-system-discipline/SKILL.md | efa2a531 | adapted |
+| skills/prototype/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/prototype.md | efa2a531 | adapted |
+| skills/recall/SKILL.md | upstream/pstack/skills/recall/SKILL.md | efa2a531 | adapted |
+| skills/refactoring/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/refactoring.md | efa2a531 | adapted |
+| skills/reflect/SKILL.md | upstream/pstack/skills/reflect/SKILL.md | efa2a531 | adapted |
+| skills/reflect/references/divergent-reviewer.md | upstream/pstack/skills/reflect/references/divergent-reviewer.md | efa2a531 | adapted |
+| skills/reflect/references/judgment-reviewer.md | upstream/pstack/skills/reflect/references/judgment-reviewer.md | efa2a531 | adapted |
+| skills/reflect/references/synthesizer.md | upstream/pstack/skills/reflect/references/synthesizer.md | efa2a531 | adapted |
+| skills/reflect/references/tooling-reviewer.md | upstream/pstack/skills/reflect/references/tooling-reviewer.md | efa2a531 | adapted |
+| skills/runtime-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/runtime-forensics.md | efa2a531 | adapted |
+| skills/session-pickup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/session-pickup.md | efa2a531 | adapted |
+| skills/setup-pstack/SKILL.md | upstream/pstack/skills/setup-pstack/SKILL.md | efa2a531 | adapted |
+| skills/shipping/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/shipping.md | efa2a531 | adapted |
+| skills/show-me-your-work/SKILL.md | upstream/pstack/skills/show-me-your-work/SKILL.md | efa2a531 | adapted |
+| skills/swarm/SKILL.md | upstream/pstack/skills/swarm/SKILL.md | efa2a531 | adapted |
+| skills/tdd/SKILL.md | upstream/pstack/skills/tdd/SKILL.md | efa2a531 | portable |
+| skills/teach/SKILL.md | upstream/pstack/skills/teach/SKILL.md | efa2a531 | adapted |
+| skills/technical-writing/SKILL.md | upstream/pstack/skills/technical-writing/SKILL.md | efa2a531 | adapted |
+| skills/thermo-nuclear-code-quality-review/SKILL.md | refs/ref-port/plugins/pstack/skills/thermo-nuclear-code-quality-review/SKILL.md | c2ade4bb | portable |
+| skills/trace-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/trace-forensics.md | efa2a531 | adapted |
+| skills/typescript-best-practices/SKILL.md | upstream/pstack/skills/typescript-best-practices/SKILL.md | efa2a531 | adapted |
+| skills/unslop/SKILL.md | upstream/pstack/skills/unslop/SKILL.md | efa2a531 | portable |
+| skills/visual-parity/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/visual-parity.md | efa2a531 | adapted |
+| skills/what-did-i-get-done/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/what-did-i-get-done/SKILL.md | e46364b8 | portable |
+| skills/why/SKILL.md | upstream/pstack/skills/why/SKILL.md | efa2a531 | adapted |
+| skills/worktree-cleanup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/worktree-cleanup.md | efa2a531 | adapted |
 
 ## agents/comment-sicko.md
 
@@ -620,3 +763,117 @@ Cursor's `Task` tool, its per-call subagent-role field, and readonly/Ask-mode di
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 worktree-cleanup.md:10 the `~/Library/Application Support/Cursor` state-deletion target rewritten to OMP's `~/.omp/agent`, keeping the state.vscdb.backup/snapshots reasoning as prose about the equivalent bloat pattern; worktree-cleanup.md:5-7 parenthetical bare-name principle mentions (principle-build-the-lever, principle-encode-lessons-in-structure, principle-prove-it-works, principle-guard-the-context-window) rewritten as skill:// pointers, since disable-model-invocation hides bare mentions from OMP's auto-discovered listing. local fix: step 1's `scripts/worktree-audit.sh` is now ported into this skill directory from upstream `pstack/skills/poteto-mode/scripts/worktree-audit.sh`, so the step 1 path resolves. The port retargets its transcript scan to OMP's prompt-history database at `~/.omp/agent/history.db`. That recency signal reads prompt rows and prompt text, weaker than Cursor's full transcript scan, so the step 2 and 3 gates carry the in-use verdict.
+
+## skills/architect/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 renames only the first architect-runner default slug (fable-5 to fable-5-1); the port's line 33 reads 'your configured architect runner roles', so the rename has no port counterpart. Row pin flipped, file unchanged.
+
+## skills/arena/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 renames the same slug in the Phase A runner list and Phase C cross-judge pool; both already read 'your configured model roles' phrasing. No port-side change.
+
+## skills/autopilot-full/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+sync efa2a531: step 2 retitled 'and an early trail', opens with the canonical forge resolution ('gh' default, `origin pr` when `command -v origin` resolves the repo, never require `gt`), swaps gt registration for 'the first push, a ready PR', and carries upstream's new early-trail sentences; step 3 drops the gt-registration clause and makes the private stack a base-branch stack; step 4 gains upstream's new 'Regression lane against trunk.' (same load-bearing scenario at trunk and head; when trunk lacks the feature, gate the diff-added behavior plus the end state the user waits for); step 5 merges through the resolved forge. Upstream's cloud-agent, deslop, /goal and /loop artifacts stay out of the port's task/`isolated: true`/`hub` phrasing.
+
+## skills/autopilot-stack/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Whole playbook goes forge-neutral: header and description say base-branch stack; step 1 gains the canonical forge resolution plus the early-trail pair; step 6 becomes the base-branch chain (root is the only topology writer, append rebases the child onto the parent's exact tip, push with `--force-with-lease` only after an `ls-remote` check, never register through gt); step 7 gains the stable `git patch-id` rule deciding which verdicts survive a rewritten chain; step 8 delivers bottom-up in the resolved forge. Upstream deleted its 'division of labor the cloud environment forces' clause, so the port's adaptation of it went too.
+
+## skills/babysit/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Forge resolution folds into step 1's header ('declare the mode and resolve the forge'); step 4's gt-shaped bans generalize to base retarget/rebase/stack-wide submit; step 6 splits stop conditions per forge, Origin's `pr view`/`pr thread list`/`pr checks --watch` path beside the port's direct `gh pr view --json` polling and `hub` background job; `gt merge` in the authorization paragraph becomes `origin pr merge`; step 8 gains `origin pr thread reply --body-file` beside the fixed `gh api` path; step 9 and the Reply line go forge-neutral. The watcher-script sentences upstream reworded stay uncarried, the port having replaced that script with plain polling at the original port.
+
+## skills/bug-fix/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 moves the step-3 solo-delegate default from sol to fable-5-1; the port's step 3 carries no inline default (bare 'Delegate implementation to a subagent via the task tool'), so the default's only port value carrier is the setup-pstack template, updated there. File unchanged.
+
+## skills/hillclimb/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 moves the step-5 solo-delegate default sol to fable-5-1; the port names the config label ('your configured hillclimb model role'), whose value is carried by the setup-pstack template. File unchanged.
+
+## skills/how/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 adds the hide flag (the port shipped it before upstream) and renames the explainer/critics defaults to fable-5-1; all model lines already read configured-role phrasing. No port-side change.
+
+## skills/interrogate/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 renames Reviewer A's default slug; the port replaced the fixed-model table with configured-reviewer-list phrasing at the original port, so the rename has no counterpart. File unchanged.
+
+## skills/multi-phase-plan/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Verification paragraph and template Lane 1 gain the Regression lane against trunk; the perf gate becomes dual-sided (Metric names trunk+head comparability, Probe must produce the metric on both sides, Rule carries absolute budgets when the scenarios differ); the PR-mechanics checklist gains a 'Resolve the forge once.' item and a ready-PR creation line (`origin pr create --status open --base` / `gh pr create --base`, stack child targets its parent branch); the merge placeholder becomes the base-branch stack landed bottom-up. Checklist skeleton, check-plan.mjs reference, configured-role and verification-tool adaptations preserved.
+
+## skills/opening-a-pr/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Upstream's new Forge / Size and stacks / Readiness trio replaces the Graphite paragraphs: stacks become base-branch chains (root targets trunk, children rebase onto the parent's exact tip and target the parent branch), readiness is `--status open` on Origin or omitting `--draft` on gh with per-forge `pr ready`/`pr view`. The port keeps 'Some automated PR-creation flows default to draft' where upstream says cloud-agent PR tools.
+
+## skills/perf-issue/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 moves the step-3 solo-delegate default sol to fable-5-1; the port names the config label ('your configured perf-issue model role'), value carried by the setup-pstack template. File unchanged.
+
+## skills/poteto-mode/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Three deltas applied: the hardest-tier sentence now routes both the judgment-needing and the precisely-specified hardest work to the configured judgment role (upstream collapsed both roles onto fable-5-1, so the port's judgment-vs-precise split there is gone and its 'the same fast role' antecedent rewritten); the Shipping routing line lands the contiguous verified run bottom-up through gh by default or Origin when its CLI is available; the Autopilot-stack line becomes one linear reviewed base-branch stack.
+
+## skills/reflect/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 renames the judgment/divergent/synthesizer defaults to fable-5-1, which land on the port's existing 'your configured reflect-judgment role' phrasing; the Tooling line is untouched upstream. No port-side change.
+
+## skills/setup-pstack/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+The template's bug-fix/perf-issue/hillclimb lines move from `@<precise-role>` to `@<judgment-role>`, upstream's only substantive config change (ten further renamed lines already emit judgment-role placeholders). Existing comment adaptations (`@default` semantics, no ~/.cursor path, no real selectors) kept verbatim.
+
+## skills/shipping/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Upstream removed Graphite entirely. Step 1 resolves the forge before the first PR operation, keeping the port's task-batch verification mechanics (one `isolated: true` item per PR, bash/browser/debug surfaces, verdicts posted via `gh pr comment`); step 3 becomes the recorded rule (verdict head SHA + base SHA + stable `git patch-id`, re-verify on patch change, re-run mergeability and CI when unchanged); steps 4-5 prepare only the bottom PR then land one PR at a time with `origin/gh pr merge --squash [--auto]`, arming only that PR; step 6 says `autoMergeRequest` proves nothing about the stack; step 7 recomputes after every merge; step 8 watches only the current frontier, keeping the port's direct `gh pr view --json` polling plus `hub` job and adding upstream's merge-proof semantics (nothing counts until `mergedAt` is non-null or `state` is `MERGED`; hard-fail only on `CLOSED` without `mergedAt`, a blocking `FAILURE`/`CANCELLED` after auto-merge is no longer pending, or `UNSTABLE`/`DIRTY` with no auto-merge pending). The description line follows the new meaning; the watcher script and /loop stay uncarried.
+
+## skills/typescript-best-practices/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+New 'Schemas before guards' table row inserted at upstream's position (before 'No `as` casts'); the Branded-types row rewords to 'Validate once at the boundary'. Upstream's new `paths: ["**/*.ts", "**/*.tsx"]` frontmatter key is deliberately not carried: OMP's loader never reads a paths frontmatter key (zero references in refs/omp-src packages/coding-agent/src/extensibility/skills.ts, packages/utils/src/frontmatter.ts, and src/discovery/), and scripts/fix-frontmatter.ts hard-errors any unknown top-level key. references/patterns.md was never vendored, so upstream's growth there and its trailing pointer line stay out rather than dangling.
+
+## skills/unslop/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+Upstream 0.14.6 added disable-model-invocation at column 0, which this port already shipped; the port copy is now byte-identical to upstream again. Row stays portable at the new pin.
+
+## skills/why/SKILL.md
+
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+
+0.14.6 adds the hide flag (already shipped here) and renames the synthesizer default, which lands on the port's 'the caller's configured model role' phrasing. The file's two lowercase English-word 'cursor' hits ('cursor location', 'precursor') are upstream's own prose, not runtime artifacts. No port-side change.

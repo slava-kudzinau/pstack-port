@@ -11,7 +11,9 @@
 // capability/slash-command.ts:36-46. `disable-model-invocation` and `hide` are the
 // two keys OMP reads at the top level with a strict boolean comparison
 // (extensibility/skills.ts:113), so this audit requires them there and rejects a
-// copy buried under `metadata:`. Repairs live in scripts/fix-frontmatter.ts.
+// copy buried under `metadata:`. Provenance fields themselves left shipped
+// frontmatter entirely: the `## Catalog` table in PROVENANCE.md is the state,
+// owned by scripts/provenance.ts. Repairs live in scripts/fix-frontmatter.ts.
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
@@ -126,6 +128,10 @@ function auditFile(rel: string, dirName: string, kind: "skill" | "command", must
 	const content = readFileSync(join(plugin, rel), "utf-8");
 	const block = parseFrontmatterBlock(content);
 	if (typeof block === "string") return `${rel}: ${block}`;
+	const meta = block.fm.metadata;
+	if (typeof meta === "object" && meta !== null && Object.keys(meta).length > 0) {
+		return `${rel}: non-empty "metadata"; provenance lives in the PROVENANCE.md catalog table`;
+	}
 	if (kind === "command") {
 		// OMP derives command names from filenames; only display fields are parsed.
 		const d = block.fm.description;

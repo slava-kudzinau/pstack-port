@@ -14,7 +14,7 @@
 
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadExtensions } from "../../refs/omp-src/packages/coding-agent/src/extensibility/extensions/loader.ts";
+import { loadExtensions } from "../refs/omp-src/packages/coding-agent/src/extensibility/extensions/loader.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");

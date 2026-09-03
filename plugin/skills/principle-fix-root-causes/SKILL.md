@@ -2,11 +2,6 @@
 name: principle-fix-root-causes
 description: Apply when debugging. Trace each symptom to its root cause and fix it there; reproduce first, ask why until you reach it, resist nil-check guards that silence crashes.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/principle-fix-root-causes/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 # Fix Root Causes

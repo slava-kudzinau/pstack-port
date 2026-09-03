@@ -1,10 +1,3 @@
----
-upstream: pstack/skills/architect/references/design-red-flags.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: portable
----
-
 # Design red flags
 
 Screen every candidate before synthesis. A red flag is a reason to revise or reject the shape.

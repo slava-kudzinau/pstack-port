@@ -2,11 +2,6 @@
 name: worktree-cleanup
 description: Reclaim local disk by pruning merged or abandoned git worktrees and stale iOS simulators, safety-gated against deleting anything in use or holding uncommitted work. Routed from poteto-mode's Worktree and simulator cleanup trigger, or invoked directly for "what's using my disk", "clean up worktrees", "prune safe-to-prune worktrees", "free up space", "delete old simulators".
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/poteto-mode/playbooks/worktree-cleanup.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Worktree and simulator cleanup

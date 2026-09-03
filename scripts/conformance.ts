@@ -9,6 +9,9 @@
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseCatalog } from "./provenance.ts";
+
+const catalogPaths = new Set((parseCatalog() ?? []).map((r) => r.path));
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
@@ -58,7 +61,7 @@ for (const name of requiredSkills) {
 			const fm = fmMatch[1];
 			check(`${name} has name field`, () => fm.includes("name:"));
 			check(`${name} has description`, () => fm.includes("description:"));
-			check(`${name} has provenance`, () => fm.includes("upstream:") || fm.includes("upstream_sha:"));
+			check(`${name} has a catalog row`, () => catalogPaths.has(`skills/${name}/SKILL.md`));
 		} else {
 			check(`${name} has valid frontmatter`, () => false);
 		}
@@ -100,9 +103,6 @@ for (const dir of scanDirs) {
 				const content = readFileSync(join(fullPath, entry.name), "utf-8");
 				const lines = content.split("\n");
 				for (const line of lines) {
-					if (line.trim().startsWith("upstream:")) continue;
-					if (line.trim().startsWith("upstream_sha:")) continue;
-					if (line.trim().startsWith("upstream_version:")) continue;
 					for (const word of banned) {
 						if (line.toLowerCase().includes(word)) {
 							check(`${entry.name} clean of "${word}"`, () => false);

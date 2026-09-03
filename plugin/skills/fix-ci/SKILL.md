@@ -2,12 +2,6 @@
 name: fix-ci
 description: Find failing PR checks, inspect logs or external check links, and apply focused fixes
 disable-model-invocation: true
-metadata:
-  menu-description: 'find failing PR checks, inspect logs, apply focused fixes'
-  upstream: 'cursor-team-kit/skills/fix-ci/SKILL.md'
-  upstream_sha: 'e46364b8be46000b7df0f260550cd712afbb8d36'
-  upstream_version: '0.14.5'
-  status: 'portable'
 ---
 
 

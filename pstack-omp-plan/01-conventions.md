@@ -52,34 +52,31 @@ Register only `plugin/` in the config `extensions:` list. OMP discovers the
 capability directories as siblings of the registered directory's `package.json`
 (`refs/omp-src/docs/skills/authoring-extensions.md:99`; `discovery/omp-plugins.ts:46`).
 
-## 4. Provenance frontmatter
+## 4. Provenance catalog
 
-Every ported file (under `plugin/skills/`, `plugin/agents/`, or
-`plugin/commands/`) starts with this block. The template is in
-`templates/frontmatter.md`. The upstream diff
-tool depends on it.
-
-```yaml
----
-upstream: pstack/skills/architect/SKILL.md
-upstream_sha: 4a1c2f9e0b7d1c8e3a5b6d9f0a2c4e6b8d1f3a5c
-upstream_version: 0.14.2
-status: portable | adapted | omp-native | new
----
-```
+Provenance never lives in shipped frontmatter. Every shipped byte reaches
+the model through `skill://` reads, and OMP parses `metadata:` as an opaque
+string map and consumes none of the values (the system prompt listing
+renders name + description only). The state is the `## Catalog` table in
+`PROVENANCE.md` at the repo root: one row per shipped artifact, template in
+`templates/catalog-row.md`. The upstream diff tool reads the table.
 
 - `portable` — copied, wording unchanged. Auto-diff produces a proposed patch
   on sync; agent still reviews.
 - `adapted` — runtime parts rewritten for OMP. Human review on every sync.
 - `omp-native` — uses an OMP feature; no upstream equivalent.
-- `new` — ours, no upstream link.
+- `new` — ours, no upstream link (`Upstream: none` requires it).
 
-Changing a `portable` file's wording means changing its status to `adapted`.
+Changing a `portable` file's wording means flipping its row to `adapted`.
+`bun scripts/provenance.ts --check` audits row/file parity and the invariants;
+`--migrate` appends rows for new artifacts and is idempotent (existing rows
+win). A non-empty `metadata:` block in a shipped file fails
+`scripts/validate-frontmatter.ts`.
 
-`note:` is not a frontmatter field. Migration and sync notes live as
-`## <path>` sections in `PROVENANCE.md` at the repo root. Frontmatter ships
-into every `skill://` read; notes are maintainer-only history. The branding
-check keeps no note exemption: the file lives outside the scanned trees.
+Migration and sync notes live as `## <path>` sections in `PROVENANCE.md`
+below the table: append-only history that never restates a row's claim. The
+branding check keeps no note exemption: the file lives outside the scanned
+trees.
 
 Every `SKILL.md` that a `skill://` pointer targets also carries
 `disable-model-invocation: true` at column 0, above `metadata:`. OMP reads only
@@ -105,8 +102,9 @@ Record in `UPSTREAM.md`:
   if the file has one, otherwise the short sha (human label)
 - `upstream_synced_at` — ISO date
 
-Same two fields appear in every ported file's frontmatter
-(`templates/frontmatter.md`).
+Per-artifact sync pins live in the catalog's `Sync` column
+(`templates/catalog-row.md`); the full shas are `upstream_sha`,
+`cursor_plugins_sha`, and `ref_port_sha` in `UPSTREAM.md`.
 
 Version story: `pstack-omp 0.1.x pinned at cursor/plugins@<short-sha>`.
 

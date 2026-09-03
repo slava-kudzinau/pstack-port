@@ -2,11 +2,6 @@
 name: multi-phase-plan
 description: Work that spans phases or stacked PRs. Routed from poteto-mode's Multi-phase or multi-PR plan trigger, or invoked directly when the change is bigger than one or two files with an obvious approach.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/poteto-mode/playbooks/multi-phase-plan.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Multi-phase or multi-PR plan
@@ -21,7 +16,7 @@ metadata:
 6. Run `check-plan.mjs <plan.md>` and fix every line it prints (skill://principle-encode-lessons-in-structure). It enforces the skeleton's shape, the verification rule in every verification block, and the punctuation rules.
 7. Hand back. Post the plan path and the script's output, then stop. Execution starts on the operator's explicit go, under the execution playbook the plan names.
 
-**Verification.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked (skill://principle-prove-it-works). That sentence is the verification rule. Every verification block opens with it. The live block is mandatory. Ten lanes on your configured model role at the PR head drive the real surface through its verification tool, per skill://swarm. Each lane is one box with a concrete scenario, the screenshot it saves, and its pass predicate. The perf block names the metric, the probe, the trunk baseline measured first, and the rule with the number that fails. A PR that changes an interaction is review-gated. The operator reviews it in chat with screenshots and a video before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` and no boxes under it.
+**Verification.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked (skill://principle-prove-it-works). That sentence is the verification rule. Every verification block opens with it. The live block is mandatory. Ten lanes on your configured model role at the PR head drive the real surface through its verification tool, per skill://swarm. Each lane is one box with a concrete scenario, the screenshot it saves, and its pass predicate. One lane is the **Regression lane against trunk.** It runs the same load-bearing scenario on trunk and head. If trunk does not have the feature, the lane records that fact and gates the behavior the diff adds plus the end state the user waits for instead of inventing a trunk result. The perf gate is dual-sided: trunk and head must both produce the named metric. If trunk lacks the feature, also isolate the work the diff adds and set an absolute budget for that work plus the end-to-end state the user waits for; do not claim a ratio between unlike scenarios. The perf block names the metric, the interleaved probe, the trunk baseline measured first, and the rule with the number that fails. A PR that changes an interaction is review-gated. The operator reviews it in chat with screenshots and a video before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` and no boxes under it.
 
 **Verification surface.** Pick it by surface. Browser, Electron, and web UIs use the `browser` tool. CLIs and TUIs use the `bash` tool, or `debug` for a live process. Native mobile uses whatever simulator-driving skill the repo has. A PR that touches two surfaces gets lanes on both. A surface with no scripted verification path is a risk in Appendix C, and its live block still names how each lane drives it.
 
@@ -64,7 +59,8 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### PR mechanics, for every PR
 
-- [ ] Open the PR ready, never draft, with `gh pr create` and `draft: false`, or with Graphite `gt` for a stack.
+- [ ] Resolve the forge once. GitHub CLI (`gh`) is the default. If `command -v origin` succeeds and Origin can resolve the repository, use `origin pr ...` for the PR operations; otherwise stay on `gh` and record the fallback. Never require Graphite (`gt`).
+- [ ] Open the PR ready, never draft, with `origin pr create --status open --base <base-branch>` or `gh pr create --base <base-branch>` according to the resolved forge. A stack child targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Run skill://no-comments before review.
 - [ ] Triage every automated review comment, dispatching the `reviewer` or `security-reviewer` agent via `task` for a dedicated pass when warranted.
@@ -109,7 +105,7 @@ Each live lane runs at the PR head in its own isolated environment. Drive throug
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on your configured model role at the PR head, per the boot recipe.
 
-- [ ] Lane 1. <Scenario.> Save `<slug>.png`. Pass when <predicate>.
+- [ ] Lane 1. Regression lane against trunk. Run <the same load-bearing scenario> at trunk and head. If trunk lacks the feature, record that and gate <the behavior the diff adds plus the end state the user waits for>. Save `<slug>.png`. Pass when <predicate>.
 - [ ] Lane 2. <Scenario.> Save `<slug>.png`. Pass when <predicate>.
 - [ ] Lane 3. <Scenario.> Save `<slug>.png`. Pass when <predicate>.
 - [ ] Lane 4. <Scenario.> Save `<slug>.png`. Pass when <predicate>.
@@ -122,10 +118,10 @@ Each live lane runs at the PR head in its own isolated environment. Drive throug
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. <What is measured.>
-- [ ] Probe. <The command or procedure, run at trunk and at the head, interleaved.>
+- [ ] Metric. <What is measured at both trunk and head. If trunk lacks the feature, also name the diff-added work and the end-to-end state the user waits for.>
+- [ ] Probe. <The command or procedure, run at trunk and at the head, interleaved. Both sides must produce the metric.>
 - [ ] Baseline. Record the trunk <value> first.
-- [ ] Rule. <Head against trunk, with the number that fails.>
+- [ ] Rule. <Head against trunk, with the number that fails. If the scenarios differ, add absolute budgets for the diff-added work and the user-visible end state instead of an invalid ratio.>
 
 **Review gate.** The operator reviews before merge.
 
@@ -138,7 +134,7 @@ Each live lane runs at the PR head in its own isolated environment. Drive throug
 - [ ] Root's clean verdict at the exact head SHA.
 - [ ] Automated review triage done (reviewer/security-reviewer agents, per PR mechanics).
 - [ ] Rebased onto current trunk after the verdict, patch-id unchanged.
-- [ ] <The owner squash-merges its own PR, or the root appends the PR to the Graphite stack and the operator lands it.>
+- [ ] <The owner squash-merges its own PR, or the root appends it to the base-branch stack and the operator lands it bottom-up.>
 
 ## Close the program
 

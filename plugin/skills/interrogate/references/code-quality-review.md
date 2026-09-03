@@ -1,10 +1,3 @@
----
-upstream: pstack/skills/interrogate/references/code-quality-review.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: portable
----
-
 # Code Quality Review
 
 Each reviewer applies this code-quality lens in addition to the rubric. It is a strict standard focused on implementation quality, maintainability, abstraction quality, and codebase health.

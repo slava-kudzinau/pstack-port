@@ -9,6 +9,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseCatalog } from "./provenance.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const upstreamMd = join(repo, "UPSTREAM.md");
@@ -45,6 +46,11 @@ const native = (matrixContent.match(/NATIVE/g) || []).length;
 const drop = (matrixContent.match(/DROP/g) || []).length;
 const total = portable + adapted + native + drop;
 
+const catalog = parseCatalog() ?? [];
+const catalogRows = ["portable", "adapted", "omp-native", "new"]
+	.map((s) => `| ${s} | ${catalog.filter((r) => r.status === s).length} |`)
+	.join("\n");
+
 console.log(`# Upstream Sync Report
 
 **Generated:** ${new Date().toISOString().split("T")[0]}
@@ -61,11 +67,18 @@ console.log(`# Upstream Sync Report
 | DROP | ${drop} |
 | **Total** | **${total}** |
 
+## Catalog
+
+| Status | Shipped files |
+|---|---|
+${catalogRows}
+| **Total** | **${catalog.length}** |
+
 ## Next steps
 
 1. Review any PORT files for changes since ${upstreamSha}
 2. Check ADAPT files for OMP-specific translations that need updating
-3. Run \`bun scripts/conformance.ts\` to verify the port
+3. Run \`bun scripts/provenance.ts --check\` to audit the catalog, then \`bun scripts/conformance.ts\` to verify the port
 4. Update UPSTREAM.md with the new sha and version
 5. Commit with message: "sync: pstack @ ${upstreamSha}"
 `);

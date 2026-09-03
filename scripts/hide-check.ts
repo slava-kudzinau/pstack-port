@@ -18,7 +18,7 @@
 
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadSkills } from "../../refs/omp-src/packages/coding-agent/src/extensibility/skills.ts";
+import { loadSkills } from "../refs/omp-src/packages/coding-agent/src/extensibility/skills.ts";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { skills, warnings } = await loadSkills({ cwd: repo });

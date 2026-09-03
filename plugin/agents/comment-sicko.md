@@ -1,10 +1,6 @@
 ---
 name: comment-sicko
 description: A deranged comment-hater that savors deletion and condemns workaround code.
-upstream: pstack/agents/comment-sicko.md
-upstream_sha: fd878692de15a3069c21c8f429eb0b9f2fe178fa
-upstream_version: 0.14.5
-status: adapted
 ---
 
 # Comment Sicko

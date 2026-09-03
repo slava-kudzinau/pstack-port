@@ -2,11 +2,6 @@
 name: setup-pstack
 description: Configure which models pstack uses per role. Detects your available model roles and writes a config file that overrides the skill defaults. Use for /setup-pstack, "configure pstack models", or changing pstack's model choices.
 disable-model-invocation: true
-metadata:
-  upstream: 'pstack/skills/setup-pstack/SKILL.md'
-  upstream_sha: 'fd878692de15a3069c21c8f429eb0b9f2fe178fa'
-  upstream_version: '0.14.5'
-  status: 'adapted'
 ---
 
 # Setup pstack
@@ -39,9 +34,9 @@ Write `~/.omp/agent/pstack-models.md` with one line per role, using the same lab
 # pstack model configuration. One line per role. Delete a line to fall back to the skill default.
 # `@default` as a value: the role runs on the session's default model. Alias entries in a panel list still count toward its fan-out.
 feature, refactoring: @<fast-role>
-bug-fix: @<precise-role>
-perf-issue: @<precise-role>
-hillclimb: @<precise-role>
+bug-fix: @<judgment-role>
+perf-issue: @<judgment-role>
+hillclimb: @<judgment-role>
 judgment and prose: @<judgment-role>
 hardest tasks: @<judgment-role>
 how explorer: @<fast-role>
