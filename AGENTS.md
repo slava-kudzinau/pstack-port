@@ -27,7 +27,7 @@ pstack-port/
 ├── findings/              # one file per phase, the matrix, checkpoints
 ├── pstack-omp-plan/       # 00-README, 01-conventions, 02-context,
 │                          # 10-phase-a-study, 98-questions, templates/
-├── UPSTREAM.md            # pins: upstream snapshot @ efa2a531 (0.14.6),
+├── UPSTREAM.md            # pins: upstream snapshot @ efa2a531 (0.14.7),
 │                          # cursor-plugins @ e46364b8, omp-src @ 65f79e76,
 │                          # ref-port @ c2ade4bb
 └── refs/                  # gitignored reference clones: omp-src,
@@ -129,19 +129,26 @@ pstack-port/
   `.claude/plugins/marketplaces` (70) +
   `.github/skills/<name>/SKILL.md` (30, `discovery/github.ts:325-329`).
 
-## Current state (2026-08-31)
+## Current state (2026-09-16)
 
-- Phase A study done: `findings/phase-a.md` holds all Discovery,
-  Formats, task-tool, and Extension-API answers; conventions §6
-  stock-vs-fork table filled — no fork-only rows, no blockers.
-- `findings/matrix.md` fully classified: **zero `PORT` among the 61
-  pstack-subtree components** (all ADAPT or NATIVE); the 7
-  cursor-team-kit imports are PORT (6) / ADAPT (`thermo-nuclear`) with
-  `e46364b` provenance; `make-bot-ui` is DROP (Cursor
-  Routines/webhook primitives; de-scoped by user decision).
-- Next: audit `findings/phase-c.md` against the matrix, move answered
-  items in `98-questions.md` to Answered with evidence, commit
-  everything, then the checkpoint-2 report.
+- Phases A through F are complete through `findings/checkpoint-2.md`.
+  Phase E was skipped; files alone covered everything it would have done.
+- Upstream is synced to `efa2a531` (v0.14.7) from `fd878692` (v0.14.5);
+  `findings/sync-0.14.7.md` holds the report. The substantive content
+  landed at `23a56e2` (v0.14.6); the pinned commit's own delta is a
+  `logo` line in `pstack/.cursor-plugin/plugin.json`.
+- Catalog holds 137 artifacts, audited by `bun scripts/provenance.ts --check`.
+- Owed: the 5 behavioral conformance prompts in
+  `findings/conformance-live.md` (T3-T5 blank, plus baseline-model runs for
+  T1-T2) and one clean-machine install worked from `docs/` alone.
+- `WATCHDOG.yml` sits at the repo root, untracked, and appeared during the
+  2026-09-16 session. Its one entry is an `advisors:` model naming a vendor slug.
+  The filename appears nowhere in `refs/omp-src/packages`, so no writer is
+  confirmed for it. It is gitignored, and `scripts/branding-check.ts` scans only
+  the trees under `plugin/`, so committing it would pass every check while
+  carrying a string rule 1 bans. Ask the operator before tracking it.
+- Next workstream: `pstack-omp-plan/70-claude-code-target.md` (units C1-C5),
+  gated on the operator's explicit go.
 
 ## Verification
 
@@ -156,6 +163,13 @@ pstack-port/
   confirm the loader still reports the flag live.
 - Run `bun scripts/autofire-check.ts` after touching `extensions/` or
   `hooks/`. A dead injector leaves the plugin reachable only by slash command.
+- Run `bun scripts/orphan-scan.ts` after editing anything under `plugin/`.
+  It resolves every `skill://<name>/<path>` asset pointer against disk and
+  rejects cwd-relative companion paths. OMP announces the skill directory
+  only for an interactive `/skill:<name>` invocation
+  (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md`);
+  a `skill://<name>` read serves raw bytes, so a relative path resolves
+  against the reader's working directory and misses.
 - Never tick a "Done when" box in `pstack-omp-plan/` without re-running the checks.
 - Do not port new components without evidence they exist under
   `upstream/pstack/` at `efa2a531985e0a8084d36ff3cf87233be8a9f34b` or
@@ -164,7 +178,7 @@ pstack-port/
 
 ## Re-sync procedure
 
-Steps verified by the 2026-09-02 sync to 0.14.6 (`efa2a531`).
+Steps verified by the 2026-09-02 sync to 0.14.7 (`efa2a531`).
 
 1. `git -C refs/cursor-plugins fetch origin`, then list
    `git log --oneline <pin>..origin/main -- pstack/` and read every full

@@ -39,12 +39,16 @@ if (existsSync(matrixPath)) {
 	matrixContent = readFileSync(matrixPath, "utf-8");
 }
 
-// Count statuses from matrix
-const portable = (matrixContent.match(/PORT/g) || []).length;
-const adapted = (matrixContent.match(/ADAPT/g) || []).length;
-const native = (matrixContent.match(/NATIVE/g) || []).length;
-const drop = (matrixContent.match(/DROP/g) || []).length;
-const total = portable + adapted + native + drop;
+// The Actions legend spells every action in backticks, so a substring count over
+// the file adds one phantom per action. Read the Action column of each Table row.
+const counts: Record<string, number> = { PORT: 0, ADAPT: 0, NATIVE: 0, REPLACE: 0, DEFER: 0, DROP: 0 };
+let total = 0;
+for (const line of matrixContent.split("\n")) {
+  const action = line.startsWith("|") ? (line.split("|")[5] ?? "").trim() : "";
+  if (!(action in counts)) continue;
+  counts[action]++;
+  total++;
+}
 
 const catalog = parseCatalog() ?? [];
 const catalogRows = ["portable", "adapted", "omp-native", "new"]
@@ -59,12 +63,14 @@ console.log(`# Upstream Sync Report
 
 ## Matrix
 
-| Status | Count |
+| Action | Count |
 |---|---|
-| PORT | ${portable} |
-| ADAPT | ${adapted} |
-| NATIVE | ${native} |
-| DROP | ${drop} |
+| PORT | ${counts.PORT} |
+| ADAPT | ${counts.ADAPT} |
+| NATIVE | ${counts.NATIVE} |
+| REPLACE | ${counts.REPLACE} |
+| DEFER | ${counts.DEFER} |
+| DROP | ${counts.DROP} |
 | **Total** | **${total}** |
 
 ## Catalog

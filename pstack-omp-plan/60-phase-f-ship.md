@@ -118,4 +118,4 @@ conflicts:             1
 - [x] Branding check and frontmatter check run on every commit — `bun scripts/branding-check.ts` and `bun scripts/conformance.ts`
 - [x] `docs/` has README, install, commands, config
 - [ ] A clean-machine install and one test run work from docs alone — *requires clean machine*
-- [ ] One full sync from one sha to the next completed successfully — *requires new upstream sha*
+- [x] One full sync from one sha to the next completed successfully. `fd878692` (v0.14.5) to `efa2a531` (v0.14.7), report at `findings/sync-0.14.7.md`, green on all eight checks 2026-09-16
