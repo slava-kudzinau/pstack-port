@@ -172,7 +172,7 @@ pstack-port/
   selector read such as `skill://why/references/sources/slack.md:1-3`, never by
   dumping the whole file. OMP announces the skill directory only for an interactive
   `/skill:<name>` invocation
-  (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md); a
+  (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md`); a
   `skill://<name>` read serves raw bytes, so a relative path resolves against the
   reader's working directory and misses. Keep that kind of cite in repo docs: `refs/`
   is gitignored and never installed, so a shipped file must not point into it.
