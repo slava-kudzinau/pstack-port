@@ -44,7 +44,7 @@ Principles:
 - **Multiple hypotheses are valid.** When the evidence fits several stories, present them all with the evidence for each. Let the user triangulate.
 - **Beware rationalization.** Code that makes sense today may have been written for reasons that no longer apply, or for no good reason at all. Don't retrofit intent.
 
-Read `references/epistemics.md` for the full confidence framework and phrasing guide (not yet ported in this phase; see Reference Files below). Until it lands, apply the principles above directly. The synthesizer must follow it.
+Read `skill://why/references/epistemics.md` for the full confidence framework and phrasing guide. The synthesizer must follow it.
 
 ## Step 1. Understand the Target and the Question
 
@@ -122,9 +122,9 @@ Subagent config (each):
 - Model: the caller's configured model role. Never hardcode a model slug in this skill's text.
 
 Each investigator gets:
-1. The base prompt from `references/investigator-prompt.md` (not yet ported; see Reference Files below)
-2. The category playbook `references/sources/<source>.md` for the selected source, adapted from the examples in `references/source-playbook.md` (not yet ported; see Reference Files below)
-3. The cross-cutting `references/sources/incident-postmortem.md` **if the target code looks defensive** (null checks, retry logic, timeout handling, rate limiting, feature flags, egress guards, OOM handlers)
+1. The base prompt from `skill://why/references/investigator-prompt.md`
+2. The category playbook `skill://why/references/sources/<source>.md` for the selected source, adapted from the examples in `skill://why/references/source-playbook.md`
+3. The cross-cutting `skill://why/references/sources/incident-postmortem.md` **if the target code looks defensive** (null checks, retry logic, timeout handling, rate limiting, feature flags, egress guards, OOM handlers)
 4. The code anchor from Step 2 (file paths, symbols, commit hashes, PR numbers, ticket IDs)
 5. The user's original question
 
@@ -170,8 +170,8 @@ The synthesizer gets:
 1. The investigator findings, including any null results and any categories skipped with justification
 2. The code anchor from Step 2 (file paths, symbols, commit hashes, PR numbers, ticket IDs)
 3. The user's original question
-4. The epistemics framework from `references/epistemics.md` (not yet ported in this phase; see Reference Files below)
-5. The synthesizer prompt template from `references/synthesizer-prompt.md` (not yet ported in this phase; see Reference Files below)
+4. The epistemics framework from `skill://why/references/epistemics.md`
+5. The synthesizer prompt template from `skill://why/references/synthesizer-prompt.md`
 
 Its job is the final output: a confidence-weighted, evidence-cited narrative with clearly separated "what we know" and "what we're inferring" sections, plus honest acknowledgment of gaps and null-result sources.
 
@@ -222,10 +222,10 @@ After the Sources Consulted block, if the user's `why` question is a precursor t
 
 ## Reference Files
 
-Not yet ported in this phase (this batch's assignment targets `SKILL.md` only). Paths below match upstream's package layout, for when a later phase ports them:
+These files ship with the skill. Read each one through its `skill://` pointer. A bare relative path resolves against the caller's working directory and fails.
 
-- `references/epistemics.md`. Confidence tiers and phrasing guide. The synthesizer must follow it.
-- `references/investigator-prompt.md`. Base prompt template for investigator subagents.
-- `references/source-playbook.md`. Index pointing at the category playbooks below.
-- `references/sources/*.md`. One self-contained example playbook per category, plus cross-cutting `incident-postmortem.md`. Give an investigator the single file that matches its category and adapt it to the available tool.
-- `references/synthesizer-prompt.md`. Prompt template for the synthesizer subagent, including the output format.
+- `skill://why/references/epistemics.md`. Confidence tiers and phrasing guide. The synthesizer must follow it.
+- `skill://why/references/investigator-prompt.md`. Base prompt template for investigator subagents.
+- `skill://why/references/source-playbook.md`. Index pointing at the category playbooks below.
+- `skill://why/references/sources/*.md`. One self-contained example playbook per category, plus cross-cutting `incident-postmortem.md`. Give an investigator the single file that matches its category and adapt it to the available tool.
+- `skill://why/references/synthesizer-prompt.md`. Prompt template for the synthesizer subagent, including the output format.

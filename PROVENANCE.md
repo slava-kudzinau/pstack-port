@@ -74,7 +74,7 @@ append-only history. Provenance never returns to shipped frontmatter.
 | skills/bro/SKILL.md | upstream/pstack/skills/bro/SKILL.md | efa2a531 | portable |
 | skills/bug-fix/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md | efa2a531 | adapted |
 | skills/create-verification-skill/SKILL.md | upstream/pstack/skills/create-verification-skill/SKILL.md | efa2a531 | adapted |
-| skills/create-verification-skill/references/feature-map-example/README.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/README.md | efa2a531 | portable |
+| skills/create-verification-skill/references/feature-map-example/README.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/README.md | efa2a531 | adapted |
 | skills/create-verification-skill/references/feature-map-example/create-note.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md | efa2a531 | portable |
 | skills/create-verification-skill/references/feature-map-example/search.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/search.md | efa2a531 | portable |
 | skills/de-slop/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/deslop/SKILL.md | e46364b8 | portable |
@@ -150,6 +150,18 @@ append-only history. Provenance never returns to shipped frontmatter.
 | skills/visual-parity/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/visual-parity.md | efa2a531 | adapted |
 | skills/what-did-i-get-done/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/what-did-i-get-done/SKILL.md | e46364b8 | portable |
 | skills/why/SKILL.md | upstream/pstack/skills/why/SKILL.md | efa2a531 | adapted |
+| skills/why/references/epistemics.md | upstream/pstack/skills/why/references/epistemics.md | efa2a531 | portable |
+| skills/why/references/investigator-prompt.md | upstream/pstack/skills/why/references/investigator-prompt.md | efa2a531 | adapted |
+| skills/why/references/source-playbook.md | upstream/pstack/skills/why/references/source-playbook.md | efa2a531 | adapted |
+| skills/why/references/sources/code-archaeology.md | upstream/pstack/skills/why/references/sources/code-archaeology.md | efa2a531 | portable |
+| skills/why/references/sources/databricks.md | upstream/pstack/skills/why/references/sources/databricks.md | efa2a531 | portable |
+| skills/why/references/sources/datadog.md | upstream/pstack/skills/why/references/sources/datadog.md | efa2a531 | portable |
+| skills/why/references/sources/incident-postmortem.md | upstream/pstack/skills/why/references/sources/incident-postmortem.md | efa2a531 | portable |
+| skills/why/references/sources/linear.md | upstream/pstack/skills/why/references/sources/linear.md | efa2a531 | portable |
+| skills/why/references/sources/notion.md | upstream/pstack/skills/why/references/sources/notion.md | efa2a531 | portable |
+| skills/why/references/sources/sentry.md | upstream/pstack/skills/why/references/sources/sentry.md | efa2a531 | portable |
+| skills/why/references/sources/slack.md | upstream/pstack/skills/why/references/sources/slack.md | efa2a531 | portable |
+| skills/why/references/synthesizer-prompt.md | upstream/pstack/skills/why/references/synthesizer-prompt.md | efa2a531 | adapted |
 | skills/worktree-cleanup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/worktree-cleanup.md | efa2a531 | adapted |
 
 ## agents/comment-sicko.md
@@ -766,114 +778,174 @@ worktree-cleanup.md:10 the `~/Library/Application Support/Cursor` state-deletion
 
 ## skills/architect/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 renames only the first architect-runner default slug (fable-5 to fable-5-1); the port's line 33 reads 'your configured architect runner roles', so the rename has no port counterpart. Row pin flipped, file unchanged.
 
 ## skills/arena/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 renames the same slug in the Phase A runner list and Phase C cross-judge pool; both already read 'your configured model roles' phrasing. No port-side change.
 
 ## skills/autopilot-full/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 sync efa2a531: step 2 retitled 'and an early trail', opens with the canonical forge resolution ('gh' default, `origin pr` when `command -v origin` resolves the repo, never require `gt`), swaps gt registration for 'the first push, a ready PR', and carries upstream's new early-trail sentences; step 3 drops the gt-registration clause and makes the private stack a base-branch stack; step 4 gains upstream's new 'Regression lane against trunk.' (same load-bearing scenario at trunk and head; when trunk lacks the feature, gate the diff-added behavior plus the end state the user waits for); step 5 merges through the resolved forge. Upstream's cloud-agent, deslop, /goal and /loop artifacts stay out of the port's task/`isolated: true`/`hub` phrasing.
 
 ## skills/autopilot-stack/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Whole playbook goes forge-neutral: header and description say base-branch stack; step 1 gains the canonical forge resolution plus the early-trail pair; step 6 becomes the base-branch chain (root is the only topology writer, append rebases the child onto the parent's exact tip, push with `--force-with-lease` only after an `ls-remote` check, never register through gt); step 7 gains the stable `git patch-id` rule deciding which verdicts survive a rewritten chain; step 8 delivers bottom-up in the resolved forge. Upstream deleted its 'division of labor the cloud environment forces' clause, so the port's adaptation of it went too.
 
 ## skills/babysit/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Forge resolution folds into step 1's header ('declare the mode and resolve the forge'); step 4's gt-shaped bans generalize to base retarget/rebase/stack-wide submit; step 6 splits stop conditions per forge, Origin's `pr view`/`pr thread list`/`pr checks --watch` path beside the port's direct `gh pr view --json` polling and `hub` background job; `gt merge` in the authorization paragraph becomes `origin pr merge`; step 8 gains `origin pr thread reply --body-file` beside the fixed `gh api` path; step 9 and the Reply line go forge-neutral. The watcher-script sentences upstream reworded stay uncarried, the port having replaced that script with plain polling at the original port.
 
 ## skills/bug-fix/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 moves the step-3 solo-delegate default from sol to fable-5-1; the port's step 3 carries no inline default (bare 'Delegate implementation to a subagent via the task tool'), so the default's only port value carrier is the setup-pstack template, updated there. File unchanged.
 
 ## skills/hillclimb/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 moves the step-5 solo-delegate default sol to fable-5-1; the port names the config label ('your configured hillclimb model role'), whose value is carried by the setup-pstack template. File unchanged.
 
 ## skills/how/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 adds the hide flag (the port shipped it before upstream) and renames the explainer/critics defaults to fable-5-1; all model lines already read configured-role phrasing. No port-side change.
 
 ## skills/interrogate/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 renames Reviewer A's default slug; the port replaced the fixed-model table with configured-reviewer-list phrasing at the original port, so the rename has no counterpart. File unchanged.
 
 ## skills/multi-phase-plan/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Verification paragraph and template Lane 1 gain the Regression lane against trunk; the perf gate becomes dual-sided (Metric names trunk+head comparability, Probe must produce the metric on both sides, Rule carries absolute budgets when the scenarios differ); the PR-mechanics checklist gains a 'Resolve the forge once.' item and a ready-PR creation line (`origin pr create --status open --base` / `gh pr create --base`, stack child targets its parent branch); the merge placeholder becomes the base-branch stack landed bottom-up. Checklist skeleton, check-plan.mjs reference, configured-role and verification-tool adaptations preserved.
 
 ## skills/opening-a-pr/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Upstream's new Forge / Size and stacks / Readiness trio replaces the Graphite paragraphs: stacks become base-branch chains (root targets trunk, children rebase onto the parent's exact tip and target the parent branch), readiness is `--status open` on Origin or omitting `--draft` on gh with per-forge `pr ready`/`pr view`. The port keeps 'Some automated PR-creation flows default to draft' where upstream says cloud-agent PR tools.
 
 ## skills/perf-issue/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 moves the step-3 solo-delegate default sol to fable-5-1; the port names the config label ('your configured perf-issue model role'), value carried by the setup-pstack template. File unchanged.
 
 ## skills/poteto-mode/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Three deltas applied: the hardest-tier sentence now routes both the judgment-needing and the precisely-specified hardest work to the configured judgment role (upstream collapsed both roles onto fable-5-1, so the port's judgment-vs-precise split there is gone and its 'the same fast role' antecedent rewritten); the Shipping routing line lands the contiguous verified run bottom-up through gh by default or Origin when its CLI is available; the Autopilot-stack line becomes one linear reviewed base-branch stack.
 
 ## skills/reflect/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 renames the judgment/divergent/synthesizer defaults to fable-5-1, which land on the port's existing 'your configured reflect-judgment role' phrasing; the Tooling line is untouched upstream. No port-side change.
 
 ## skills/setup-pstack/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 The template's bug-fix/perf-issue/hillclimb lines move from `@<precise-role>` to `@<judgment-role>`, upstream's only substantive config change (ten further renamed lines already emit judgment-role placeholders). Existing comment adaptations (`@default` semantics, no ~/.cursor path, no real selectors) kept verbatim.
 
 ## skills/shipping/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Upstream removed Graphite entirely. Step 1 resolves the forge before the first PR operation, keeping the port's task-batch verification mechanics (one `isolated: true` item per PR, bash/browser/debug surfaces, verdicts posted via `gh pr comment`); step 3 becomes the recorded rule (verdict head SHA + base SHA + stable `git patch-id`, re-verify on patch change, re-run mergeability and CI when unchanged); steps 4-5 prepare only the bottom PR then land one PR at a time with `origin/gh pr merge --squash [--auto]`, arming only that PR; step 6 says `autoMergeRequest` proves nothing about the stack; step 7 recomputes after every merge; step 8 watches only the current frontier, keeping the port's direct `gh pr view --json` polling plus `hub` job and adding upstream's merge-proof semantics (nothing counts until `mergedAt` is non-null or `state` is `MERGED`; hard-fail only on `CLOSED` without `mergedAt`, a blocking `FAILURE`/`CANCELLED` after auto-merge is no longer pending, or `UNSTABLE`/`DIRTY` with no auto-merge pending). The description line follows the new meaning; the watcher script and /loop stay uncarried.
 
 ## skills/typescript-best-practices/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 New 'Schemas before guards' table row inserted at upstream's position (before 'No `as` casts'); the Branded-types row rewords to 'Validate once at the boundary'. Upstream's new `paths: ["**/*.ts", "**/*.tsx"]` frontmatter key is deliberately not carried: OMP's loader never reads a paths frontmatter key (zero references in refs/omp-src packages/coding-agent/src/extensibility/skills.ts, packages/utils/src/frontmatter.ts, and src/discovery/), and scripts/fix-frontmatter.ts hard-errors any unknown top-level key. references/patterns.md was never vendored, so upstream's growth there and its trailing pointer line stay out rather than dangling.
 
 ## skills/unslop/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 Upstream 0.14.6 added disable-model-invocation at column 0, which this port already shipped; the port copy is now byte-identical to upstream again. Row stays portable at the new pin.
 
 ## skills/why/SKILL.md
 
-- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.6)
+- sync: efa2a531985e0a8084d36ff3cf87233be8a9f34b (0.14.7)
 
 0.14.6 adds the hide flag (already shipped here) and renames the synthesizer default, which lands on the port's 'the caller's configured model role' phrasing. The file's two lowercase English-word 'cursor' hits ('cursor location', 'precursor') are upstream's own prose, not runtime artifacts. No port-side change.
+
+## skills/architect/SKILL.md
+
+- local fix: 2026-09-16
+
+Four companion paths in this file were addressed as working-directory-relative text. Three of them sat inside markdown link wrappers added on 2026-09-15, and the fourth was wrapped at the original port. `skill://architect/references/<file>` replaces all four. OMP announces a skill directory only for an interactive `/skill:<name>` invocation (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md`), and this skill is reached by `read skill://architect`, which serves raw bytes, so a relative path resolves against the reader's working directory and misses. Nothing reads a markdown link target in this runtime, so those wrappers were superseded rather than kept.
+
+## skills/architect/references/rationale-template.md
+
+- local fix: 2026-09-16
+
+`[Phase A](../SKILL.md#phase-a-ground-the-problem)` pointed out of the references directory at the entry file. It reads `Phase A (`skill://architect`)` now. `[Shape](#shape)` was an anchor no reader can follow through a `skill://` read, so the sentence names the section in prose.
+
+## skills/architect/references/runner-prompt.md
+
+- local fix: 2026-09-16
+
+The sibling pointer to the rationale template lost its link wrapper. Both halves of that link were working-directory-relative. One backticked pointer into the skill directory is the form a reader can open.
+
+## skills/create-verification-skill/SKILL.md
+
+- local fix: 2026-09-16
+
+Step 3's example-directory mention becomes a pointer that `read` serves as a directory resource. The line naming `skills/verify-<app>/features/README.md` describes a layout in the reader's own repository, not an asset of this skill, and stays untouched.
+
+## skills/create-verification-skill/references/feature-map-example/README.md
+
+- local fix: 2026-09-16
+
+The two Features bullets pointed at `./create-note.md` and `./search.md`. An agent that reads this index through a pointer cannot open the two entries it indexes, so both bullets carry `skill://` pointers at those files now.
+
+## skills/how/SKILL.md
+
+- local fix: 2026-09-16
+
+Five prompt and rubric mentions became `skill://how/references/...` pointers. All four files under `references/` were already vendored, so the defect was the addressing form only.
+
+## skills/interrogate/SKILL.md
+
+- local fix: 2026-09-16
+
+Four mentions became `skill://interrogate/references/...` pointers for the same reason as `how`. The four reference files were present.
+
+## skills/worktree-cleanup/SKILL.md
+
+- local fix: 2026-09-16
+
+Step 1's audit-script mention becomes a pointer into this skill directory, where the ported script actually sits. A relative path resolved against the reader's working directory, which has no `scripts/` directory of its own.
+
+## skills/why/SKILL.md
+
+- local fix: 2026-09-16
+
+Twelve working-directory-relative mentions became pointers into the skill directory. The six "not yet ported" clauses and the Reference Files preamble that announced this batch as `SKILL.md`-only went away with the assets now present, because each one promised a later phase that had already happened. The Reference Files section now states how to read an asset and why a relative path fails.
+
+## skills/why/references/
+
+- vendored: 2026-09-16, copied from `upstream/pstack/skills/why/references/` at the pinned sha
+
+Twelve assets ship with upstream's `why` and never reached this port. `skill://why/references/epistemics.md` returned `File not found`, and the skill text told the synthesizer to follow a confidence framework whose words were absent, then admitted the framework would arrive in a later phase. Nothing was authored here. The tree is a copy of the vendored snapshot, and `investigator-prompt.md`, `source-playbook.md`, and `synthesizer-prompt.md` carry the pointer rewrite on top of it. The last of those was broken twice over: its own instruction to the synthesizer addressed `references/epistemics.md` from the reader's working directory. `epistemics.md` and the nine `sources/*.md` category playbooks are byte-identical to upstream.

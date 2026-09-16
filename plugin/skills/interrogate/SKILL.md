@@ -43,11 +43,11 @@ For each reviewer item in the batch:
 
 Each reviewer has a 200-request budget (the default for non-scout agents). If a configured model role turns out invalid when you spawn the batch, drop that reviewer's override, spawn the rest of the batch normally, and flag the dropped entry in your reply instead of blocking the review on it.
 
-Read `references/reviewer-prompt.md` and fill in the template with:
+Read `skill://interrogate/references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent
 2. The diff or file contents
-3. The review rubric from `references/rubric.md`
-4. The code-quality lens from `references/code-quality-review.md`
+3. The review rubric from `skill://interrogate/references/rubric.md`
+4. The code-quality lens from `skill://interrogate/references/code-quality-review.md`
 
 The same filled template goes to all reviewers, so every model applies the code-quality lens.
 
@@ -67,7 +67,7 @@ As results come back, build a unified picture:
 
 You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator.
 
-Read `references/lead-judgment.md` for the full framework. Reviewers only see a slice of the codebase. You have the full context (the goal, the constraints, the timeline, which tradeoffs were already considered). Use that context aggressively.
+Read `skill://interrogate/references/lead-judgment.md` for the full framework. Reviewers only see a slice of the codebase. You have the full context (the goal, the constraints, the timeline, which tradeoffs were already considered). Use that context aggressively.
 
 Categorize every finding using these buckets:
 

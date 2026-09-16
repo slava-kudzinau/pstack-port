@@ -48,7 +48,7 @@ Spawn all explorers in a single `task` batch call (`{context, tasks[]}`, one ite
 - `agent`: `"scout"` — read-only exploration
 - `effort: "lo"` — explorers need speed, not depth; scout's 100-request budget keeps them lean
 - `model`: your configured how-explorer role
-Each explorer gets the same base prompt from `references/explorer-prompt.md` plus a specific exploration angle naming its slice. Each explorer should:
+Each explorer gets the same base prompt from `skill://how/references/explorer-prompt.md` plus a specific exploration angle naming its slice. Each explorer should:
 - Start broad: Glob for relevant directories, Grep for key types/interfaces/class names
 - Follow the thread: from an entry point, trace the call chain (callers, callees, data flow, type definitions)
 - Read the actual code, don't guess from file names
@@ -67,7 +67,7 @@ Spawn a single subagent via the `task` tool that explores and explains in one pa
 - `effort: "lo"` — keeps the direct explain lean; scout's 100-request budget is sufficient for a single-file trace
 - `model`: your configured how-explainer role
 
-The agent does its own exploration (Glob, Grep, Read) and writes the explanation directly. Read `references/explainer-prompt.md` for the communication style and output format. Same structure, just no explorer findings as input.
+The agent does its own exploration (Glob, Grep, Read) and writes the explanation directly. Read `skill://how/references/explainer-prompt.md` for the communication style and output format. Same structure, just no explorer findings as input.
 
 Proceed to Step 4.
 
@@ -79,7 +79,7 @@ Once all explorers return, spawn a single subagent via the `task` tool to synthe
 - `effort: "lo"` — synthesis is recombination, not deep reasoning; scout's 100-request budget covers it
 - `model`: your configured how-explainer role
 
-The explainer gets all explorers' findings and writes the human-facing explanation (output format below). Read `references/explainer-prompt.md` for the full prompt template. The explainer reconciles overlapping findings, resolves contradictions, and weaves the slices into a unified picture.
+The explainer gets all explorers' findings and writes the human-facing explanation (output format below). Read `skill://how/references/explainer-prompt.md` for the full prompt template. The explainer reconciles overlapping findings, resolves contradictions, and weaves the slices into a unified picture.
 
 ### Step 4. Present
 
@@ -115,10 +115,10 @@ For each critic:
 - `agent`: `"scout"` — read-only review
 - `model`: one role from the configured how-critics list. These are minimum reasoning levels. The lead should escalate any role when the architecture warrants deeper analysis.
 
-Read `references/critic-prompt.md` for the prompt template. Each critic gets:
+Read `skill://how/references/critic-prompt.md` for the prompt template. Each critic gets:
 1. The explanation from Step 1 (so they don't re-explore)
 2. The relevant file paths (so they can read the actual code)
-3. The architectural critique rubric from `references/critique-rubric.md`
+3. The architectural critique rubric from `skill://how/references/critique-rubric.md`
 
 ### Step 3. Lead Judgment
 
