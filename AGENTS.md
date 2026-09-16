@@ -131,8 +131,10 @@ pstack-port/
 
 ## Current state (2026-09-16)
 
-- Phases A through F are complete through `findings/checkpoint-2.md`.
-  Phase E was skipped; files alone covered everything it would have done.
+- Phases A through D are complete, and Phase F's file work is done through
+  `findings/checkpoint-2.md`. Phase E was skipped; files alone covered everything it
+  would have done. Phase F's live boxes stay open: the behavioral conformance suite
+  and the clean-machine install.
 - Upstream is synced to `efa2a531` (v0.14.7) from `fd878692` (v0.14.5);
   `findings/sync-0.14.7.md` holds the report. The substantive content
   landed at `23a56e2` (v0.14.6); the pinned commit's own delta is a
@@ -141,12 +143,11 @@ pstack-port/
 - Owed: the 5 behavioral conformance prompts in
   `findings/conformance-live.md` (T3-T5 blank, plus baseline-model runs for
   T1-T2) and one clean-machine install worked from `docs/` alone.
-- `WATCHDOG.yml` sits at the repo root, untracked, and appeared during the
-  2026-09-16 session. Its one entry is an `advisors:` model naming a vendor slug.
-  The filename appears nowhere in `refs/omp-src/packages`, so no writer is
-  confirmed for it. It is gitignored, and `scripts/branding-check.ts` scans only
-  the trees under `plugin/`, so committing it would pass every check while
-  carrying a string rule 1 bans. Ask the operator before tracking it.
+- `WATCHDOG.yml` at the repo root is the shadow-advisor (watchdog) harness config for
+  this session, supplied by the operator. It is not repo content and not an OMP
+  artifact. Its one entry names a vendor model slug, so it stays gitignored: rule 1
+  bans that slug in anything committed, and `scripts/branding-check.ts` scans only the
+  trees under `plugin/`, so committing it would pass every check. Never track it.
 - Next workstream: `pstack-omp-plan/70-claude-code-target.md` (units C1-C5),
   gated on the operator's explicit go.
 
@@ -165,11 +166,16 @@ pstack-port/
   `hooks/`. A dead injector leaves the plugin reachable only by slash command.
 - Run `bun scripts/orphan-scan.ts` after editing anything under `plugin/`.
   It resolves every `skill://<name>/<path>` asset pointer against disk and
-  rejects cwd-relative companion paths. OMP announces the skill directory
-  only for an interactive `/skill:<name>` invocation
-  (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md`);
-  a `skill://<name>` read serves raw bytes, so a relative path resolves
-  against the reader's working directory and misses.
+  rejects cwd-relative companion paths. A token has to carry a `/` to count as a
+  companion path, which is what keeps a bare `SKILL.md` mention from reading as a
+  pointer at the file it sits in. Prove an asset resolves with this check, or with a
+  selector read such as `skill://why/references/sources/slack.md:1-3`, never by
+  dumping the whole file. OMP announces the skill directory only for an interactive
+  `/skill:<name>` invocation
+  (`refs/omp-src/packages/coding-agent/src/prompts/skills/user-invocation.md); a
+  `skill://<name>` read serves raw bytes, so a relative path resolves against the
+  reader's working directory and misses. Keep that kind of cite in repo docs: `refs/`
+  is gitignored and never installed, so a shipped file must not point into it.
 - Never tick a "Done when" box in `pstack-omp-plan/` without re-running the checks.
 - Do not port new components without evidence they exist under
   `upstream/pstack/` at `efa2a531985e0a8084d36ff3cf87233be8a9f34b` or

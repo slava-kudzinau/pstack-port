@@ -222,7 +222,7 @@ After the Sources Consulted block, if the user's `why` question is a precursor t
 
 ## Reference Files
 
-These files ship with the skill. Read each one through its `skill://` pointer. A bare relative path resolves against the caller's working directory and fails.
+These files ship with the skill. Read each one through its `skill://` pointer.
 
 - `skill://why/references/epistemics.md`. Confidence tiers and phrasing guide. The synthesizer must follow it.
 - `skill://why/references/investigator-prompt.md`. Base prompt template for investigator subagents.

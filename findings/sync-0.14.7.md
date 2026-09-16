@@ -121,15 +121,17 @@ unrelated token such as `skills/verify-<app>/features/README.md` stays alone.
 `orphan-scan.ts` checked only the skill name inside a pointer, so no check ever
 verified that an asset existed, and its regex required a pointer name to start with a
 letter, letting `_`-prefixed names escape detection entirely. It now resolves every
-subpath against disk and rejects cwd-relative companion paths. A planted fixture
-exercised all five failure modes, and the tool exits 1 on each.
+subpath against disk, and rejects a cwd-relative companion path only when the token
+carries a `/`, which is what separates a companion path from a bare `SKILL.md` mention
+naming the shared format. A planted fixture exercised all five failure modes, and the
+tool exits 1 on each.
 
 ## Still owed
 
 Five behavioral conformance prompts remain in `findings/conformance-live.md`. T1 and T2
-pass on the local model, a baseline-model run is owed for both before any Phase F box
-ticks, and T3 through T5 are blank. One clean-machine install worked from `docs/` alone
-is outstanding.
+pass on the local model, a baseline-model run is owed for both before that ledger's two
+Phase F conformance boxes tick, and T3 through T5 are blank. One clean-machine install
+worked from `docs/` alone is outstanding.
 
 The next upstream delta is not yet knowable. The last fetch was 2026-09-02, so
 `git -C refs/cursor-plugins fetch origin` has to run before anything beyond

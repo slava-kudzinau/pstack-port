@@ -82,11 +82,7 @@ for (const file of SCAN.flatMap(files)) {
 
   for (const [token, index] of candidates) {
     const path = token.replace(/#.*$/, "");
-    if (path === "" || path.includes("://") || family(path) || !path.includes("/") && !path.endsWith(".md")) continue;
-    if (path.startsWith("~") || path.startsWith("/")) continue;
-    // A bare `SKILL.md` in an entry file names the format everyone's skill uses,
-    // not this skill's own file; only a companion's bare name points at a sibling.
-    if (!path.includes("/") && file === join("skills", skill, "SKILL.md")) continue;
+    if (path === "" || path.includes("://") || family(path) || !path.includes("/")) continue;
     const hit = resolve(fromDir, path);
     if (!hit.startsWith(skillDir + sep) && hit !== skillDir) continue;
     if (!existsSync(hit)) continue;
