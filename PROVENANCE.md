@@ -942,7 +942,7 @@ Step 1's audit-script mention becomes a pointer into this skill directory, where
 
 - local fix: 2026-09-16
 
-Twelve working-directory-relative mentions became pointers into the skill directory. The six "not yet ported" clauses and the Reference Files preamble that announced this batch as `SKILL.md`-only went away with the assets now present, because each one promised a later phase that had already happened. A draft of the replacement line went on to explain why a relative path fails; that clause never shipped, dropped the same day as an assertion about OMP path resolution that nothing in `refs/omp-src` or `findings/` cites and that a shipped file could not cite at all, because `refs/` is gitignored and never installed. The section states how to read an asset.
+Twelve working-directory-relative mentions became pointers into the skill directory. The six "not yet ported" clauses and the Reference Files preamble that announced this batch as `SKILL.md`-only went away with the assets now present, because each one promised a later phase that had already happened. The replacement line as written in `5b51457` also explained why a relative path fails; that clause was dropped in `7089104` the same day, as an assertion about OMP path resolution that nothing in `refs/omp-src` or `findings/` cites and that a shipped file could not cite at all, because `refs/` is gitignored and never installed. The section states how to read an asset.
 
 ## skills/why/references/
 
