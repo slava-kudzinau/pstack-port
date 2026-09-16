@@ -1,0 +1,100 @@
+{
+  "scan": {
+    "roots": ["skills", "agents"],
+    "extensions": ["md", "json"]
+  },
+  "substitutions": [
+    {
+      "id": "task-tool-backticked",
+      "pattern": "`Task`",
+      "replacement": "`Agent`",
+      "rationale": "Claude Code dispatches subagents with the Agent tool. Cursor names it Task, and the snapshot writes the tool name in backticks."
+    },
+    {
+      "id": "task-tool-plain",
+      "pattern": "Task tool",
+      "replacement": "Agent tool",
+      "rationale": "The same rename against the unbackticked phrasing the snapshot also uses."
+    },
+    {
+      "id": "ask-user-question",
+      "pattern": "AskQuestion",
+      "replacement": "AskUserQuestion",
+      "rationale": "Claude Code's fixed-choice question tool. Cursor calls it AskQuestion."
+    },
+    {
+      "id": "personal-skills-dir",
+      "pattern": ".cursor/skills/",
+      "replacement": ".claude/skills/",
+      "rationale": "Personal skills directory."
+    },
+    {
+      "id": "rules-to-imports",
+      "pattern": ".cursor/rules/",
+      "replacement": "CLAUDE.md imports",
+      "rationale": "Claude Code has no auto-applied rules directory. Inclusion is explicit through CLAUDE.md."
+    }
+  ],
+  "denylist": [
+    {
+      "origin": "carried",
+      "token": "control-cli",
+      "mode": "substring",
+      "hint": "Claude Code's run built-in drives CLIs and TUIs. Rewrite the sentence, do not token-swap."
+    },
+    {
+      "origin": "carried",
+      "token": "control-ui",
+      "mode": "substring",
+      "hint": "Claude Code's verify built-in drives UIs. Rewrite the sentence, do not token-swap."
+    },
+    {
+      "origin": "carried",
+      "token": "AskQuestion",
+      "mode": "substring",
+      "hint": "Should have been substituted to AskUserQuestion. The substitution rule failed to apply."
+    },
+    {
+      "origin": "carried",
+      "token": ".cursor/",
+      "mode": "substring",
+      "hint": "Cursor config path survived. Map it to the Claude Code equivalent."
+    },
+    {
+      "origin": "carried",
+      "token": "Cursor cloud agent",
+      "mode": "substring",
+      "hint": "Claude Code runs subagents locally. The port isolates writers with worktrees."
+    },
+    {
+      "origin": "carried",
+      "token": "cursor.com",
+      "mode": "substring",
+      "hint": "Cursor product URL. Check whether the sentence applies to Claude Code at all."
+    },
+    {
+      "origin": "carried",
+      "token": "/goal",
+      "mode": "substring",
+      "hint": "Cursor's /goal has no Claude Code equivalent. The autopilot playbooks keep the objective in standing orders."
+    },
+    {
+      "origin": "added",
+      "token": "disable-model-invocation",
+      "mode": "substring",
+      "hint": "The Claude tree strips this key from every skill. A surviving mention recommends a key this tree never emits."
+    },
+    {
+      "origin": "added",
+      "token": "skill://",
+      "mode": "substring",
+      "hint": "OMP address scheme. The Claude tree names skills plainly or invokes them as /skill:<name>."
+    },
+    {
+      "origin": "added",
+      "token": "OMP",
+      "mode": "word",
+      "hint": "OMP product name. This tree is written in Claude-native dialect."
+    }
+  ]
+}
