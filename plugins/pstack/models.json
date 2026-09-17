@@ -1,0 +1,23 @@
+{
+  "_comment": "Shipped default role-to-model policy for the pstack plugin. Every value starts as 'inherit-parent' (run the role on the parent session's model) because this repo has no recorded per-role operator picks yet, only the single global default in this machine's ~/.claude/settings.json. Run /setup-pstack to replace these with real detected slugs per role; it writes ~/.claude/pstack-models.md (imported from CLAUDE.md), which every skill checks before falling back to this file's defaults.",
+  "roles": {
+    "feature, refactoring": ["inherit-parent"],
+    "bug-fix": ["inherit-parent"],
+    "perf-issue": ["inherit-parent"],
+    "hillclimb": ["inherit-parent"],
+    "judgment and prose": ["inherit-parent"],
+    "hardest tasks": ["inherit-parent"],
+    "how explorer": ["inherit-parent"],
+    "how explainer": ["inherit-parent"],
+    "how critics": ["inherit-parent", "inherit-parent", "inherit-parent", "inherit-parent"],
+    "why investigators": ["inherit-parent"],
+    "why synthesizer": ["inherit-parent"],
+    "reflect tooling": ["inherit-parent"],
+    "reflect judgment, divergent, synthesizer": ["inherit-parent"],
+    "arena runners": ["inherit-parent", "inherit-parent", "inherit-parent", "inherit-parent"],
+    "arena cross-judge pool": ["inherit-parent", "inherit-parent", "inherit-parent", "inherit-parent"],
+    "swarm workers": ["inherit-parent"],
+    "architect runners": ["inherit-parent", "inherit-parent", "inherit-parent", "inherit-parent"],
+    "interrogate reviewers": ["inherit-parent", "inherit-parent", "inherit-parent", "inherit-parent"]
+  }
+}

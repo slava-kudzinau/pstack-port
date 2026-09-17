@@ -435,3 +435,57 @@ describe("the emitted plan checker agrees with the emitted skeleton", () => {
     expect(result.stdout.toString()).toContain("1 problems");
   });
 });
+
+describe("C4 hooks and models policy", () => {
+  const HOOKS = join(REPO_ROOT, DEFAULTS.output, "hooks");
+  const mandate = readFileSync(join(HOOKS, "session-start-context.md"), "utf8");
+  const modelsPolicy = JSON.parse(readFileSync(join(REPO_ROOT, DEFAULTS.output, "models.json"), "utf8"));
+
+  it("run-hook.cmd's session-start leg prints the mandate file verbatim", () => {
+    const result = Bun.spawnSync(["bash", join(HOOKS, "run-hook.cmd"), "session-start"], { cwd: HOOKS, stdout: "pipe", stderr: "pipe" });
+    expect(result.stderr.toString()).toBe("");
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout.toString()).toBe(mandate);
+  });
+
+  it("the bare session-start script prints the same mandate", () => {
+    const result = Bun.spawnSync(["bash", join(HOOKS, "session-start")], { cwd: HOOKS, stdout: "pipe", stderr: "pipe" });
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout.toString()).toBe(mandate);
+  });
+
+  it("carries none of the ten dialect-guard tokens", () => {
+    const banned = ["skill://", "OMP", "control-cli", "control-ui", "/goal", "the Task tool", "subagent_type", "Cursor", "cloud agent", ".cursor/"];
+    for (const token of banned) expect(mandate).not.toContain(token);
+  });
+
+  it("the five hand-carried hook and policy files clear the denylist", () => {
+    const files: Record<string, string> = {
+      "hooks/hooks.json": readFileSync(join(HOOKS, "hooks.json"), "utf8"),
+      "hooks/session-start": readFileSync(join(HOOKS, "session-start"), "utf8"),
+      "hooks/run-hook.cmd": readFileSync(join(HOOKS, "run-hook.cmd"), "utf8"),
+      "hooks/session-start-context.md": mandate,
+      "models.json": JSON.stringify(modelsPolicy),
+    };
+    expect(deny(Object.entries(files), tables.denylist)).toEqual([]);
+  });
+
+  it("models.json covers every role setup-pstack's template names", () => {
+    const setupPstack = ground.tree.get("skills/setup-pstack/SKILL.md") ?? "";
+    const roleLines = [...setupPstack.matchAll(/^([a-z][a-z ,-]+): <detected-/gm)].map((m) => m[1]);
+    expect(roleLines).toHaveLength(18);
+    for (const role of roleLines) expect(modelsPolicy.roles).toHaveProperty(role);
+    expect(Object.keys(modelsPolicy.roles)).toHaveLength(roleLines.length);
+  });
+
+  it("every models.json role is a non-empty array of non-empty strings", () => {
+    for (const [role, values] of Object.entries(modelsPolicy.roles as Record<string, unknown>)) {
+      expect(Array.isArray(values)).toBe(true);
+      expect((values as unknown[]).length).toBeGreaterThan(0);
+      for (const value of values as unknown[]) {
+        expect(typeof value).toBe("string");
+        expect((value as string).length).toBeGreaterThan(0);
+      }
+    }
+  });
+});

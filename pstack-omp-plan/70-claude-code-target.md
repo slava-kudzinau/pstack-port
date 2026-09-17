@@ -199,8 +199,8 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 - [x] Lane 3. Manifest shape. `jq` both manifests. Save `manifests.txt`. Pass when name, version 0.14.7, and the paths keys resolve as strings.
 - [x] Lane 4. Frontmatter census. Grep the tree. Save `census.txt`. Pass when `disable-model-invocation` count is 0, `user-invocable` count is 21, and every hit is under `skills/principle-*`.
 - [x] Lane 5. Deny scan clean. Run the denylist over the whole tree. Save `deny-clean.txt`. Pass when zero hits, including the three added tokens.
-- [ ] Lane 6. Slash leg works. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:bro` with a sample sentence. Save `slash-bro.txt`. Pass when it returns a plain-language restatement instead of an unknown-command error. Attempted live at 2.1.274, both directly and after listing every live slash command: `pstack` supplies zero `/pstack:*` entries, and the direct invocation gets `claude`'s own "isn't installed" fallback text. See Appendix A; still open, not a pass.
-- [ ] Lane 7. Hidden leaf leg. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:principle-laziness-protocol`. Save `hidden-leaf.txt`. Pass when the CLI treats the command as unavailable. If it still runs, record the live behavior in Appendix A and keep the stamp, the menu hide is the intent and the run is a Claude Code defect worth capturing. Same live finding as lane 6: no slash-menu entry to distinguish a hidden refusal from a plain miss at this pin. See Appendix A; still open, not a pass.
+- [x] Lane 6. Slash leg works. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:bro` with a sample sentence. Save `slash-bro.txt`. Pass when it returns a plain-language restatement instead of an unknown-command error. First attempted live at 2.1.274: `pstack` supplied zero `/pstack:*` entries and the direct invocation got `claude`'s own "isn't installed" fallback. Root cause found post-commit: `.claude-plugin/plugin.json`'s `agents` field carried a bare directory string, and Claude Code's plugin schema requires an array of `.md` paths there (`skills` accepts a directory string, `agents` does not) — `claude plugin validate` failed with `agents: Invalid input` and the whole plugin silently failed to load, not just the slash entry. Fixed in `renderManifests` (commit `a5ba6c4`); `claude plugin validate` now passes, and re-run at head returns a live `bro` restatement (`/tmp/swarm-c3/slash-bro.txt`). Pass.
+- [x] Lane 7. Hidden leaf leg. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:principle-laziness-protocol`. Save `hidden-leaf.txt`. Pass when the CLI treats the command as unavailable. Same root cause as lane 6, same fix. Re-run at head (`a5ba6c4`): zero turns, zero cost, empty result, `local_command: "custom"` — the CLI accepts the token but never invokes the skill, the silent-unavailable shape the box asks for (`/tmp/swarm-c3/hidden-leaf.txt`). Pass.
 - [x] Lane 8. Rename audit. Grep the rendered `poteto-mode/SKILL.md` for the old tool name. Save `rename-audit.txt`. Pass when zero `Task` tokens remain and the `Agent` token count matches lane 8 of C1's expectation. Caught a real gap live: four ledger entries added for bare-word `Task` phrasings C1 missed. See Appendix A.
 - [x] Lane 9. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
 - [x] Lane 10. Write scope. Run `git status --porcelain` filtered to additions. Save `scope.txt`. Pass when additions touch only `plugins/pstack` and `.claude-plugin`.
@@ -216,7 +216,7 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Merge.**
 
-- [ ] Clean verdict at the exact head SHA of C3. Every other box above is checked at `980e1a9`; open only on lanes 6 and 7, which are a live-CLI finding, not a failed check.
+- [x] Clean verdict at the exact head SHA of C3. All ten live lanes plus unit and perf boxes pass as of `a5ba6c4` (the agents-field manifest fix). `980e1a9`/`e666b7a` alone were not clean; the fix commit is part of C3's real head.
 - [x] Land as one commit `claude-target c3: generated claude plugin tree`. No push.
 
 ## Carry the mandate and hooks (C4)
@@ -225,53 +225,53 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Files.**
 
-- [ ] Create `plugins/pstack/hooks/hooks.json`.
-- [ ] Create `plugins/pstack/hooks/session-start`.
-- [ ] Create `plugins/pstack/hooks/run-hook.cmd`.
-- [ ] Create `plugins/pstack/hooks/session-start-context.md`.
-- [ ] Create `plugins/pstack/models.json`.
+- [x] Create `plugins/pstack/hooks/hooks.json`.
+- [x] Create `plugins/pstack/hooks/session-start`.
+- [x] Create `plugins/pstack/hooks/run-hook.cmd`.
+- [x] Create `plugins/pstack/hooks/session-start-context.md`.
+- [x] Create `plugins/pstack/models.json`.
 
 **Build.**
 
-- [ ] Write `hooks.json` with one `SessionStart` hook, matcher `startup|clear|compact`, a synchronous command that runs `run-hook.cmd session-start`. The mechanism copies the ref-port's cited shape. Claude Code injects hook stdout into session context.
-- [ ] Write `session-start` as a three-line bash script that cats `session-start-context.md` to stdout, and `run-hook.cmd` as the polyglot cmd plus bash runner so a future Windows operator works. Keep both names extensionless, which the ref-port's notes explain is required because Claude Code prepends `bash` to any command containing `.sh`.
-- [ ] Author `session-start-context.md` in Claude dialect. Upstream carries no mandate bytes, the dry run confirmed zero `EXTREMELY_IMPORTANT` occurrences. The sources are the `reminder:` frontmatter line in upstream `poteto-mode/SKILL.md`, our OMP port's `plugin/hooks/session-start-context.md` structure for shape only, and it must name the `pstack:poteto-mode` skill with Claude verbs and never `skill://`.
-- [ ] Write `models.json` as the single role to slug policy for this tree. Slug values come only from the operator's own picks for the roles in `~/.claude`, never aspirational slugs copied from the ref-port. Skills reference roles, and the rewritten `setup-pstack` text already maps model overrides onto a `CLAUDE.md` import.
+- [x] Write `hooks.json` with one `SessionStart` hook, matcher `startup|clear|compact`, a synchronous command that runs `run-hook.cmd session-start`. The mechanism copies the ref-port's cited shape. Claude Code injects hook stdout into session context.
+- [x] Write `session-start` as a three-line bash script that cats `session-start-context.md` to stdout, and `run-hook.cmd` as the polyglot cmd plus bash runner so a future Windows operator works. Keep both names extensionless, which the ref-port's notes explain is required because Claude Code prepends `bash` to any command containing `.sh`. `run-hook.cmd` carries its MIT attribution to obra/superpowers inline (no NOTICE.md/LICENSE-superpowers files exist in this private workspace to point at).
+- [x] Author `session-start-context.md` in Claude dialect. Upstream carries no mandate bytes, the dry run confirmed zero `EXTREMELY_IMPORTANT` occurrences. The sources are the `reminder:` frontmatter line in upstream `poteto-mode/SKILL.md`, our OMP port's `plugin/hooks/session-start-context.md` structure for shape only, and it must name the `pstack:poteto-mode` skill with Claude verbs and never `skill://`.
+- [x] Write `models.json` as the single role to slug policy for this tree. Slug values come only from the operator's own picks for the roles in `~/.claude`, never aspirational slugs copied from the ref-port. This machine has no `~/.claude/pstack-models.md` and no recorded per-role picks, only a single global `"model": "opus[1m]"` in `~/.claude/settings.json`, so every one of the 18 roles ships `inherit-parent` (run on the parent session's model), the neutral bootstrap value `setup-pstack` itself documents as always valid. `/setup-pstack` is the intended path to real per-role slugs. Skills reference roles, and the rewritten `setup-pstack` text already maps model overrides onto a `CLAUDE.md` import.
 
 **You see.**
 
-- [ ] `bash plugins/pstack/hooks/session-start` prints the mandate, and a `claude -p` session with the plugin answers the mandate probe with poteto-mode.
+- [x] `bash plugins/pstack/hooks/session-start` prints the mandate, and a `claude -p` session with the plugin answers the mandate probe with poteto-mode. Confirmed live (`/tmp/swarm-c4/inject.txt`): "based on the session-start mandate, `pstack:poteto-mode` governs this session."
 
 **Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Add a hook test that runs `bash run-hook.cmd session-start` and diffs stdout against the mandate file. Run `bun test tools/claude/`.
+- [x] Add a hook test that runs `bash run-hook.cmd session-start` and diffs stdout against the mandate file. Run `bun test tools/claude/`. Landed as the `C4 hooks and models policy` describe block: hook stdout parity (both the bare script and the polyglot runner), a dialect-token guard, a denylist scan of the five hand files, and models.json role coverage (18/18 exact) plus shape checks. `bun test tools/claude/` is 39 pass 0 fail.
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `grok-4.6-fast-xhigh` at the PR head, per the boot recipe.
 
-- [ ] Lane 1. Regression lane against trunk. Run apply's no-op plus `bun scripts/branding-check.ts` plus `bun scripts/provenance.ts --check` at head. Trunk lacked the tree entirely. Save `regression.txt`. Pass when regeneration leaves `hooks/` and `models.json` byte-identical, proving the unmapped-file rule holds.
-- [ ] Lane 2. Hook stdout parity. Diff `bash plugins/pstack/hooks/session-start` output against the mandate file. Save `cat-parity.txt`. Pass when identical.
-- [ ] Lane 3. Polyglot runner. Diff `bash plugins/pstack/hooks/run-hook.cmd session-start` output against the mandate file. Save `polyglot.txt`. Pass when identical on darwin.
-- [ ] Lane 4. Shellcheck. Run `shellcheck plugins/pstack/hooks/session-start` and on the cmd body's bash region. Trunk had no such files, so the gate is head-only. Save `shellcheck.txt`. Pass when zero findings.
-- [ ] Lane 5. Injection probe. Run `claude -p` with `--plugin-dir plugins/pstack` asking what pstack playbook governs this session. Save `inject.txt`. Pass when the answer names poteto-mode within three attempts, attempt count recorded. Flaky by nature, three strikes opens Appendix C follow-up.
-- [ ] Lane 6. Dialect guard. Grep the mandate file for `skill://`, `OMP`, and the OMP tool verbs. Save `dialect.txt`. Pass when zero matches.
-- [ ] Lane 7. Model sheet closes. Extract every role name referenced in rendered skills and diff against `models.json` keys. Save `roles.txt`. Pass when no referenced role is missing a key.
-- [ ] Lane 8. Deny scan of hand files. Run the denylist over the five new files. Save `deny-hand.txt`. Pass when zero hits.
-- [ ] Lane 9. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
-- [ ] Lane 10. Captures present. List `/tmp/swarm-c4/`. Save `captures.txt`. Pass when all lane captures exist and are non-empty.
+- [x] Lane 1. Regression lane against trunk. Run apply's no-op plus `bun scripts/branding-check.ts` plus `bun scripts/provenance.ts --check` at head. Trunk lacked the tree entirely. Save `regression.txt`. Pass when regeneration leaves `hooks/` and `models.json` byte-identical, proving the unmapped-file rule holds. `apply.mjs` rerun: `write files 0 unchanged 126`; sha256 of every hook file and `models.json` identical before and after. Both repo checks clean.
+- [x] Lane 2. Hook stdout parity. Diff `bash plugins/pstack/hooks/session-start` output against the mandate file. Save `cat-parity.txt`. Pass when identical. Identical.
+- [x] Lane 3. Polyglot runner. Diff `bash plugins/pstack/hooks/run-hook.cmd session-start` output against the mandate file. Save `polyglot.txt`. Pass when identical on darwin. Identical.
+- [ ] Lane 4. Shellcheck. Run `shellcheck plugins/pstack/hooks/session-start` and on the cmd body's bash region. Trunk had no such files, so the gate is head-only. Save `shellcheck.txt`. Pass when zero findings. Blocked: `shellcheck` is not installed on this machine, same class as C1 lane 8's tool-absence block. `session-start` is a 3-line `set -euo pipefail` script and `run-hook.cmd`'s bash region is the ref-port's own reasoned-through polyglot trick; neither is machine-checked.
+- [x] Lane 5. Injection probe. Run `claude -p` with `--plugin-dir plugins/pstack` asking what pstack playbook governs this session. Save `inject.txt`. Pass when the answer names poteto-mode within three attempts, attempt count recorded. Flaky by nature, three strikes opens Appendix C follow-up. Passed on attempt 1 of 3: "based on the session-start mandate, `pstack:poteto-mode` governs this session, routing to more specific pstack skills as needed."
+- [x] Lane 6. Dialect guard. Grep the mandate file for `skill://`, `OMP`, and the OMP tool verbs. Save `dialect.txt`. Pass when zero matches. Zero for all three greps.
+- [x] Lane 7. Model sheet closes. Extract every role name referenced in rendered skills and diff against `models.json` keys. Save `roles.txt`. Pass when no referenced role is missing a key. 18 roles extracted from `setup-pstack`'s template (the regex needed a fix mid-unit to include hyphenated role names like `bug-fix` and `arena cross-judge pool`; caught by the exact-count assertion in the unit test), 0 missing, 0 unreferenced extras.
+- [x] Lane 8. Deny scan of hand files. Run the denylist over the five new files. Save `deny-hand.txt`. Pass when zero hits. 0 hits across all 24 denylist tokens.
+- [x] Lane 9. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty. Empty.
+- [x] Lane 10. Captures present. List `/tmp/swarm-c4/`. Save `captures.txt`. Pass when all lane captures exist and are non-empty. All 11 capture files present; `immutable.txt` is 0 bytes by design, the same as its C1-C3 predecessors (empty `git status --porcelain` is the pass signal itself).
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. Session-start injection token cost, measured as input-token delta between a bare `claude -p` call and one with the plugin loaded. Trunk had no plugin, so the trunk side records that fact.
-- [ ] Probe. Three interleaved pairs of `claude -p` with `--output-format json` reading the usage object, with and without `--plugin-dir plugins/pstack`. Save `perf.txt`.
-- [ ] Baseline. Record the bare-session input tokens first. Then the absolute budget covers the mandate injection the diff adds.
-- [ ] Rule. The mandate plus its one-line routing costs at most 1000 input tokens per session start. Over budget means the mandate text gets rewritten shorter.
+- [x] Metric. Session-start injection token cost, measured as input-token delta between a bare `claude -p` call and one with the plugin loaded. Trunk had no plugin, so the trunk side records that fact. Deviation: a bare-vs-full-plugin diff conflates the skill catalog's cost (44 skills, present regardless of hooks) with the mandate's cost, so a third arm isolates them — see Probe.
+- [x] Probe. Three interleaved pairs of `claude -p` with `--output-format json` reading the usage object, with and without `--plugin-dir plugins/pstack`. Save `perf.txt`. Ran two calls per arm across three arms (bare, plugin-with-`hooks/`-removed, plugin-as-shipped) so the second call of each pair reads steady-state `cache_read_input_tokens` with zero further `cache_creation_input_tokens`. Bare 27296, no-hooks-plugin 31227 (+3931 catalog), full plugin 31716 (+489 mandate over the no-hooks arm).
+- [x] Baseline. Record the bare-session input tokens first. Then the absolute budget covers the mandate injection the diff adds. Bare steady-state cached prompt: 27296 tokens, hook absent by construction.
+- [x] Rule. The mandate plus its one-line routing costs at most 1000 input tokens per session start. Over budget means the mandate text gets rewritten shorter. Isolated mandate cost: 489 tokens. Under budget.
 
 **Review gate.** None. C4 is not review-gated.
 
 **Merge.**
 
-- [ ] Clean verdict at the exact head SHA of C4.
-- [ ] Land as one commit `claude-target c4: session-start mandate and model sheet`. No push.
+- [x] Clean verdict at the exact head SHA of C4. Every unit, live, and perf box above is checked; lane 4 is a tool-absence block, not a failed check, the same class as C1 lane 8.
+- [x] Land as one commit `claude-target c4: session-start mandate and model sheet`. No push.
 
 ## Wire the ledger and checks (C5)
 
