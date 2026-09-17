@@ -1,8 +1,24 @@
 import { expect, it, describe } from "bun:test";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
-import { DEFAULTS, REPO_ROOT, deny, formatReport, frontmatter, generate, isLeaf, loadTables, rewrite, scanSnapshot, substitute } from "./apply.mjs";
+import {
+  DEFAULTS,
+  REPO_ROOT,
+  deny,
+  formatReport,
+  frontmatter,
+  frontmatterKeyCount,
+  generate,
+  isLeaf,
+  loadTables,
+  readUpstreamVersion,
+  renderManifests,
+  rewrite,
+  scanSnapshot,
+  substitute,
+  writeTree,
+} from "./apply.mjs";
 
 const TABLES = join(REPO_ROOT, DEFAULTS.tables);
 const tables = await loadTables(TABLES);
@@ -36,7 +52,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -158,9 +174,9 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 104 files and reports 10, 3, 6, 16 in build-rule order", () => {
-    expect(ground.report.scanned).toBe(104);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16]);
+  it("scans 124 files and reports 10, 3, 6, 16, 2 in build-rule order", () => {
+    expect(ground.report.scanned).toBe(124);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2]);
   });
 
   it("strips the key from 44 files and stamps exactly the 21 leaves", () => {
@@ -172,8 +188,8 @@ describe("the snapshot at the pinned sha", () => {
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(115);
-    expect(ground.report.rewriteApplied).toBe(125);
+    expect(ground.report.rewriteEntries).toBe(122);
+    expect(ground.report.rewriteApplied).toBe(133);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
@@ -185,19 +201,16 @@ describe("the snapshot at the pinned sha", () => {
     expect((merged.match(/subagent_type/g) || []).length).toBe(14);
     expect((merged.match(/`Agent`/g) || []).length).toBe(10);
     expect(merged).not.toContain("`Task`");
+    const bareTask = [...merged.matchAll(/\bTask\b/g)];
+    expect(bareTask).toHaveLength(1);
+    expect(/<Task as a verb phrase>/.test(merged)).toBeTrue();
     expect(merged).not.toContain("skill://");
     expect(merged).not.toContain("\r");
   });
 
-  it("surfaces the files outside the scan set that carry deny hits", () => {
-    expect(ground.report.unscannedHits.map((hit) => `${hit.path}:${hit.line}[${hit.token}]`)).toEqual([
-      "skills/poteto-mode/scripts/check-plan.mjs:7[grok-4.6-fast-xhigh]",
-      "skills/poteto-mode/scripts/check-plan.mjs:20[/goal]",
-      "skills/poteto-mode/scripts/worktree-audit.sh:25[.cursor/]",
-      "skills/poteto-mode/scripts/worktree-audit.sh:25[agent-transcripts]",
-      "skills/poteto-mode/scripts/worktree-audit.sh:27[.cursor/]",
-      "skills/poteto-mode/scripts/worktree-audit.sh:27[agent-transcripts]",
-    ]);
+  it("carries every script the prose points at, so nothing sits outside the scan set", () => {
+    expect(ground.report.unscannedFiles).toBe(0);
+    expect(ground.report.unscannedHits).toEqual([]);
   });
 
   it("renders byte-identical reports across runs", async () => {
@@ -211,6 +224,7 @@ describe("a poisoned fixture halts the report", () => {
     const dir = tree({
       "skills/poteto-mode/SKILL.md": skill("poteto-mode", "drive control-cli and skill://how\n"),
       "agents/poteto-agent.md": "---\nname: poteto-agent\ndescription: poteto's style\n---\nbody\n",
+      "skills/poteto-mode/scripts/watch-pr/watch-pr": "#!/usr/bin/env bun\n",
     });
     const { report } = await generate({ snapshotDir: dir, tableDir: TABLES });
     expect(report.hits.map((hit) => `${hit.path}:${hit.line}[${hit.token}]`)).toEqual([
@@ -255,10 +269,11 @@ describe("the rewrite ledger at the pin", () => {
     for (const path of ground.report.stampedPaths) expect(ground.tree.get(path)).toContain("user-invocable: false");
   });
 
-  it("holds every entry single-line, distinct from its source, and free of deny tokens", () => {
+  it("holds every entry single-line unless flagged as a script block, distinct from its source, and free of deny tokens", () => {
     const bad: string[] = [];
     for (const entry of tables.rewrites) {
-      if (!entry.replacement || entry.source.includes("\n") || entry.replacement.includes("\n") || entry.source === entry.replacement) bad.push(entry.source.slice(0, 50));
+      if (!entry.replacement || entry.source === entry.replacement) bad.push(entry.source.slice(0, 50));
+      if (entry.kind !== "block" && (entry.source.includes("\n") || entry.replacement.includes("\n"))) bad.push(entry.source.slice(0, 50));
     }
     expect(bad).toEqual([]);
     expect(deny(new Map(tables.rewrites.map((entry, i) => [`entry-${i}`, entry.replacement])), tables.denylist)).toEqual([]);
@@ -280,5 +295,105 @@ describe("the rewrite ledger at the pin", () => {
       }
     }
     expect(repeated).toEqual([]);
+  });
+});
+
+describe("renderManifests", () => {
+  it("renders both manifests exactly against the pinned upstream metadata", async () => {
+    const upstream = JSON.parse(await Bun.file(join(SNAPSHOT, ".cursor-plugin/plugin.json")).text());
+    const version = await readUpstreamVersion(REPO_ROOT);
+    const { plugin, marketplace } = renderManifests({ version }, upstream);
+    expect(plugin).toEqual({
+      name: "pstack",
+      displayName: "pstack (Claude Code port)",
+      version: "0.14.7",
+      description: `${upstream.description} Generated by tools/claude/apply.mjs from upstream/pstack at the pin in UPSTREAM.md.`,
+      author: { name: "Lauren Tan" },
+      license: "MIT",
+      logo: "assets/logo.png",
+      keywords: upstream.keywords,
+      skills: "./skills/",
+      agents: "./agents/",
+    });
+    expect(marketplace).toEqual({
+      name: "pstack-port",
+      owner: { name: "pstack-port" },
+      description: "Claude Code port of pstack, generated from the pinned snapshot in upstream/pstack.",
+      plugins: [
+        {
+          name: "pstack",
+          source: "./plugins/pstack",
+          description: upstream.description,
+          version: "0.14.7",
+          author: { name: "Lauren Tan (original)" },
+          license: "MIT",
+          keywords: upstream.keywords,
+        },
+      ],
+    });
+  });
+});
+
+describe("the emitted tree at the pin", () => {
+  it("carries zero disable-model-invocation keys and exactly 21 user-invocable keys", () => {
+    expect(frontmatterKeyCount(ground.tree, "disable-model-invocation")).toEqual([]);
+    expect(frontmatterKeyCount(ground.tree, "user-invocable")).toHaveLength(21);
+  });
+
+  it("contains no commands directory", () => {
+    expect([...ground.tree.keys()].some((path) => path === "commands" || path.startsWith("commands/"))).toBeFalse();
+  });
+});
+
+describe("write mode", () => {
+  it("writes the stamped leaf to disk", () => {
+    const { sites } = frontmatter(new Map([["skills/principle-laziness-protocol/SKILL.md", skill("laziness", "body\n")]]));
+    const outputRoot = mkdtempSync(join(tmpdir(), "claude-write-"));
+    writeTree(outputRoot, sites, {});
+    const written = readFileSync(join(outputRoot, "skills/principle-laziness-protocol/SKILL.md"), "utf8");
+    expect(written).toContain("user-invocable: false");
+  });
+
+  it("is idempotent, then prunes a file dropped from the tree", () => {
+    const outputRoot = mkdtempSync(join(tmpdir(), "claude-write-"));
+    const full = new Map([["skills/x/SKILL.md", "a\n"], ["skills/y/SKILL.md", "b\n"]]);
+    const first = writeTree(outputRoot, full, {});
+    expect(first).toEqual({ written: 2, unchanged: 0, pruned: 0 });
+    const second = writeTree(outputRoot, full, {});
+    expect(second).toEqual({ written: 0, unchanged: 2, pruned: 0 });
+    const shrunk = new Map([["skills/x/SKILL.md", "a\n"]]);
+    const third = writeTree(outputRoot, shrunk, {});
+    expect(third).toEqual({ written: 0, unchanged: 1, pruned: 1 });
+    expect(existsSync(join(outputRoot, "skills/y/SKILL.md"))).toBeFalse();
+    expect(existsSync(join(outputRoot, "skills/y"))).toBeFalse();
+  });
+
+  it("preserves the executable bit from the snapshot source", () => {
+    const outputRoot = mkdtempSync(join(tmpdir(), "claude-write-"));
+    const map = new Map([["skills/poteto-mode/scripts/worktree-audit.sh", "#!/usr/bin/env bash\necho hi\n"]]);
+    writeTree(outputRoot, map, { snapshotDir: SNAPSHOT });
+    const mode = require("node:fs").statSync(join(outputRoot, "skills/poteto-mode/scripts/worktree-audit.sh")).mode;
+    expect(mode & 0o111).not.toBe(0);
+  });
+});
+
+describe("a poisoned fixture halts before any write", () => {
+  it("exits nonzero and reports the hit without touching the output tree", () => {
+    const dir = tree({
+      "skills/poteto-mode/SKILL.md": skill("poteto-mode", "drive control-cli here\n"),
+      "skills/poteto-mode/scripts/watch-pr/watch-pr": "#!/usr/bin/env bun\n",
+    });
+    const outRoot = mkdtempSync(join(tmpdir(), "claude-halt-"));
+    const outputRoot = join(outRoot, "plugins/pstack");
+    const marketplacePath = join(outRoot, ".claude-plugin/marketplace.json");
+    const result = Bun.spawnSync(
+      ["bun", "tools/claude/apply.mjs", "--snapshot", dir, "--tables", TABLES, "--output", outputRoot, "--marketplace", marketplacePath],
+      { cwd: REPO_ROOT, stdout: "pipe", stderr: "pipe" },
+    );
+    expect(result.stderr.toString()).toBe("");
+    expect(result.exitCode).toBe(1);
+    expect(result.stdout.toString()).toContain("control-cli");
+    expect(existsSync(outputRoot)).toBeFalse();
+    expect(existsSync(marketplacePath)).toBeFalse();
   });
 });

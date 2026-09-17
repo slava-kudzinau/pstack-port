@@ -6,7 +6,15 @@
     ],
     "extensions": [
       "md",
-      "json"
+      "json",
+      "ts",
+      "mjs",
+      "sh",
+      "tsv",
+      "lock"
+    ],
+    "copy": [
+      "skills/poteto-mode/scripts/watch-pr/watch-pr"
     ]
   },
   "substitutions": [
@@ -33,6 +41,12 @@
       "pattern": ".cursor/skills/",
       "replacement": ".claude/skills/",
       "rationale": "Personal skills directory."
+    },
+    {
+      "id": "poteto-mode-tools-scope",
+      "pattern": "@cursor-skill/poteto-mode-tools",
+      "replacement": "@pstack-claude/poteto-mode-tools",
+      "rationale": "npm scope carried from the upstream Cursor snapshot. Renamed to this port's own scope; the same string appears once in package.json and once in bun.lock."
     }
   ],
   "denylist": [
@@ -173,6 +187,12 @@
       "token": "skill://",
       "mode": "substring",
       "hint": "OMP address scheme. The Claude tree names skills plainly or invokes them as /skill:<name>."
+    },
+    {
+      "origin": "added",
+      "token": "@cursor-skill",
+      "mode": "substring",
+      "hint": "Cursor-scoped npm package name. Should have been substituted to @pstack-claude. The substitution rule failed to apply."
     }
   ]
 }

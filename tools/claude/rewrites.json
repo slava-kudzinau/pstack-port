@@ -85,16 +85,16 @@
       "replacement": "Agent-facing prose also follows the plugin's own `playbooks/authoring-a-skill.md` playbook for authoring `SKILL.md` files."
     },
     {
-      "source": "- Before commit → the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
-      "replacement": "- Before commit → the **deslop** skill (`/deslop`), which this plugin ships."
+      "source": "- Before commit \u2192 the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
+      "replacement": "- Before commit \u2192 the **deslop** skill (`/deslop`), which this plugin ships."
     },
     {
       "source": "`cursor-team-kit` publishes `control-cli` (CLIs and TUIs) and `control-ui` (browser / Electron / web UIs).",
       "replacement": "No shipped built-in drives a surface here, so use the repo's own verification skill, and `create-verification-skill` generates one that drives CLIs and TUIs at the terminal and browser / Electron / web UIs in the browser."
     },
     {
-      "source": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
-      "replacement": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
+      "source": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
+      "replacement": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
     },
     {
       "source": "**Defaults for every `Agent` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role (configurable via `/setup-pstack`; defaults `grok-4.6-fast-xhigh` for code, `claude-fable-5-1-thinking-max` for prose and judgment).",
@@ -169,8 +169,8 @@
       "replacement": "Do not glob across `~/.claude/projects/*/`; that crosses workspace boundaries and reads private chats from unrelated projects."
     },
     {
-      "source": "Delegate code-writing to a subagent using your configured feature model (default `grok-4.6-fast-xhigh`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** — a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic — and success criteria); review its diff yourself.",
-      "replacement": "Delegate code-writing to a subagent using your configured feature model with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** — a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic — and success criteria); review its diff yourself."
+      "source": "Delegate code-writing to a subagent using your configured feature model (default `grok-4.6-fast-xhigh`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** \u2014 a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic \u2014 and success criteria); review its diff yourself.",
+      "replacement": "Delegate code-writing to a subagent using your configured feature model with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** \u2014 a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic \u2014 and success criteria); review its diff yourself."
     },
     {
       "source": "   - Hand the change to a subagent using your configured hillclimb model (default `claude-fable-5-1-thinking-max`) with a tight scope; supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill).",
@@ -459,6 +459,35 @@
     {
       "source": "description: pstack per-role model choices (overrides skill defaults)",
       "replacement": "description: pstack per-role model choices (overrides what the skills say inline)"
+    },
+    {
+      "source": "const LANES = \"Ten lanes on `grok-4.6-fast-xhigh` at the PR head\";",
+      "replacement": "const LANES = \"Ten lanes on the worker model you configured under `swarm workers`, at the PR head\";"
+    },
+    {
+      "source": "const PROGRAM_MARKERS = [\"/goal\", \"git show origin/main:\", /30[- ]minute/, \"status message\"];",
+      "replacement": "const PROGRAM_MARKERS = [\"/loop\", \"git show origin/main:\", /30[- ]minute/, \"status message\"];"
+    },
+    {
+      "source": "# Transcripts dir: ~/.cursor/projects/<slugified-repo-path>/agent-transcripts.\nslug=$(printf '%s' \"$main_wt\" | sed 's#^/##; s#/#-#g')\ntranscripts=\"$HOME/.cursor/projects/$slug/agent-transcripts\"",
+      "replacement": "command -v jq >/dev/null || echo \"warn: jq not found; PR column will be empty\" >&2\ncommand -v rg >/dev/null || echo \"warn: rg not found; LAST_CHAT column will be empty and no row can bucket verify-recent-chat\" >&2\n\n# Transcripts: ~/.claude/projects/<encoded-cwd>/<uuid>.jsonl, where <encoded-cwd> is a\n# session's cwd with every \"/\" turned into \"-\". A session run inside a worktree lives\n# under that worktree's own directory, so scan the whole projects tree, not one repo's.\ntranscripts=\"$HOME/.claude/projects\"",
+      "kind": "block"
+    },
+    {
+      "source": "Spawn a single Task subagent that explores",
+      "replacement": "Spawn a single subagent that explores"
+    },
+    {
+      "source": "spawn a single Task subagent to synthesize",
+      "replacement": "spawn a single subagent to synthesize"
+    },
+    {
+      "source": "(omit Task `model`)",
+      "replacement": "(omit `model` from the call)"
+    },
+    {
+      "source": "the full Task schema including",
+      "replacement": "the full Agent-tool schema including"
     }
   ]
 }
