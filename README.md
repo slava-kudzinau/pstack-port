@@ -1,6 +1,6 @@
 # pstack-port
 
-[pstack](https://github.com/reachingforthejack/pstack) ported to two agent
+[pstack](https://github.com/cursor/plugins/tree/main/pstack) ported to two agent
 platforms: [Claude Code](https://claude.com/claude-code) and
 [Oh My Pi](https://github.com/agent-optimizer/omp). pstack is a collection of
 skills and playbooks that route coding work through specialized workflows,

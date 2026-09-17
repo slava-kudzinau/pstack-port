@@ -1,6 +1,6 @@
 # pstack for Oh My Pi
 
-A collection of skills, agents, and commands that route coding work through specialized workflows. Ported from [pstack](https://github.com/reachingforthejack/pstack) to run on [Oh My Pi](https://github.com/agent-optimizer/omp).
+A collection of skills, agents, and commands that route coding work through specialized workflows. Ported from [pstack](https://github.com/cursor/plugins/tree/main/pstack) to run on [Oh My Pi](https://github.com/agent-optimizer/omp).
 
 ## What it does
 
@@ -77,7 +77,7 @@ This validates structure, frontmatter, cross-references, and branding compliance
 
 ## Upstream sync
 
-pstack is maintained upstream at [reachingforthejack/pstack](https://github.com/reachingforthejack/pstack). To sync changes:
+pstack is maintained upstream at [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack). To sync changes:
 
 ```bash
 bun scripts/fetch-upstream.ts <sha>
