@@ -2,7 +2,7 @@ import { expect, it, describe } from "bun:test";
 import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
-import { DEFAULTS, REPO_ROOT, deny, formatReport, frontmatter, generate, isLeaf, loadTables, rewrite, substitute } from "./apply.mjs";
+import { DEFAULTS, REPO_ROOT, deny, formatReport, frontmatter, generate, isLeaf, loadTables, rewrite, scanSnapshot, substitute } from "./apply.mjs";
 
 const TABLES = join(REPO_ROOT, DEFAULTS.tables);
 const tables = await loadTables(TABLES);
@@ -23,15 +23,20 @@ function tree(files: Record<string, string>): string {
 const skill = (name: string, body: string) => `---\nname: ${name}\ndisable-model-invocation: true\n---\n${body}`;
 const through = (files: Record<string, string>) =>
   frontmatter(substitute(new Map(Object.entries(files)), tables.substitutions).sites).sites;
+const hint = (token: string) => {
+  const entry = tables.denylist.find((candidate) => candidate.token === token);
+  if (!entry) throw new Error(`no such deny token: ${token}`);
+  return entry.hint;
+};
 
 describe("substitution", () => {
   it("counts each rule against the text as the previous rule left it", () => {
     const sites = new Map([
-      ["skills/arena/SKILL.md", skill("arena", "Use the `Task` tool and the Task tool. Ask once with AskQuestion. Write to .cursor/skills/a.md and .cursor/rules/b.mdc and .cursor/hooks\n")],
+      ["skills/arena/SKILL.md", skill("arena", "Use the `Task` tool and the Task tool. Ask once with AskQuestion. Write to .cursor/skills/a.md and .cursor/hooks\n")],
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 1]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -119,8 +124,8 @@ describe("denylist", () => {
   it("names the file, the line, and the hint for every survivor", () => {
     const out = through({ "skills/orchestrate/SKILL.md": skill("orchestrate", "liveness\nread skill://how for the shape\nthe control-cli surface is gone\n") });
     expect(deny(out, tables.denylist)).toEqual([
-      { path: "skills/orchestrate/SKILL.md", line: 5, token: "skill://", hint: tables.denylist[8].hint, origin: "added" },
-      { path: "skills/orchestrate/SKILL.md", line: 6, token: "control-cli", hint: tables.denylist[0].hint, origin: "carried" },
+      { path: "skills/orchestrate/SKILL.md", line: 5, token: "skill://", hint: hint("skill://"), origin: "added" },
+      { path: "skills/orchestrate/SKILL.md", line: 6, token: "control-cli", hint: hint("control-cli"), origin: "carried" },
     ]);
   });
 
@@ -135,7 +140,7 @@ describe("denylist", () => {
       ["skills/poteto-mode/playbooks/orchestrate.md", "Nothing from OMP carries into this tree.\n"],
     ]);
     expect(deny(sites, tables.denylist)).toEqual([
-      { path: "skills/poteto-mode/playbooks/orchestrate.md", line: 1, token: "OMP", hint: tables.denylist[9].hint, origin: "added" },
+      { path: "skills/poteto-mode/playbooks/orchestrate.md", line: 1, token: "OMP", hint: hint("OMP"), origin: "added" },
     ]);
   });
 
@@ -145,7 +150,7 @@ describe("denylist", () => {
       "skills/arena/SKILL.md": skill("arena", "Cursor cloud agent\n.goal line .cursor/hooks\n"),
     });
     expect(deny(out, tables.denylist).map((hit) => `${hit.path}:${hit.line}[${hit.token}]`)).toEqual([
-      "skills/arena/SKILL.md:4[Cursor cloud agent]",
+      "skills/arena/SKILL.md:4[Cursor]",
       "skills/arena/SKILL.md:5[.cursor/]",
       "skills/swarm/SKILL.md:4[.cursor/]",
     ]);
@@ -153,9 +158,9 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 104 files and reports 10, 3, 6, 16, 7 in build-rule order", () => {
+  it("scans 104 files and reports 10, 3, 6, 16 in build-rule order", () => {
     expect(ground.report.scanned).toBe(104);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 7]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16]);
   });
 
   it("strips the key from 44 files and stamps exactly the 21 leaves", () => {
@@ -166,12 +171,13 @@ describe("the snapshot at the pinned sha", () => {
     expect(ground.report.anomalies).toEqual([]);
   });
 
-  it("halts on 33 carried hits in 17 files plus the one prose hide-key mention", () => {
-    expect(ground.report.carried).toMatchObject({ hits: 33, files: 17 });
-    expect(ground.report.added).toMatchObject({ hits: 1, files: 1 });
-    expect(ground.report.hits.filter((hit) => hit.token === "disable-model-invocation")).toEqual([
-      { path: "skills/automate-me/SKILL.md", line: 72, token: "disable-model-invocation", hint: tables.denylist[7].hint, origin: "added" },
-    ]);
+  it("closes every survivor through the rewrite ledger", () => {
+    expect(ground.report.rewriteEntries).toBe(115);
+    expect(ground.report.rewriteApplied).toBe(125);
+    expect(ground.report.misses).toEqual([]);
+    expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
+    expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
+    expect(ground.report.hits).toEqual([]);
   });
 
   it("keeps the Claude-native dispatch tokens the tree is meant to carry", () => {
@@ -185,9 +191,12 @@ describe("the snapshot at the pinned sha", () => {
 
   it("surfaces the files outside the scan set that carry deny hits", () => {
     expect(ground.report.unscannedHits.map((hit) => `${hit.path}:${hit.line}[${hit.token}]`)).toEqual([
+      "skills/poteto-mode/scripts/check-plan.mjs:7[grok-4.6-fast-xhigh]",
       "skills/poteto-mode/scripts/check-plan.mjs:20[/goal]",
       "skills/poteto-mode/scripts/worktree-audit.sh:25[.cursor/]",
+      "skills/poteto-mode/scripts/worktree-audit.sh:25[agent-transcripts]",
       "skills/poteto-mode/scripts/worktree-audit.sh:27[.cursor/]",
+      "skills/poteto-mode/scripts/worktree-audit.sh:27[agent-transcripts]",
     ]);
   });
 
@@ -209,5 +218,67 @@ describe("a poisoned fixture halts the report", () => {
       "skills/poteto-mode/SKILL.md:4[skill://]",
     ]);
     expect(formatReport(report)).toContain("deny total hits 2 files 1");
+  });
+});
+
+describe("the rewrite ledger at the pin", () => {
+  const SLUG_SHAPE = /\b(?:claude|grok|gpt)-[a-z0-9]+(?:[-.][a-z0-9]+)*\b/g;
+  function phrases(line: string): string[] {
+    const hits = [...line.matchAll(/[A-Za-z][A-Za-z0-9'’-]*/g)];
+    const out: string[] = [];
+    for (let i = 0; i + 3 < hits.length; i++) {
+      if (hits[i + 3].index - hits[i].index > 60) continue;
+      out.push(hits.slice(i, i + 4).map((m) => m[0]).join(" "));
+    }
+    return out;
+  }
+  const tally = (list: string[]) => {
+    const map = new Map<string, number>();
+    for (const phrase of list) map.set(phrase, (map.get(phrase) ?? 0) + 1);
+    return map;
+  };
+
+  it("ships no vendor model slug, even one absent from the deny table", () => {
+    const leaked: string[] = [];
+    for (const [path, text] of ground.tree) for (const match of text.matchAll(SLUG_SHAPE)) leaked.push(`${path} ${match[0]}`);
+    expect(leaked).toEqual([]);
+  });
+
+  it("keeps the hide key out of every generated frontmatter and stamps only the 21 leaves", () => {
+    const kept: string[] = [];
+    for (const [path, text] of ground.tree) {
+      if (!text.startsWith("---\n")) continue;
+      if (text.slice(4, text.indexOf("\n---", 4)).includes("disable-model-invocation")) kept.push(path);
+    }
+    expect(kept).toEqual([]);
+    expect(ground.report.stampedPaths).toHaveLength(21);
+    for (const path of ground.report.stampedPaths) expect(ground.tree.get(path)).toContain("user-invocable: false");
+  });
+
+  it("holds every entry single-line, distinct from its source, and free of deny tokens", () => {
+    const bad: string[] = [];
+    for (const entry of tables.rewrites) {
+      if (!entry.replacement || entry.source.includes("\n") || entry.replacement.includes("\n") || entry.source === entry.replacement) bad.push(entry.source.slice(0, 50));
+    }
+    expect(bad).toEqual([]);
+    expect(deny(new Map(tables.rewrites.map((entry, i) => [`entry-${i}`, entry.replacement])), tables.denylist)).toEqual([]);
+  });
+
+  it("never lets a replacement repeat a clause the untouched tail already states", async () => {
+    const post = frontmatter((await substitute(await scanSnapshot(SNAPSHOT, tables.scan), tables.substitutions)).sites).sites;
+    const repeated: string[] = [];
+    for (const entry of tables.rewrites) {
+      for (const [path, text] of post) {
+        const lines = text.split("\n");
+        for (let i = 0; i < lines.length; i++) {
+          if (!lines[i].includes(entry.source)) continue;
+          const rendered = lines[i].split(entry.source).join(entry.replacement);
+          const before = tally(phrases(lines[i]));
+          const after = tally(phrases(rendered));
+          for (const [phrase, n] of after) if (n >= 2 && n > (before.get(phrase) ?? 0)) repeated.push(`${path}:${i + 1} ${phrase}`);
+        }
+      }
+    }
+    expect(repeated).toEqual([]);
   });
 });

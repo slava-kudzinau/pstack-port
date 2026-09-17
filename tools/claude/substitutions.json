@@ -1,7 +1,13 @@
 {
   "scan": {
-    "roots": ["skills", "agents"],
-    "extensions": ["md", "json"]
+    "roots": [
+      "skills",
+      "agents"
+    ],
+    "extensions": [
+      "md",
+      "json"
+    ]
   },
   "substitutions": [
     {
@@ -27,33 +33,9 @@
       "pattern": ".cursor/skills/",
       "replacement": ".claude/skills/",
       "rationale": "Personal skills directory."
-    },
-    {
-      "id": "rules-to-imports",
-      "pattern": ".cursor/rules/",
-      "replacement": "CLAUDE.md imports",
-      "rationale": "Claude Code has no auto-applied rules directory. Inclusion is explicit through CLAUDE.md."
     }
   ],
   "denylist": [
-    {
-      "origin": "carried",
-      "token": "control-cli",
-      "mode": "substring",
-      "hint": "Claude Code's run built-in drives CLIs and TUIs. Rewrite the sentence, do not token-swap."
-    },
-    {
-      "origin": "carried",
-      "token": "control-ui",
-      "mode": "substring",
-      "hint": "Claude Code's verify built-in drives UIs. Rewrite the sentence, do not token-swap."
-    },
-    {
-      "origin": "carried",
-      "token": "AskQuestion",
-      "mode": "substring",
-      "hint": "Should have been substituted to AskUserQuestion. The substitution rule failed to apply."
-    },
     {
       "origin": "carried",
       "token": ".cursor/",
@@ -62,9 +44,85 @@
     },
     {
       "origin": "carried",
-      "token": "Cursor cloud agent",
+      "token": "/goal",
       "mode": "substring",
-      "hint": "Claude Code runs subagents locally. The port isolates writers with worktrees."
+      "hint": "Cursor's /goal has no Claude Code equivalent. The autopilot playbooks keep the objective in standing orders."
+    },
+    {
+      "origin": "carried",
+      "token": "AskQuestion",
+      "mode": "substring",
+      "hint": "Should have been substituted to AskUserQuestion. The substitution rule failed to apply."
+    },
+    {
+      "origin": "added",
+      "token": "Cloud agent",
+      "mode": "substring",
+      "hint": "Cursor cloud worker claim about reading the local store."
+    },
+    {
+      "origin": "added",
+      "token": "Cursor",
+      "mode": "word",
+      "hint": "Cursor vendor name. This tree is a Claude Code plugin and never leans on a Cursor capability."
+    },
+    {
+      "origin": "added",
+      "token": "OMP",
+      "mode": "word",
+      "hint": "OMP product name. This tree is written in Claude-native dialect."
+    },
+    {
+      "origin": "added",
+      "token": "agent-transcripts",
+      "mode": "substring",
+      "hint": "Cursor transcript directory. Claude Code writes each session to ~/.claude/projects/<slug>/<uuid>.jsonl."
+    },
+    {
+      "token": "claude-fable-5-1-thinking-max",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "token": "claude-opus-5-thinking-xhigh",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "origin": "added",
+      "token": "cloud VM",
+      "mode": "substring",
+      "hint": "Cursor cloud worker. This port isolates concurrent writers in worktrees."
+    },
+    {
+      "origin": "added",
+      "token": "cloud root",
+      "mode": "substring",
+      "hint": "Cursor cloud-hosted orchestrator. This port runs the root on this machine."
+    },
+    {
+      "origin": "added",
+      "token": "cloud-sleeper",
+      "mode": "substring",
+      "hint": "Cursor wake chain. This port arms its audit ticks with the /loop command."
+    },
+    {
+      "origin": "carried",
+      "token": "control-cli",
+      "mode": "substring",
+      "hint": "Cursor-only control skill. This port drives CLIs and TUIs at the terminal and UIs in the browser, or through the repo's own verification skill."
+    },
+    {
+      "origin": "carried",
+      "token": "control-ui",
+      "mode": "substring",
+      "hint": "Cursor-only control skill. Browser, Electron and web UIs get driven in the browser; generate a project verification skill for it when one is needed."
+    },
+    {
+      "origin": "added",
+      "token": "cursor-team-kit",
+      "mode": "substring",
+      "hint": "Cursor marketplace kit. This tree ships its own skills and never tells a user to install a Cursor plugin."
     },
     {
       "origin": "carried",
@@ -73,28 +131,48 @@
       "hint": "Cursor product URL. Check whether the sentence applies to Claude Code at all."
     },
     {
-      "origin": "carried",
-      "token": "/goal",
+      "origin": "added",
+      "token": "environment: \"cloud\"",
       "mode": "substring",
-      "hint": "Cursor's /goal has no Claude Code equivalent. The autopilot playbooks keep the objective in standing orders."
+      "hint": "Cursor worker placement. This port places workers on this machine or in a worktree."
     },
     {
       "origin": "added",
-      "token": "disable-model-invocation",
+      "token": "generalPurpose",
       "mode": "substring",
-      "hint": "The Claude tree strips this key from every skill. A surviving mention recommends a key this tree never emits."
+      "hint": "Cursor subagent type name. This port names Claude Code own agent registry."
+    },
+    {
+      "token": "gpt-4",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "token": "gpt-4o",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "token": "gpt-5.6-sol-max",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "token": "grok-4.6-fast-xhigh",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
+    },
+    {
+      "origin": "added",
+      "token": "origin/main:pstack",
+      "mode": "substring",
+      "hint": "Upstream repo path inside a git show. A user repo has no such path; re-read from disk under the installed plugin instead."
     },
     {
       "origin": "added",
       "token": "skill://",
       "mode": "substring",
       "hint": "OMP address scheme. The Claude tree names skills plainly or invokes them as /skill:<name>."
-    },
-    {
-      "origin": "added",
-      "token": "OMP",
-      "mode": "word",
-      "hint": "OMP product name. This tree is written in Claude-native dialect."
     }
   ]
 }

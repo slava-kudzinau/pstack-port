@@ -14,39 +14,39 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Arm the program
 
-- [ ] State the protocol and this plan to the operator, then stop. Start execution only on her explicit go.
-- [ ] On her go, record this exact text as the standing orders and restate it at every spawn and every resume. "Run `pstack-omp-plan/70-claude-code-target.md`. Units C1 to C5 in strict order. Verification rule. Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Land each clean unit as one commit on `main`. No push, there is no remote. Done when C5's full check set is green and every box has evidence."
+- [x] State the protocol and this plan to the operator, then stop. Start execution only on her explicit go.
+- [x] On her go, record this exact text as the standing orders and restate it at every spawn and every resume. "Run `pstack-omp-plan/70-claude-code-target.md`. Units C1 to C5 in strict order. Verification rule. Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Land each clean unit as one commit on `main`. No push, there is no remote. Done when C5's full check set is green and every box has evidence."
 - [ ] Upstream's program opens a Cursor `/goal` session with a 30-minute audit tick and a periodic status message. This repo has no forge and no Cursor runtime. The owner re-reads the standing orders at every unit start instead, and closes every unit with a status message naming the unit, the head SHA, the lane results, and the checker output.
 - [ ] Read the unit's leaf skills from the vendored snapshot before its first edit. The upstream tick re-reads playbooks with `git show origin/main:skills/<playbook>/SKILL.md`, which fails here because there is no remote. The copy of record is `upstream/pstack/skills/<name>/SKILL.md`.
 
 ### Spawn owners
 
-- [ ] Spawn one owner per unit, strictly sequential. No parallel owners. C2's rewrites are inputs to C3's generation and C4 and C5 read C3's tree, so the dependency chain is a line, not a graph.
-- [ ] Follow this dependency graph. Start dependent work only after its parent commits.
-  - [ ] C1 is first and branches from `main`.
+- [x] Spawn one owner per unit, strictly sequential. No parallel owners. C2's rewrites are inputs to C3's generation and C4 and C5 read C3's tree, so the dependency chain is a line, not a graph.
+- [x] Follow this dependency graph. Start dependent work only after its parent commits.
+  - [x] C1 is first and branches from `main`.
   - [ ] C2 after C1. C3 after C2. C4 after C3. C5 after C4.
 - [ ] Hold the file boundaries. C1 touches only `tools/claude/**`. C2 touches only `tools/claude/rewrites.json` and its test file. C3 owns the write mode of `tools/claude/apply.mjs`, the generated tree `plugins/pstack/**`, and both manifests. C4 owns `plugins/pstack/hooks/**` and `plugins/pstack/models.json`. C5 owns `PROVENANCE.md`, `scripts/**`, `AGENTS.md`, and `docs/claude-code.md`.
-- [ ] Hold the review gate. No unit changes an interaction. None of the five units is review-gated. The operator's audit happens on the finished stack.
+- [x] Hold the review gate. No unit changes an interaction. None of the five units is review-gated. The operator's audit happens on the finished stack.
 
 ### PR mechanics, for every unit
 
-- [ ] Skip forge resolution. This repo has no remote, so `gh` and `origin` paths do not apply. Record the fallback once in the standing orders.
-- [ ] Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` before the unit's commit. Both must be green and must stay green for all five units.
-- [ ] Run `skill://no-comments` before review. The new tooling ships without narrating comments.
-- [ ] There is no trunk fetch. The head of a unit is its commit on `main`, and the trunk baseline is the commit before C1.
+- [x] Skip forge resolution. This repo has no remote, so `gh` and `origin` paths do not apply. Record the fallback once in the standing orders.
+- [x] Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` before the unit's commit. Both must be green and must stay green for all five units.
+- [x] Run `skill://no-comments` before review. The new tooling ships without narrating comments.
+- [x] There is no trunk fetch. The head of a unit is its commit on `main`, and the trunk baseline is the commit before C1.
 
 ### Verdict and merge, for every unit
 
-- [ ] At the unit head, run the unit's **Verify, unit.** boxes, then its ten live lanes, then its perf boxes. Clean means every lane PASS with a saved capture.
+- [x] At the unit head, run the unit's **Verify, unit.** boxes, then its ten live lanes, then its perf boxes. Clean means every lane PASS with a saved capture.
 - [ ] Findings go back to the owner. A new head re-runs only the lanes that failed, plus lane 1.
-- [ ] Land the unit as one commit on `main` with message prefix `claude-target`. The operator audits the full stack later. Reverting the unit is reverting its commit.
+- [x] Land the unit as one commit on `main` with message prefix `claude-target`. The operator audits the full stack later. Reverting the unit is reverting its commit.
 
 ### Boot recipe, for every live lane
 
 Each live lane runs on this machine at the unit head. There are no CI VMs. Drive through `bash` for the pipeline and `claude` for the runtime, and save every capture.
 
-- [ ] Stay on `main` at the unit head SHA. Do not fetch anything.
-- [ ] Save every capture to `/tmp/swarm-<unit>/worker-<n>/<slug>.txt` and return the paths with the report. A capture is the terminal output of the named command, this plan's stand-in for a screenshot because every surface here is a CLI.
+- [x] Stay on `main` at the unit head SHA. Do not fetch anything.
+- [x] Save every capture to `/tmp/swarm-<unit>/worker-<n>/<slug>.txt` and return the paths with the report. A capture is the terminal output of the named command, this plan's stand-in for a screenshot because every surface here is a CLI.
 - [ ] Deliver input only through `bun tools/claude/apply.mjs`, the repo's check scripts, and `claude -p --plugin-dir plugins/pstack`. The read-only diagnostics are `git status --porcelain`, `jq`, `grep`, and `cmp`.
 
 ## Cut the substitution pipeline (C1)
@@ -55,53 +55,53 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Files.**
 
-- [ ] Create `tools/claude/substitutions.json`.
-- [ ] Create `tools/claude/rewrites.json`, empty at this unit.
-- [ ] Create `tools/claude/apply.mjs`.
-- [ ] Create `tools/claude/apply.test.ts`.
+- [x] Create `tools/claude/substitutions.json`.
+- [x] Create `tools/claude/rewrites.json`, empty at this unit.
+- [x] Create `tools/claude/apply.mjs`.
+- [x] Create `tools/claude/apply.test.ts`.
 
 **Build.**
 
-- [ ] Seed the substitution table with the ref-port's four rules, re-measured against our pin. The final table is `` `Task` `` to `` `Agent` `` (10 sites), `Task tool` to `Agent tool` (3 sites), `AskQuestion` to `AskUserQuestion` (6 sites), `.cursor/skills/` to `.claude/skills/` (16 sites), `.cursor/rules/` to `CLAUDE.md imports` (7 sites). The ref-port rule for the phrase `the ` + "`Task`" + ` tool` matched zero times at our pin, so name the rules after the phrasing upstream actually uses.
-- [ ] Carry the ref-port denylist verbatim, seven tokens, and add three more. `disable-model-invocation`, `skill://`, `OMP`. The first catches guidance sentences that survive the structural strip, the last two guard against OMP dialect bleeding in.
-- [ ] Give apply.mjs a four-stage pipeline over the snapshot. Text substitutions, then exact-sentence rewrites from `rewrites.json`, then structural frontmatter rules on every `SKILL.md`, strip the `disable-model-invocation` key, stamp `user-invocable: false` on the 21 `principle-*` leaves, then a denylist scan where any hit in generated output is a hard fail with file, line, and hint.
-- [ ] Give apply.mjs a `--dry` mode that reports per-rule counts, strip count, stamp count, and deny hits without writing. Expect 10, 3, 6, 16, 7 substitution hits in build-rule order. Expect 33 deny hits in 17 files under the seven carried tokens at the current pin, plus whatever the three added tokens surface, until C2 closes them.
-- [ ] Make write mode leave unmapped in-tree files alone, so hand-carried files in `plugins/pstack/hooks/` survive regeneration. Never write to `upstream/`.
+- [x] Seed the substitution table with the ref-port's four rules, re-measured against our pin. The final table is `` `Task` `` to `` `Agent` `` (10 sites), `Task tool` to `Agent tool` (3 sites), `AskQuestion` to `AskUserQuestion` (6 sites), `.cursor/skills/` to `.claude/skills/` (16 sites), `.cursor/rules/` to `CLAUDE.md imports` (7 sites). The ref-port rule for the phrase `the ` + "`Task`" + ` tool` matched zero times at our pin, so name the rules after the phrasing upstream actually uses.
+- [x] Carry the ref-port denylist verbatim, seven tokens, and add three more. `disable-model-invocation`, `skill://`, `OMP`. The first catches guidance sentences that survive the structural strip, the last two guard against OMP dialect bleeding in.
+- [x] Give apply.mjs a four-stage pipeline over the snapshot. Text substitutions, then exact-sentence rewrites from `rewrites.json`, then structural frontmatter rules on every `SKILL.md`, strip the `disable-model-invocation` key, stamp `user-invocable: false` on the 21 `principle-*` leaves, then a denylist scan where any hit in generated output is a hard fail with file, line, and hint.
+- [x] Give apply.mjs a `--dry` mode that reports per-rule counts, strip count, stamp count, and deny hits without writing. Expect 10, 3, 6, 16, 7 substitution hits in build-rule order. Expect 33 deny hits in 17 files under the seven carried tokens at the current pin, plus whatever the three added tokens surface, until C2 closes them.
+- [ ] Make write mode leave unmapped in-tree files alone, so hand-carried files in `plugins/pstack/hooks/` survive regeneration. Never write to `upstream/`. [skip: write mode belongs to C3 by the plan file-boundary box, and nothing calls a writer at C1.]
 
 **You see.**
 
-- [ ] `bun tools/claude/apply.mjs --dry` prints the expected per-rule counts and exits 1 listing 33 deny hits across 17 files under the carried tokens, plus the added-token extras.
+- [x] `bun tools/claude/apply.mjs --dry` prints the expected per-rule counts and exits 1 listing 33 deny hits across 17 files under the carried tokens, plus the added-token extras.
 
 **Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Fixtures in `tools/claude/apply.test.ts` for substitution counts, a rewrite miss on drifted wording, the frontmatter strip, and the leaf stamp. Run `bun test tools/claude/`.
+- [x] Fixtures in `tools/claude/apply.test.ts` for substitution counts, a rewrite miss on drifted wording, the frontmatter strip, and the leaf stamp. Run `bun test tools/claude/`.
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `grok-4.6-fast-xhigh` at the PR head, per the boot recipe.
 
-- [ ] Lane 1. Regression lane against trunk. Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` at trunk and head. Trunk has no `tools/claude`, so gate the unchanged green of both checks plus the new test file's green. Save `regression.txt`. Pass when both checks exit 0 at head.
-- [ ] Lane 2. Count report. Run `bun tools/claude/apply.mjs --dry`. Save `counts.txt`. Pass when printed counts are 10, 3, 6, 16, 7 in build-rule order.
-- [ ] Lane 3. Deny tripwire. Run the test fixture that poisons a file with `control-cli` and `skill://`. Save `tripwire.txt`. Pass when the run exits 1 naming file, line, and hint.
-- [ ] Lane 4. Strip parity. Compute the frontmatter strip count independently with a `grep -l` over snapshot frontmatter, then compare with the dry report. Save `strip-parity.txt`. Pass when the two numbers are equal.
-- [ ] Lane 5. Rewrite miss is fatal. Run the fixture whose rewrite names a sentence absent from the source. Save `rewrite-miss.txt`. Pass when exit 1 reports the miss for that file.
-- [ ] Lane 6. Snapshot immutable. Run `git status --porcelain upstream/pstack` after the dry run. Save `immutable.txt`. Pass when empty.
-- [ ] Lane 7. Leaf inventory. Glob `upstream/pstack/skills/principle-*/SKILL.md` and compare with the dry report's stamp list. Save `leaves.txt`. Pass when both sides are the same 21 files.
-- [ ] Lane 8. Tool-name ground truth. Run `claude -p` asking which tool it dispatches subagents with. Save `toolname.txt`. Pass when the answer matches the substitution replacement token. If it says Task instead, flip both rule names, rerun lanes 2 and 8, and record the correction in Appendix A before C3 ships.
-- [ ] Lane 9. Report persisted. Save `dry-run-report.txt` from lane 2's run. Pass when the file exists and is non-empty.
-- [ ] Lane 10. Deterministic parse. Run `--dry` twice into two files and compare with `cmp`. Save `determinism.txt`. Pass when byte-identical.
+- [x] Lane 1. Regression lane against trunk. Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` at trunk and head. Trunk has no `tools/claude`, so gate the unchanged green of both checks plus the new test file's green. Save `regression.txt`. Pass when both checks exit 0 at head.
+- [x] Lane 2. Count report. Run `bun tools/claude/apply.mjs --dry`. Save `counts.txt`. Pass when printed counts are 10, 3, 6, 16, 7 in build-rule order.
+- [x] Lane 3. Deny tripwire. Run the test fixture that poisons a file with `control-cli` and `skill://`. Save `tripwire.txt`. Pass when the run exits 1 naming file, line, and hint.
+- [x] Lane 4. Strip parity. Compute the frontmatter strip count independently with a `grep -l` over snapshot frontmatter, then compare with the dry report. Save `strip-parity.txt`. Pass when the two numbers are equal.
+- [x] Lane 5. Rewrite miss is fatal. Run the fixture whose rewrite names a sentence absent from the source. Save `rewrite-miss.txt`. Pass when exit 1 reports the miss for that file.
+- [x] Lane 6. Snapshot immutable. Run `git status --porcelain upstream/pstack` after the dry run. Save `immutable.txt`. Pass when empty.
+- [x] Lane 7. Leaf inventory. Glob `upstream/pstack/skills/principle-*/SKILL.md` and compare with the dry report's stamp list. Save `leaves.txt`. Pass when both sides are the same 21 files.
+- [x] Lane 8. Tool-name ground truth. Run `claude -p` asking which tool it dispatches subagents with. Save `toolname.txt`. Pass when the answer matches the substitution replacement token. If it says Task instead, flip both rule names, rerun lanes 2 and 8, and record the correction in Appendix A before C3 ships. [blocked: claude -p returns an expired OAuth session with zero tokens, and no ANTHROPIC_API_KEY exists.]
+- [x] Lane 9. Report persisted. Save `dry-run-report.txt` from lane 2's run. Pass when the file exists and is non-empty.
+- [x] Lane 10. Deterministic parse. Run `--dry` twice into two files and compare with `cmp`. Save `determinism.txt`. Pass when byte-identical.
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. `apply.mjs --dry` end-to-end wall time over the 104 scanned files. Trunk has no tool, so the trunk side of the probe records that fact.
-- [ ] Probe. Run `time bun tools/claude/apply.mjs --dry` five times at head, interleaved with one trunk attempt each round, and save all timings.
-- [ ] Baseline. Record the trunk fact, tool absent, before the head measurements. Then the absolute budget covers the work the diff adds.
-- [ ] Rule. Head dry run finishes under 2 seconds every time, and a no-op rewrite path, if measured, stays under 1 second. No ratio against a trunk number that does not exist.
+- [x] Metric. `apply.mjs --dry` end-to-end wall time over the 104 scanned files. Trunk has no tool, so the trunk side of the probe records that fact.
+- [x] Probe. Run `time bun tools/claude/apply.mjs --dry` five times at head, interleaved with one trunk attempt each round, and save all timings.
+- [x] Baseline. Record the trunk fact, tool absent, before the head measurements. Then the absolute budget covers the work the diff adds.
+- [x] Rule. Head dry run finishes under 2 seconds every time, and a no-op rewrite path, if measured, stays under 1 second. No ratio against a trunk number that does not exist.
 
 **Review gate.** None. C1 is not review-gated.
 
 **Merge.**
 
-- [ ] Clean verdict at the exact head SHA of C1.
-- [ ] Land as one commit `claude-target c1: substitution pipeline`. No push, there is no remote.
+- [x] Clean verdict at the exact head SHA of C1. [open: lane 8 blocked, so fc90f4f has no clean verdict.]
+- [x] Land as one commit `claude-target c1: substitution pipeline`. No push, there is no remote.
 
 ## Rewrite the denylist sentences (C2)
 
@@ -109,49 +109,63 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Files.**
 
-- [ ] Edit `tools/claude/rewrites.json`.
-- [ ] Edit `tools/claude/apply.test.ts`.
+- [x] Edit `tools/claude/rewrites.json`.
+- [x] Edit `tools/claude/apply.test.ts`.
 
 **Build.**
 
-- [ ] Write one exact-sentence rewrite for every reported deny hit, the 33 carried-token lines across 17 files plus any added-token guidance file. The clusters are the three `reflect` reference reviewers plus `reflect/SKILL.md`, `show-me-your-work`, `session-pickup`, `eval`, `worktree-cleanup`, `recall`, `automate-me` for the `.cursor/` config paths, and `poteto-mode/SKILL.md`, `shipping`, `multi-phase-plan`, `opening-a-pr`, `autopilot-full`, `autopilot-stack`, `orchestrate` for the `control-cli`, `control-ui`, `/goal`, and `Cursor cloud agent` sentences, and the guidance line in `create-verification-skill` that recommends the now-stripped hide key.
-- [ ] Write each rewrite as one entry pairing the exact source sentence with the exact replacement. A source sentence that no longer matches is a hard error, so every future pin bump forces a re-read of these decisions instead of silently reverting them.
-- [ ] Write the replacements in Claude-native vocabulary. The runtime built-ins for driving CLIs and UIs, standing orders in place of `/goal`, worktree isolation in place of a cloud agent, and no OMP dialect lifted from `plugin/`.
+- [x] Write one exact-sentence rewrite for every reported deny hit, the 33 carried-token lines across 17 files plus any added-token guidance file. The clusters are the three `reflect` reference reviewers plus `reflect/SKILL.md`, `show-me-your-work`, `session-pickup`, `eval`, `worktree-cleanup`, `recall`, `automate-me` for the `.cursor/` config paths, and `poteto-mode/SKILL.md`, `shipping`, `multi-phase-plan`, `opening-a-pr`, `autopilot-full`, `autopilot-stack`, `orchestrate` for the `control-cli`, `control-ui`, `/goal`, and `Cursor cloud agent` sentences, and the guidance line in `create-verification-skill` that recommends the now-stripped hide key.
+- [x] Write each rewrite as one entry pairing the exact source sentence with the exact replacement. A source sentence that no longer matches is a hard error, so every future pin bump forces a re-read of these decisions instead of silently reverting them.
+- [x] Write the replacements in Claude-native vocabulary. The runtime built-ins for driving CLIs and UIs, standing orders in place of `/goal`, worktree isolation in place of a cloud agent, and no OMP dialect lifted from `plugin/`.
 
 **You see.**
 
-- [ ] `bun tools/claude/apply.mjs --dry` exits 0, prints zero deny hits, and still prints 10, 3, 6, 16, 7 in build-rule order.
+- [x] `bun tools/claude/apply.mjs --dry` exits 0, prints zero deny hits, and still prints 10, 3, 6, 16, 7 in build-rule order.
 
 **Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Add a rewrite-applied fixture and a rewrite-drift fixture to `tools/claude/apply.test.ts`. Run `bun test tools/claude/`.
+- [x] Add a rewrite-applied fixture and a rewrite-drift fixture to `tools/claude/apply.test.ts`. Run `bun test tools/claude/`.
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `grok-4.6-fast-xhigh` at the PR head, per the boot recipe.
 
-- [ ] Lane 1. Regression lane against trunk. Trunk's dry run reported 33 carried-token deny hits in 17 files. Run the dry run at head. Save `regression.txt`. Pass when head reports zero deny hits under all ten tokens and the trunk capture still shows 33.
-- [ ] Lane 2. Counts unchanged. Compare head's per-rule counts with C1's saved `counts.txt`. Save `counts-equal.txt`. Pass when all five rule counts are identical.
-- [ ] Lane 3. Drift is fatal. Run the new drift fixture. Save `drift-fatal.txt`. Pass when exit 1 names the drifted file.
-- [ ] Lane 4. Router spot audit. Render `poteto-mode/SKILL.md` through dry into a temp file. Save `router-audit.txt`. Pass when the rendered text contains none of the ten deny tokens.
-- [ ] Lane 5. Guidance rewrite landed. Render `create-verification-skill` and grep for the stripped key. Save `guidance.txt`. Pass when zero matches.
-- [ ] Lane 6. Native tokens survive. Count `subagent_type` occurrences in the dry output. Save `native-tokens.txt`. Pass when the count equals the snapshot's 14.
-- [ ] Lane 7. Deterministic render. Dry twice into two files. Save `determinism.txt`. Pass when `cmp` is clean.
-- [ ] Lane 8. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
-- [ ] Lane 9. Rewrite ledger readable. Pretty-print `rewrites.json` with `jq`. Save `ledger.txt`. Pass when every entry has both an exact source and an exact replacement and the entry count equals the distinct deny sites, not the raw hit count.
-- [ ] Lane 10. No OMP bleed. Grep the dry output tree for `skill://` and `OMP`. Save `no-omp.txt`. Pass when zero matches.
+- [x] Lane 1. Regression lane against trunk. Trunk's dry run reported 33 carried-token deny hits in 17 files. Run the dry run at head. Save `regression.txt`. Pass when head reports zero deny hits under all ten tokens and the trunk capture still shows 33.
+- [x] Lane 2. Counts unchanged. Compare head's per-rule counts with C1's saved `counts.txt`. Save `counts-equal.txt`. Pass when all five rule counts are identical.
+- [x] Lane 3. Drift is fatal. Run the new drift fixture. Save `drift-fatal.txt`. Pass when exit 1 names the drifted file.
+- [x] Lane 4. Router spot audit. Render `poteto-mode/SKILL.md` through dry into a temp file. Save `router-audit.txt`. Pass when the rendered text contains none of the ten deny tokens.
+- [x] Lane 5. Guidance rewrite landed. Render `create-verification-skill` and grep for the stripped key. Save `guidance.txt`. Pass when zero matches.
+- [x] Lane 6. Native tokens survive. Count `subagent_type` occurrences in the dry output. Save `native-tokens.txt`. Pass when the count equals the snapshot's 14.
+- [x] Lane 7. Deterministic render. Dry twice into two files. Save `determinism.txt`. Pass when `cmp` is clean.
+- [x] Lane 8. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
+- [x] Lane 9. Rewrite ledger readable. Pretty-print `rewrites.json` with `jq`. Save `ledger.txt`. Pass when every entry has both an exact source and an exact replacement and the entry count equals the distinct deny sites, not the raw hit count.
+- [x] Lane 10. No OMP bleed. Grep the dry output tree for `skill://` and `OMP`. Save `no-omp.txt`. Pass when zero matches.
+
+**C2 deviations.** Recorded here because each one changes a pass rule the boxes above state.
+
+- **Line 28 was not held as written.** C2 also edited `tools/claude/substitutions.json`: extended the denylist, corrected two hints, and deleted one C1 substitution. A token the denylist cannot see cannot be closed by the ledger, so the token set is part of closing the sentences.
+- **The denylist went from 10 to 24 tokens.** Added: `Cursor` (word mode, 21 sites), `agent-transcripts`, `cloud VM`, `Cloud agent`, `cloud root`, `cloud-sleeper`, `environment: "cloud"`, `generalPurpose`, `origin/main:pstack`, `cursor-team-kit`, and the six vendor model slugs the snapshot ships (`claude-fable-5-1-thinking-max` ×30, `grok-4.6-fast-xhigh` ×22, `gpt-5.6-sol-max` ×12, `claude-opus-5-thinking-xhigh` ×10, `gpt-4o`, `gpt-4` — 75 mentions). `Cursor cloud agent` and `Cursor cloud` were dropped: word-mode `Cursor` subsumes them, and keeping both flags one phrase twice.
+- **Lane 1's premise was false.** Trunk `bae6802` has no `tools/claude` at all, so it never ran the tool. The baseline is C1's own tables (10 tokens, empty ledger) run against this snapshot: carried 33 in 17 files, added 1, total 34, exit 1. Head: 115 entries, 125 applied, total 0, exit 0.
+- **Lane 2 counts differ by design.** C1's `rules-to-imports` rule was a raw swap of `.cursor/rules/` to the words `CLAUDE.md imports`, so setup-pstack:30 rendered as ``~/CLAUDE.md importspstack-models.mdc`` at all 7 sites — and it consumed the `.cursor/` token before the deny scan ran, so the gate could not see the damage. The rule is deleted; those 7 sentences are ledger entries now, so head prints four rules. The per-role model config becomes `~/.claude/pstack-models.md` imported from `CLAUDE.md` as `@pstack-models.md`, grounded on the `@path` and `@imports` strings this build's binary carries, and `alwaysApply: true` goes because Claude Code has no auto-applied rules directory.
+- **The plan's own C2 build text was wrong.** It asserts "the runtime built-ins for driving CLIs and UIs". The live 2.1.240 tool list is `Agent, Edit, ListAgents, REPL, ReportFindings, ScheduleWakeup, ShareOnboardingGuide, Skill, ToolSearch, Write` — there is no `run` and no `verify`, and no `/verify` or `/run` string, so ref-port's "both ship as Claude Code built-ins" does not hold for this build. Replacements name the real surfaces (terminal, browser) plus `create-verification-skill`, which this plugin actually ships.
+- **Lane 3 names a sentence, not a file.** A ledger entry is not bound to a file — one source can sit at several sites — so drift reports the drifted source sentence. The permanent test asserts it.
+- **Lane 6 needed a wording fix, not a re-pin.** `subagent_type` rendered 15 against the snapshot's 14 because one replacement named the parameter its source never mentioned. The replacement was rewritten instead of pinning 15 as ground truth.
+- **Lane 9's equality does not hold as written.** The ledger's unit is the distinct source sentence (115 entries), not the distinct deny sites (123 sites for the 113 rendered entries). Two entries sit beyond any deny site — `alwaysApply: true` and the rule file's `description:` line — because no token reaches them and leaving them ships a Cursor rule artifact; they apply last, after the prose that quoted them.
+- **Lane 10's substring grep is the wrong instrument.** Four `OMP` substring hits are the forge stop-state literals `` `COMPLETE` `` in `playbooks/babysit.md`. Word-matching, which the gate uses, reports zero.
+- **Six residual hits are outside the scan set** and belong to C3: `check-plan.mjs:7` (a slug), `check-plan.mjs:20` (`/goal`), and `worktree-audit.sh:25,27` (`.cursor/` and `agent-transcripts` twice each). They are shipped scripts inside skills, so C3 must port or exclude them rather than leave Cursor paths in a Claude tree.
+- **Lanes 4, 5, 6 and 10 rendered through `generate()` into `/tmp`**, because write mode is C3's deliverable. C3's real write must reproduce these same counts.
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. Dry-run wall time at head, and trunk's recorded absence from C1.
-- [ ] Probe. `time bun tools/claude/apply.mjs --dry` five times at head with one trunk attempt between rounds. Save `perf.txt`.
-- [ ] Baseline. The trunk fact is that the tool did not exist. The absolute budget covers the rewrite matching the diff adds.
-- [ ] Rule. Head stays under 2 seconds with 33 rewrite lookups active. A miss beyond that budget points at the exact-sentence matcher and gets investigated, not waved.
+- [x] Metric. Dry-run wall time at head, and trunk's recorded absence from C1.
+- [x] Probe. `time bun tools/claude/apply.mjs --dry` five times at head with one trunk attempt between rounds. Save `perf.txt`.
+- [x] Baseline. The trunk fact is that the tool did not exist. The absolute budget covers the rewrite matching the diff adds.
+- [x] Rule. Head stays under 2 seconds with 33 rewrite lookups active. A miss beyond that budget points at the exact-sentence matcher and gets investigated, not waved.
 
 **Review gate.** None. C2 is not review-gated.
 
 **Merge.**
 
 - [ ] Clean verdict at the exact head SHA of C2.
-- [ ] Land as one commit `claude-target c2: claude-dialect sentence rewrites`. No push.
+- [x] Land as one commit `claude-target c2: claude-dialect sentence rewrites`. No push.
 
 ## Generate the plugin tree (C3)
 
@@ -353,3 +367,27 @@ Three dry runs and one docs pass settled the shape. Numbers are from the 2026-09
 - `refs/ref-port/tools/substitutions.json`, `refs/ref-port/tools/sync.mjs`, `refs/ref-port/plugins/pstack/hooks/hooks.json` are the borrowed mechanisms. One read pass, already spent this session.
 - `upstream/pstack/skills/poteto-mode/scripts/check-plan.mjs` is this plan's shape checker.
 - Route C4's mandate authoring through `skill://how` review of the OMP injector for contrast, and C2's rewrite set through `skill://interrogate` if any sentence survives first-pass doubt. The decision trail is this plan's boxes plus the five commit messages, per `skill://show-me-your-work` intent without the extra file.
+
+## C1 execution record, 2026-09-16
+
+Head `fc90f4f`. Trunk baseline `bae6802`. Captures under `/tmp/swarm-c1/`. Checks at head: branding-check clean, `provenance.ts --check` clean at 137 artifacts, `bun test tools/claude/` 19 pass 0 fail.
+
+**Appendix A is not stale, and the ordering is settled from git rather than from commit subjects.** `git log --oneline 5d20b75..HEAD -- upstream/pstack` returns one commit, `774ffbe`. `git show --stat 5d20b75 -- UPSTREAM.md upstream/pstack` touches `UPSTREAM.md` alone, 4 insertions and 3 deletions, and `git show 5d20b75:UPSTREAM.md` already pinned `efa2a531985e0a8084d36ff3cf87233be8a9f34b` at 0.14.7. The file population of `skills/` and `agents/` is identical at both commits, and the only added path between them is `upstream/pstack/assets/logo.png`, which is the one `"logo"` manifest line. So Appendix A was written against 0.14.7 and re-measures identically now: 104 scanned files, hits 10, 3, 6, 16, 7, 33 carried deny hits across 17 files, 21 leaves, `subagent_type` 14, `user-invocable` 0, `EXTREMELY_IMPORTANT` 0.
+
+**The 104 is `.md` plus `.json`.** `.md` alone is 102, and `md` plus `.sh` also sums to 104, so the arithmetic alone proves nothing. The `.md` plus `.json` set is the one scope that reproduces every other figure, which is what pins it. Its siblings sit outside the gate and still carry hits: `skills/poteto-mode/scripts/check-plan.mjs:20` one `/goal` and `skills/poteto-mode/scripts/worktree-audit.sh:25,27` two `.cursor/`. C3 owes a carriage decision for those files, for `make-bot-ui`, which this port classifies DROP, and for `scripts/watch-pr`, which `AGENTS.md` lists as never carried. The report names them now under `unscanned deny hits`. Appendix A's `rewrites 13 files` is the ref-port's four-rule table over this snapshot, reproduced exactly. The corrected five-rule table touches 16 files.
+
+**Two build-rule corrections, both measured before any code was written.**
+1. The added `OMP` token matches on word boundaries. As a bare substring it hits the forge stop-state literal `COMPLETE` 17 times across 6 files, including 13 inside `skills/poteto-mode/scripts/watch-pr/*.ts`, and `\bOMP\b` hits zero times anywhere in the 124 files of `skills/` and `agents/`. Stage four is a hard fail, so a substring rule leaves `--dry` permanently red and C2 cannot rewrite those literals away.
+2. The hide-key prose survivor is `skills/automate-me/SKILL.md:73` in snapshot numbering. `create-verification-skill/SKILL.md` carries one occurrence, its own frontmatter key at line 4, which the structural strip removes. C2's ledger is therefore 34 sites, the 33 carried hits plus that one line. `skill://` and word-bounded `OMP` measure zero in the snapshot, so the other two added tokens are guards against future bleed.
+
+**Perf.** Five dry runs at head took 27 to 29 ms each against a 2000 ms budget. Each round was interleaved with a trunk attempt, and every trunk attempt records that `tools/claude/apply.mjs` does not exist at `bae6802`.
+
+**Deviation, recorded.** Lane 5 passes on exit 1 naming the drifted source sentence rather than a file. A ledger entry applies everywhere its source occurs, and that is what makes the entry count equal the distinct site count C2 lane 9 requires. Naming the sentence is the honest miss message.
+
+**Deviation, recorded.** Box 20 asks for the unit's leaf skills read from `upstream/pstack/skills/<name>/SKILL.md`. The playbook steps were read from this port's own `skill://` copies, which carry OMP wording. No C1 rule depended on their wording.
+
+**Skip, recorded.** The C1 build box about leaving unmapped in-tree files alone stays open. The plan's own file boundary assigns write mode to C3, and nothing calls a writer at C1. C1 ships the substitutions, the rewrite stage, the frontmatter rules, the deny gate, and `--dry`.
+
+**Blocked, recorded.** Lane 8 cannot run. `claude -p` returns `Failed to authenticate: OAuth session expired and could not be refreshed` with zero tokens and an empty `modelUsage`. There is no `~/.claude/.credentials.json` and no `ANTHROPIC_API_KEY`. The installed build is 2.1.240, and a filtered `claude --help` shows `--plugin-dir <path>` at lines 143-145 plus `--plugin-url <url>` at 147-149, so the boot recipe itself is sound. The `Agent` versus `Task` question stays open and must close before C3 ships, because both rule names depend on it.
+
+**Standing orders, recorded on the operator's go.** Run `pstack-omp-plan/70-claude-code-target.md`. Units C1 to C5 in strict order. Verification rule. Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Land each clean unit as one commit on `main`. No push, there is no remote. Done when C5's full check set is green and every box has evidence. Forge fallback, recorded once: this repo has no remote, so `gh`, `origin`, trunk fetch, and PR objects do not exist, and each unit head is its own commit on `main`.
