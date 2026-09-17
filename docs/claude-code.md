@@ -79,9 +79,20 @@ Skills read `~/.claude/pstack-models.md` first and fall back to
 configuration is safe. Re-run `/pstack:setup-pstack` any time to update it;
 the rewrite is idempotent.
 
+## Project instructions win on conflict
+
+`poteto-mode` states this once, superpowers-style, and it covers every skill
+it routes to: when your project's `CLAUDE.md` or `AGENTS.md` states a
+preference that conflicts with a skill's default process, skip a step, use a
+lighter version for small changes, always or never do X, the project
+instruction wins. No config file is required for this. Writing "for this
+repo, skip the architect arena for one-file changes" in plain prose in your
+`CLAUDE.md` is enough.
+
 ## Configure flow policy: `pstack-policy.md`
 
-Model choice isn't the only thing worth overriding per project. `architect`
+Plain prose works, but a knob many invocations share is easier to keep
+straight in a structured file than to restate in prose each time. `architect`
 mandates a four-candidate arena sketch by default, useful for a real design
 decision, wasted on a one-file mechanical change. `plugins/pstack/policy.json`
 ships that mandate as the safe default (`architect depth: full`); a project

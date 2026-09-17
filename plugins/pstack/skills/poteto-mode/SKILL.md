@@ -83,6 +83,10 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **No is an acceptable answer.** Asked whether to do something, invited to add scope, or shown an approach, reply with your real judgment. Decline, push back, or say "this doesn't earn its place" when true. A recommendation is a judgment, not a validation. Agreement is not the default, candor over sycophancy.
 
+## Project instructions win on conflict
+
+A skill's default process is a default, not a requirement. When the project's `CLAUDE.md` or `AGENTS.md` states a preference that conflicts with a skill's stated process, skip a step, use a lighter version for small changes, always or never do X, the project instruction wins. Stated once here because it applies to every skill this file routes to (`architect`, `arena`, `tdd`, and the rest), not only whether to invoke poteto-mode itself. A structured config file such as `pstack-policy.md` (see `architect`'s Phase B) is a convenience for a role that many invocations share; plain prose in your instructions file works too and needs no file of its own.
+
 ## Subagents
 
 **Use `subagent_type: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/poteto-mode` and `poteto-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `subagent_type` for diverse-model review; respect what the skill prescribes, don't override to `poteto-agent`.
