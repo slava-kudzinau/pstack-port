@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 export const REPO_ROOT = fileURLToPath(new URL("../../", import.meta.url));
 export const DEFAULTS = Object.freeze({
   snapshot: "upstream/pstack",
+  teamKit: "upstream/cursor-team-kit",
   tables: "tools/claude",
   output: "plugins/pstack",
 });
@@ -45,7 +46,17 @@ export async function loadTables(tableDir) {
     substitutions: table.substitutions,
     denylist: table.denylist,
     rewrites: ledger.rewrites,
+    teamKit: table.teamKit,
   };
+}
+
+// Renames map keys under a second vendored component before it merges into
+// the primary snapshot's file map. The only current use is deslop -> de-slop,
+// matching the OMP port's own rename of this same cursor-team-kit skill.
+export function renamePaths(sites, renames = {}) {
+  const out = new Map();
+  for (const [path, text] of sites) out.set(renames[path] ?? path, text);
+  return out;
 }
 
 export async function scanSnapshot(snapshotDir, scan) {
@@ -288,19 +299,27 @@ export function writeTree(outputRoot, tree, { snapshotDir, assets = [] } = {}) {
   return { written, unchanged, pruned };
 }
 
-export async function generate({ snapshotDir, tableDir }) {
+export async function generate({ snapshotDir, tableDir, teamKitDir }) {
   const tables = await loadTables(tableDir);
   const scanned = await scanSnapshot(snapshotDir, tables.scan);
-  const substituted = substitute(scanned, tables.substitutions);
+  const teamKitScanned = await scanSnapshot(teamKitDir, { roots: tables.teamKit.roots, extensions: tables.scan.extensions });
+  const teamKitRenamed = renamePaths(teamKitScanned, tables.teamKit.renamePaths);
+  const teamKitCollisions = [...teamKitRenamed.keys()].filter((path) => scanned.has(path));
+  const merged = new Map([...scanned, ...teamKitRenamed]);
+  const substituted = substitute(merged, tables.substitutions);
   const rewritten = rewrite(substituted.sites, tables.rewrites);
   const frontmattered = frontmatter(rewritten.sites);
   const hits = deny(frontmattered.sites, tables.denylist);
   const unscanned = await scanUnscanned(snapshotDir, tables.scan, scanned);
-  const unscannedHits = deny(unscanned, tables.denylist);
+  const teamKitUnscanned = await scanUnscanned(teamKitDir, { roots: tables.teamKit.roots, extensions: tables.scan.extensions }, teamKitScanned);
+  const allUnscanned = new Map([...unscanned, ...renamePaths(teamKitUnscanned, tables.teamKit.renamePaths)]);
+  const unscannedHits = deny(allUnscanned, tables.denylist);
   return {
     tree: frontmattered.sites,
     report: {
-      scanned: scanned.size,
+      scanned: merged.size,
+      teamKitScanned: teamKitRenamed.size,
+      teamKitCollisions,
       counts: substituted.counts,
       rewriteEntries: tables.rewrites.length,
       rewriteApplied: rewritten.applied.reduce((n, entry) => n + entry.count, 0),
@@ -312,7 +331,7 @@ export async function generate({ snapshotDir, tableDir }) {
       carried: tally(hits, "carried"),
       added: tally(hits, "added"),
       hits,
-      unscannedFiles: unscanned.size,
+      unscannedFiles: allUnscanned.size,
       unscannedHits,
       leafGlob: [...new Glob("principle-*/SKILL.md").scanSync({ cwd: `${snapshotDir}/skills` })].length,
     },
@@ -321,7 +340,7 @@ export async function generate({ snapshotDir, tableDir }) {
 
 export function formatReport(report) {
   const pad = 24;
-  const lines = [`scan files ${report.scanned}`];
+  const lines = [`scan files ${report.scanned} (team-kit ${report.teamKitScanned})`];
   for (const count of report.counts) {
     lines.push(`substitution ${count.id.padEnd(pad)}${count.hits}`);
   }
@@ -332,6 +351,7 @@ export function formatReport(report) {
   lines.push(`deny carried hits ${report.carried.hits} files ${report.carried.files}`);
   lines.push(`deny added hits ${report.added.hits} files ${report.added.files}`);
   lines.push(`deny total hits ${report.hits.length} files ${new Set(report.hits.map((h) => h.path)).size}`);
+  if (report.teamKitCollisions.length) lines.push(`team-kit path collisions ${report.teamKitCollisions.join(", ")}`);
   lines.push(`unscanned files ${report.unscannedFiles} deny hits ${report.unscannedHits.length} files ${new Set(report.unscannedHits.map((h) => h.path)).size}`);
   lines.push("");
   for (const hit of report.hits) lines.push(`hit ${hit.path}:${hit.line} [${hit.token}] ${hit.hint}`);
@@ -357,14 +377,16 @@ async function main(argv) {
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === "--dry") dry = true;
-    else if (arg === "--snapshot" || arg === "--tables" || arg === "--output" || arg === "--marketplace") flags.set(arg, argv[++i]);
+    else if (arg === "--snapshot" || arg === "--team-kit" || arg === "--tables" || arg === "--output" || arg === "--marketplace") flags.set(arg, argv[++i]);
     else throw new Error(`unknown argument ${arg}`);
   }
   const snapshotDir = flags.get("--snapshot") ?? join(REPO_ROOT, DEFAULTS.snapshot);
+  const teamKitDir = flags.get("--team-kit") ?? join(REPO_ROOT, DEFAULTS.teamKit);
   const tableDir = flags.get("--tables") ?? join(REPO_ROOT, DEFAULTS.tables);
-  const { tree, report } = await generate({ snapshotDir, tableDir });
+  const { tree, report } = await generate({ snapshotDir, tableDir, teamKitDir });
   process.stdout.write(formatReport(report));
-  const fatal = report.hits.length + report.misses.length + report.anomalies.length + report.unscannedHits.length;
+  const fatal =
+    report.hits.length + report.misses.length + report.anomalies.length + report.unscannedHits.length + report.teamKitCollisions.length;
   if (fatal) return 1;
   if (dry) return 0;
 

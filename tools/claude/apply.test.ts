@@ -13,6 +13,7 @@ import {
   isLeaf,
   loadTables,
   readUpstreamVersion,
+  renamePaths,
   renderManifests,
   rewrite,
   scanSnapshot,
@@ -23,7 +24,14 @@ import {
 const TABLES = join(REPO_ROOT, DEFAULTS.tables);
 const tables = await loadTables(TABLES);
 const SNAPSHOT = join(REPO_ROOT, DEFAULTS.snapshot);
-const ground = await generate({ snapshotDir: SNAPSHOT, tableDir: TABLES });
+const TEAM_KIT = join(REPO_ROOT, DEFAULTS.teamKit);
+const ground = await generate({ snapshotDir: SNAPSHOT, tableDir: TABLES, teamKitDir: TEAM_KIT });
+
+// An empty second-component root for fixture tests that only care about the
+// primary snapshot; scanSnapshot throws on a missing directory, so this
+// stays a real (empty) skills/ dir rather than a nonexistent path.
+const EMPTY_TEAM_KIT = mkdtempSync(join(tmpdir(), "claude-team-kit-empty-"));
+mkdirSync(join(EMPTY_TEAM_KIT, "skills"), { recursive: true });
 
 function tree(files: Record<string, string>): string {
   const dir = mkdtempSync(join(tmpdir(), "claude-apply-"));
@@ -52,7 +60,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -207,13 +215,15 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 124 files and reports 10, 3, 6, 16, 2, 30, 12, 23, 10 in build-rule order", () => {
-    expect(ground.report.scanned).toBe(124);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 30, 12, 23, 10]);
+  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 3, 6, 16, 2, 30, 12, 23, 10, 1 in build-rule order", () => {
+    expect(ground.report.scanned).toBe(131);
+    expect(ground.report.teamKitScanned).toBe(7);
+    expect(ground.report.teamKitCollisions).toEqual([]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 30, 12, 23, 10, 1]);
   });
 
-  it("strips the key from 44 files and stamps exactly the 21 leaves", () => {
-    expect(ground.report.stripped).toBe(44);
+  it("strips the key from 45 files and stamps exactly the 21 leaves", () => {
+    expect(ground.report.stripped).toBe(45);
     expect(ground.report.stamped).toBe(21);
     expect(ground.report.leafGlob).toBe(21);
     expect(ground.report.stampedPaths).toHaveLength(21);
@@ -247,8 +257,33 @@ describe("the snapshot at the pinned sha", () => {
   });
 
   it("renders byte-identical reports across runs", async () => {
-    const again = await generate({ snapshotDir: join(REPO_ROOT, DEFAULTS.snapshot), tableDir: TABLES });
+    const again = await generate({ snapshotDir: join(REPO_ROOT, DEFAULTS.snapshot), tableDir: TABLES, teamKitDir: TEAM_KIT });
     expect(formatReport(again.report)).toBe(formatReport(ground.report));
+  });
+});
+
+describe("cursor-team-kit component merge", () => {
+  it("renamePaths maps only the given keys and leaves the rest untouched", () => {
+    const sites = new Map([["skills/deslop/SKILL.md", "a"], ["skills/fix-ci/SKILL.md", "b"]]);
+    const renamed = renamePaths(sites, { "skills/deslop/SKILL.md": "skills/de-slop/SKILL.md" });
+    expect([...renamed.keys()].sort()).toEqual(["skills/de-slop/SKILL.md", "skills/fix-ci/SKILL.md"]);
+    expect(renamed.get("skills/de-slop/SKILL.md")).toBe("a");
+  });
+
+  it("carries all 7 team-kit skills into the merged tree under their final names", () => {
+    const names = ["de-slop", "fix-ci", "fix-merge-conflicts", "get-pr-comments", "make-pr-easy-to-review", "thermo-nuclear-code-quality-review", "what-did-i-get-done"];
+    for (const name of names) expect(ground.tree.has(`skills/${name}/SKILL.md`)).toBeTrue();
+    expect(ground.tree.has("skills/deslop/SKILL.md")).toBeFalse();
+    expect(ground.tree.get("skills/de-slop/SKILL.md")).toContain("name: de-slop");
+  });
+
+  it("fails loudly instead of silently overwriting on a team-kit path collision", async () => {
+    const dir = tree({
+      "skills/de-slop/SKILL.md": skill("de-slop", "primary snapshot copy\n"),
+      "skills/poteto-mode/scripts/watch-pr/watch-pr": "#!/usr/bin/env bun\n",
+    });
+    const { report } = await generate({ snapshotDir: dir, tableDir: TABLES, teamKitDir: TEAM_KIT });
+    expect(report.teamKitCollisions).toEqual(["skills/de-slop/SKILL.md"]);
   });
 });
 
@@ -259,7 +294,7 @@ describe("a poisoned fixture halts the report", () => {
       "agents/poteto-agent.md": "---\nname: poteto-agent\ndescription: poteto's style\n---\nbody\n",
       "skills/poteto-mode/scripts/watch-pr/watch-pr": "#!/usr/bin/env bun\n",
     });
-    const { report } = await generate({ snapshotDir: dir, tableDir: TABLES });
+    const { report } = await generate({ snapshotDir: dir, tableDir: TABLES, teamKitDir: EMPTY_TEAM_KIT });
     expect(report.hits.map((hit) => `${hit.path}:${hit.line}[${hit.token}]`)).toEqual([
       "skills/poteto-mode/SKILL.md:4[control-cli]",
       "skills/poteto-mode/SKILL.md:4[skill://]",

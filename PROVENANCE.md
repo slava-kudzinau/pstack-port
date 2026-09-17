@@ -173,9 +173,33 @@ already cover per-file drift, so this table tracks the four directories the
 generator writes (`skills/**`, `agents/**`, `.claude-plugin/*`, `assets/*`,
 status `adapted`) plus the two directories/files it deliberately never
 touches (`hooks/**`, `models.json`, status `new`, hand-authored). `Sync` is
-the `upstream_sha` pin from UPSTREAM.md; the Claude target has no OMP or
-ref-port sync dimension because it renders straight from `upstream/pstack`.
+the `upstream_sha` pin from UPSTREAM.md for every row except the mixed case
+below; the Claude target has no ref-port sync dimension because it renders
+straight from vendored snapshots, never from `refs/ref-port`.
 `bun scripts/provenance.ts --check` audits both tables in one run.
+
+`plugins/pstack/skills/**`'s declared pin (`efa2a531`, `upstream_sha`) covers
+45 of its 52 directories. The other 7 (`de-slop`, `fix-ci`,
+`fix-merge-conflicts`, `get-pr-comments`, `make-pr-easy-to-review`,
+`thermo-nuclear-code-quality-review`, `what-did-i-get-done`) render from a
+second vendored snapshot, `upstream/cursor-team-kit/skills/`, pinned to
+`cursor_plugins_sha` (`e46364b8`), merged into the same output tree by
+`generate()`'s `teamKit` component before the shared substitution, rewrite,
+frontmatter, and deny stages run. No new row: per-file granularity for this
+table was rejected at C5 as noise the deny report already covers, and these
+7 files pass the exact same denylist and rewrite-miss gate as the other 45.
+This is a deliberately different sourcing choice from the OMP catalog's
+rows for the same 7 skills (see e.g. `## skills/de-slop/SKILL.md` below):
+OMP copied each file's already-adapted text verbatim from `refs/ref-port`
+once, by hand. The Claude target instead vendors the raw, untranslated
+`cursor-team-kit` source and runs it through its own generator, the same
+"every shipped file traces to a vendored snapshot through auditable rules"
+contract the rest of `plugins/pstack/` holds. The two independently
+converge on the same final shape for the one file that differs from a
+trivial rename: `thermo-nuclear-code-quality-review`'s upstream copy carries
+`disable-model-invocation: true`; ref-port's hand edit strips it, and this
+generator's blanket "strip the key everywhere except the 21 principle-*
+leaves" rule strips it too, independently arriving at the same output.
 
 | Path | Upstream | Sync | Status |
 |---|---|---|---|

@@ -17,6 +17,14 @@
       "skills/poteto-mode/scripts/watch-pr/watch-pr"
     ]
   },
+  "teamKit": {
+    "roots": [
+      "skills"
+    ],
+    "renamePaths": {
+      "skills/deslop/SKILL.md": "skills/de-slop/SKILL.md"
+    }
+  },
   "substitutions": [
     {
       "id": "task-tool-backticked",
@@ -71,6 +79,12 @@
       "pattern": "claude-opus-5-thinking-xhigh",
       "replacement": "PSTACK-MODEL-SLUG",
       "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
+    },
+    {
+      "id": "deslop-skill-name",
+      "pattern": "name: deslop",
+      "replacement": "name: de-slop",
+      "rationale": "The cursor-team-kit component's frontmatter name, paired with teamKit.renamePaths's directory rename. Matches the OMP port's own rename of this same skill (AGENTS.md rule 5)."
     }
   ],
   "denylist": [

@@ -29,6 +29,7 @@ pstack-port/
 ├── tools/claude/          # apply.mjs (the CC generator), substitutions.json,
 │                          # rewrites.json, apply.test.ts
 ├── upstream/pstack/       # vendored Cursor snapshot, pinned sha, read-only
+├── upstream/cursor-team-kit/ # vendored cursor-team-kit skills subset, own pin
 ├── scripts/               # provenance.ts (catalog owner), classify-diff.ts,
 │                          # branding/validate/hide/autofire/claude-check checks
 ├── docs/                  # user-facing docs: install, commands, config, claude-code
@@ -168,14 +169,29 @@ pstack-port/
   bug (the manifest's `agents` field was a bare directory string, which
   Claude Code's plugin schema rejects; the whole plugin silently failed to
   load, not just the slash-menu entry the plan first suspected), fixed and
-  reverified live before C4 started. `plugins/pstack/` now installs via
-  `claude --plugin-dir`, 44 skills resolve through the `Skill` tool and the
+  reverified live before C4 started. Two follow-up units landed after C5
+  closed: a rewrite-ledger de-slug (93% of the ledger's churn across one
+  real sync was vendor-model-slug prose; four `substitutions.json` rules now
+  absorb a slug rename instead of ~45 ledger entries), and a second vendored
+  snapshot, `upstream/cursor-team-kit/skills/` pinned to `cursor_plugins_sha`,
+  merged into `plugins/pstack/skills/**` alongside `upstream/pstack/` for the
+  7 skills the OMP port already carries from that source
+  (`de-slop`/`fix-ci`/`fix-merge-conflicts`/`get-pr-comments`/
+  `make-pr-easy-to-review`/`thermo-nuclear-code-quality-review`/
+  `what-did-i-get-done`). `plugins/pstack/` now installs via
+  `claude --plugin-dir`, 52 skills resolve through the `Skill` tool and the
   `/pstack:*` slash menu, the `SessionStart` hook injects the poteto-mode
   mandate, and `bun scripts/claude-check.ts` plus the extended
   `provenance.ts --check` guard the tree invariants. Open items: `shellcheck`
   is not installed on this machine (two lanes across C1 and C4 are blocked on
-  that, not failed), the polyglot hook runner's Windows leg is untested, and
-  marketplace-add needs a remote to exercise. See `docs/claude-code.md`.
+  that, not failed), the polyglot hook runner's Windows leg is untested,
+  marketplace-add needs a remote to exercise, and `babysit` stays a
+  deliberate, separately-flagged gap: OMP hand-flattens it from
+  `upstream/pstack/skills/poteto-mode/playbooks/babysit.md` into its own
+  top-level skill and the ref-port does the same, but `apply.mjs` mirrors
+  `upstream/pstack/`'s structure verbatim and never flattens playbooks, so
+  the Claude target only reaches it through `poteto-mode`'s own routing.
+  See `docs/claude-code.md`.
 
 ## Verification
 
@@ -259,4 +275,8 @@ Steps verified by the 2026-09-02 sync to 0.14.7 (`efa2a531`).
    `bun scripts/claude-check.ts`, and `bun test tools/claude/ scripts/claude-check.test.ts`.
    Flip both Catalog tables' `Sync` cells in `PROVENANCE.md` (the per-file
    `## Catalog` rows and the six glob rows in `## Claude Code Catalog`) to
-   the new 8-char pin.
+   the new 8-char pin. `apply.mjs` also merges a second vendored snapshot,
+   `upstream/cursor-team-kit/skills/`, pinned separately to
+   `cursor_plugins_sha`; re-vendor it the same way as step 2 whenever that
+   pin advances (it very rarely does, per the re-sync's own cursor-team-kit
+   check in step 1), not on every pstack sync.
