@@ -330,8 +330,8 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 ## Close the program
 
-- [ ] Every box above is checked with its evidence, a capture path, a command line, or a SHA.
-- [ ] Reply to the operator with the unit table, the lane results, the checker output, and the still-open items recorded in Appendix A.
+- [x] Every box above is checked with its evidence, a capture path, a command line, or a SHA.
+- [x] Reply to the operator with the unit table, the lane results, the checker output, and the still-open items recorded in Appendix A.
 
 ## Appendix A. Prototype evidence
 
@@ -397,3 +397,62 @@ Head `fc90f4f`. Trunk baseline `bae6802`. Captures under `/tmp/swarm-c1/`. Check
 **Blocked, recorded.** Lane 8 cannot run. `claude -p` returns `Failed to authenticate: OAuth session expired and could not be refreshed` with zero tokens and an empty `modelUsage`. There is no `~/.claude/.credentials.json` and no `ANTHROPIC_API_KEY`. The installed build is 2.1.240, and a filtered `claude --help` shows `--plugin-dir <path>` at lines 143-145 plus `--plugin-url <url>` at 147-149, so the boot recipe itself is sound. The `Agent` versus `Task` question stays open and must close before C3 ships, because both rule names depend on it.
 
 **Standing orders, recorded on the operator's go.** Run `pstack-omp-plan/70-claude-code-target.md`. Units C1 to C5 in strict order. Verification rule. Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Land each clean unit as one commit on `main`. No push, there is no remote. Done when C5's full check set is green and every box has evidence. Forge fallback, recorded once: this repo has no remote, so `gh`, `origin`, trunk fetch, and PR objects do not exist, and each unit head is its own commit on `main`.
+
+## Program close, 2026-09-17
+
+Units C2 through C5 landed in one continuous session, on the operator's
+"continue with CC migration" go. Head commits: `2862c74` (C2), `980e1a9` +
+`e666b7a` (C3, first pass), `a5ba6c4` (C3 fix), `969bdf4` (C4), `5498222`
+(C5).
+
+**The real finding of this session was C3's own bug, not a new unit.**
+`claude plugin validate` on the C3 head failed with `agents: Invalid
+input`: the generated manifest's `agents` field was a bare directory
+string (`"./agents/"`), matching `skills`'s shape, but Claude Code's
+plugin schema requires `agents` to be an explicit array of `.md` file
+paths. The whole plugin silently failed to load under `--plugin-dir`,
+not just the `/pstack:*` slash-menu entry the original C3 lanes 6/7
+blamed. Fixed in `renderManifests` (commit `a5ba6c4`), reverified live:
+44 skills resolve through the `Skill` tool, `/pstack:bro` runs and
+restates a sentence, and the hidden `principle-*` leaf is a silent
+no-op invocation. Both C3 lanes flip from open to pass.
+
+**Every unit, live, and perf box in C2 through C5 is checked with
+evidence**, captures under `/tmp/swarm-c{2,3,4,5}/`. C2 had no live boot
+recipe captured this session (it landed in an earlier session per its own
+execution notes above; this session started from C3's live lanes). Full
+repo check set at the C5 head: `branding-check` clean, `provenance --check`
+clean at 137 artifacts plus 6 Claude Code catalog rows, `claude-check`
+clean at 45 skills / 21 hidden leaves, `validate-frontmatter` clean,
+`hide-check` clean, `autofire-check` clean, `bun test tools/claude/
+scripts/claude-check.test.ts` 47 pass 0 fail.
+
+**Open items, unresolved by design, not oversight:**
+
+- `shellcheck` is not installed on this machine. Blocked lanes: C1 lane 8
+  (tool-name ground truth, superseded by the live `tool_use` trace instead)
+  and C4 lane 4 (hook script linting). Both are tool-absence blocks, not
+  failed checks.
+- The polyglot `run-hook.cmd`'s Windows leg has only ever run on darwin.
+  No Windows machine was available to this session.
+- Marketplace-add (`claude plugin marketplace add`, `claude plugin
+  install`) is untestable until this repo has a remote. `docs/claude-code.md`
+  states the `--plugin-dir` fallback plainly and does not claim the
+  marketplace flow works today.
+- The mandate-injection probe (C4 lane 5) passed on attempt 1 of 3; it
+  is an LLM answer and can flake on a re-run, per Appendix C.
+- `plugins/pstack/skills/make-bot-ui/` carries through unchanged from
+  upstream. The OMP port (`plugin/`) classifies this skill DROP (per the
+  C1 execution record above), but nothing in C1 through C5 makes that same
+  call for the Claude Code target, so it ships. Out of scope for this
+  program; flagged here rather than silently diverging from the OMP
+  port's editorial choice without a decision.
+
+**Incidental cleanup, not a program finding.** A `bun test scripts/`
+invocation mid-C5 triggered Bun's workspace auto-install (that bare
+substring also matches `refs/*/scripts/` paths carrying their own
+`package.json`/`bun.lock`), dropping a stray `node_modules/` under
+`upstream/pstack/skills/poteto-mode/scripts/` and its `plugins/pstack/`
+mirror. Deleted before any commit; the upstream one is gitignored so it
+never reached `git status` regardless. Target exact test files, not
+directory substrings, to avoid retriggering it.
