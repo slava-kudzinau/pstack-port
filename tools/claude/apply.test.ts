@@ -188,8 +188,8 @@ describe("the snapshot at the pinned sha", () => {
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(122);
-    expect(ground.report.rewriteApplied).toBe(133);
+    expect(ground.report.rewriteEntries).toBe(125);
+    expect(ground.report.rewriteApplied).toBe(136);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
@@ -395,5 +395,42 @@ describe("a poisoned fixture halts before any write", () => {
     expect(result.stdout.toString()).toContain("control-cli");
     expect(existsSync(outputRoot)).toBeFalse();
     expect(existsSync(marketplacePath)).toBeFalse();
+  });
+});
+
+describe("the emitted plan checker agrees with the emitted skeleton", () => {
+  const skeletonMatch = /````markdown\n(.*)\n````/s.exec(
+    ground.tree.get("skills/poteto-mode/playbooks/multi-phase-plan.md") ?? "",
+  );
+  if (!skeletonMatch) throw new Error("multi-phase-plan.md has no fenced skeleton to extract");
+  const skeleton = skeletonMatch[1];
+  const checker = join(REPO_ROOT, DEFAULTS.output, "skills/poteto-mode/scripts/check-plan.mjs");
+
+  function run(text: string) {
+    const dir = mkdtempSync(join(tmpdir(), "claude-checkplan-"));
+    const file = join(dir, "plan.md");
+    writeFileSync(file, `${text}\n`);
+    return Bun.spawnSync(["node", checker, file], { stdout: "pipe", stderr: "pipe" });
+  }
+
+  it("accepts the skill's own skeleton, unmodified", () => {
+    const result = run(skeleton);
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout.toString()).toContain("0 problems");
+  });
+
+  it("rejects the skeleton with the lane sentence removed", () => {
+    const lanes = "Ten lanes on the worker model you configured under `swarm workers`, at the PR head, per the boot recipe.";
+    expect(skeleton).toContain(lanes);
+    const result = run(skeleton.replace(lanes, ""));
+    expect(result.exitCode).toBe(1);
+    expect(result.stdout.toString()).toContain("1 problems");
+  });
+
+  it("rejects the skeleton with the /loop marker removed", () => {
+    expect(skeleton).toContain("/loop");
+    const result = run(skeleton.replace("a real terminal `/loop`", "a real terminal command"));
+    expect(result.exitCode).toBe(1);
+    expect(result.stdout.toString()).toContain("1 problems");
   });
 });

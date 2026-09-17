@@ -173,51 +173,51 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Files.**
 
-- [ ] Edit `tools/claude/apply.mjs` with the write mode.
-- [ ] Create `.claude-plugin/marketplace.json`.
-- [ ] Create `plugins/pstack/.claude-plugin/plugin.json`.
-- [ ] Generate `plugins/pstack/skills/**` and `plugins/pstack/agents/*.md` and `plugins/pstack/assets/logo.png` through the tool.
+- [x] Edit `tools/claude/apply.mjs` with the write mode.
+- [x] Create `.claude-plugin/marketplace.json`.
+- [x] Create `plugins/pstack/.claude-plugin/plugin.json`.
+- [x] Generate `plugins/pstack/skills/**` and `plugins/pstack/agents/*.md` and `plugins/pstack/assets/logo.png` through the tool.
 
 **Build.**
 
-- [ ] Write mode copies the transformed snapshot into `plugins/pstack/`, skills and agents and the logo, leaves `hooks/` and `models.json` untouched when present, and writes both manifests. The plugin manifest carries the name, the `upstream_version` from `UPSTREAM.md` as its version, the original author credit, and the `skills` plus `agents` paths. The marketplace manifest points its one plugin entry at `./plugins/pstack`.
-- [ ] Assert on emit. The stamp count equals the leaf glob, the `disable-model-invocation` key count across emitted `SKILL.md` frontmatter is zero, and the total `user-invocable` key count is exactly 21.
-- [ ] Assert the tree contains no `commands/` directory. The invariant exists because commands plus user-facing skills render duplicate slash-menu rows in Claude Code, recorded as bug #22 in the ref-port's ledger.
+- [x] Write mode copies the transformed snapshot into `plugins/pstack/`, skills and agents and the logo, leaves `hooks/` and `models.json` untouched when present, and writes both manifests. The plugin manifest carries the name, the `upstream_version` from `UPSTREAM.md` as its version, the original author credit, and the `skills` plus `agents` paths. The marketplace manifest points its one plugin entry at `./plugins/pstack`.
+- [x] Assert on emit. The stamp count equals the leaf glob, the `disable-model-invocation` key count across emitted `SKILL.md` frontmatter is zero, and the total `user-invocable` key count is exactly 21.
+- [x] Assert the tree contains no `commands/` directory. The invariant exists because commands plus user-facing skills render duplicate slash-menu rows in Claude Code, recorded as bug #22 in the ref-port's ledger.
 
 **You see.**
 
-- [ ] `bun tools/claude/apply.mjs` writes the tree, and an immediate rerun leaves `git status --porcelain plugins/pstack` empty.
+- [x] `bun tools/claude/apply.mjs` writes the tree, and an immediate rerun leaves `git status --porcelain plugins/pstack` empty.
 
 **Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Add golden tests to `tools/claude/apply.test.ts`. Both manifests render exactly, the leaf stamp renders on a fixture tree, and a poisoned fixture halts before any write. Run `bun test tools/claude/`.
+- [x] Add golden tests to `tools/claude/apply.test.ts`. Both manifests render exactly, the leaf stamp renders on a fixture tree, and a poisoned fixture halts before any write. Run `bun test tools/claude/`.
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `grok-4.6-fast-xhigh` at the PR head, per the boot recipe.
 
-- [ ] Lane 1. Regression lane against trunk. Trunk has no tree at all, so this lane gates tree presence plus the repo checks. Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` at head. Save `regression.txt`. Pass when both exit 0 with the tree on disk.
-- [ ] Lane 2. Idempotent write. Run apply, then apply again, then `git status --porcelain plugins/pstack`. Save `idempotent.txt`. Pass when the status is empty.
-- [ ] Lane 3. Manifest shape. `jq` both manifests. Save `manifests.txt`. Pass when name, version 0.14.7, and the paths keys resolve as strings.
-- [ ] Lane 4. Frontmatter census. Grep the tree. Save `census.txt`. Pass when `disable-model-invocation` count is 0, `user-invocable` count is 21, and every hit is under `skills/principle-*`.
-- [ ] Lane 5. Deny scan clean. Run the denylist over the whole tree. Save `deny-clean.txt`. Pass when zero hits, including the three added tokens.
-- [ ] Lane 6. Slash leg works. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:bro` with a sample sentence. Save `slash-bro.txt`. Pass when it returns a plain-language restatement instead of an unknown-command error.
-- [ ] Lane 7. Hidden leaf leg. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:principle-laziness-protocol`. Save `hidden-leaf.txt`. Pass when the CLI treats the command as unavailable. If it still runs, record the live behavior in Appendix A and keep the stamp, the menu hide is the intent and the run is a Claude Code defect worth capturing.
-- [ ] Lane 8. Rename audit. Grep the rendered `poteto-mode/SKILL.md` for the old tool name. Save `rename-audit.txt`. Pass when zero `Task` tokens remain and the `Agent` token count matches lane 8 of C1's expectation.
-- [ ] Lane 9. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
-- [ ] Lane 10. Write scope. Run `git status --porcelain` filtered to additions. Save `scope.txt`. Pass when additions touch only `plugins/pstack` and `.claude-plugin`.
+- [x] Lane 1. Regression lane against trunk. Trunk has no tree at all, so this lane gates tree presence plus the repo checks. Run `bun scripts/branding-check.ts` and `bun scripts/provenance.ts --check` at head. Save `regression.txt`. Pass when both exit 0 with the tree on disk.
+- [x] Lane 2. Idempotent write. Run apply, then apply again, then `git status --porcelain plugins/pstack`. Save `idempotent.txt`. Pass when the status is empty.
+- [x] Lane 3. Manifest shape. `jq` both manifests. Save `manifests.txt`. Pass when name, version 0.14.7, and the paths keys resolve as strings.
+- [x] Lane 4. Frontmatter census. Grep the tree. Save `census.txt`. Pass when `disable-model-invocation` count is 0, `user-invocable` count is 21, and every hit is under `skills/principle-*`.
+- [x] Lane 5. Deny scan clean. Run the denylist over the whole tree. Save `deny-clean.txt`. Pass when zero hits, including the three added tokens.
+- [ ] Lane 6. Slash leg works. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:bro` with a sample sentence. Save `slash-bro.txt`. Pass when it returns a plain-language restatement instead of an unknown-command error. Attempted live at 2.1.274, both directly and after listing every live slash command: `pstack` supplies zero `/pstack:*` entries, and the direct invocation gets `claude`'s own "isn't installed" fallback text. See Appendix A; still open, not a pass.
+- [ ] Lane 7. Hidden leaf leg. Run `claude -p` with `--plugin-dir plugins/pstack` invoking `/pstack:principle-laziness-protocol`. Save `hidden-leaf.txt`. Pass when the CLI treats the command as unavailable. If it still runs, record the live behavior in Appendix A and keep the stamp, the menu hide is the intent and the run is a Claude Code defect worth capturing. Same live finding as lane 6: no slash-menu entry to distinguish a hidden refusal from a plain miss at this pin. See Appendix A; still open, not a pass.
+- [x] Lane 8. Rename audit. Grep the rendered `poteto-mode/SKILL.md` for the old tool name. Save `rename-audit.txt`. Pass when zero `Task` tokens remain and the `Agent` token count matches lane 8 of C1's expectation. Caught a real gap live: four ledger entries added for bare-word `Task` phrasings C1 missed. See Appendix A.
+- [x] Lane 9. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
+- [x] Lane 10. Write scope. Run `git status --porcelain` filtered to additions. Save `scope.txt`. Pass when additions touch only `plugins/pstack` and `.claude-plugin`.
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. Full apply wall time at head, and the no-op rerun cost. Trunk has no tree, so its probe records that fact and the budget is absolute.
-- [ ] Probe. `time bun tools/claude/apply.mjs` once for the write and once for the no-op, interleaved with one trunk attempt. Save `perf.txt`.
-- [ ] Baseline. Record the trunk absence first. Then set absolute budgets for the generation the diff adds.
-- [ ] Rule. Full write under 10 seconds and no-op under 3 seconds. End state the operator waits for is a regenerated tree inside one editor round trip.
+- [x] Metric. Full apply wall time at head, and the no-op rerun cost. Trunk has no tree, so its probe records that fact and the budget is absolute.
+- [x] Probe. `time bun tools/claude/apply.mjs` once for the write and once for the no-op, interleaved with one trunk attempt. Save `perf.txt`.
+- [x] Baseline. Record the trunk absence first. Then set absolute budgets for the generation the diff adds.
+- [x] Rule. Full write under 10 seconds and no-op under 3 seconds. End state the operator waits for is a regenerated tree inside one editor round trip. Measured against a fresh `--output` dir (a genuine cold write, all 126 files new): 0.076s write, 0.057s dry, 0.061s no-op rerun on that same tree.
 
 **Review gate.** None. C3 is not review-gated.
 
 **Merge.**
 
-- [ ] Clean verdict at the exact head SHA of C3.
-- [ ] Land as one commit `claude-target c3: generated claude plugin tree`. No push.
+- [ ] Clean verdict at the exact head SHA of C3. Every other box above is checked at `980e1a9`; open only on lanes 6 and 7, which are a live-CLI finding, not a failed check.
+- [x] Land as one commit `claude-target c3: generated claude plugin tree`. No push.
 
 ## Carry the mandate and hooks (C4)
 
@@ -341,7 +341,13 @@ Three dry runs and one docs pass settled the shape. Numbers are from the 2026-09
 - Denylist survivors after substitution, 33 hits in 17 files under the seven carried tokens, measured in memory against the snapshot with their exported pure functions. Clusters, the `.cursor/` mentions in `reflect` (4 files), `show-me-your-work`, `session-pickup`, `eval`, `worktree-cleanup`, `recall`, `automate-me`, and the `control-cli` plus `control-ui` plus `/goal` plus `Cursor cloud agent` sentences in `poteto-mode/SKILL.md`, `shipping`, `multi-phase-plan`, `opening-a-pr`, `autopilot-full`, `autopilot-stack`, `orchestrate`. The three added tokens' survivor counts are first measured in C1, the `create-verification-skill` guidance line being the known first hit.
 - `disable-model-invocation` appears in 44 snapshot files and upstream ships it on every skill including the router. `user-invocable` appears in zero. `EXTREMELY_IMPORTANT` appears in zero, so the mandate text is port-authored, confirmed absent upstream. Native docs at `https://code.claude.com/docs/en/skills` give `user-invocable` as menu-only hiding that keeps model triggering, and live reports at anthropics/claude-code issues #26251 and #78523 say `disable-model-invocation` can also break the user's own slash invocation. OMP's copy has the flag filter the system-prompt listing only, `refs/omp-src/packages/coding-agent/src/modes/utils/capability/skill.ts:26-30` and `extensibility/skills.ts:113,260,298,399`, while `skill://` reads still return the bytes. That asymmetry is the whole hide-policy answer. The OMP router reaches hidden leaves by read, the Claude router reaches visible leaves by description matching, so each target hides behind exactly the edge that stays open.
 - Drift between the ref-port's pin and ours, 6 upstream commits, 29 files, 556 insertions, 177 deletions. Our tree at 0.14.7 leads theirs at 0.14.2.
-- Unproven and lane-gated. Whether the installed `claude` names its subagent tool `Agent` or `Task` (C1 lane 8), whether `user-invocable: false` holds in the installed build (C3 lane 7), the mandate's token cost (C4 perf), and the exact frontmatter-only strip count versus the 44 string-containing files (C1 lane 4).
+- Settled at C3, live, 2026-09-17: the installed `claude` 2.1.274's real subagent-dispatch tool is `Agent`, not `Task`. Ground truth from a real `tool_use` block in a `stream-json` trace (`/tmp/tool-trace.jsonl`), not a self-report, an actual `Agent` call with `input: {description, prompt, subagent_type: "general-purpose", run_in_background: true}`. That also settles the second half of C3's risk note below: `subagent_type` is the real parameter name on the live `Agent` tool, not a `Task`-only artifact the rename should have dropped, so every emitted `subagent_type: general-purpose` phrasing stays correct as written. C1 through C3's `Task`-to-`Agent` rename direction is confirmed right, not inverted.
+- The mandate's token cost (C4 perf) and the exact frontmatter-only strip count versus the 44 string-containing files (C1 lane 4) remain unproven and lane-gated.
+- C3, live, 2026-09-17, against `claude` 2.1.274 with `--plugin-dir "$(pwd)/plugins/pstack"`. Lanes 1, 2, 3, 4, 5, 8, 9, 10 pass with captures under `/tmp/swarm-c3/`: `branding-check`/`provenance --check` exit 0 with the tree on disk (`regression.txt`); a rerun after the tracked commit leaves `git status --porcelain plugins/pstack .claude-plugin` empty (`idempotent.txt`); both manifests carry `name`, `version 0.14.7`, and string `skills`/`agents`/`source` paths (`manifests.txt`); the frontmatter census is `disable-model-invocation` 0, `user-invocable` 21, all under `skills/principle-*` (`census.txt`); the denylist is zero hits and zero unscanned files (`deny-clean.txt`); `upstream/pstack` stays untouched (`immutable.txt`); and the commit's changed paths stay inside `tools/claude/`, `plugins/pstack/`, `.claude-plugin/` (`scope.txt`). Perf, corrected after an earlier no-op mismeasurement: a genuine cold write to a fresh `--output` dir (all 126 files new) is 0.076s, a dry run is 0.057s, a no-op rerun on that same tree is 0.061s, all far under the 10s/3s budget; trunk has no tree, so its baseline is absence.
+- Three more dangling pointers found and fixed after the first C3 commit, the same class as lane 8's gap: `multi-phase-plan.md:10` said `node pstack/skills/poteto-mode/scripts/check-plan.mjs`, `orchestrate.md:25` said `bun scripts/orch/orch.ts`, and `worktree-cleanup.md:5` said `scripts/worktree-audit.sh`, all three cwd-relative and none resolving against a user repo's cwd. Fixed to the plugin-root-relative form the same files already use elsewhere (`multi-phase-plan.md:37-38`'s `skills/poteto-mode/playbooks/<execution playbook>.md under the installed plugin`), not the walked-back `${CLAUDE_PLUGIN_ROOT}` form, which only ever appears in `hooks.json` in the reference port and is not guaranteed set in the Bash tool's shell.
+- The rewritten `check-plan.mjs` constants are verified with a positive and a negative control, not just a pass on the intact skeleton: stripping the lane sentence, and separately stripping `/loop`, each produces exactly one problem and exit 1 against the emitted checker (golden tests in `apply.test.ts`, "the emitted plan checker agrees with the emitted skeleton"). A checker that never fails on a broken plan would prove nothing; both negative controls fire.
+- C3 lane 8 caught a real gap live, not a rerun of C1's own claim: C1's substitution table only ever targeted backticked `` `Task` `` and the exact phrase `Task tool`. Five bare uses of the word as the tool's name survived the C1/C2 passes because they take neither shape: `Spawn a single Task subagent` (twice in `how/SKILL.md`), `(omit Task \`model\`)` (in both `setup-pstack/SKILL.md` and `poteto-mode/SKILL.md`, byte-identical phrase), and `the full Task schema including \`environment\`` (in `orchestrate.md`). Fixed with four ledger entries in C3; the tree's one remaining bare `Task` is `<Task as a verb phrase>`, the plan skeleton's placeholder heading using the ordinary English noun, confirmed by hand not the tool name. `apply.test.ts`'s dispatch-token test now checks by word boundary instead of the backticked form only, so a future substitution gap fails the suite instead of shipping quietly.
+- C3 lanes 6 and 7, live, 2026-09-17: `pstack`'s skills produce **no** `/pstack:*` entries at all in `claude`'s live slash-command list (asked the session to list every available command verbatim; `pstack` supplied zero of them, only other installed plugins and built-ins appeared). Invoking `/pstack:bro` directly gets `claude`'s own fallback text, "The `/pstack:bro` command isn't installed in this session, so it didn't run," the same shape for both the plain skill and the hidden `principle-laziness-protocol` leaf, so lane 6 (want a restatement) and lane 7 (want a hidden-command refusal, which technically also holds) can't be told apart by this build's slash-menu. The `disable-model-invocation` strip and the `user-invocable: false` stamp are confirmed on disk (frontmatter census above); whether either one drives live menu behavior is unproven at this pin, still gated per Appendix C.
 
 ## Appendix B. Alternatives rejected
 
@@ -352,8 +358,8 @@ Three dry runs and one docs pass settled the shape. Numbers are from the 2026-09
 
 ## Appendix C. Risks
 
-- C1 owns the tool-name question. If the installed runtime names the subagent tool `Task`, the substitution names invert and every already-rewritten sentence in C2 that references the tool needs a second look. Watch the lane 8 capture.
-- The upstream `check-plan.mjs` hardcodes Cursor literals, `/goal` and a fixed model string. Do not carry that script into `plugin/` without adapting its marker list, and keep it out of the shipped trees.
+- Resolved at C3 (was open at C1). The installed runtime names the subagent tool `Agent`, confirmed from a real `tool_use` trace, not a self-report; see Appendix A. The substitution direction C1 chose was already correct, so nothing in C2 needed a second look.
+- Superseded at C3, on the operator's explicit call: the upstream `check-plan.mjs` hardcodes Cursor literals, `/goal` and a fixed model string, so it was never carried unadapted. C3 carries it with `LANES` rewritten to the emitted lane sentence and `PROGRAM_MARKERS`' `/goal` rewritten to `/loop`, verified with a positive control (the emitted skeleton passes) and two negative controls (removing either constant's target fails); see Appendix A. `watch-pr` ships too, overriding this plan's earlier never-carried note, which was written for the OMP port's no-bun runtime and does not bind this target.
 - `disable-model-invocation` live bugs (#26251, #78523) may get fixed upstream. The tree invariant strips the key regardless, so a fix changes nothing here except a footnote.
 - The `user-invocable` menu hide is verified only against the installed `claude` build at C3 lane 7. A regression there hides nothing or hides too much. The invariant script counts stamps but cannot prove menu behavior.
 - The polyglot hook runner ships untested on Windows from a darwin box. C4 lane 3 proves the bash side only. A Windows operator is the named untested surface.

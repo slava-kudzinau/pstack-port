@@ -488,6 +488,18 @@
     {
       "source": "the full Task schema including",
       "replacement": "the full Agent-tool schema including"
+    },
+    {
+      "source": "Run `node pstack/skills/poteto-mode/scripts/check-plan.mjs <plan.md>`",
+      "replacement": "Run `node skills/poteto-mode/scripts/check-plan.mjs <plan.md>` under the installed plugin"
+    },
+    {
+      "source": "Use `bun scripts/orch/orch.ts` for bookkeeping, written below as `orch`",
+      "replacement": "Use `bun skills/poteto-mode/scripts/orch/orch.ts` under the installed plugin for bookkeeping, written below as `orch`"
+    },
+    {
+      "source": "run `scripts/worktree-audit.sh`",
+      "replacement": "run `skills/poteto-mode/scripts/worktree-audit.sh` under the installed plugin"
     }
   ]
 }
