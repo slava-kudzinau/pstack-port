@@ -302,7 +302,8 @@ describe("renderManifests", () => {
   it("renders both manifests exactly against the pinned upstream metadata", async () => {
     const upstream = JSON.parse(await Bun.file(join(SNAPSHOT, ".cursor-plugin/plugin.json")).text());
     const version = await readUpstreamVersion(REPO_ROOT);
-    const { plugin, marketplace } = renderManifests({ version }, upstream);
+    const agentPaths = [...ground.tree.keys()].filter((path) => path.startsWith("agents/") && path.endsWith(".md")).sort();
+    const { plugin, marketplace } = renderManifests({ version }, upstream, agentPaths);
     expect(plugin).toEqual({
       name: "pstack",
       displayName: "pstack (Claude Code port)",
@@ -313,7 +314,7 @@ describe("renderManifests", () => {
       logo: "assets/logo.png",
       keywords: upstream.keywords,
       skills: "./skills/",
-      agents: "./agents/",
+      agents: ["./agents/comment-sicko.md", "./agents/poteto-agent.md"],
     });
     expect(marketplace).toEqual({
       name: "pstack-port",

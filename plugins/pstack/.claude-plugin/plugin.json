@@ -18,5 +18,8 @@
     "unslop"
   ],
   "skills": "./skills/",
-  "agents": "./agents/"
+  "agents": [
+    "./agents/comment-sicko.md",
+    "./agents/poteto-agent.md"
+  ]
 }

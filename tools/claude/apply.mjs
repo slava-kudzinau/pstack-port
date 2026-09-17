@@ -188,7 +188,7 @@ function jsonOf(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-export function renderManifests(pin, upstream) {
+export function renderManifests(pin, upstream, agentPaths) {
   const plugin = {
     name: "pstack",
     displayName: "pstack (Claude Code port)",
@@ -199,7 +199,7 @@ export function renderManifests(pin, upstream) {
     logo: upstream.logo,
     keywords: upstream.keywords,
     skills: "./skills/",
-    agents: "./agents/",
+    agents: agentPaths.map((path) => `./${path}`),
   };
   const marketplace = {
     name: "pstack-port",
@@ -386,7 +386,8 @@ async function main(argv) {
   const outputRoot = flags.get("--output") ?? join(REPO_ROOT, DEFAULTS.output);
   const upstreamVersion = await readUpstreamVersion(REPO_ROOT);
   const upstream = await readJson(join(snapshotDir, ".cursor-plugin/plugin.json"));
-  const { plugin, marketplace } = renderManifests({ version: upstreamVersion }, upstream);
+  const agentPaths = [...tree.keys()].filter((path) => path.startsWith("agents/") && path.endsWith(".md")).sort();
+  const { plugin, marketplace } = renderManifests({ version: upstreamVersion }, upstream, agentPaths);
   tree.set(".claude-plugin/plugin.json", jsonOf(plugin));
 
   const { written, unchanged, pruned } = writeTree(outputRoot, tree, {
