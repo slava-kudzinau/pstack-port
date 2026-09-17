@@ -40,7 +40,7 @@ export const STATUSES = ["portable", "adapted", "omp-native", "new"] as const;
 export type CatalogRow = { path: string; upstream: string; sync: string; status: string };
 
 /** The Claude Code target's fixed glob rows: the four generator-owned
- *  directories plus the two it deliberately never writes. `--check` asserts
+ *  directories plus the three it deliberately never writes. `--check` asserts
  *  every one of these paths is a row, and every row resolves to files. */
 const CLAUDE_CATALOG_PATHS = [
 	"plugins/pstack/.claude-plugin/*",
@@ -48,6 +48,7 @@ const CLAUDE_CATALOG_PATHS = [
 	"plugins/pstack/assets/*",
 	"plugins/pstack/hooks/**",
 	"plugins/pstack/models.json",
+	"plugins/pstack/policy.json",
 	"plugins/pstack/skills/**",
 ] as const;
 

@@ -231,8 +231,8 @@ describe("the snapshot at the pinned sha", () => {
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(125);
-    expect(ground.report.rewriteApplied).toBe(136);
+    expect(ground.report.rewriteEntries).toBe(126);
+    expect(ground.report.rewriteApplied).toBe(137);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });

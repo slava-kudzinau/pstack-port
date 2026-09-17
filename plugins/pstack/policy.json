@@ -1,0 +1,6 @@
+{
+  "_comment": "Shipped default flow-policy for the pstack plugin, parallel to models.json but for behavior knobs instead of model choice. Every value starts at the safe default below because this repo has no recorded per-project preference yet. Author `.claude/pstack-policy.md` (project) or `~/.claude/pstack-policy.md` (user), imported from the matching CLAUDE.md as @pstack-policy.md, to override; skills check the project file, then the user file, then this file's defaults, in that order. Never a requirement: a skill that reads a knob still falls back to this default when both files are silent on it.",
+  "knobs": {
+    "architect depth": "full"
+  }
+}

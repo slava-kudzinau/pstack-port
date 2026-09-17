@@ -27,7 +27,14 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 ## Phase B: Sketch
 
-Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`: the caller's usage written first, then the type sketch, function signatures, module map, and prose rationale derived from it.
+Assess scope first, out loud, the way the **brainstorming** pattern classifies a request before choosing its ceremony: state whether this task is Full or Scaled and let the human override the call in the moment.
+
+- **Full** (default): the change introduces a new type, crosses more than one file, or has no existing flow in this codebase to extend. Run the arena fan-out below.
+- **Scaled**: a mechanical, single-file addition to a flow that already exists here, a flag, a getter, a config value, with no new public type. Sketch it directly instead of running arena: one candidate, `not implemented` bodies, the same rationale template, still screened against `references/design-red-flags.md`. What scales down is the candidate count and whether a cross-judge runs, never whether a design package with a written rationale exists.
+
+Check the project's `.claude/pstack-policy.md`, then `~/.claude/pstack-policy.md`, for an `architect depth: full | scaled` line to set your default classification; absent either file, default to Full. A configured default is a starting point, not a substitute for stating the classification out loud on this invocation.
+
+When the call is Full, run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`: the caller's usage written first, then the type sketch, function signatures, module map, and prose rationale derived from it.
 
 Use your configured architect runners (defaults: the models you configure per role).
 

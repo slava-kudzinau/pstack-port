@@ -171,8 +171,13 @@ Second table, for the generated Claude Code target (`plugins/pstack/`, from
 Glob rows, not one row per file: apply's deny report and rewrite-miss gate
 already cover per-file drift, so this table tracks the four directories the
 generator writes (`skills/**`, `agents/**`, `.claude-plugin/*`, `assets/*`,
-status `adapted`) plus the two directories/files it deliberately never
-touches (`hooks/**`, `models.json`, status `new`, hand-authored). `Sync` is
+status `adapted`) plus the three files it deliberately never touches
+(`hooks/**`, `models.json`, `policy.json`, status `new`, hand-authored).
+`policy.json` is the shipped default for `pstack-policy.md`'s flow-behavior
+knobs (the `architect depth` classification added to `skills/architect/SKILL.md`
+via `tools/claude/rewrites.json` is the first consumer), the same
+hand-carried pattern `models.json` already established for per-role model
+choices. `Sync` is
 the `upstream_sha` pin from UPSTREAM.md for every row except the mixed case
 below; the Claude target has no ref-port sync dimension because it renders
 straight from vendored snapshots, never from `refs/ref-port`.
@@ -208,6 +213,7 @@ leaves" rule strips it too, independently arriving at the same output.
 | plugins/pstack/assets/* | upstream/pstack/assets | efa2a531 | adapted |
 | plugins/pstack/hooks/** | none | efa2a531 | new |
 | plugins/pstack/models.json | none | efa2a531 | new |
+| plugins/pstack/policy.json | none | efa2a531 | new |
 | plugins/pstack/skills/** | upstream/pstack/skills | efa2a531 | adapted |
 
 ## agents/comment-sicko.md

@@ -79,6 +79,49 @@ Skills read `~/.claude/pstack-models.md` first and fall back to
 configuration is safe. Re-run `/pstack:setup-pstack` any time to update it;
 the rewrite is idempotent.
 
+## Configure flow policy: `pstack-policy.md`
+
+Model choice isn't the only thing worth overriding per project. `architect`
+mandates a four-candidate arena sketch by default, useful for a real design
+decision, wasted on a one-file mechanical change. `plugins/pstack/policy.json`
+ships that mandate as the safe default (`architect depth: full`); a project
+that wants to relax it authors its own override, same shape as the model
+file:
+
+```
+# pstack flow policy. One line per knob. Delete a line to fall back to the
+# skill default.
+architect depth: scaled
+```
+
+Save it as `.claude/pstack-policy.md` in the repo (checked first, so it
+travels with the project) or `~/.claude/pstack-policy.md` (checked second,
+for a personal default across projects), and import it the same way as the
+model file:
+
+```
+@pstack-policy.md
+```
+
+`architect` still classifies each invocation out loud and lets you override
+the call in the moment, exactly as **poteto-mode**'s `Feature` playbook
+already lets you skip `architect` outright with a reason; this knob only
+changes what happens once `architect` actually runs. A `scaled` invocation
+still produces a design package with a written rationale, never zero design,
+only a single candidate instead of the four-way fan-out.
+
+## Project-level skill overrides (unconfirmed, verify before relying on it)
+
+A project that wants a fundamentally different skill, not just a lighter
+`architect`, may be able to drop its own `.claude/skills/<name>/SKILL.md` in
+the repo. Claude Code documents directory-scoped skill names for
+disambiguating two *differently scoped* skills that share a base name; it is
+not confirmed here whether a project-scoped skill of the same name actually
+shadows this plugin's version rather than coexisting alongside it as a
+separate entry. Treat this as a possibility to test in your own Claude Code
+version, not a guaranteed escape hatch. Neither `pstack-models.md` nor
+`pstack-policy.md` depends on it; they work regardless.
+
 ## Verify
 
 Run the generator's own test suite after any local change to

@@ -9,6 +9,11 @@
       "replacement": "Use your configured architect runners (defaults: the models you configure per role)."
     },
     {
+      "source": "Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt.",
+      "replacement": "Assess scope first, out loud, the way the **brainstorming** pattern classifies a request before choosing its ceremony: state whether this task is Full or Scaled and let the human override the call in the moment.\n\n- **Full** (default): the change introduces a new type, crosses more than one file, or has no existing flow in this codebase to extend. Run the arena fan-out below.\n- **Scaled**: a mechanical, single-file addition to a flow that already exists here, a flag, a getter, a config value, with no new public type. Sketch it directly instead of running arena: one candidate, `not implemented` bodies, the same rationale template, still screened against `references/design-red-flags.md`. What scales down is the candidate count and whether a cross-judge runs, never whether a design package with a written rationale exists.\n\nCheck the project's `.claude/pstack-policy.md`, then `~/.claude/pstack-policy.md`, for an `architect depth: full | scaled` line to set your default classification; absent either file, default to Full. A configured default is a starting point, not a substitute for stating the classification out loud on this invocation.\n\nWhen the call is Full, run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt.",
+      "kind": "block"
+    },
+    {
       "source": "Use `arena runners` from `~/.cursor/rules/pstack-models.mdc` when present.",
       "replacement": "Use the `arena runners` entries from `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present."
     },
