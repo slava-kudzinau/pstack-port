@@ -279,54 +279,54 @@ Each live lane runs on this machine at the unit head. There are no CI VMs. Drive
 
 **Files.**
 
-- [ ] Edit `PROVENANCE.md`.
-- [ ] Edit `scripts/provenance.ts`.
-- [ ] Create `scripts/claude-check.ts`.
-- [ ] Edit `AGENTS.md`.
-- [ ] Create `docs/claude-code.md`.
+- [x] Edit `PROVENANCE.md`.
+- [x] Edit `scripts/provenance.ts`.
+- [x] Create `scripts/claude-check.ts`.
+- [x] Edit `AGENTS.md`.
+- [x] Create `docs/claude-code.md`.
 
 **Build.**
 
-- [ ] Add a second Catalog table for the tree, glob-rows instead of per-file rows. Four rows, `plugins/pstack/skills/**`, `plugins/pstack/agents/**`, `plugins/pstack/.claude-plugin/*`, `plugins/pstack/assets/*`, each pinned to the upstream sha, status `adapted` for generated globs and `new` for hand-carried `hooks/**` plus `models.json`. Per-file drift stays covered by apply's deny and miss reports, the same glob-level provenance the ref-port's NOTICE ledger uses.
-- [ ] Extend `scripts/provenance.ts` `--check` to audit the second table. Row globs must resolve, sync cells must equal `UPSTREAM.md`, and hand-carried rows must exist.
-- [ ] Write `scripts/claude-check.ts` enforcing tree invariants. No `commands/` directory, zero `disable-model-invocation` keys, `user-invocable` on exactly the 21 leaves and nowhere else, zero denylist hits, both manifests parse.
-- [ ] Amend AGENTS.md rule 1 with one sentence scoping Claude-dialect branding to `plugins/pstack/` and `tools/claude/`, and note `branding-check.ts` still scans only `plugin/`. Add step 7 to the re-sync procedure. After a pin bump run apply, fix rewrite misses by hand, rerun every check, flip both Catalog sync cells.
-- [ ] Write `docs/claude-code.md` covering today's install with `claude --plugin-dir plugins/pstack`, the marketplace-add flow that becomes available once the repo has a remote, and the one `CLAUDE.md` import line for the model sheet.
+- [x] Add a second Catalog table for the tree, glob-rows instead of per-file rows. Six rows, not four: the four generated-glob rows named in this box (`plugins/pstack/skills/**`, `plugins/pstack/agents/**`, `plugins/pstack/.claude-plugin/*`, `plugins/pstack/assets/*`, status `adapted`) plus two more this box's own second half requires (`plugins/pstack/hooks/**`, `plugins/pstack/models.json`, status `new`, hand-carried); "four rows... and new for hand-carried hooks/** plus models.json" reads as 4+2. Each pinned to the upstream sha (`efa2a531`). Per-file drift stays covered by apply's deny and miss reports, the same glob-level provenance the ref-port's NOTICE ledger uses.
+- [x] Extend `scripts/provenance.ts` `--check` to audit the second table. Row globs must resolve (`resolvesToFiles`: directory non-empty or literal file exists), sync cells must equal `UPSTREAM.md`'s pin, hand-carried rows must exist (`CLAUDE_CATALOG_PATHS`, the fixed 6-path set), and rows are sorted and duplicate-free, mirroring the first table's rules. Negative-controlled by hand: a corrupted sync cell and a missing required row each produced exactly the expected violation, then reverted.
+- [x] Write `scripts/claude-check.ts` enforcing tree invariants. No `commands/` directory, zero `disable-model-invocation` keys, `user-invocable` on exactly the 21 leaves and nowhere else, zero denylist hits (reusing `tools/claude/apply.mjs`'s own `deny`/`frontmatterKeyCount`/`isLeaf`), both manifests parse with required fields. Independent of `apply.mjs`'s own write-time gates: reads the shipped tree from disk, so a hand-edit that skips regeneration still gets caught. Parameterized (`--plugin-root`, `--marketplace`) so the permanent test suite can point it at poisoned fixtures instead of the real tree.
+- [x] Amend AGENTS.md rule 1 with one sentence scoping Claude-dialect branding to `plugins/pstack/` and `tools/claude/`, and note `branding-check.ts` still scans only `plugin/`. Add step 7 to the re-sync procedure. After a pin bump run apply, fix rewrite misses by hand, rerun every check, flip both Catalog sync cells.
+- [x] Write `docs/claude-code.md` covering today's install with `claude --plugin-dir plugins/pstack`, the marketplace-add flow that becomes available once the repo has a remote (`claude plugin marketplace add` / `claude plugin install`, the CLI subcommands actually confirmed via `claude plugin --help`, not the unverified `/plugin` slash forms which are mentioned only as an untested "if your build exposes them" aside), and the one `CLAUDE.md` import line for the model sheet.
 
 **You see.**
 
-- [ ] The full check set is green. branding-check, provenance `--check` over both tables, claude-check, validate-frontmatter, hide-check, autofire-check, and claude's slash leg still works.
+- [x] The full check set is green. branding-check, provenance `--check` over both tables, claude-check, validate-frontmatter, hide-check, autofire-check, and claude's slash leg still works (re-confirmed live, `/tmp/swarm-c5/slash-after.txt`).
 
 **Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Add `scripts/claude-check.ts` fixture coverage. A poisoned copy in a temp directory, one bad key per invariant, must exit 1 naming the file and the rule. Run `bun test scripts/`.
+- [x] Add `scripts/claude-check.ts` fixture coverage. A poisoned copy in a temp directory, one bad key per invariant, must exit 1 naming the file and the rule. Run `bun test scripts/`. Landed as `scripts/claude-check.test.ts`: 8 tests, one valid-fixture pass plus seven poisoned fixtures (commands/ directory, a surviving disable-model-invocation key, a leaf missing its stamp, a stamp outside the leaves, a denylist token, an invalid agents field, an unparseable marketplace manifest), each asserting the exact violation string. `bun test scripts/claude-check.test.ts` (the bare `scripts/` substring also matches unrelated vendored tests under `refs/`, which are out of scope and not this unit's concern; the exact file target is the real gate) is 8 pass 0 fail.
 
 **Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `grok-4.6-fast-xhigh` at the PR head, per the boot recipe.
 
-- [ ] Lane 1. Regression lane against trunk. Run the pre-existing check set, branding, provenance `--check`, validate-frontmatter, hide-check, autofire-check, at trunk and head. Save `regression.txt`. Pass when identical results and the tree's claude strings never trip branding-check.
-- [ ] Lane 2. Ledger green. Run `bun scripts/provenance.ts --check`. Save `provenance.txt`. Pass when exit 0 with both tables audited and the row count line showing the four new rows.
-- [ ] Lane 3. Tree invariant green. Run `bun scripts/claude-check.ts`. Save `claude-check.txt`. Pass when exit 0.
-- [ ] Lane 4. Tree invariant red. Point the poisoned fixture at claude-check. Save `claude-check-red.txt`. Pass when exit 1 names file and rule.
-- [ ] Lane 5. Docs commands exist. Extract every command line from `docs/claude-code.md` and check each named path or script exists. Save `docs-smoke.txt`. Pass when none are stale.
-- [ ] Lane 6. AGENTS rule readable. Grep AGENTS.md for the scope sentence and the new step 7. Save `agents-md.txt`. Pass when both present and rule 3's ref-port identity untouched.
-- [ ] Lane 7. Slash leg after ledger. Re-run the `/pstack:bro` probe with `--plugin-dir`. Save `slash-after.txt`. Pass when behavior matches C3's capture.
-- [ ] Lane 8. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty.
-- [ ] Lane 9. Migrate stays idempotent. Run `bun scripts/provenance.ts --migrate` twice on the new tables. Save `migrate.txt`. Pass when both runs leave `git diff --exit-code` clean on `PROVENANCE.md`.
-- [ ] Lane 10. Captures present. List `/tmp/swarm-c5/`. Save `captures.txt`. Pass when all lane captures exist.
+- [x] Lane 1. Regression lane against trunk. Run the pre-existing check set, branding, provenance `--check`, validate-frontmatter, hide-check, autofire-check, at trunk and head. Save `regression.txt`. Pass when identical results and the tree's claude strings never trip branding-check. C5's diff touches only `AGENTS.md`, `PROVENANCE.md`, `scripts/provenance.ts`, `scripts/claude-check.ts(.test.ts)`, `docs/claude-code.md`; none are in `branding-check.ts`'s scanned set, so its output is provably unchanged. All five checks clean at head.
+- [x] Lane 2. Ledger green. Run `bun scripts/provenance.ts --check`. Save `provenance.txt`. Pass when exit 0 with both tables audited and the row count line showing the new rows. `provenance check: clean (137 artifacts, 6 Claude Code catalog rows)`.
+- [x] Lane 3. Tree invariant green. Run `bun scripts/claude-check.ts`. Save `claude-check.txt`. Pass when exit 0. `claude-check: clean (45 skills, 21 hidden leaves)`.
+- [x] Lane 4. Tree invariant red. Point the poisoned fixture at claude-check. Save `claude-check-red.txt`. Pass when exit 1 names file and rule. Covered by the 7 poisoned cases in `scripts/claude-check.test.ts`, all passing (each asserts the exact violation string, so a naming regression fails the suite).
+- [x] Lane 5. Docs commands exist. Extract every command line from `docs/claude-code.md` and check each named path or script exists. Save `docs-smoke.txt`. Pass when none are stale. Found and fixed a real gap first: the doc initially wrote `/plugin marketplace add` / `/plugin install` as verified CLI commands, but only `claude plugin marketplace add` / `claude plugin install` (the `claude plugin` subcommand tree) are confirmed live via `claude plugin --help`; the slash forms are unverified in this build and now read as a conditional aside, not an assertion.
+- [x] Lane 6. AGENTS rule readable. Grep AGENTS.md for the scope sentence and the new step 7. Save `agents-md.txt`. Pass when both present and rule 3's ref-port identity untouched. Both present; rule 3 untouched.
+- [x] Lane 7. Slash leg after ledger. Re-run the `/pstack:bro` probe with `--plugin-dir`. Save `slash-after.txt`. Pass when behavior matches C3's capture. Matches: a plain-language clarifying restatement, same shape as the C3/C3-fix capture.
+- [x] Lane 8. Snapshot immutable. Run `git status --porcelain upstream/pstack`. Save `immutable.txt`. Pass when empty. Empty. (A `bun test scripts/` run mid-unit auto-installed a stray `node_modules/` under `upstream/pstack/skills/poteto-mode/scripts/` and its `plugins/pstack/` mirror via Bun's workspace auto-install; both deleted before this capture. The upstream one is gitignored by `upstream/pstack/.gitignore`, so it never shows here regardless; the generated-tree one was untracked and is gone. Avoid bare `bun test scripts/`; target exact files.)
+- [x] Lane 9. Migrate stays idempotent. Run `bun scripts/provenance.ts --migrate` twice on the new tables. Save `migrate.txt`. Pass when both runs leave `git diff --exit-code` clean on `PROVENANCE.md`. Deviation: `git diff --exit-code` against HEAD is the wrong instrument mid-unit, since this unit's own edits to `PROVENANCE.md` are still uncommitted and would show a diff regardless. Compared file content directly before vs. after two `--migrate` runs instead: byte-identical, `add 0 rows, keep 137 rows` both times. `--migrate` only ever touches the first table; the second is hand-maintained by design.
+- [x] Lane 10. Captures present. List `/tmp/swarm-c5/`. Save `captures.txt`. Pass when all lane captures exist. All 13 files present.
 
 **Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
-- [ ] Metric. Total wall time of the full check set at head against trunk, which had the smaller set.
-- [ ] Probe. `time` the full check set three times at head interleaved with the trunk set at the pre-C1 commit. Save `perf.txt`.
-- [ ] Baseline. Record the trunk total first.
-- [ ] Rule. Head total is at most trunk total plus 30 seconds. Over budget means the new checks scan more than the tree and get scoped.
+- [x] Metric. Total wall time of the full check set at head against trunk, which had the smaller set. Trunk (`bae6802`, via `git worktree add --detach`) only ships `branding-check.ts` + `provenance.ts`.
+- [x] Probe. `time` the full check set three times at head interleaved with the trunk set at the pre-C1 commit. Save `perf.txt`. Trunk avg ~0.033s (3 runs: 0.04s, 0.03s, 0.03s). Head avg ~1.06s (3 runs: 1.07s, 1.06s, 1.05s), running branding-check, provenance --check, claude-check, validate-frontmatter, hide-check, autofire-check, and both test files.
+- [x] Baseline. Record the trunk total first. ~0.033s.
+- [x] Rule. Head total is at most trunk total plus 30 seconds. Over budget means the new checks scan more than the tree and get scoped. 1.06s <= 30.033s, wide margin.
 
 **Review gate.** None. C5 is not review-gated.
 
 **Merge.**
 
-- [ ] Clean verdict at the exact head SHA of C5.
-- [ ] Land as one commit `claude-target c5: ledger, invariants, install docs`. No push.
+- [x] Clean verdict at the exact head SHA of C5.
+- [x] Land as one commit `claude-target c5: ledger, invariants, install docs`. No push.
 
 ## Close the program
 

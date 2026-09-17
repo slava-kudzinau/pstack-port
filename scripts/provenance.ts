@@ -26,7 +26,7 @@
 //             else by path convention), upsert into the table — existing rows
 //             always win — and delete the frontmatter blocks. --dry previews.
 
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,8 +35,21 @@ const plugin = join(repo, "plugin");
 const catalogPath = join(repo, "PROVENANCE.md");
 
 export const CATALOG_HEADING = "## Catalog";
+export const CLAUDE_CATALOG_HEADING = "## Claude Code Catalog";
 export const STATUSES = ["portable", "adapted", "omp-native", "new"] as const;
 export type CatalogRow = { path: string; upstream: string; sync: string; status: string };
+
+/** The Claude Code target's fixed glob rows: the four generator-owned
+ *  directories plus the two it deliberately never writes. `--check` asserts
+ *  every one of these paths is a row, and every row resolves to files. */
+const CLAUDE_CATALOG_PATHS = [
+	"plugins/pstack/.claude-plugin/*",
+	"plugins/pstack/agents/**",
+	"plugins/pstack/assets/*",
+	"plugins/pstack/hooks/**",
+	"plugins/pstack/models.json",
+	"plugins/pstack/skills/**",
+] as const;
 
 // Snapshot roots, keyed by directory under the repo root; UPSTREAM.md holds
 // the full sha each pin was authored against.
@@ -172,10 +185,10 @@ function deriveRow(rel: string, content: string, shortByRoot: Map<string, string
 	return { row: { path: rel, upstream: res.upstream, sync: shortByRoot.get(res.root) ?? "", status } };
 }
 
-export function parseCatalog(): CatalogRow[] | null {
+function parseTableAt(heading: string): CatalogRow[] | null {
 	if (!existsSync(catalogPath)) return null;
 	const lines = readFileSync(catalogPath, "utf-8").split("\n");
-	const start = lines.indexOf(CATALOG_HEADING);
+	const start = lines.indexOf(heading);
 	if (start === -1) return null;
 	const rows: CatalogRow[] = [];
 	for (let i = start + 1; i < lines.length; i++) {
@@ -186,6 +199,40 @@ export function parseCatalog(): CatalogRow[] | null {
 		rows.push({ path: cells[0], upstream: cells[1], sync: cells[2], status: cells[3] });
 	}
 	return rows;
+}
+
+export function parseCatalog(): CatalogRow[] | null {
+	return parseTableAt(CATALOG_HEADING);
+}
+
+function resolvesToFiles(globPath: string): boolean {
+	const base = globPath.replace(/\/\*\*?$/, "");
+	const full = join(repo, base);
+	if (!existsSync(full)) return false;
+	const stat = statSync(full);
+	if (stat.isFile()) return base === globPath;
+	return stat.isDirectory() && readdirSync(full).length > 0;
+}
+
+function checkClaudeCatalog(shortByRoot: Map<string, string>): string[] {
+	const violations: string[] = [];
+	const rows = parseTableAt(CLAUDE_CATALOG_HEADING);
+	if (rows === null) { violations.push(`no "${CLAUDE_CATALOG_HEADING}" table in PROVENANCE.md`); return violations; }
+	const shorts = new Set(shortByRoot.values());
+	const byPath = new Map<string, CatalogRow>();
+	for (const r of rows) {
+		if (byPath.has(r.path)) violations.push(`${r.path}: duplicate Claude Code catalog row`);
+		byPath.set(r.path, r);
+		if (!STATUSES.includes(r.status as (typeof STATUSES)[number])) violations.push(`${r.path}: status "${r.status}" not in ${STATUSES.join("|")}`);
+		if (!/^[0-9a-f]{8}$/.test(r.sync) || !shorts.has(r.sync)) violations.push(`${r.path}: sync "${r.sync}" matches no UPSTREAM.md pin`);
+		if (r.upstream === "none") { if (r.status !== "new") violations.push(`${r.path}: upstream none requires status new`); }
+		else if (!existsSync(join(repo, r.upstream))) violations.push(`${r.path}: upstream ${r.upstream} not found`);
+		if (!resolvesToFiles(r.path)) violations.push(`${r.path}: resolves to no files on disk`);
+	}
+	for (const p of CLAUDE_CATALOG_PATHS) if (!byPath.has(p)) violations.push(`${p}: required Claude Code catalog row is missing`);
+	for (const r of rows) if (!(CLAUDE_CATALOG_PATHS as readonly string[]).includes(r.path)) violations.push(`${r.path}: row for a path outside the fixed Claude Code catalog set`);
+	for (let i = 1; i < rows.length; i++) if (rows[i - 1].path > rows[i].path) { violations.push("Claude Code catalog rows are not sorted by path"); break; }
+	return violations;
 }
 
 function renderTable(rows: CatalogRow[]): string[] {
@@ -284,12 +331,14 @@ function check(): number {
 		const head = headOf(readFileSync(join(plugin, p), "utf-8"));
 		if (head !== null && PROVENANCE_KEY_RE.test(head)) violations.push(`${p}: provenance keys in frontmatter; the catalog table is their only home`);
 	}
+	const claudeViolations = checkClaudeCatalog(shortByRoot);
+	violations.push(...claudeViolations);
 	if (violations.length > 0) {
 		console.error(`provenance check: ${violations.length} violations`);
 		for (const v of violations) console.error(`  ${v}`);
 		return 1;
 	}
-	console.log(`provenance check: clean (${rows.length} artifacts)`);
+	console.log(`provenance check: clean (${rows.length} artifacts, ${CLAUDE_CATALOG_PATHS.length} Claude Code catalog rows)`);
 	return 0;
 }
 

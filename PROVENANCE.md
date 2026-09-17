@@ -164,6 +164,28 @@ append-only history. Provenance never returns to shipped frontmatter.
 | skills/why/references/synthesizer-prompt.md | upstream/pstack/skills/why/references/synthesizer-prompt.md | efa2a531 | adapted |
 | skills/worktree-cleanup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/worktree-cleanup.md | efa2a531 | adapted |
 
+## Claude Code Catalog
+
+Second table, for the generated Claude Code target (`plugins/pstack/`, from
+`tools/claude/apply.mjs`; see `pstack-omp-plan/70-claude-code-target.md`).
+Glob rows, not one row per file: apply's deny report and rewrite-miss gate
+already cover per-file drift, so this table tracks the four directories the
+generator writes (`skills/**`, `agents/**`, `.claude-plugin/*`, `assets/*`,
+status `adapted`) plus the two directories/files it deliberately never
+touches (`hooks/**`, `models.json`, status `new`, hand-authored). `Sync` is
+the `upstream_sha` pin from UPSTREAM.md; the Claude target has no OMP or
+ref-port sync dimension because it renders straight from `upstream/pstack`.
+`bun scripts/provenance.ts --check` audits both tables in one run.
+
+| Path | Upstream | Sync | Status |
+|---|---|---|---|
+| plugins/pstack/.claude-plugin/* | upstream/pstack/.cursor-plugin/plugin.json | efa2a531 | adapted |
+| plugins/pstack/agents/** | upstream/pstack/agents | efa2a531 | adapted |
+| plugins/pstack/assets/* | upstream/pstack/assets | efa2a531 | adapted |
+| plugins/pstack/hooks/** | none | efa2a531 | new |
+| plugins/pstack/models.json | none | efa2a531 | new |
+| plugins/pstack/skills/** | upstream/pstack/skills | efa2a531 | adapted |
+
 ## agents/comment-sicko.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
