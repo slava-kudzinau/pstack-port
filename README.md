@@ -20,22 +20,8 @@ Both targets are generated or adapted from the same pinned upstream snapshot
 
 The Claude Code target is generated from `upstream/pstack/` by
 `tools/claude/apply.mjs`; the OMP target is hand-adapted. Neither depends on
-the other. Pick the doc for the platform you're using.
-
-## Quick start: Claude Code
-
-```bash
-claude plugin marketplace add slava-kudzinau/pstack-port
-claude plugin install pstack@pstack-port
-```
-
-See [docs/claude-code.md](docs/claude-code.md) for the `--plugin-dir` install
-path, model configuration, and flow-policy overrides.
-
-## Quick start: Oh My Pi
-
-Add the `plugin/` directory to `extensions:` in `~/.omp/agent/config.yml`.
-See [docs/README.md](docs/README.md) for the full steps.
+the other. Pick the doc for the platform you're using; it has the install,
+setup, and configuration steps.
 
 ## Repo layout
 
