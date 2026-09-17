@@ -274,8 +274,13 @@ Steps verified by the 2026-09-02 sync to 0.14.7 (`efa2a531`).
    then `bun scripts/branding-check.ts`, `bun scripts/provenance.ts --check`,
    `bun scripts/claude-check.ts`, and `bun test tools/claude/ scripts/claude-check.test.ts`.
    Flip both Catalog tables' `Sync` cells in `PROVENANCE.md` (the per-file
-   `## Catalog` rows and the six glob rows in `## Claude Code Catalog`) to
-   the new 8-char pin. `apply.mjs` also merges a second vendored snapshot,
+   `## Catalog` rows and the seven glob rows in `## Claude Code Catalog`) to
+   the new 8-char pin. A rewrite entry carrying `"local": true` is
+   pstack-port-authored behavior with no upstream counterpart (see its
+   `note` field for what it's for); a miss on one of those needs judgment
+   against the new upstream wording, not a mechanical re-anchor to nearby
+   text, since upstream may have since covered the same ground its own way.
+   `apply.mjs` also merges a second vendored snapshot,
    `upstream/cursor-team-kit/skills/`, pinned separately to
    `cursor_plugins_sha`; re-vendor it the same way as step 2 whenever that
    pin advances (it very rarely does, per the re-sync's own cursor-team-kit

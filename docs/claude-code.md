@@ -156,7 +156,7 @@ manifests (`plugins/pstack/.claude-plugin/plugin.json` and the root
 `.claude-plugin/marketplace.json`) parse with their required fields.
 
 Run the provenance ledger check (it audits both the OMP package's per-file
-table and this target's six glob rows in one pass):
+table and this target's seven glob rows in one pass):
 
 ```bash
 bun scripts/provenance.ts --check

@@ -239,6 +239,17 @@ describe("the snapshot at the pinned sha", () => {
     expect(ground.report.hits).toEqual([]);
   });
 
+  it("carries every locally-authored rewrite, not just a passing miss count", () => {
+    const localEntries = tables.rewrites.filter((entry) => entry.local);
+    expect(localEntries.length).toBeGreaterThanOrEqual(2);
+    for (const entry of localEntries) expect(entry.note, `local entry missing a note: ${entry.source.slice(0, 50)}`).toBeTruthy();
+    const architect = ground.tree.get("skills/architect/SKILL.md") ?? "";
+    expect(architect).toContain("Full or Scaled");
+    expect(architect).toContain("pstack-policy.md");
+    const poteto = ground.tree.get("skills/poteto-mode/SKILL.md") ?? "";
+    expect(poteto).toContain("Project instructions win on conflict");
+  });
+
   it("keeps the Claude-native dispatch tokens the tree is meant to carry", () => {
     const merged = [...ground.tree.values()].join("");
     expect((merged.match(/subagent_type/g) || []).length).toBe(14);
