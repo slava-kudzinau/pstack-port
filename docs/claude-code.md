@@ -5,10 +5,24 @@ generated from the pinned upstream snapshot by `tools/claude/apply.mjs`. It
 is a separate target from the OMP package in `plugin/`; see `AGENTS.md`'s
 "Re-sync procedure" for how it is built and verified.
 
-## Install today: `--plugin-dir`
+## Install: marketplace-add
 
-This repo has no remote yet, so the marketplace-add flow below is not
-reachable. Load the plugin directly from the clone for every session:
+The repo root ships `.claude-plugin/marketplace.json`, pointing its one
+plugin entry at `./plugins/pstack`:
+
+```bash
+claude plugin marketplace add slava-kudzinau/pstack-port
+claude plugin install pstack@pstack-port
+```
+
+Or the interactive equivalents inside a running session,
+`/plugin marketplace add slava-kudzinau/pstack-port` and
+`/plugin install pstack@pstack-port`, if your build exposes them as slash
+commands.
+
+## Install from a local clone: `--plugin-dir`
+
+Useful when developing the plugin itself, or before pushing a change:
 
 ```bash
 claude --plugin-dir /path/to/pstack-port/plugins/pstack
@@ -23,22 +37,6 @@ claude plugin validate /path/to/pstack-port/plugins/pstack
 A clean run reports `Validation passed` (a `logo` field warning is expected
 and harmless). If validation fails, the plugin silently loads zero skills;
 `--plugin-dir` gives no other signal that anything is wrong.
-
-## Install once this repo has a remote: marketplace-add
-
-The repo root ships `.claude-plugin/marketplace.json`, pointing its one
-plugin entry at `./plugins/pstack`. Once pushed somewhere Claude Code can
-reach:
-
-```bash
-claude plugin marketplace add <owner>/<repo>
-claude plugin install pstack@pstack-port
-```
-
-Or the interactive equivalents inside a running session, `/plugin marketplace add <owner>/<repo>` and `/plugin install pstack@pstack-port`, if your build exposes them as slash commands.
-
-Until then, `--plugin-dir` is the only working install path. Don't attempt
-the marketplace flow against a repo with no remote; it has nothing to fetch.
 
 ## What loads automatically
 
