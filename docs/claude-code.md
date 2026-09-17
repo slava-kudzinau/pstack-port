@@ -2,9 +2,8 @@
 
 The Claude Code build of pstack lives at `plugins/pstack/` in this repo,
 generated from the pinned upstream snapshot by `tools/claude/apply.mjs`. It
-is a separate target from the OMP package in `plugin/`; see
-[pstack-omp-plan/70-claude-code-target.md](../pstack-omp-plan/70-claude-code-target.md)
-for how it is built and verified.
+is a separate target from the OMP package in `plugin/`; see `AGENTS.md`'s
+"Re-sync procedure" for how it is built and verified.
 
 ## Install today: `--plugin-dir`
 

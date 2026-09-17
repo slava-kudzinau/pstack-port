@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Branding check (pstack-omp-plan/01-conventions.md §1).
+// Branding check (AGENTS.md's Hard rule 1).
 //
 // Fails if any banned Cursor/Claude/Anthropic string appears in the shipped
 // package under plugin/ (skills, agents, commands, extensions, hooks), outside

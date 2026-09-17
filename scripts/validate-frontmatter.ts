@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
-// Frontmatter audit for every deliverable file (pstack-omp-plan/01-conventions.md
-// rules 4/5). Mirrors refs/omp-src/packages/coding-agent/src/discovery/
+// Frontmatter audit for every deliverable file (AGENTS.md's Hard rules 4/5).
+// Mirrors refs/omp-src/packages/coding-agent/src/discovery/
 // agent-plugin-format.ts:102-161 and docs/skills.md:27-33: skills load from
 // <skills-root>/<skill-name>/SKILL.md only, the SKILL.md frontmatter schema
 // is closed to six fields, `name` must equal the directory name, and

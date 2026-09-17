@@ -167,7 +167,7 @@ append-only history. Provenance never returns to shipped frontmatter.
 ## Claude Code Catalog
 
 Second table, for the generated Claude Code target (`plugins/pstack/`, from
-`tools/claude/apply.mjs`; see `pstack-omp-plan/70-claude-code-target.md`).
+`tools/claude/apply.mjs`; see `AGENTS.md`'s "Re-sync procedure").
 Glob rows, not one row per file: apply's deny report and rewrite-miss gate
 already cover per-file drift, so this table tracks the four directories the
 generator writes (`skills/**`, `agents/**`, `.claude-plugin/*`, `assets/*`,

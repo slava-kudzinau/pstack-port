@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
-// Claude Code target tree invariants (pstack-omp-plan/70-claude-code-target.md,
-// unit C5). Independent of tools/claude/apply.mjs's own --dry/write-mode gates:
+// Claude Code target tree invariants (AGENTS.md's Re-sync procedure).
+// Independent of tools/claude/apply.mjs's own --dry/write-mode gates:
 // this script re-validates the shipped state on disk, so a hand-edit that
 // skips regeneration still gets caught.
 //

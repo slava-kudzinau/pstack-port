@@ -33,10 +33,6 @@ pstack-port/
 ├── scripts/               # provenance.ts (catalog owner), classify-diff.ts,
 │                          # branding/validate/hide/autofire/claude-check checks
 ├── docs/                  # user-facing docs: install, commands, config, claude-code
-├── findings/              # one file per phase, the matrix, checkpoints
-├── pstack-omp-plan/       # 00-README, 01-conventions, 02-context,
-│                          # 10-phase-a-study, 98-questions, templates/,
-│                          # 70-claude-code-target (units C1-C5)
 ├── UPSTREAM.md            # pins: upstream snapshot @ efa2a531 (0.14.7),
 │                          # cursor-plugins @ e46364b8, omp-src @ 65f79e76,
 │                          # ref-port @ c2ade4bb
@@ -45,7 +41,7 @@ pstack-port/
                            # Never shipped, never committed.
 ```
 
-## Hard rules (from pstack-omp-plan/01-conventions.md)
+## Hard rules
 
 1. **Branding.** Shipped files (everything under `plugin/`) contain zero
    Claude/Anthropic branding: banned strings
@@ -145,27 +141,21 @@ pstack-port/
 
 ## Current state (2026-09-17)
 
-- Phases A through D are complete, and Phase F's file work is done through
-  `findings/checkpoint-2.md`. Phase E was skipped; files alone covered everything it
-  would have done. Phase F's live boxes stay open: the behavioral conformance suite
-  and the clean-machine install.
-- Upstream is synced to `efa2a531` (v0.14.7) from `fd878692` (v0.14.5);
-  `findings/sync-0.14.7.md` holds the report. The substantive content
-  landed at `23a56e2` (v0.14.6); the pinned commit's own delta is a
-  `logo` line in `pstack/.cursor-plugin/plugin.json`.
+- The OMP port (`plugin/`) is complete; its behavioral conformance suite and
+  a clean-machine install are the two live verification items still open.
+- Upstream is synced to `efa2a531` (v0.14.7) from `fd878692` (v0.14.5). The
+  substantive content landed at `23a56e2` (v0.14.6); the pinned commit's own
+  delta is a `logo` line in `pstack/.cursor-plugin/plugin.json`.
 - Catalog holds 137 artifacts in the OMP (`plugin/`) table, audited by
   `bun scripts/provenance.ts --check`, plus 6 glob rows for the Claude Code
   target in the same file's second table.
-- Owed: the 5 behavioral conformance prompts in
-  `findings/conformance-live.md` (T3-T5 blank, plus baseline-model runs for
-  T1-T2) and one clean-machine install worked from `docs/` alone.
 - `WATCHDOG.yml` at the repo root is the shadow-advisor (watchdog) harness config for
   this session, supplied by the operator. It is not repo content and not an OMP
   artifact. Its one entry names a vendor model slug, so it stays gitignored: rule 1
   bans that slug in anything committed, and `scripts/branding-check.ts` scans only the
   trees under `plugin/`, so committing it would pass every check. Never track it.
-- The Claude Code target (`pstack-omp-plan/70-claude-code-target.md`) landed
-  all five units, C1-C5, each as its own commit on `main`. C3 shipped a real
+- The Claude Code target landed all five planned units, C1-C5, each as its
+  own commit on `main`. C3 shipped a real
   bug (the manifest's `agents` field was a bare directory string, which
   Claude Code's plugin schema rejects; the whole plugin silently failed to
   load, not just the slash-menu entry the plan first suspected), fixed and
@@ -218,7 +208,6 @@ pstack-port/
   `skill://<name>` read serves raw bytes, so a relative path resolves against the
   reader's working directory and misses. Keep that kind of cite in repo docs: `refs/`
   is gitignored and never installed, so a shipped file must not point into it.
-- Never tick a "Done when" box in `pstack-omp-plan/` without re-running the checks.
 - Do not port new components without evidence they exist under
   `upstream/pstack/` at `efa2a531985e0a8084d36ff3cf87233be8a9f34b` or
   `refs/cursor-plugins/cursor-team-kit/skills/` at `cursor_plugins_sha`.

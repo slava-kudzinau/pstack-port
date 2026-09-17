@@ -40,8 +40,7 @@ pstack-omp/
 ├── plugin/          # the shipped package: 74 skill dirs, 2 agents, 31 /pstack:* commands,
 │                    # the session-start extension and its hook text
 ├── docs/            # These docs
-├── scripts/         # Conformance suite, branding check
-└── findings/        # Port decision records
+└── scripts/         # Conformance suite, branding check
 ```
 
 Each skill is self-contained. Read the SKILL.md in any directory to understand what it does. Skills reference each other via `skill://` links, which OMP resolves automatically.
@@ -85,8 +84,8 @@ bun scripts/fetch-upstream.ts <sha>
 bun scripts/classify-diff.ts
 ```
 
-See [findings/matrix.md](findings/matrix.md) for the classification of each component.
+See `PROVENANCE.md` at the repo root for the classification of each component.
 
 ## License
 
-See [LICENSE](LICENSE) and [CREDITS.md](CREDITS.md).
+See [LICENSE](../LICENSE) and [NOTICE.md](../NOTICE.md).
