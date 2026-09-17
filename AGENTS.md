@@ -247,8 +247,14 @@ Steps verified by the 2026-09-02 sync to 0.14.7 (`efa2a531`).
    `changed (portable): 0`.
 7. Regenerate the Claude Code target: run `bun tools/claude/apply.mjs`. A
    rewrite miss (a `rewrites.json` entry whose exact source sentence moved)
-   is a hard fail; fix it by hand in `tools/claude/rewrites.json` against the
-   new upstream wording, never by loosening the match. Rerun `apply.mjs`,
+   is a hard fail. If every miss traces to one of the four vendor model
+   default slugs, the fix is a one-line edit to that slug's `pattern` in
+   `substitutions.json` (`model-slug-1` through `model-slug-4`), not to the
+   ledger: those rules erase the pinned default before the ledger ever
+   matches, so the ~45 sentences that used to hardcode a slug never need
+   touching for a slug-only rename. A miss on a different sentence still
+   means a hand fix in `tools/claude/rewrites.json` against the new
+   upstream wording, never by loosening the match. Rerun `apply.mjs`,
    then `bun scripts/branding-check.ts`, `bun scripts/provenance.ts --check`,
    `bun scripts/claude-check.ts`, and `bun test tools/claude/ scripts/claude-check.test.ts`.
    Flip both Catalog tables' `Sync` cells in `PROVENANCE.md` (the per-file

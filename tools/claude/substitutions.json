@@ -47,6 +47,30 @@
       "pattern": "@cursor-skill/poteto-mode-tools",
       "replacement": "@pstack-claude/poteto-mode-tools",
       "rationale": "npm scope carried from the upstream Cursor snapshot. Renamed to this port's own scope; the same string appears once in package.json and once in bun.lock."
+    },
+    {
+      "id": "model-slug-1",
+      "pattern": "claude-fable-5-1-thinking-max",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
+    },
+    {
+      "id": "model-slug-2",
+      "pattern": "gpt-5.6-sol-max",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
+    },
+    {
+      "id": "model-slug-3",
+      "pattern": "grok-4.6-fast-xhigh",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
+    },
+    {
+      "id": "model-slug-4",
+      "pattern": "claude-opus-5-thinking-xhigh",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
     }
   ],
   "denylist": [

@@ -52,7 +52,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -84,6 +84,39 @@ describe("rewrite", () => {
     expect(applied).toEqual([{ source, count: 2 }]);
     expect(out.get("skills/poteto-mode/SKILL.md")).not.toContain("control-ui");
     expect(deny(out, tables.denylist).filter((hit) => hit.token === "control-ui")).toHaveLength(0);
+  });
+});
+
+describe("model-slug placeholder normalization", () => {
+  const entryFor = (needle: string) => {
+    const entry = tables.rewrites.find((candidate) => candidate.source.includes(needle));
+    if (!entry) throw new Error(`no ledger entry contains: ${needle}`);
+    return entry;
+  };
+
+  it("substitute-then-rewrite erases the pinned default slug with no placeholder surviving", () => {
+    const body = skill("architect", "Use your configured architect runners (defaults `claude-fable-5-1-thinking-max`, `gpt-5.6-sol-max`, `grok-4.6-fast-xhigh`, `claude-opus-5-thinking-xhigh`).\n");
+    const sites = new Map([["skills/architect/SKILL.md", body]]);
+    const { sites: substituted } = substitute(sites, tables.substitutions);
+    const { sites: rewritten, misses } = rewrite(substituted, [entryFor("architect runners (defaults")]);
+    const text = rewritten.get("skills/architect/SKILL.md") ?? "";
+    expect(misses).toEqual([]);
+    expect(text).toBe(skill("architect", "Use your configured architect runners (defaults: the models you configure per role).\n"));
+    expect(text).not.toContain("PSTACK-MODEL-SLUG");
+    expect(text).not.toContain("claude-fable-5-1-thinking-max");
+  });
+
+  it("survives a simulated upstream slug rename with a one-line substitution-pattern edit, not a ledger edit", () => {
+    const body = skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model (default `claude-fable-5-9-future-max`) with a specific scope; review the diff.\n");
+    const sites = new Map([["skills/bug-fix/SKILL.md", body]]);
+    const patched = tables.substitutions.map((rule) =>
+      rule.id === "model-slug-1" ? { ...rule, pattern: "claude-fable-5-9-future-max" } : rule,
+    );
+    const { sites: substituted } = substitute(sites, patched);
+    const { sites: rewritten, misses } = rewrite(substituted, [entryFor("configured bug-fix model")]);
+    const text = rewritten.get("skills/bug-fix/SKILL.md") ?? "";
+    expect(misses).toEqual([]);
+    expect(text).toBe(skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model with a specific scope; review the diff.\n"));
   });
 });
 
@@ -174,9 +207,9 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 124 files and reports 10, 3, 6, 16, 2 in build-rule order", () => {
+  it("scans 124 files and reports 10, 3, 6, 16, 2, 30, 12, 23, 10 in build-rule order", () => {
     expect(ground.report.scanned).toBe(124);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 30, 12, 23, 10]);
   });
 
   it("strips the key from 44 files and stamps exactly the 21 leaves", () => {
