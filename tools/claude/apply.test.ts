@@ -60,7 +60,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -115,7 +115,7 @@ describe("model-slug placeholder normalization", () => {
   });
 
   it("survives a simulated upstream slug rename with a one-line substitution-pattern edit, not a ledger edit", () => {
-    const body = skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model (default `claude-fable-5-9-future-max`) with a specific scope; review the diff.\n");
+    const body = skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model (default `claude-fable-5-9-future-max`) with a specific scope. Review the diff.\n");
     const sites = new Map([["skills/bug-fix/SKILL.md", body]]);
     const patched = tables.substitutions.map((rule) =>
       rule.id === "model-slug-1" ? { ...rule, pattern: "claude-fable-5-9-future-max" } : rule,
@@ -124,7 +124,7 @@ describe("model-slug placeholder normalization", () => {
     const { sites: rewritten, misses } = rewrite(substituted, [entryFor("configured bug-fix model")]);
     const text = rewritten.get("skills/bug-fix/SKILL.md") ?? "";
     expect(misses).toEqual([]);
-    expect(text).toBe(skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model with a specific scope; review the diff.\n"));
+    expect(text).toBe(skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model with a specific scope. Review the diff.\n"));
   });
 });
 
@@ -215,24 +215,24 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 3, 6, 16, 2, 30, 12, 23, 10, 1 in build-rule order", () => {
+  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 3, 6, 16, 2, 1, 1, 22, 10, 28, 8, 1 in build-rule order", () => {
     expect(ground.report.scanned).toBe(131);
     expect(ground.report.teamKitScanned).toBe(7);
     expect(ground.report.teamKitCollisions).toEqual([]);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 30, 12, 23, 10, 1]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 1, 1, 22, 10, 28, 8, 1]);
   });
 
-  it("strips the key from 45 files and stamps exactly the 21 leaves", () => {
-    expect(ground.report.stripped).toBe(45);
-    expect(ground.report.stamped).toBe(21);
-    expect(ground.report.leafGlob).toBe(21);
-    expect(ground.report.stampedPaths).toHaveLength(21);
+  it("strips the key from 47 files and stamps exactly the 23 leaves", () => {
+    expect(ground.report.stripped).toBe(47);
+    expect(ground.report.stamped).toBe(23);
+    expect(ground.report.leafGlob).toBe(23);
+    expect(ground.report.stampedPaths).toHaveLength(23);
     expect(ground.report.anomalies).toEqual([]);
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(127);
-    expect(ground.report.rewriteApplied).toBe(138);
+    expect(ground.report.rewriteEntries).toBe(121);
+    expect(ground.report.rewriteApplied).toBe(133);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
@@ -252,7 +252,7 @@ describe("the snapshot at the pinned sha", () => {
 
   it("keeps the Claude-native dispatch tokens the tree is meant to carry", () => {
     const merged = [...ground.tree.values()].join("");
-    expect((merged.match(/subagent_type/g) || []).length).toBe(14);
+    expect((merged.match(/subagent_type/g) || []).length).toBe(13);
     expect((merged.match(/`Agent`/g) || []).length).toBe(10);
     expect(merged).not.toContain("`Task`");
     const bareTask = [...merged.matchAll(/\bTask\b/g)];
@@ -337,14 +337,14 @@ describe("the rewrite ledger at the pin", () => {
     expect(leaked).toEqual([]);
   });
 
-  it("keeps the hide key out of every generated frontmatter and stamps only the 21 leaves", () => {
+  it("keeps the hide key out of every generated frontmatter and stamps only the 23 leaves", () => {
     const kept: string[] = [];
     for (const [path, text] of ground.tree) {
       if (!text.startsWith("---\n")) continue;
       if (text.slice(4, text.indexOf("\n---", 4)).includes("disable-model-invocation")) kept.push(path);
     }
     expect(kept).toEqual([]);
-    expect(ground.report.stampedPaths).toHaveLength(21);
+    expect(ground.report.stampedPaths).toHaveLength(23);
     for (const path of ground.report.stampedPaths) expect(ground.tree.get(path)).toContain("user-invocable: false");
   });
 
@@ -386,7 +386,7 @@ describe("renderManifests", () => {
     expect(plugin).toEqual({
       name: "pstack",
       displayName: "pstack (Claude Code port)",
-      version: "0.14.7",
+      version: "0.15.2",
       description: `${upstream.description} Generated by tools/claude/apply.mjs from upstream/pstack at the pin in UPSTREAM.md.`,
       author: { name: "Lauren Tan" },
       license: "MIT",
@@ -404,7 +404,7 @@ describe("renderManifests", () => {
           name: "pstack",
           source: "./plugins/pstack",
           description: upstream.description,
-          version: "0.14.7",
+          version: "0.15.2",
           author: { name: "Lauren Tan (original)" },
           license: "MIT",
           keywords: upstream.keywords,
@@ -415,9 +415,9 @@ describe("renderManifests", () => {
 });
 
 describe("the emitted tree at the pin", () => {
-  it("carries zero disable-model-invocation keys and exactly 21 user-invocable keys", () => {
+  it("carries zero disable-model-invocation keys and exactly 23 user-invocable keys", () => {
     expect(frontmatterKeyCount(ground.tree, "disable-model-invocation")).toEqual([]);
-    expect(frontmatterKeyCount(ground.tree, "user-invocable")).toHaveLength(21);
+    expect(frontmatterKeyCount(ground.tree, "user-invocable")).toHaveLength(23);
   });
 
   it("contains no commands directory", () => {
@@ -552,7 +552,7 @@ describe("C4 hooks and models policy", () => {
   it("models.json covers every role setup-pstack's template names", () => {
     const setupPstack = ground.tree.get("skills/setup-pstack/SKILL.md") ?? "";
     const roleLines = [...setupPstack.matchAll(/^([a-z][a-z ,-]+): <detected-/gm)].map((m) => m[1]);
-    expect(roleLines).toHaveLength(18);
+    expect(roleLines).toHaveLength(17);
     for (const role of roleLines) expect(modelsPolicy.roles).toHaveProperty(role);
     expect(Object.keys(modelsPolicy.roles)).toHaveLength(roleLines.length);
   });

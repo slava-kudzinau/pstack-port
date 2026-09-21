@@ -57,6 +57,18 @@
       "rationale": "npm scope carried from the upstream Cursor snapshot. Renamed to this port's own scope; the same string appears once in package.json and once in bun.lock."
     },
     {
+      "id": "model-slug-5",
+      "pattern": "claude-fable-5-1-thinking-medium",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
+    },
+    {
+      "id": "model-slug-6",
+      "pattern": "cursor-grok-4.6-medium-fast",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
+    },
+    {
       "id": "model-slug-1",
       "pattern": "claude-fable-5-1-thinking-max",
       "replacement": "PSTACK-MODEL-SLUG",

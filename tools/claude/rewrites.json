@@ -55,10 +55,6 @@
       "replacement": "Author it with the plugin's own `playbooks/authoring-a-skill.md` playbook."
     },
     {
-      "source": "- Cursor's built-in `create-skill` skill: skill authoring process and writing guidelines.",
-      "replacement": "- `playbooks/authoring-a-skill.md`: skill authoring process and writing guidelines."
-    },
-    {
       "source": "- `subagent_type`: `generalPurpose`",
       "replacement": "- `subagent_type`: `general-purpose`"
     },
@@ -71,12 +67,8 @@
       "replacement": "- `model`: your configured how-explainer model"
     },
     {
-      "source": "After the explanation is complete, spawn one architectural critic per model in your configured how-critics list (defaults `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`), all in a single message.",
-      "replacement": "After the explanation is complete, spawn one architectural critic per model in your configured how-critics list (defaults: the models you configure per role), all in a single message."
-    },
-    {
-      "source": "Use the `interrogate reviewers` list from `~/.cursor/rules/pstack-models.mdc` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count; otherwise use the table defaults.",
-      "replacement": "Use the `interrogate reviewers` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count; otherwise use one reviewer per model you have available."
+      "source": "Use the `interrogate reviewers` list from `~/.cursor/rules/pstack-models.mdc` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise use the table defaults.",
+      "replacement": "Use the `interrogate reviewers` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise use one reviewer per model you have available."
     },
     {
       "source": "| Reviewer A | `PSTACK-MODEL-SLUG` |",
@@ -99,24 +91,24 @@
       "replacement": "Agent-facing prose also follows the plugin's own `playbooks/authoring-a-skill.md` playbook for authoring `SKILL.md` files."
     },
     {
-      "source": "- Before commit → the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
-      "replacement": "- Before commit → the **deslop** skill (`/deslop`), which this plugin ships."
+      "source": "- Before commit \u2192 the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
+      "replacement": "- Before commit \u2192 the **deslop** skill (`/deslop`), which this plugin ships."
     },
     {
       "source": "`cursor-team-kit` publishes `control-cli` (CLIs and TUIs) and `control-ui` (browser / Electron / web UIs).",
       "replacement": "No shipped built-in drives a surface here, so use the repo's own verification skill, and `create-verification-skill` generates one that drives CLIs and TUIs at the terminal and browser / Electron / web UIs in the browser."
     },
     {
-      "source": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
-      "replacement": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
+      "source": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
+      "replacement": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
     },
     {
-      "source": "**Defaults for every `Agent` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role (configurable via `/setup-pstack`; defaults `PSTACK-MODEL-SLUG` for code, `PSTACK-MODEL-SLUG` for prose and judgment).",
+      "source": "**Defaults for every `Agent` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role (configurable via `/setup-pstack`. Defaults `PSTACK-MODEL-SLUG` for code, `PSTACK-MODEL-SLUG` for prose and judgment).",
       "replacement": "**Defaults for every `Agent` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role (configurable via `/setup-pstack`; the per-role config supplies each role's model)."
     },
     {
-      "source": "The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your strongest judgment model (`PSTACK-MODEL-SLUG`) when the task needs judgment or the intent is vague, and to your strongest instruction-following model (`PSTACK-MODEL-SLUG`) when the work is a precisely specified sequence of steps to execute to the letter; trivial mechanical edits go to your fast code model.",
-      "replacement": "The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your strongest judgment model when the task needs judgment or the intent is vague, and to your strongest instruction-following model when the work is a precisely specified sequence of steps to execute to the letter; trivial mechanical edits go to your fast code model."
+      "source": "The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your strongest judgment model (`PSTACK-MODEL-SLUG`), whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits go to your fast code model.",
+      "replacement": "The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your strongest judgment model, whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits go to your fast code model."
     },
     {
       "source": "- **Pause safely.** Suspending in-flight work cleanly so it can be resumed, on an explicit pause, going offline, a Cursor restart, or imminent context compaction.",
@@ -139,8 +131,8 @@
       "replacement": "One background subagent per PR, isolated in its own worktree, owns build, the first push, a ready PR, self-proof on the real artifact (the **prove-it-works** principle skill), skeptical Bugbot triage per `../references/bugbot-triage.md`, a slop-strip (the **deslop** skill, `/deslop`), `/no-comments` (the **no-comments** skill), a rebase onto current trunk, the babysit loop to green (`playbooks/babysit.md`), and the merge itself."
     },
     {
-      "source": "The lanes: re-run the gates at that SHA; prove the load-bearing behavior live on the real surface the change touches (`control-cli` or `control-ui` from `cursor-team-kit` as the change demands); audit the receipts and the diff, distrusting the PR body.",
-      "replacement": "The lanes: re-run the gates at that SHA; prove the load-bearing behavior live on the real surface the change touches (CLIs and TUIs at the terminal, browser / Electron / web UIs in the browser, or through the repo's own verification skill, as the change demands); audit the receipts and the diff, distrusting the PR body."
+      "source": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (`control-cli` or `control-ui` from `cursor-team-kit` as the change demands). Audit the receipts and the diff, distrusting the PR body.",
+      "replacement": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (CLIs and TUIs at the terminal, browser / Electron / web UIs in the browser, or through the repo's own verification skill, as the change demands). Audit the receipts and the diff, distrusting the PR body."
     },
     {
       "source": "A cloud root uses the existing cloud-sleeper wake chain instead.",
@@ -159,8 +151,8 @@
       "replacement": "At each tick, re-read this playbook from disk (`skills/poteto-mode/playbooks/autopilot-stack.md` under the installed plugin), then re-read the standing objective."
     },
     {
-      "source": "On her explicit go, arm a `/goal` with the full program objective.",
-      "replacement": "On her explicit go, write the full program objective into the standing orders and restate it in your todolist."
+      "source": "On the operator's explicit go, arm a `/goal` with the full program objective.",
+      "replacement": "On the operator's explicit go, write the full program objective into the standing orders and restate it in your todolist."
     },
     {
       "source": "This playbook replaces Cursor's built-in babysit skill for these requests, so do not route there even though its description matches the same words.",
@@ -171,24 +163,20 @@
       "replacement": "Drive a long or stubborn hunt with Claude Code's `/loop` command."
     },
     {
-      "source": "Delegate implementation to a subagent using your configured bug-fix model (default `PSTACK-MODEL-SLUG`) with a specific scope; review the diff.",
-      "replacement": "Delegate implementation to a subagent using your configured bug-fix model with a specific scope; review the diff."
+      "source": "Delegate implementation to a subagent using your configured bug-fix model (default `PSTACK-MODEL-SLUG`) with a specific scope. Review the diff.",
+      "replacement": "Delegate implementation to a subagent using your configured bug-fix model with a specific scope. Review the diff."
     },
     {
       "source": "**Verify the chain from transcripts, not self-report.** Read each candidate's local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names this path).",
       "replacement": "**Verify the chain from transcripts, not self-report.** Read each candidate's local transcript under `~/.claude/projects/<slug>/`, where the newest `.jsonl` is the live session."
     },
     {
-      "source": "Do not glob across `~/.cursor/projects/*/`; that crosses workspace boundaries and reads private chats from unrelated projects.",
-      "replacement": "Do not glob across `~/.claude/projects/*/`; that crosses workspace boundaries and reads private chats from unrelated projects."
+      "source": "Delegate code-writing to a subagent using your configured feature model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). Review its diff yourself.",
+      "replacement": "Delegate code-writing to a subagent using your configured feature model with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). Review its diff yourself."
     },
     {
-      "source": "Delegate code-writing to a subagent using your configured feature model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** — a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic — and success criteria); review its diff yourself.",
-      "replacement": "Delegate code-writing to a subagent using your configured feature model with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain** — a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic — and success criteria); review its diff yourself."
-    },
-    {
-      "source": "   - Hand the change to a subagent using your configured hillclimb model (default `PSTACK-MODEL-SLUG`) with a tight scope; supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill).",
-      "replacement": "   - Hand the change to a subagent using your configured hillclimb model with a tight scope; supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill)."
+      "source": "   - Hand the change to a subagent using your configured hillclimb model (default `PSTACK-MODEL-SLUG`) with a tight scope. Supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill).",
+      "replacement": "   - Hand the change to a subagent using your configured hillclimb model with a tight scope. Supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill)."
     },
     {
       "source": "Ten lanes on `PSTACK-MODEL-SLUG` at the PR head drive the real surface through its control skill, per the **swarm** skill.",
@@ -203,8 +191,8 @@
       "replacement": "CLIs and TUIs are driven at the terminal."
     },
     {
-      "source": "- [ ] On her go, arm a `/goal` with this exact text.",
-      "replacement": "- [ ] On her go, write this exact text into the standing orders."
+      "source": "- [ ] On the operator's go, arm a `/goal` with this exact text.",
+      "replacement": "- [ ] On the operator's go, write this exact text into the standing orders."
     },
     {
       "source": "  - [ ] `git show origin/main:pstack/skills/poteto-mode/playbooks/<execution playbook>.md`",
@@ -247,12 +235,8 @@
       "replacement": "**PRs.** Run `/deslop` over the diff before commit."
     },
     {
-      "source": "Name the real path, such as `control-cli`, `control-ui`, or the targeted tests.",
-      "replacement": "Name the real path, such as driving the terminal, driving the browser, or the targeted tests."
-    },
-    {
-      "source": "- **Worker / verifier.** Always `environment: \"cloud\"` unless the task needs this machine: `control-ui` or `control-cli` runtime verification (from `cursor-team-kit`); reading local transcripts under `agent-transcripts/`; simulators and local IDE state; auth that exists only here.",
-      "replacement": "- **Worker / verifier.** Workers run on this machine, one writer per own worktree or branch, unless the task needs something that only exists here: runtime verification in the browser or at the terminal, or through the repo's own verification skill; reading local transcripts under `~/.claude/projects/`; simulators and local IDE state; auth that exists only here."
+      "source": "- **Worker / verifier.** Always `environment: \"cloud\"` unless the task needs this machine: `control-ui` or `control-cli` runtime verification (from `cursor-team-kit`). Reading local transcripts under `agent-transcripts/`. Simulators and local IDE state. Auth that exists only here.",
+      "replacement": "- **Worker / verifier.** Workers run on this machine, one writer per own worktree or branch, unless the task needs something that only exists here: runtime verification in the browser or at the terminal, or through the repo's own verification skill. Reading local transcripts under `~/.claude/projects/`. Simulators and local IDE state. Auth that exists only here."
     },
     {
       "source": "Cloud agents cannot read the local store, so their briefs inline what they need or point at repo paths.",
@@ -267,20 +251,16 @@
       "replacement": "- After a Claude Code restart: local subagents are dead, pushed branches are not."
     },
     {
-      "source": "Leave a checkpoint a cold-start agent can resume from.** For \"pause safely\", \"I need to go offline\", \"restart Cursor\", or \"board my flight\", and when context is about to compact or summarize.",
-      "replacement": "Leave a checkpoint a cold-start agent can resume from.** For \"pause safely\", \"I need to go offline\", \"restart Claude Code\", or \"board my flight\", and when context is about to compact or summarize."
+      "source": "Delegate implementation to a subagent using your configured perf-issue model (default `PSTACK-MODEL-SLUG`). Review the diff.",
+      "replacement": "Delegate implementation to a subagent using your configured perf-issue model. Review the diff."
     },
     {
-      "source": "Delegate implementation to a subagent using your configured perf-issue model (default `PSTACK-MODEL-SLUG`); review the diff.",
-      "replacement": "Delegate implementation to a subagent using your configured perf-issue model; review the diff."
+      "source": "Delegate the mechanical edits to a subagent using your configured refactoring model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, the names being moved, the behavior to hold). Review the diff yourself.",
+      "replacement": "Delegate the mechanical edits to a subagent using your configured refactoring model with a specific scope (file paths, the names being moved, the behavior to hold). Review the diff yourself."
     },
     {
-      "source": "Delegate the mechanical edits to a subagent using your configured refactoring model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, the names being moved, the behavior to hold); review the diff yourself.",
-      "replacement": "Delegate the mechanical edits to a subagent using your configured refactoring model with a specific scope (file paths, the names being moved, the behavior to hold); review the diff yourself."
-    },
-    {
-      "source": "A local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path; do not glob across `~/.cursor/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), a cloud-agent URL, or a pushed branch.",
-      "replacement": "A local transcript under `~/.claude/projects/<slug>/` (the newest `.jsonl` is the live session; do not glob across `~/.claude/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), or a pushed branch."
+      "source": "A local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path. Do not glob across `~/.cursor/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), a cloud-agent URL, or a pushed branch.",
+      "replacement": "A local transcript under `~/.claude/projects/<slug>/` (the newest `.jsonl` is the live session. Do not glob across `~/.claude/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), or a pushed branch."
     },
     {
       "source": "One subagent per PR, not batched, each a Cursor cloud agent, each exercising the real surface (`control-ui` or `control-cli` from `cursor-team-kit` as the change demands) against parent versus head.",
@@ -291,16 +271,16 @@
       "replacement": "It reads paths from `git worktree list`, never hand-typed, since a hand-typed `myrepo-worktrees/x` misses one that lives under a nested worktree directory such as `.worktrees/myrepo/x` (principle-encode-lessons-in-structure)."
     },
     {
-      "source": "More when needed: Xcode `DerivedData` and `iOS DeviceSupport`; `~/Library/Application Support/Cursor` (`state.vscdb.backup`, and `snapshots/roots/<root>` where a `<root>` named for a folder you opened as a workspace balloons); package caches (pnpm, uv, brew, yarn).",
-      "replacement": "More when needed: Xcode `DerivedData` and `iOS DeviceSupport`; the editor's own application-support directory (`~/Library/Application Support/<editor>`, holding `state.vscdb.backup` and `snapshots/roots/<root>` where a `<root>` named for a folder you opened as a workspace balloons); package caches (pnpm, uv, brew, yarn)."
+      "source": "More when needed: Xcode `DerivedData` and `iOS DeviceSupport`, `~/Library/Application Support/Cursor` (`state.vscdb.backup`, and `snapshots/roots/<root>` where a `<root>` named for a folder you opened as a workspace balloons), package caches (pnpm, uv, brew, yarn).",
+      "replacement": "More when needed: Xcode `DerivedData` and `iOS DeviceSupport`, the editor's own application-support directory (`~/Library/Application Support/<editor>`, holding `state.vscdb.backup` and `snapshots/roots/<root>` where a `<root>` named for a folder you opened as a workspace balloons), package caches (pnpm, uv, brew, yarn)."
     },
     {
       "source": "Transcripts live at `~/.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jsonl`, where `<slug>` is the workspace path with the leading slash dropped and each \"/\" turned into \"-\" (so `/Users/you/proj` becomes `Users-you-proj`).",
       "replacement": "Transcripts live at `~/.claude/projects/<slug>/<uuid>.jsonl`, where `<slug>` is the workspace path with each `/` and each `_` turned into `-` (so `/Users/you/proj` becomes `-Users-you-proj`)."
     },
     {
-      "source": "The system prompt names the active workspace's `agent-transcripts/` directory; use that path.",
-      "replacement": "Claude Code keeps the active workspace's transcripts under `~/.claude/projects/<slug>/`; use that path."
+      "source": "The system prompt names the active workspace's `agent-transcripts/` directory. Use that path.",
+      "replacement": "Claude Code keeps the active workspace's transcripts under `~/.claude/projects/<slug>/`. Use that path."
     },
     {
       "source": "Do not glob across `~/.cursor/projects/*/`.",
@@ -351,12 +331,12 @@
       "replacement": "If Claude Code's `/model` picker lists the models this account is entitled to, prefer it for completeness."
     },
     {
-      "source": "If `~/.cursor/rules/pstack-models.mdc` already exists, read it and treat its values as the current choices.",
-      "replacement": "If `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` already exists, read it and treat its values as the current choices."
+      "source": "If `~/.cursor/rules/pstack-models.mdc` already exists, read it and treat its `# budget` line and its role values as the current choices.",
+      "replacement": "If `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` already exists, read it and treat its `# budget` line and its role values as the current choices."
     },
     {
-      "source": "Write `~/.cursor/rules/pstack-models.mdc` with `alwaysApply: true` and one line per role, using the same labels poteto-mode uses.",
-      "replacement": "Write `~/.claude/pstack-models.md` with one line per role, imported from `CLAUDE.md` as `@pstack-models.md` so it reaches every new session, using the same labels poteto-mode uses."
+      "source": "Write `~/.cursor/rules/pstack-models.mdc` with `alwaysApply: true`, a `# budget` line with the chosen label and its target effort, and one line per role, using the same labels poteto-mode uses.",
+      "replacement": "Write `~/.claude/pstack-models.md` with a `# budget` line carrying the chosen label and its target effort and one line per role, imported from `CLAUDE.md` as `@pstack-models.md` so it reaches every new session, using the same labels poteto-mode uses."
     },
     {
       "source": "feature, refactoring: PSTACK-MODEL-SLUG",
@@ -364,15 +344,15 @@
     },
     {
       "source": "bug-fix: PSTACK-MODEL-SLUG",
-      "replacement": "bug-fix: <detected-judgment-slug>"
+      "replacement": "bug-fix: <detected-fast-code-slug>"
     },
     {
       "source": "perf-issue: PSTACK-MODEL-SLUG",
-      "replacement": "perf-issue: <detected-judgment-slug>"
+      "replacement": "perf-issue: <detected-fast-code-slug>"
     },
     {
       "source": "hillclimb: PSTACK-MODEL-SLUG",
-      "replacement": "hillclimb: <detected-judgment-slug>"
+      "replacement": "hillclimb: <detected-fast-code-slug>"
     },
     {
       "source": "judgment and prose: PSTACK-MODEL-SLUG",
@@ -389,10 +369,6 @@
     {
       "source": "how explainer: PSTACK-MODEL-SLUG",
       "replacement": "how explainer: <detected-judgment-slug>"
-    },
-    {
-      "source": "how critics: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
-      "replacement": "how critics: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>, <detected-heavy-slug>"
     },
     {
       "source": "why investigators: PSTACK-MODEL-SLUG",
@@ -433,10 +409,6 @@
     {
       "source": "Read this run's transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path).",
       "replacement": "Read this run's transcript under `~/.claude/projects/<slug>/`, where the newest `.jsonl` is this session."
-    },
-    {
-      "source": "Don't glob across `~/.cursor/projects/*/`; that reads unrelated private chats.",
-      "replacement": "Don't glob across `~/.claude/projects/*/`; that reads unrelated private chats."
     },
     {
       "source": "Pick the worker model from `swarm workers` in `~/.cursor/rules/pstack-models.mdc` when present.",
@@ -488,11 +460,11 @@
       "kind": "block"
     },
     {
-      "source": "Spawn a single Task subagent that explores",
+      "source": "Spawn one Task subagent that explores",
       "replacement": "Spawn a single subagent that explores"
     },
     {
-      "source": "spawn a single Task subagent to synthesize",
+      "source": "spawn one Task subagent to synthesize",
       "replacement": "spawn a single subagent to synthesize"
     },
     {
@@ -514,6 +486,10 @@
     {
       "source": "run `scripts/worktree-audit.sh`",
       "replacement": "run `skills/poteto-mode/scripts/worktree-audit.sh` under the installed plugin"
+    },
+    {
+      "source": "So `small` turns `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG`, and `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG` when only that form is detected.",
+      "replacement": "So `small` takes every default real slug to its family's medium-effort variant, and `large` to its xhigh-effort variant. The mapping never invents a slug that detection did not list."
     }
   ]
 }

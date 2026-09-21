@@ -400,8 +400,8 @@ async function main(argv) {
     return 1;
   }
   const stampHits = frontmatterKeyCount(tree, STAMP);
-  if (stampHits.length !== 21) {
-    process.stderr.write(`fatal: ${STAMP} key count ${stampHits.length}, expected 21\n`);
+  if (stampHits.length !== report.leafGlob) {
+    process.stderr.write(`fatal: ${STAMP} key count ${stampHits.length}, expected ${report.leafGlob}\n`);
     return 1;
   }
 
