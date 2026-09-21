@@ -21,7 +21,6 @@ judgment and prose: @default
 hardest tasks: @default
 how explorer: @smol
 how explainer: @default
-how critics: @default, @smol
 why investigators: @smol
 why synthesizer: @default
 reflect tooling: @default
@@ -42,7 +41,6 @@ interrogate reviewers: @default, @default, @smol, @smol
 
 Roles ending in a list spawn multiple parallel workers. The list length sets the count:
 
-- `how critics` — 2-4 critics, each running on a different model family
 - `why investigators` — One per evidence category (up to 7)
 - `arena runners` — 2-3 candidates for design alternatives
 - `arena cross-judge pool` — One value selected for the cross-judge scout

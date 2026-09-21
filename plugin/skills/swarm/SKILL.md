@@ -23,7 +23,7 @@ Open a todolist with one entry per phase before launching anything.
 2. Choose the shape. Partition into slices, race N workers on identical briefs, or mix both. For a race or mixed shape, declare `first pass`, `rank all`, or `best-of` before spawning.
 3. Set N from the user or derive it from the shape. N is the total worker count, not any platform concurrency limit.
 4. Pick the worker model from the caller's configured model role for swarm workers when one is set. Otherwise use the caller's default configured model. For a model race, name each arm's model up front.
-5. Give each worker its own writable output when it writes. Use a worktree, branch, or `/tmp/swarm-<slug>/worker-<n>/`.
+5. Give each worker its own writable output when it writes.
 
 ## Phase B: Fan out
 
@@ -33,8 +33,8 @@ When a worker must start from a non-default branch, have it check that branch ou
 
 Set effort and budget per worker:
 
-- `effort: "lo"` for read-only probes (scout, sonic) — they're fast and the budget is tight (100 requests).
-- `effort: "med"` for most workers — balanced reasoning with a 200-request budget.
+- `effort: "lo"` for read-only probes (scout, sonic). They're fast and the budget is tight (100 requests).
+- `effort: "med"` for most workers. Balanced reasoning with a 200-request budget.
 - `effort: "hi"` only for judgment-heavy workers (final synthesis, adversarial review).
 
 Every brief stands alone. Include the goal, scope, exact slice or race arm, how to verify, and what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence.

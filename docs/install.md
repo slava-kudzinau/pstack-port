@@ -103,7 +103,7 @@ how explorer: @smol
 interrogate reviewers: @default, @default, @smol, @smol
 ```
 
-Use `@default` to run on your session's default model. Use `@smol` for cheap, fast tasks. List multiple values for panel roles (how critics, interrogate reviewers) to spawn multiple parallel workers.
+Use `@default` to run on your session's default model. Use `@smol` for cheap, fast tasks. List multiple values for panel roles (interrogate reviewers, arena runners, why investigators) to spawn multiple parallel workers.
 
 ## Uninstall
 

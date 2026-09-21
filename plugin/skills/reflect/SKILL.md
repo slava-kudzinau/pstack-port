@@ -10,19 +10,13 @@ Mine the current conversation for durable learnings, then route them into skill 
 
 ## When to invoke
 
-- The user said "reflect" or "/reflect".
-- A complex task (5+ tool calls) just landed cleanly and the recipe is worth keeping.
-- The agent hit dead ends, found the working path, and the path generalizes.
-- The user corrected the agent's approach mid-task.
-- A non-trivial workflow emerged that isn't captured anywhere.
-
-Skip when the conversation is trivial, off-topic, or already covered by an existing skill the parent followed correctly. One-offs are not learnings.
+Invoke when the user says "reflect" or "/reflect". Skip when the conversation is trivial, off-topic, or already covered by an existing skill the parent followed correctly. One-offs are not learnings.
 
 ## Process
 
 ### 1. Locate the active transcript
 
-The parent locates its own session before fanning out. Sessions persist as JSONL at `~/.omp/agent/sessions/<encoded-cwd>/<timestamp>_<sessionId>.jsonl`; use `history://<id>` for the concise transcript of the current session or a parked subagent. Do not glob broadly across `~/.omp/agent/sessions/`. That crosses workspace boundaries and reads private sessions from unrelated projects.
+The parent locates its own session before fanning out. Sessions persist as JSONL at `~/.omp/agent/sessions/<encoded-cwd>/<timestamp>_<sessionId>.jsonl`. Use `history://<id>` for the concise transcript of the current session or a parked subagent. Do not glob broadly across `~/.omp/agent/sessions/`. That crosses workspace boundaries and reads private sessions from unrelated projects.
 
 Subagent transcripts are stored next to their parent's session file (`<session>/<AgentId>.jsonl`, recursively for nested spawns).
 
@@ -30,7 +24,7 @@ For each candidate, read the first entry and check that its text contains the co
 
 ### 2. Spawn three reviewers in parallel
 
-One `task` tool batch call (`{context, tasks[]}`), three items, `agent: "task"` on each — not the read-only `scout` agent, which strips the full tool access reviewers need for context lookups (tickets, chat threads, observability traces referenced in the transcript, reachable via `read`, `web_search`, or `bash`).
+One `task` tool batch call (`{context, tasks[]}`), three items, `agent: "task"` on each. Not the read-only `scout` agent, which strips the full tool access reviewers need for context lookups (tickets, chat threads, observability traces referenced in the transcript, reachable via `read`, `web_search`, or `bash`).
 
 | Lens | Model role | Effort | Prompt template |
 |---|---|---|---|
@@ -46,13 +40,13 @@ One `task` call, `agent: "task"` with `effort: "hi"` (full tool access, same rea
 
 ### 4. Structural enforcement check
 
-Sanity-check the synthesizer's Accepted list. For any item that would be enforced more reliably by a lint rule, script, metadata flag, or runtime check, move it from Accepted to Backlog. The synthesizer already applies this criterion; this is a final pass before edits land. See `skill://principle-encode-lessons-in-structure`.
+Sanity-check the synthesizer's Accepted list. For any item that would be enforced more reliably by a lint rule, script, metadata flag, or runtime check, move it from Accepted to Backlog. See `skill://principle-encode-lessons-in-structure`.
 
 ### 5. Apply
 
-Before applying any Accepted edit, present the synthesizer's full Accepted/Rejected/Backlog output to the user and wait for explicit approval. The user picks which subset to apply and may redirect routings. Skill changes affect every future agent in the org; do not auto-apply.
+Before applying any Accepted edit, present the synthesizer's full Accepted/Rejected/Backlog output to the user and wait for explicit approval. The user picks which subset to apply and may redirect routings. Skill changes affect every future agent in the org. Do not auto-apply.
 
-Backlog items file to whatever devex / backlog tracker your team uses automatically. Those are tracker submissions, not skill edits. Only the Accepted list waits for approval.
+Backlog items file to whatever devex / backlog tracker your team uses automatically. Only the Accepted list waits for approval.
 
 For each approved Accepted item, follow the Routing field exactly:
 

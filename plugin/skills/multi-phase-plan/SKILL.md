@@ -6,17 +6,17 @@ disable-model-invocation: true
 
 # Multi-phase or multi-PR plan
 
-**You own the plan, not the code. The plan is a checklist an owner runs box by box and the operator audits from the evidence.** For work that spans phases or stacked PRs. The plan is the deliverable. Do not implement.
+**You own the plan, not the code. The plan is a checklist an owner runs box by box and the operator audits from the evidence.** The plan is the deliverable. Do not implement.
 
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
-2. Settle open questions by prototype before you write. For a question about layout, timing, behavior, or whether an API works, run skill://prototype. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (skill://principle-never-block-on-the-human).
+2. Settle open questions by prototype before you write. Run skill://prototype for each. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (skill://principle-never-block-on-the-human).
 3. Explore in subagents via the `task` tool with `agent: "poteto-agent"`, choosing the model per the Subagents section in skill://poteto-mode (skill://principle-guard-the-context-window). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
 4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the repo's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (skill://principle-sequence-verifiable-units). Name the execution playbook in **How to read this**. Pick between skill://autopilot-full and skill://autopilot-stack per the rule at the end of skill://autopilot-stack. A standing program takes skill://orchestrate.
-5. Write under skill://technical-writing in full, then skill://unslop. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Two rules apply verbatim. "i dont want any abstract metaphors" and "write like hemingway". Each heading states the task or the finding. No long dashes. No mid-sentence colons.
-6. Run `check-plan.mjs <plan.md>` and fix every line it prints (skill://principle-encode-lessons-in-structure). It enforces the skeleton's shape, the verification rule in every verification block, and the punctuation rules.
+5. Write under skill://technical-writing in full, then skill://unslop. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Each heading states the task or the finding. No long dashes. No mid-sentence colons.
+6. Run `check-plan.mjs <plan.md>` and fix every line it prints (skill://principle-encode-lessons-in-structure).
 7. Hand back. Post the plan path and the script's output, then stop. Execution starts on the operator's explicit go, under the execution playbook the plan names.
 
-**Verification.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked (skill://principle-prove-it-works). That sentence is the verification rule. Every verification block opens with it. The live block is mandatory. Ten lanes on your configured model role at the PR head drive the real surface through its verification tool, per skill://swarm. Each lane is one box with a concrete scenario, the screenshot it saves, and its pass predicate. One lane is the **Regression lane against trunk.** It runs the same load-bearing scenario on trunk and head. If trunk does not have the feature, the lane records that fact and gates the behavior the diff adds plus the end state the user waits for instead of inventing a trunk result. The perf gate is dual-sided: trunk and head must both produce the named metric. If trunk lacks the feature, also isolate the work the diff adds and set an absolute budget for that work plus the end-to-end state the user waits for; do not claim a ratio between unlike scenarios. The perf block names the metric, the interleaved probe, the trunk baseline measured first, and the rule with the number that fails. A PR that changes an interaction is review-gated. The operator reviews it in chat with screenshots and a video before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` and no boxes under it.
+**Verification.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked (skill://principle-prove-it-works). That sentence is the verification rule. Every verification block opens with it. The live block is mandatory. Ten lanes on your configured model role at the PR head drive the real surface through its verification tool, per skill://swarm. Each lane is one box with a concrete scenario, the screenshot it saves, and its pass predicate. One lane is the **Regression lane against trunk.** It runs the same load-bearing scenario on trunk and head. If trunk does not have the feature, the lane records that fact and gates the behavior the diff adds plus the end state the user waits for instead of inventing a trunk result. The perf gate is dual-sided. Trunk and head must both produce the named metric. If trunk lacks the feature, also isolate the work the diff adds and set an absolute budget for that work plus the end-to-end state the user waits for. Do not claim a ratio between unlike scenarios. The perf block names the metric, the interleaved probe, the trunk baseline measured first, and the rule with the number that fails. A PR that changes an interaction is review-gated. The operator reviews it in chat with screenshots and a video before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` and no boxes under it.
 
 **Verification surface.** Pick it by surface. Browser, Electron, and web UIs use the `browser` tool. CLIs and TUIs use the `bash` tool, or `debug` for a live process. Native mobile uses whatever simulator-driving skill the repo has. A PR that touches two surfaces gets lanes on both. A surface with no scripted verification path is a risk in Appendix C, and its live block still names how each lane drives it.
 
@@ -29,7 +29,7 @@ disable-model-invocation: true
 
 One box is one unit of work. Every box names the evidence that checks it. A nested box is a sub-step of the box above it. Check a box only when its evidence exists, a file, a log line, a screenshot, a test run, or a SHA. The body is a how-to. The appendices explain and record.
 
-The program runs `skill://<execution playbook>`. <Who merges, and which PR ids are the operator's items that stop at merge-ready.>
+The program runs skill://<execution playbook>. <Who merges, and which PR ids are the operator's items that stop at merge-ready.>
 
 Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked.
 
@@ -37,15 +37,15 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Arm the program
 
-- [ ] State the protocol and this plan to the operator, then stop. Start execution only on her explicit go.
-- [ ] On her go, record this exact text as the standing orders and restate it at every spawn and every resume. "<The plan path, the PR ids in order, the verification rule, who merges, and the done condition.>"
+- [ ] State the protocol and this plan to the operator, then stop. Start execution only on the operator's explicit go.
+- [ ] On the operator's go, record this exact text as the standing orders and restate it at every spawn and every resume. "<The plan path, the PR ids in order, the verification rule, who merges, and the done condition.>"
 - [ ] Read these from trunk at program start. Re-read them at every tick.
   - [ ] `git show origin/main:skills/<execution playbook>/SKILL.md`
   - [ ] `git show origin/main:skills/swarm/SKILL.md`
   - [ ] `git show origin/main:skills/opening-a-pr/SKILL.md`
   - [ ] `git show origin/main:skills/<each other leaf skill the program uses>/SKILL.md`
 - [ ] Arm the 30-minute audit tick: a monitored timer that re-checks and re-drains on a fixed cadence, never left to memory.
-- [ ] Use this tick prompt, verbatim. "Re-read the execution playbook from trunk and the standing orders. Audit the operation against both and fix drift in this tick. Probe every active lane and judge progress by side effects only. Stand down a stuck lane and dispatch its replacement now. Then send the operator a status message, whether or not anything changed, with the queue table of PR, owner, state, and head SHA, the verdicts since the last tick, what merged, open operator gates, and blockers."
+- [ ] Use this tick prompt, verbatim. "Re-read the execution playbook from trunk and the standing orders. Audit the operation against both and fix drift in this tick. Probe every active lane and judge progress by side effects only. Stand down a stuck lane and dispatch its replacement now. Then post a status message to the operator in chat, whether or not anything changed, with the queue table of PR, owner, state, and head SHA, the verdicts since the last tick, what merged, open operator gates, and blockers."
 - [ ] On the operator's hold or stand-down, send every owner a zero-writes order at once.
 
 ### Spawn owners
