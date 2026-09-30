@@ -10,13 +10,14 @@ import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseCatalog } from "./provenance.ts";
+import { renderCommand } from "../plugin/extensions/pstack-commands.ts";
 
 const catalogPaths = new Set((parseCatalog() ?? []).map((r) => r.path));
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
 const skillsDir = join(plugin, "skills");
-const commandsDir = join(plugin, "commands");
+const templatesDir = join(plugin, "command-templates");
 const agentsDir = join(plugin, "agents");
 
 let pass = 0;
@@ -40,7 +41,7 @@ console.log("Phase F: Conformance Suite\n");
 // Test 1: Port structure
 console.log("1. Port structure");
 check("skills directory exists", () => existsSync(skillsDir));
-check("commands directory exists", () => existsSync(commandsDir));
+check("command templates directory exists", () => existsSync(templatesDir));
 check("agents directory exists", () => existsSync(agentsDir));
 
 const skillDirs = readdirSync(skillsDir, { withFileTypes: true })
@@ -70,11 +71,12 @@ for (const name of requiredSkills) {
 
 // Test 3: Command routing
 console.log("\n3. Command routing");
-const commands = readdirSync(commandsDir).filter(f => f.endsWith(".md"));
+const commands = readdirSync(templatesDir).filter(f => f.endsWith(".md"));
 for (const cmd of commands) {
-	const path = join(commandsDir, cmd);
-	const content = readFileSync(path, "utf-8");
+	const content = readFileSync(join(templatesDir, cmd), "utf-8");
+	const name = cmd.replace(/\.md$/, "");
 	check(`${cmd} has description`, () => content.includes("description:"));
+	check(`/pstack:${name} routes to existing skill`, () => existsSync(join(skillsDir, name, "SKILL.md")));
 }
 
 // Test 4: Cross-references
@@ -90,7 +92,7 @@ if (existsSync(potetoPath)) {
 
 // Test 5: No banned strings in shipped content
 console.log("\n5. Branding check");
-const scanDirs = ["skills", "agents", "commands"];
+const scanDirs = ["skills", "agents", "command-templates"];
 const banned = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type"];
 let brandingChecked = 0;
 for (const dir of scanDirs) {
@@ -130,6 +132,16 @@ for (const name of parallelSkills) {
 		check(`${name} uses task batch`, () => hasBatch);
 	}
 }
+
+// Test 7: command expansion semantics (mirrors core template expansion; fixtures are literal)
+console.log("\n7. Command expansion");
+check("$@ expands to the joined args", () => renderCommand("Run it for: $@", "fix the flaky test") === "Run it for: fix the flaky test");
+check("quoted runs collapse to one arg", () => renderCommand("Body: $@", '"two words" next') === "Body: two words next");
+check("positional $N expands", () => renderCommand("Do $1 then $2", "a b") === "Do a then b");
+check("args append when the template has no placeholder", () => renderCommand("Read the skill.", "extra arg") === "Read the skill.\n\nextra arg");
+check("empty args leave the prose intact", () => renderCommand("Run it for: $@", "") === "Run it for: ");
+check("templates carry no handlebars", () =>
+	commands.every((c) => !/\{\{/.test(readFileSync(join(templatesDir, c), "utf-8"))));
 
 console.log(`\nResult: ${pass} passed, ${fail} failed`);
 if (fail > 0) {

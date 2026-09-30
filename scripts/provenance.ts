@@ -86,7 +86,7 @@ export function shippedArtifacts(): string[] {
 		}
 	};
 	walk(join(plugin, "skills"));
-	for (const tree of ["commands", "agents", "hooks"]) {
+	for (const tree of ["command-templates", "agents", "hooks"]) {
 		const dir = join(plugin, tree);
 		if (existsSync(dir)) for (const f of readdirSync(dir).sort()) if (f.endsWith(".md")) out.push(`${tree}/${f}`);
 	}
@@ -177,8 +177,8 @@ function deriveRow(rel: string, content: string, shortByRoot: Map<string, string
 	}
 	const res = resolved(rel);
 	if (res === null) {
-		const sync = rel.startsWith("commands/")
-			? skillSync.get(rel.replace(/^commands\/pstack:/, "").replace(/\.md$/, "")) ?? shortByRoot.get("upstream") ?? ""
+		const sync = rel.startsWith("command-templates/")
+			? skillSync.get(rel.replace(/^command-templates\//, "").replace(/\.md$/, "")) ?? shortByRoot.get("upstream") ?? ""
 			: shortByRoot.get("upstream") ?? "";
 		return { row: { path: rel, upstream: "none", sync, status: "new" } };
 	}
@@ -241,7 +241,7 @@ function renderTable(rows: CatalogRow[]): string[] {
 	const lines = [
 		CATALOG_HEADING,
 		"",
-		"One row per shipped artifact (`skills/**`, `commands/*.md`, `agents/*.md`,",
+		"One row per shipped artifact (`skills/**`, `command-templates/*.md`, `agents/*.md`,",
 		"`hooks/*.md`), package-root-relative, sorted. `Upstream` is repo-root",
 		"resolvable or `none`. `Sync` is the 8-char pin the row was authored",
 		"against; full shas live in UPSTREAM.md. `Status` is one of",

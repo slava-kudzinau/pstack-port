@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
-// Scans every file under skills/, agents/, and commands/ for skill:// and
+// Scans every file under skills/, agents/, and command-templates/ for skill:// and
 // agent:// pointers and verifies each target exists in-tree: skills/<name>/,
-// agents/<name>.md, commands/<name>.md, or a real subpath inside a skill
+// agents/<name>.md, command-templates/<name>.md, or a real subpath inside a skill
 // directory; an agent:// target may also name a bundled OMP agent role
 // (refs/omp-src/packages/coding-agent/src/task/agents.ts:45-76).
 //
@@ -23,7 +23,7 @@ import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
-const SCAN = ["skills", "agents", "commands"];
+const SCAN = ["skills", "agents", "command-templates"];
 const BUNDLED = ["scout", "designer", "reviewer", "security-reviewer", "librarian", "task", "sonic"];
 
 function files(dir: string): string[] {
@@ -69,7 +69,7 @@ for (const file of SCAN.flatMap(files)) {
   }
 
   // The relative-path rule needs a skill directory to resolve against. Files
-  // under agents/ and commands/ address assets through pointers only, so their
+  // under agents/ and command-templates/ address assets through pointers only, so their
   // cwd-relative text is out of scope rather than assumed to name an asset.
   const skill = file.startsWith("skills/") ? file.split("/")[1] : null;
   if (skill === null) continue;

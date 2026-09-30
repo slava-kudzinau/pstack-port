@@ -37,8 +37,9 @@ See [install.md](install.md) for the full steps and [config.md](config.md) for m
 
 ```
 pstack-omp/
-├── plugin/          # the shipped package: 74 skill dirs, 2 agents, 31 /pstack:* commands,
-│                    # the session-start extension and its hook text
+├── plugin/          # the shipped package: 74 skill dirs, 2 agents, 30 command
+│                    # templates (each registered as /pstack:<name>), the session-start
+│                    # extension, the command bridge, and their hook text
 ├── docs/            # These docs
 └── scripts/         # Conformance suite, branding check
 ```

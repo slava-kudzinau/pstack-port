@@ -33,7 +33,7 @@ function markdownFiles(dir: string): string[] {
 /** Skill names pointed at by `skill://` anywhere in shipped content. */
 export function referencedSkillNames(repo: string): Set<string> {
 	const names = new Set<string>();
-	for (const dir of ["skills", "commands", "agents"]) {
+	for (const dir of ["skills", "command-templates", "agents"]) {
 		for (const file of markdownFiles(join(repo, dir))) {
 			for (const match of readFileSync(file, "utf-8").matchAll(REFERENCE)) names.add(match[1]);
 		}

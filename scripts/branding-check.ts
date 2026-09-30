@@ -2,7 +2,7 @@
 // Branding check (AGENTS.md's Hard rule 1).
 //
 // Fails if any banned Cursor/Claude/Anthropic string appears in the shipped
-// package under plugin/ (skills, agents, commands, extensions, hooks), outside
+// package under plugin/ (skills, agents, command-templates, extensions, hooks), outside
 // CREDITS.md. `upstream/` is a read-only vendored snapshot and is intentionally
 // exempt.
 
@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
-const SCAN_DIRS = ["skills", "agents", "commands", "extensions", "hooks"];
+const SCAN_DIRS = ["skills", "agents", "command-templates", "extensions", "hooks"];
 
 const BANNED = ["claude", "anthropic", "sonnet", "opus", "haiku", ".claude/", "subagent_type", "claude.md"];
 const CASE_SENSITIVE = ["Cursor", "GPT", "Gemini", "Qwen"];
@@ -21,6 +21,11 @@ function scan(dir: string): string[] {
 	const hits: string[] = [];
 	for (const entry of readdirSync(dir, { withFileTypes: true })) {
 		const full = join(dir, entry.name);
+		// NTFS checkout validity: ':' is how the slash commands were namespaced
+		// until a Windows clone proved the filenames uncloneable. The namespace
+		// lives in extensions/pstack-commands.ts now, never in a filename.
+		if (/[<>:"|?*]/.test(entry.name) || /[. ]$/.test(entry.name))
+			hits.push(`${relative(repo, full)}: filename "${entry.name}" is invalid on Windows`);
 		if (entry.isDirectory()) {
 			hits.push(...scan(full));
 			continue;

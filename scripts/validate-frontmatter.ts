@@ -160,9 +160,9 @@ function main(fix: boolean): void {
 	if (existsSync(join(plugin, "skills", "SKILL.md"))) {
 		console.error("skills/SKILL.md: nested SKILL.md directly under skills/ is not discovered (docs/skills.md:27-33)");
 	}
-	const commandFiles = readdirSync(join(plugin, "commands"))
+	const commandFiles = readdirSync(join(plugin, "command-templates"))
 		.filter((f) => f.endsWith(".md"))
-		.map((f) => ({ rel: join("commands", f), dir: basename(f, ".md"), kind: "command" as const, mustHide: false }));
+		.map((f) => ({ rel: join("command-templates", f), dir: basename(f, ".md"), kind: "command" as const, mustHide: false }));
 	let failed = 0;
 	for (const { rel, dir, kind, mustHide } of [...skillFiles, ...commandFiles]) {
 		const violation = auditFile(rel, dir, kind, mustHide);

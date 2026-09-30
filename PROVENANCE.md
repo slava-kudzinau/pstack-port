@@ -15,7 +15,7 @@ its table row, never by restating a claim in a section.
 
 ## Catalog
 
-One row per shipped artifact (`skills/**`, `commands/*.md`, `agents/*.md`,
+One row per shipped artifact (`skills/**`, `command-templates/*.md`, `agents/*.md`,
 `hooks/*.md`), package-root-relative, sorted. `Upstream` is repo-root
 resolvable or `none`. `Sync` is the 8-char pin the row was authored
 against; full shas live in UPSTREAM.md. `Status` is one of
@@ -28,36 +28,36 @@ append-only history. Provenance never returns to shipped frontmatter.
 |---|---|---|---|
 | agents/comment-sicko.md | upstream/pstack/agents/comment-sicko.md | 5bf2b154 | adapted |
 | agents/poteto-agent.md | upstream/pstack/agents/poteto-agent.md | 5bf2b154 | adapted |
-| commands/pstack:architect.md | none | 5bf2b154 | new |
-| commands/pstack:arena.md | none | 5bf2b154 | new |
-| commands/pstack:automate-me.md | none | 5bf2b154 | new |
-| commands/pstack:blast-radius.md | none | 5bf2b154 | new |
-| commands/pstack:bro.md | none | 5bf2b154 | new |
-| commands/pstack:create-verification-skill.md | none | 5bf2b154 | new |
-| commands/pstack:de-slop.md | none | e46364b8 | new |
-| commands/pstack:figure-it-out.md | none | 5bf2b154 | new |
-| commands/pstack:fix-ci.md | none | e46364b8 | new |
-| commands/pstack:fix-merge-conflicts.md | none | e46364b8 | new |
-| commands/pstack:get-pr-comments.md | none | e46364b8 | new |
-| commands/pstack:how.md | none | 5bf2b154 | new |
-| commands/pstack:interrogate.md | none | 5bf2b154 | new |
-| commands/pstack:maintain-verification-skill.md | none | 5bf2b154 | new |
-| commands/pstack:make-pr-easy-to-review.md | none | e46364b8 | new |
-| commands/pstack:no-comments.md | none | 5bf2b154 | new |
-| commands/pstack:poteto-mode.md | none | 5bf2b154 | new |
-| commands/pstack:recall.md | none | 5bf2b154 | new |
-| commands/pstack:reflect.md | none | 5bf2b154 | new |
-| commands/pstack:setup-pstack.md | none | 5bf2b154 | new |
-| commands/pstack:show-me-your-work.md | none | 5bf2b154 | new |
-| commands/pstack:swarm.md | none | 5bf2b154 | new |
-| commands/pstack:tdd.md | none | 5bf2b154 | new |
-| commands/pstack:teach.md | none | 5bf2b154 | new |
-| commands/pstack:technical-writing.md | none | 5bf2b154 | new |
-| commands/pstack:thermo-nuclear-code-quality-review.md | none | e46364b8 | new |
-| commands/pstack:typescript-best-practices.md | none | 5bf2b154 | new |
-| commands/pstack:unslop.md | none | 5bf2b154 | new |
-| commands/pstack:what-did-i-get-done.md | none | e46364b8 | new |
-| commands/pstack:why.md | none | 5bf2b154 | new |
+| command-templates/architect.md | none | 5bf2b154 | new |
+| command-templates/arena.md | none | 5bf2b154 | new |
+| command-templates/automate-me.md | none | 5bf2b154 | new |
+| command-templates/blast-radius.md | none | 5bf2b154 | new |
+| command-templates/bro.md | none | 5bf2b154 | new |
+| command-templates/create-verification-skill.md | none | 5bf2b154 | new |
+| command-templates/de-slop.md | none | e46364b8 | new |
+| command-templates/figure-it-out.md | none | 5bf2b154 | new |
+| command-templates/fix-ci.md | none | e46364b8 | new |
+| command-templates/fix-merge-conflicts.md | none | e46364b8 | new |
+| command-templates/get-pr-comments.md | none | e46364b8 | new |
+| command-templates/how.md | none | 5bf2b154 | new |
+| command-templates/interrogate.md | none | 5bf2b154 | new |
+| command-templates/maintain-verification-skill.md | none | 5bf2b154 | new |
+| command-templates/make-pr-easy-to-review.md | none | e46364b8 | new |
+| command-templates/no-comments.md | none | 5bf2b154 | new |
+| command-templates/poteto-mode.md | none | 5bf2b154 | new |
+| command-templates/recall.md | none | 5bf2b154 | new |
+| command-templates/reflect.md | none | 5bf2b154 | new |
+| command-templates/setup-pstack.md | none | 5bf2b154 | new |
+| command-templates/show-me-your-work.md | none | 5bf2b154 | new |
+| command-templates/swarm.md | none | 5bf2b154 | new |
+| command-templates/tdd.md | none | 5bf2b154 | new |
+| command-templates/teach.md | none | 5bf2b154 | new |
+| command-templates/technical-writing.md | none | 5bf2b154 | new |
+| command-templates/thermo-nuclear-code-quality-review.md | none | e46364b8 | new |
+| command-templates/typescript-best-practices.md | none | 5bf2b154 | new |
+| command-templates/unslop.md | none | 5bf2b154 | new |
+| command-templates/what-did-i-get-done.md | none | e46364b8 | new |
+| command-templates/why.md | none | 5bf2b154 | new |
 | hooks/session-start-context.md | refs/ref-port/plugins/pstack/hooks/session-start-context.md | c2ade4bb | adapted |
 | skills/architect/SKILL.md | upstream/pstack/skills/architect/SKILL.md | 5bf2b154 | adapted |
 | skills/architect/references/design-red-flags.md | upstream/pstack/skills/architect/references/design-red-flags.md | 5bf2b154 | portable |
@@ -229,139 +229,139 @@ Frontmatter is name+description only, same shape as upstream (the file never car
 
 dropped Cursor-only `is_background` (OMP's task tool delivers spawns in the background automatically); the upstream per-call subagent-type field is gone too, replaced by the task tool's `agent` field.
 
-## commands/pstack:architect.md
+## command-templates/architect.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:arena.md
+## command-templates/arena.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:automate-me.md
+## command-templates/automate-me.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:blast-radius.md
+## command-templates/blast-radius.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:bro.md
+## command-templates/bro.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:create-verification-skill.md
+## command-templates/create-verification-skill.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:figure-it-out.md
+## command-templates/figure-it-out.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:how.md
+## command-templates/how.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:interrogate.md
+## command-templates/interrogate.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:maintain-verification-skill.md
+## command-templates/maintain-verification-skill.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:no-comments.md
+## command-templates/no-comments.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:poteto-mode.md
+## command-templates/poteto-mode.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream file — Cursor triggers poteto-mode from the skill's own frontmatter, with no separate command file. Shape follows the Codex prompt-stub pattern in refs/ref-port/tools/generate.mjs:106-108 (read once for this port), adapted for OMP's commands/*.md + $@ input expansion.
 
-## commands/pstack:recall.md
+## command-templates/recall.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:reflect.md
+## command-templates/reflect.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:setup-pstack.md
+## command-templates/setup-pstack.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:show-me-your-work.md
+## command-templates/show-me-your-work.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:swarm.md
+## command-templates/swarm.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:tdd.md
+## command-templates/tdd.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:teach.md
+## command-templates/teach.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:technical-writing.md
+## command-templates/technical-writing.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:typescript-best-practices.md
+## command-templates/typescript-best-practices.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:unslop.md
+## command-templates/unslop.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
 no direct upstream command file — Cursor triggers skills from the skill's own frontmatter, no separate command file.
 
-## commands/pstack:why.md
+## command-templates/why.md
 
 - sync: fd878692de15a3069c21c8f429eb0b9f2fe178fa (0.14.5)
 
@@ -1531,7 +1531,7 @@ New upstream principle leaf (#329, the two-new-leaves commit). Ported with front
 
 New upstream principle leaf (#329). Same treatment as principle-attack-the-premise.
 
-## commands/pstack:how.md
+## command-templates/how.md
 
 - sync: 5bf2b1544db739998121a306340631963c2ff3de (0.15.2)
 

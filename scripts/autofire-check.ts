@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 // Proves the session-start injector loads, fires once, and stays quiet on a
-// branch that already carries the mandate.
+// branch that already carries the mandate, and that the command bridge registers
+// every /pstack:<name> through the same loader a live session uses.
 //
 // This matters because almost every skill in this package hides itself from the
 // system prompt listing. Without the injector the model has no reason to read
@@ -12,6 +13,7 @@
 // ctx.sessionManager is read-only (:471) and getBranch() returns the current path
 // (refs/omp-src/packages/coding-agent/src/session/session-manager.ts:2563).
 
+import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadExtensions } from "../refs/omp-src/packages/coding-agent/src/extensibility/extensions/loader.ts";
@@ -19,9 +21,10 @@ import { loadExtensions } from "../refs/omp-src/packages/coding-agent/src/extens
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const plugin = join(repo, "plugin");
 const entry = join(plugin, "extensions", "pstack-autofire.ts");
+const bridgeEntry = join(plugin, "extensions", "pstack-commands.ts");
 const MANDATE_TYPE = "com.pstack.poteto-mode.mandate";
 
-const { extensions, errors } = await loadExtensions([entry], plugin);
+const { extensions, errors } = await loadExtensions([entry, bridgeEntry], plugin);
 const failed: string[] = [];
 for (const e of errors) failed.push(`load error ${e.path}: ${e.error}`);
 
@@ -48,6 +51,33 @@ if (failed.length === 0) {
 	};
 	if ((await handler(event, onBranch)) !== undefined) failed.push("mandate re-injected on a branch that already carries it");
 	if (notices.length > 0) failed.push(`unexpected notify: ${notices.join("; ")}`);
+}
+
+// The manifest list, not a directory scan, binds extensions: a file present on
+// disk but absent from package.json loads in no session
+// (refs/omp-src/packages/coding-agent/src/extensibility/extensions/loader.ts:518-530).
+const pkg: unknown = JSON.parse(readFileSync(join(plugin, "package.json"), "utf-8"));
+const omp = typeof pkg === "object" && pkg !== null && "omp" in pkg ? pkg.omp : undefined;
+const declared = typeof omp === "object" && omp !== null && "extensions" in omp && Array.isArray(omp.extensions) ? omp.extensions : [];
+for (const rel of ["./extensions/pstack-autofire.ts", "./extensions/pstack-commands.ts"])
+	if (!declared.includes(rel)) failed.push(`package.json does not declare ${rel}`);
+
+const bridge = extensions.find((e) => String(e.path).endsWith("pstack-commands.ts"));
+if (!bridge) failed.push("pstack-commands extension did not load");
+else {
+	const templates = readdirSync(join(plugin, "command-templates")).filter((f) => f.endsWith(".md"));
+	if (bridge.commands.size === 0) failed.push("command bridge registered no commands");
+	for (const t of templates) {
+		const name = `pstack:${t.replace(/\.md$/, "")}`;
+		const cmd = bridge.commands.get(name);
+		if (!cmd) failed.push(`${name} not registered`);
+		else if (typeof cmd.handler !== "function") failed.push(`${name} has no handler`);
+		else if (!cmd.description) failed.push(`${name} has no description`);
+	}
+	const expected = new Set(templates.map((t) => `pstack:${t.replace(/\.md$/, "")}`));
+	for (const name of bridge.commands.keys()) if (!expected.has(name)) failed.push(`registered ${name} has no template`);
+	const how = bridge.commands.get("pstack:how");
+	if (how?.description !== "Explain how a subsystem or flow works.") failed.push(`pstack:how description drifted: ${JSON.stringify(how?.description)}`);
 }
 
 if (failed.length > 0) {

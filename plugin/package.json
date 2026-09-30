@@ -5,6 +5,9 @@
 	"description": "pstack playbooks ported to Oh My Pi. Skills, agents, and slash commands, plus a session-start mandate injector.",
 	"license": "MIT",
 	"omp": {
-		"extensions": ["./extensions/pstack-autofire.ts"]
+		"extensions": [
+			"./extensions/pstack-autofire.ts",
+			"./extensions/pstack-commands.ts"
+		]
 	}
 }

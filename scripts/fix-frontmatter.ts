@@ -75,9 +75,9 @@ const targets: { path: string; mustHide: boolean }[] = [
 	...readdirSync(join(plugin, "skills"), { withFileTypes: true })
 		.filter((e) => e.isDirectory() && !e.name.startsWith("."))
 		.map((e) => ({ path: join(plugin, "skills", e.name, "SKILL.md"), mustHide: referenced.has(e.name) })),
-	...readdirSync(join(plugin, "commands"))
+	...readdirSync(join(plugin, "command-templates"))
 		.filter((f) => f.endsWith(".md"))
-		.map((f) => ({ path: join(plugin, "commands", f), mustHide: false })),
+		.map((f) => ({ path: join(plugin, "command-templates", f), mustHide: false })),
 ];
 const broken: string[] = [];
 for (const target of targets) {

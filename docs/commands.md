@@ -97,10 +97,15 @@ Skills reference each other via `skill://` links. For example, architect spawns 
 
 ## Custom commands
 
-To add a new command, create a file in the `commands/` directory:
+The shipped commands are registered by the bundled bridge extension,
+`plugin/extensions/pstack-commands.ts`, from template bodies under
+`plugin/command-templates/`. To add a command, drop a `<your-name>.md` file
+there. No colons in the filename: NTFS rejects `:`, which is why the old
+`commands/pstack:my-command.md` layout could not be cloned on Windows. The
+`/pstack:` prefix comes from the bridge, not the filename.
 
-```
-commands/pstack:my-command.md
-```
-
-The file must have a `description:` field in its frontmatter. The body can route to an existing skill or contain inline instructions.
+The file needs a `description:` field in its frontmatter. The body routes to an
+existing skill or holds inline instructions. Arguments expand at `$@` (also
+`$ARGUMENTS`, positional `$1`/`$2`, and slices like `$@[2:]`). Write plain text:
+the bridge renders the body verbatim, so handlebars `{{ }}` blocks would reach
+the model unrendered.
