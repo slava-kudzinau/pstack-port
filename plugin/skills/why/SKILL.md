@@ -10,6 +10,8 @@ Investigate the motivation and intent behind code.
 
 Companion to the `how` skill (`skill://how`). `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
+Each spawn below names a role line in `~/.omp/agent/pstack-models.md` and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Omit `model` when the value is `@default`, letting the subagent run on the session's default model. If `task` rejects a configured selector, use the default and say so.
+
 ## Operating Posture
 
 Operate as a **careful, cautious, and precise investigator**. Be honest about what you know vs what you're inferring. Read `skill://why/references/epistemics.md` for the full confidence framework and phrasing guide. The synthesizer must follow it.
@@ -80,7 +82,7 @@ Launch all matching investigators in a single `task` batch call (`{context, task
 Subagent config (each):
 - `agent`: `"task"`. Investigators need `mcp://` access. A read-only agent doesn't have it, which would disable MCP-backed investigators entirely. Investigators still shouldn't write anything.
 - `effort: "lo"`. Investigators are read-only probes. The low effort keeps them fast.
-- Model: the caller's configured model role. Never hardcode a model slug in this skill's text.
+- `model`: the `why investigators` line in `~/.omp/agent/pstack-models.md`, default your configured why-investigator role
 
 Each investigator gets:
 1. The base prompt from `skill://why/references/investigator-prompt.md`
@@ -123,7 +125,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 Spawn one synthesizer subagent:
 
 - `agent`: `"task"`. The synthesizer's quality check spot-verifies citations, which can require `bash`, `read`, or `mcp://` access that a read-only agent wouldn't have.
-- Model: the caller's configured model role. Never hardcode a model slug in this skill's text.
+- `model`: the `why synthesizer` line in `~/.omp/agent/pstack-models.md`, default your configured why-synthesizer role
 
 The synthesizer gets:
 1. The investigator findings, including any null results and any categories skipped with justification
