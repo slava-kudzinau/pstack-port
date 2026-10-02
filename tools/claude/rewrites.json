@@ -5,8 +5,8 @@
       "replacement": "Substituting a different agent type skips that read and drifts."
     },
     {
-      "source": "Use your configured architect runners (defaults `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`).",
-      "replacement": "Use your configured architect runners (defaults: the models you configure per role)."
+      "source": "Take the runners from the `architect runners` line in the `pstack-models.mdc` rule, in place of the `arena runners` line.",
+      "replacement": "Take the runners from the `architect runners` entries in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), in place of the `arena runners` line."
     },
     {
       "source": "Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt.",
@@ -23,20 +23,20 @@
       "note": "New behavior authored in this port (2026-09-17), not a Cursor-to-Claude translation of existing upstream text. If this entry misses on a future sync, do not just re-anchor to nearby wording: check whether upstream already states an equivalent precedence rule before re-deriving it here, and update this note either way."
     },
     {
-      "source": "Use `arena runners` from `~/.cursor/rules/pstack-models.mdc` when present.",
-      "replacement": "Use the `arena runners` entries from `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present."
+      "source": "Use the `arena runners` line in `~/.cursor/rules/pstack-models.mdc`.",
+      "replacement": "Use the `arena runners` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md`."
     },
     {
-      "source": "Otherwise default to one each on `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`.",
-      "replacement": "Otherwise default to one runner per model you have configured, per the `arena runners` entries above."
+      "source": "If the rule or that line is missing, default to one each on `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`. An `auto` or `inherit-parent` entry in this line or the cross-judge line means the parent model, so omit `model` for it.",
+      "replacement": "If the rule or that line is missing, default to one runner per model you have configured, per the `arena runners` entries above. For an `auto` or `inherit-parent` entry, omit `model` so that seat runs on the parent model."
     },
     {
-      "source": "After all Phase B candidates complete, choose one model from the `arena cross-judge pool` in `~/.cursor/rules/pstack-models.mdc` when present.",
-      "replacement": "After all Phase B candidates complete, choose one model from the `arena cross-judge pool` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present."
+      "source": "After all Phase B candidates complete, choose one model from the `arena cross-judge pool` line in `~/.cursor/rules/pstack-models.mdc`.",
+      "replacement": "After all Phase B candidates complete, choose one model from the `arena cross-judge pool` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md`."
     },
     {
-      "source": "Otherwise use `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`.",
-      "replacement": "Otherwise use the cross-judge models you configured under `arena cross-judge pool`."
+      "source": "If the rule or that line is missing, choose from `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`.",
+      "replacement": "If the rule or that line is missing, choose among your configured cross-judge models."
     },
     {
       "source": "This skill orchestrates three others: an inline mining pass (see step 1), Cursor's built-in `create-skill` (authoring), and the **unslop** skill (prose discipline).",
@@ -59,16 +59,16 @@
       "replacement": "- `subagent_type`: `general-purpose`"
     },
     {
-      "source": "- `model`: your configured how-explorer model (default `PSTACK-MODEL-SLUG`)",
-      "replacement": "- `model`: your configured how-explorer model"
+      "source": "- `model`: the `how explorer` line, default `PSTACK-MODEL-SLUG`",
+      "replacement": "- `model`: the `how explorer` entry in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), or your configured how-explorer model when the rule or the line is missing"
     },
     {
-      "source": "- `model`: your configured how-explainer model (default `PSTACK-MODEL-SLUG`)",
-      "replacement": "- `model`: your configured how-explainer model"
+      "source": "- `model`: the `how explainer` line, default `PSTACK-MODEL-SLUG`",
+      "replacement": "- `model`: the `how explainer` entry in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), or your configured how-explainer model when the rule or the line is missing"
     },
     {
-      "source": "Use the `interrogate reviewers` list from `~/.cursor/rules/pstack-models.mdc` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise use the table defaults.",
-      "replacement": "Use the `interrogate reviewers` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise use one reviewer per model you have available."
+      "source": "Use the `interrogate reviewers` line in `~/.cursor/rules/pstack-models.mdc`, one reviewer per entry, extending or shrinking the Reviewer A/B/C labels below to the configured entry count. If the rule or that line is missing, use the table defaults.",
+      "replacement": "Use the `interrogate reviewers` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md`, one reviewer per entry, extending or shrinking the Reviewer A/B/C labels below to the configured entry count. If the rule or that line is missing, spawn one reviewer per configured model, three by default."
     },
     {
       "source": "| Reviewer A | `PSTACK-MODEL-SLUG` |",
@@ -83,24 +83,20 @@
       "replacement": "| Reviewer C | `interrogate reviewers` entry 3 |"
     },
     {
-      "source": "| Reviewer D | `PSTACK-MODEL-SLUG` |",
-      "replacement": "| Reviewer D | `interrogate reviewers` entry 4 |"
-    },
-    {
       "source": "Agent-facing prose also follows the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).",
       "replacement": "Agent-facing prose also follows the plugin's own `playbooks/authoring-a-skill.md` playbook for authoring `SKILL.md` files."
     },
     {
-      "source": "- Before commit \u2192 the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
-      "replacement": "- Before commit \u2192 the **deslop** skill (`/deslop`), which this plugin ships."
+      "source": "- Before commit → the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`).",
+      "replacement": "- Before commit → the **deslop** skill (`/deslop`), which this plugin ships."
     },
     {
       "source": "`cursor-team-kit` publishes `control-cli` (CLIs and TUIs) and `control-ui` (browser / Electron / web UIs).",
       "replacement": "No shipped built-in drives a surface here, so use the repo's own verification skill, and `create-verification-skill` generates one that drives CLIs and TUIs at the terminal and browser / Electron / web UIs in the browser."
     },
     {
-      "source": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
-      "replacement": "- Any PR-status request \u2192 the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
+      "source": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`), and not Cursor's built-in babysit skill, whose description matches the same words.",
+      "replacement": "- Any PR-status request → the **Babysit** playbook (`playbooks/babysit.md`). No built-in carries that name, so nothing else competes for the same wording."
     },
     {
       "source": "**Defaults for every `Agent` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role (configurable via `/setup-pstack`. Defaults `PSTACK-MODEL-SLUG` for code, `PSTACK-MODEL-SLUG` for prose and judgment).",
@@ -131,10 +127,6 @@
       "replacement": "One background subagent per PR, isolated in its own worktree, owns build, the first push, a ready PR, self-proof on the real artifact (the **prove-it-works** principle skill), skeptical Bugbot triage per `../references/bugbot-triage.md`, a slop-strip (the **deslop** skill, `/deslop`), `/no-comments` (the **no-comments** skill), a rebase onto current trunk, the babysit loop to green (`playbooks/babysit.md`), and the merge itself."
     },
     {
-      "source": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (`control-cli` or `control-ui` from `cursor-team-kit` as the change demands). Audit the receipts and the diff, distrusting the PR body.",
-      "replacement": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (CLIs and TUIs at the terminal, browser / Electron / web UIs in the browser, or through the repo's own verification skill, as the change demands). Audit the receipts and the diff, distrusting the PR body."
-    },
-    {
       "source": "A cloud root uses the existing cloud-sleeper wake chain instead.",
       "replacement": "No remote root runs this port, so the local cadence above is the only one."
     },
@@ -163,24 +155,24 @@
       "replacement": "Drive a long or stubborn hunt with Claude Code's `/loop` command."
     },
     {
-      "source": "Delegate implementation to a subagent using your configured bug-fix model (default `PSTACK-MODEL-SLUG`) with a specific scope. Review the diff.",
-      "replacement": "Delegate implementation to a subagent using your configured bug-fix model with a specific scope. Review the diff."
+      "source": "Delegate implementation to a subagent using your configured bug-fix model (default `PSTACK-MODEL-SLUG`) with a specific scope.",
+      "replacement": "Delegate implementation to a subagent using your configured bug-fix model, or the `bug-fix` line of `~/.claude/pstack-models.md` when it names one, with a specific scope."
     },
     {
       "source": "**Verify the chain from transcripts, not self-report.** Read each candidate's local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names this path).",
       "replacement": "**Verify the chain from transcripts, not self-report.** Read each candidate's local transcript under `~/.claude/projects/<slug>/`, where the newest `.jsonl` is the live session."
     },
     {
-      "source": "Delegate code-writing to a subagent using your configured feature model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). Review its diff yourself.",
-      "replacement": "Delegate code-writing to a subagent using your configured feature model with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). Review its diff yourself."
+      "source": "Delegate code-writing to a subagent using your configured feature model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria).",
+      "replacement": "Delegate code-writing to a subagent using your configured feature model, or the `feature, refactoring` line of `~/.claude/pstack-models.md` when it names one, with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria)."
     },
     {
       "source": "   - Hand the change to a subagent using your configured hillclimb model (default `PSTACK-MODEL-SLUG`) with a tight scope. Supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill).",
       "replacement": "   - Hand the change to a subagent using your configured hillclimb model with a tight scope. Supervise and review the diff rather than typing it (the **guard-the-context-window** principle skill)."
     },
     {
-      "source": "Ten lanes on `PSTACK-MODEL-SLUG` at the PR head drive the real surface through its control skill, per the **swarm** skill.",
-      "replacement": "Ten lanes on the worker model you configured under `swarm workers`, at the PR head, drive the real surface through its control skill, per the **swarm** skill."
+      "source": "Ten lanes at the PR head drive the real surface through its control skill, per the **swarm** skill, on the `swarm workers` model (default `PSTACK-MODEL-SLUG`).",
+      "replacement": "Ten lanes at the PR head drive the real surface through its control skill, per the **swarm** skill."
     },
     {
       "source": "Browser, Electron, and web UIs use `control-ui` from `cursor-team-kit`.",
@@ -227,7 +219,7 @@
       "replacement": "Drive it in the browser for UIs and at the terminal for CLIs and TUIs."
     },
     {
-      "source": "Ten lanes on `PSTACK-MODEL-SLUG` at the PR head, per the boot recipe.",
+      "source": "Ten lanes on `<swarm workers model>` at the PR head, per the boot recipe.",
       "replacement": "Ten lanes on the worker model you configured under `swarm workers`, at the PR head, per the boot recipe."
     },
     {
@@ -255,15 +247,15 @@
       "replacement": "Delegate implementation to a subagent using your configured perf-issue model. Review the diff."
     },
     {
-      "source": "Delegate the mechanical edits to a subagent using your configured refactoring model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, the names being moved, the behavior to hold). Review the diff yourself.",
-      "replacement": "Delegate the mechanical edits to a subagent using your configured refactoring model with a specific scope (file paths, the names being moved, the behavior to hold). Review the diff yourself."
+      "source": "Delegate the mechanical edits to a subagent using your configured refactoring model (default `PSTACK-MODEL-SLUG`) with a specific scope (file paths, the names being moved, the behavior to hold).",
+      "replacement": "Delegate the mechanical edits to a subagent using your configured refactoring model, or the `feature, refactoring` line of `~/.claude/pstack-models.md` when it names one, with a specific scope (file paths, the names being moved, the behavior to hold)."
     },
     {
       "source": "A local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path. Do not glob across `~/.cursor/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), a cloud-agent URL, or a pushed branch.",
       "replacement": "A local transcript under `~/.claude/projects/<slug>/` (the newest `.jsonl` is the live session. Do not glob across `~/.claude/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), or a pushed branch."
     },
     {
-      "source": "One subagent per PR, not batched, each a Cursor cloud agent, each exercising the real surface (`control-ui` or `control-cli` from `cursor-team-kit` as the change demands) against parent versus head.",
+      "source": "One subagent per PR, not batched, each a Cursor cloud agent, each exercising the real surface with the matching control skill (such as `control-ui` or `control-cli` from `cursor-team-kit`) against parent versus head.",
       "replacement": "One subagent per PR, not batched, each isolated in its own worktree, each exercising the real surface (the browser for UIs, the terminal for CLIs and TUIs, or the repo's own verification skill, as the change demands) against parent versus head."
     },
     {
@@ -291,24 +283,24 @@
       "replacement": "ls -t ~/.claude/projects/<slug>/*.jsonl 2>/dev/null | head -10"
     },
     {
-      "source": "One message, three `Agent` calls, `subagent_type: generalPurpose`, explicit `model:` on each, agent mode (`readonly: false`).",
-      "replacement": "One message, three `Agent` calls, `subagent_type: general-purpose`, explicit `model:` on each, agent mode (`readonly: false`)."
+      "source": "One message, three `Agent` calls, `subagent_type: generalPurpose`, with `model` set as below, agent mode (`readonly: false`).",
+      "replacement": "One message, three `Agent` calls, `subagent_type: general-purpose`, `model` per the table below, agent mode (`readonly: false`)."
     },
     {
-      "source": "| Judgment | your configured reflect-judgment model (default `PSTACK-MODEL-SLUG`) | `references/judgment-reviewer.md` |",
-      "replacement": "| Judgment | your configured reflect-judgment model | `references/judgment-reviewer.md` |"
+      "source": "| Judgment | `reflect judgment, divergent, synthesizer` | `PSTACK-MODEL-SLUG` | `references/judgment-reviewer.md` |",
+      "replacement": "| Judgment | `reflect judgment, divergent, synthesizer` | your configured judgment model | `references/judgment-reviewer.md` |"
     },
     {
-      "source": "| Tooling | your configured reflect-tooling model (default `PSTACK-MODEL-SLUG`) | `references/tooling-reviewer.md` |",
-      "replacement": "| Tooling | your configured reflect-tooling model | `references/tooling-reviewer.md` |"
+      "source": "| Tooling | `reflect tooling` | `PSTACK-MODEL-SLUG` | `references/tooling-reviewer.md` |",
+      "replacement": "| Tooling | `reflect tooling` | your configured tooling model | `references/tooling-reviewer.md` |"
     },
     {
-      "source": "| Divergent | your configured reflect-judgment model (default `PSTACK-MODEL-SLUG`) | `references/divergent-reviewer.md` |",
-      "replacement": "| Divergent | your configured reflect-judgment model | `references/divergent-reviewer.md` |"
+      "source": "| Divergent | `reflect judgment, divergent, synthesizer` | `PSTACK-MODEL-SLUG` | `references/divergent-reviewer.md` |",
+      "replacement": "| Divergent | `reflect judgment, divergent, synthesizer` | your configured judgment model | `references/divergent-reviewer.md` |"
     },
     {
-      "source": "One `Agent` call, `subagent_type: generalPurpose`, using your configured reflect-judgment model (default `PSTACK-MODEL-SLUG`), agent mode (`readonly: false`).",
-      "replacement": "One `Agent` call, `subagent_type: general-purpose`, using your configured reflect-judgment model, agent mode (`readonly: false`)."
+      "source": "One `Agent` call, `subagent_type: generalPurpose`, with `model` from the `reflect judgment, divergent, synthesizer` line (default `PSTACK-MODEL-SLUG`), agent mode (`readonly: false`).",
+      "replacement": "One `Agent` call, `subagent_type: general-purpose`, `model` from the `reflect judgment, divergent, synthesizer` line, defaulting to your configured judgment model, agent mode (`readonly: false`)."
     },
     {
       "source": "- Substantive existing-skill edit (a new section, a new pattern table, more than ~10 lines): hand to Cursor's built-in `create-skill` skill and run its draft / test / iterate loop.",
@@ -387,40 +379,40 @@
       "replacement": "reflect judgment, divergent, synthesizer: <detected-judgment-slug>"
     },
     {
-      "source": "arena runners: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
-      "replacement": "arena runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>, <detected-heavy-slug>"
+      "source": "arena runners: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
+      "replacement": "arena runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>"
     },
     {
-      "source": "arena cross-judge pool: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
-      "replacement": "arena cross-judge pool: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>, <detected-heavy-slug>"
+      "source": "arena cross-judge pool: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
+      "replacement": "arena cross-judge pool: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>"
     },
     {
       "source": "swarm workers: PSTACK-MODEL-SLUG",
       "replacement": "swarm workers: <detected-fast-code-slug>"
     },
     {
-      "source": "architect runners: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
-      "replacement": "architect runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>, <detected-heavy-slug>"
+      "source": "architect runners: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
+      "replacement": "architect runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>"
     },
     {
-      "source": "interrogate reviewers: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
-      "replacement": "interrogate reviewers: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>, <detected-heavy-slug>"
+      "source": "interrogate reviewers: PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG, PSTACK-MODEL-SLUG",
+      "replacement": "interrogate reviewers: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>"
     },
     {
       "source": "Read this run's transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path).",
       "replacement": "Read this run's transcript under `~/.claude/projects/<slug>/`, where the newest `.jsonl` is this session."
     },
     {
-      "source": "Pick the worker model from `swarm workers` in `~/.cursor/rules/pstack-models.mdc` when present.",
-      "replacement": "Pick the worker model from the `swarm workers` entry in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md` when present."
+      "source": "Pick the worker model from the `swarm workers` line in `~/.cursor/rules/pstack-models.mdc`.",
+      "replacement": "Pick the worker model from the `swarm workers` entries in `~/.claude/pstack-models.md`, imported from `CLAUDE.md` as `@pstack-models.md`."
     },
     {
-      "source": "Otherwise use `PSTACK-MODEL-SLUG`.",
-      "replacement": "Otherwise use the worker model you configured under `swarm workers`."
+      "source": "If the rule or that line is missing, use `PSTACK-MODEL-SLUG`.",
+      "replacement": "If the rule or that line is missing, use the worker model you configured under `swarm workers`."
     },
     {
-      "source": "Spawn all N workers in one message with `subagent_type: generalPurpose`, `environment: \"cloud\"`, `run_in_background: true`, and the configured model.",
-      "replacement": "Spawn all N workers in one message with `subagent_type: general-purpose`, `run_in_background: true`, and the configured model, each in its own worktree."
+      "source": "Spawn all N workers in one message with `subagent_type: generalPurpose`, `environment: \"cloud\"`, `run_in_background: true`, and the step 4 model, left unset for `auto` or `inherit-parent`.",
+      "replacement": "Spawn all N workers in one message with `subagent_type: general-purpose`, `run_in_background: true`, and the step 4 model, left unset for `auto` or `inherit-parent`."
     },
     {
       "source": "Before spawning investigators, list the available MCPs from the Cursor environment.",
@@ -431,12 +423,12 @@
       "replacement": "Otherwise inspect the MCP servers this project's own settings enable."
     },
     {
-      "source": "- `model`: your configured why-investigators model (default `PSTACK-MODEL-SLUG`)",
-      "replacement": "- `model`: your configured why-investigators model"
+      "source": "- `model`: the `why investigators` line, default `PSTACK-MODEL-SLUG`",
+      "replacement": "- `model`: the `why investigators` entries in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), or one investigator per model you have available when the rule or the line is missing"
     },
     {
-      "source": "- `model`: your configured why-synthesizer model (default `PSTACK-MODEL-SLUG`)",
-      "replacement": "- `model`: your configured why-synthesizer model"
+      "source": "- `model`: the `why synthesizer` line, default `PSTACK-MODEL-SLUG`",
+      "replacement": "- `model`: the `why synthesizer` entry in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), or your configured why-synthesizer model when the rule or the line is missing"
     },
     {
       "source": "alwaysApply: true",
@@ -447,8 +439,8 @@
       "replacement": "description: pstack per-role model choices (overrides what the skills say inline)"
     },
     {
-      "source": "const LANES = \"Ten lanes on `PSTACK-MODEL-SLUG` at the PR head\";",
-      "replacement": "const LANES = \"Ten lanes on the worker model you configured under `swarm workers`, at the PR head\";"
+      "source": "const LANES = /Ten lanes on `[^`<>]+` at the PR head/;",
+      "replacement": "const LANES = /Ten lanes on [^\\n]{1,60}`swarm workers`[^\\n]{0,3}at the PR head/;"
     },
     {
       "source": "const PROGRAM_MARKERS = [\"/goal\", \"git show origin/main:\", /30[- ]minute/, \"status message\"];",
@@ -488,8 +480,44 @@
       "replacement": "run `skills/poteto-mode/scripts/worktree-audit.sh` under the installed plugin"
     },
     {
-      "source": "So `small` turns `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG`, and `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG` when only that form is detected.",
+      "source": "So `small` turns `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG`, and `PSTACK-MODEL-SLUG` into `PSTACK-MODEL-SLUG`.",
       "replacement": "So `small` takes every default real slug to its family's medium-effort variant, and `large` to its xhigh-effort variant. The mapping never invents a slug that detection did not list."
+    },
+    {
+      "source": "If the rule or that line is missing, use `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`, `PSTACK-MODEL-SLUG`. Alias and rejected entries follow the runner rules in the **arena** skill's Phase A.",
+      "replacement": "If the rule or that line is missing, use one runner each on your configured judgment, tooling, and fast-code models. Alias and rejected entries follow the runner rules in the **arena** skill's Phase A."
+    },
+    {
+      "source": "If the Agent tool rejects a configured entry, run that seat on its family's default and say so. Families go by prefix: `claude-*`, `gpt-*`, and `grok-*`.",
+      "replacement": "If the Agent tool rejects a configured entry, run that seat on your configured default for it and say so. Families go by prefix: `claude-*`, `gpt-*`, and `grok-*`."
+    },
+    {
+      "source": "With no family match, use `PSTACK-MODEL-SLUG`.",
+      "replacement": "With no family match, use your configured fast-code model."
+    },
+    {
+      "source": "Each spawn below names a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing.",
+      "replacement": "Each spawn below names a role line in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`) and a default. Set `model` to that line's value, or to the default if the rule or the line is missing."
+    },
+    {
+      "source": "Each reviewer and the synthesizer name a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing.",
+      "replacement": "Each reviewer and the synthesizer name a role line in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`) and a default. Set `model` to that line's value, or to the default if the rule or the line is missing."
+    },
+    {
+      "source": "A line whose role is not in step 5, such as `how critics`, is from a retired role. Drop it.",
+      "replacement": "A line whose role is not in step 5 is from a retired role, so drop it."
+    },
+    {
+      "source": "Verify, live lacks \"Ten lanes on \\`<swarm workers model>\\` at the PR head\" with the model filled in",
+      "replacement": "Verify, live lacks the ten-lanes sentence naming the swarm workers model at the PR head"
+    },
+    {
+      "source": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (with the matching control skill, such as `control-cli` or `control-ui` from `cursor-team-kit`, or a named driver where none exists). Audit the diff, distrusting the PR body.",
+      "replacement": "The lanes: re-run the gates at that SHA. Prove the load-bearing behavior live on the real surface the change touches (the browser for UIs, the terminal for CLIs and TUIs, or a named driver where neither fits). Audit the diff, distrusting the PR body."
+    },
+    {
+      "source": "`large`, `medium`, and `small` set the effort token of every real slug, panel entries included, to `xhigh`, `high`, or `medium`. The effort token is the last token, or the one before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. If the result is not a detected slug, use the same family's detected slug with the highest effort at or below the target, else mark the role as needing a choice. ",
+      "replacement": "`large`, `medium`, and `small` set the effort token of every model you configure, panel entries included, to `xhigh`, `high`, or `medium`. The effort token is the last token, or the one before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. If the result is not a detected model, use the same family's detected model with the highest effort at or below the target, else mark the role as needing a choice. "
     }
   ]
 }

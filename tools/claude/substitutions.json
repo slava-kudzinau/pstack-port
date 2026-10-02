@@ -57,20 +57,14 @@
       "rationale": "npm scope carried from the upstream Cursor snapshot. Renamed to this port's own scope; the same string appears once in package.json and once in bun.lock."
     },
     {
-      "id": "model-slug-5",
-      "pattern": "claude-fable-5-1-thinking-medium",
+      "id": "model-slug-4",
+      "pattern": "claude-opus-5-5-medium",
       "replacement": "PSTACK-MODEL-SLUG",
-      "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
-    },
-    {
-      "id": "model-slug-6",
-      "pattern": "cursor-grok-4.6-medium-fast",
-      "replacement": "PSTACK-MODEL-SLUG",
-      "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
+      "rationale": "Pinned judgment-family medium variant. The setup template's (b) sentence names it as the small mapping example; collapsing every pinned default slug to one placeholder keeps the ledger slug-free."
     },
     {
       "id": "model-slug-1",
-      "pattern": "claude-fable-5-1-thinking-max",
+      "pattern": "claude-opus-5-5-max",
       "replacement": "PSTACK-MODEL-SLUG",
       "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
     },
@@ -82,15 +76,15 @@
     },
     {
       "id": "model-slug-3",
-      "pattern": "grok-4.6-fast-xhigh",
+      "pattern": "grok-4.7-xhigh-fast",
       "replacement": "PSTACK-MODEL-SLUG",
       "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
     },
     {
-      "id": "model-slug-4",
-      "pattern": "claude-opus-5-thinking-xhigh",
+      "id": "model-slug-6",
+      "pattern": "grok-4.7-medium-fast",
       "replacement": "PSTACK-MODEL-SLUG",
-      "rationale": "Upstream's currently-pinned default for one model role. The rewrite ledger below matches this placeholder, not the literal slug, so a future slug rename (upstream picks a new default) is a one-line edit here instead of re-authoring every ledger sentence that mentions it."
+      "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
     },
     {
       "id": "deslop-skill-name",
@@ -143,12 +137,12 @@
       "hint": "Cursor transcript directory. Claude Code writes each session to ~/.claude/projects/<slug>/<uuid>.jsonl."
     },
     {
-      "token": "claude-fable-5-1-thinking-max",
+      "token": "claude-opus-5-5-max",
       "mode": "word",
       "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
     },
     {
-      "token": "claude-opus-5-thinking-xhigh",
+      "token": "claude-opus-5-5-medium",
       "mode": "word",
       "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
     },
@@ -222,15 +216,14 @@
       "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
     },
     {
-      "token": "grok-4.6-fast-xhigh",
+      "token": "grok-4.7-xhigh-fast",
       "mode": "word",
       "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
     },
     {
-      "origin": "added",
-      "token": "origin/main:pstack",
-      "mode": "substring",
-      "hint": "Upstream repo path inside a git show. A user repo has no such path; re-read from disk under the installed plugin instead."
+      "token": "grok-4.7-medium-fast",
+      "mode": "word",
+      "hint": "Vendor model slug. Name the configured model instead of a slug this build cannot resolve."
     },
     {
       "origin": "added",
@@ -243,6 +236,12 @@
       "token": "@cursor-skill",
       "mode": "substring",
       "hint": "Cursor-scoped npm package name. Should have been substituted to @pstack-claude. The substitution rule failed to apply."
+    },
+    {
+      "origin": "added",
+      "token": "PSTACK-MODEL-SLUG",
+      "mode": "substring",
+      "hint": "Model-rule placeholder leaked into output. A rewrite for the sentence carrying it is missing or stale."
     }
   ]
 }

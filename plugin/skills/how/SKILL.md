@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
+Each spawn below names a role line in `~/.omp/agent/pstack-models.md` and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Omit `model` when the value is `@default`, letting the subagent run on the session's default model. If `task` rejects a configured selector, use the default and say so.
+
 ## Step 1. Assess Complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
@@ -23,7 +25,7 @@ Decompose the question into 2 to 4 exploration angles, each a distinct slice of 
 
 - `agent`: `"scout"`. Scout explores read-only.
 - `effort: "lo"`. Explorers need speed, not depth; scout's 100-request budget keeps them lean.
-- `model`: your configured how-explorer role
+- `model`: the `how explorer` line in `~/.omp/agent/pstack-models.md`, default your configured how-explorer role
 
 Each explorer gets the prompt in `skill://how/references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
 
@@ -33,7 +35,7 @@ Spawn one subagent via the `task` tool that explores and explains in one pass:
 
 - `agent`: `"scout"`. Scout explores and explains read-only.
 - `effort: "lo"`. The direct explain stays lean; scout's 100-request budget is sufficient for a single-file trace.
-- `model`: your configured how-explainer role
+- `model`: the `how explainer` line in `~/.omp/agent/pstack-models.md`, default your configured how-explainer role
 
 Build its prompt from `skill://how/references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
 
@@ -43,7 +45,7 @@ Once all explorers have returned, spawn one subagent via the `task` tool to synt
 
 - `agent`: `"scout"`. Scout synthesizes read-only.
 - `effort: "lo"`. Synthesis is recombination, not deep reasoning; scout's 100-request budget covers it.
-- `model`: your configured how-explainer role
+- `model`: the `how explainer` line in `~/.omp/agent/pstack-models.md`, default your configured how-explainer role
 
 Build its prompt from `skill://how/references/explainer-prompt.md` with every explorer's findings filled in.
 

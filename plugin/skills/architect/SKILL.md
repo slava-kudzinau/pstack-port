@@ -30,7 +30,7 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 Run the **arena** skill (`skill://arena`) with the design-sketch task and the Phase A grounding artifacts. Pass `skill://architect/references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `skill://architect/references/rationale-template.md`.
 
-Use your configured architect runner roles for each candidate.
+Set each runner's `model` from the `architect runners` line in `~/.omp/agent/pstack-models.md`, or from your configured architect runner roles when the line is missing.
 
 Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill (`skill://principle-exhaust-the-design-space`) made concrete. Whole-shape alternatives, not point fixes inside one shape.
 

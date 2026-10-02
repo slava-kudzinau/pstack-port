@@ -36,7 +36,7 @@ Default to Full absent other signal. Per poteto-mode's project-instructions-win 
 
 When the call is Full, run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
 
-Use your configured architect runners (defaults: the models you configure per role).
+Take the runners from the `architect runners` entries in `~/.claude/pstack-models.md` (imported from `CLAUDE.md` as `@pstack-models.md`), in place of the `arena runners` line. If the rule or that line is missing, use one runner each on your configured judgment, tooling, and fast-code models. Alias and rejected entries follow the runner rules in the **arena** skill's Phase A.
 
 Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
 

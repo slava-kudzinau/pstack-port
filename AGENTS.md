@@ -123,6 +123,15 @@ pstack-port/
    `command-templates/<name>.md` bodies. `scripts/branding-check.ts`'s filename
    lint enforces this.
 
+9. **Landing.** Never commit or push directly to `main`. Every unit of work —
+   resync, regeneration, follow-up fix — commits on a topic branch
+   (`sync/pstack-<version>` for resyncs, the unit name for follow-ups), the
+   branch is pushed, and the work reaches `main` only through a merged PR
+   (`gh pr create --base main`). The 0.15.2-era direct-to-main precedent
+   (`3e5eabe`, `7be721d`) is superseded as of 2026-10-02. `main` carries GitHub
+   branch protection with `enforce_admins`, so direct and force pushes are
+   rejected by the remote itself.
+
 ## OMP runtime facts (do not re-derive)
 
 - OMP's subagent tool is **`task`**, not `Task`/`Agent`. No
@@ -288,3 +297,7 @@ Steps verified by the 2026-09-02 sync to 0.14.7 (`efa2a531`).
    `cursor_plugins_sha`; re-vendor it the same way as step 2 whenever that
    pin advances (it very rarely does, per the re-sync's own cursor-team-kit
    check in step 1), not on every pstack sync.
+
+8. Land every unit through the branch's PR, never on `main` (rule 9): commit on
+   the `sync/pstack-<version>` branch, `git push -u origin <branch>`, then
+   `gh pr create --base main`. The sync is complete when the PR merges.

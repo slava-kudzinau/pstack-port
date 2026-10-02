@@ -33,7 +33,7 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single `task` batch call: one shared `context` plus one `tasks[]` array, not separate calls. Spawn one reviewer per entry in your configured reviewer list when you have one, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise spawn four reviewers, Reviewer A through D, each with no per-item model override.
+Launch all reviewers in a single `task` batch call: one shared `context` plus one `tasks[]` array, not separate calls. Spawn one reviewer per entry in the `interrogate reviewers` line from `~/.omp/agent/pstack-models.md`, or in your configured reviewer list when the rule or the line is missing, extending or shrinking the Reviewer A/B/C/D labels below to the configured entry count. Otherwise spawn four reviewers, Reviewer A through D, each with no per-item model override.
 
 For each reviewer item in the batch:
 - `agent`: `"reviewer"`
