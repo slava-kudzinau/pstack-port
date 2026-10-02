@@ -60,7 +60,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -102,29 +102,31 @@ describe("model-slug placeholder normalization", () => {
     return entry;
   };
 
-  it("substitute-then-rewrite erases the pinned default slug with no placeholder surviving", () => {
-    const body = skill("architect", "Use your configured architect runners (defaults `claude-fable-5-1-thinking-max`, `gpt-5.6-sol-max`, `grok-4.6-fast-xhigh`, `claude-opus-5-thinking-xhigh`).\n");
-    const sites = new Map([["skills/architect/SKILL.md", body]]);
+  it("substitute-then-rewrite erases the pinned default slugs with no placeholder surviving", () => {
+    const body = skill("poteto-mode", "architect runners: claude-opus-5-5-max, gpt-5.6-sol-max, grok-4.7-xhigh-fast\n");
+    const sites = new Map([["skills/poteto-mode/SKILL.md", body]]);
     const { sites: substituted } = substitute(sites, tables.substitutions);
-    const { sites: rewritten, misses } = rewrite(substituted, [entryFor("architect runners (defaults")]);
-    const text = rewritten.get("skills/architect/SKILL.md") ?? "";
+    const { sites: rewritten, misses } = rewrite(substituted, [entryFor("architect runners: PSTACK-MODEL-SLUG")]);
+    const text = rewritten.get("skills/poteto-mode/SKILL.md") ?? "";
     expect(misses).toEqual([]);
-    expect(text).toBe(skill("architect", "Use your configured architect runners (defaults: the models you configure per role).\n"));
+    expect(text).toBe(skill("poteto-mode", "architect runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>\n"));
     expect(text).not.toContain("PSTACK-MODEL-SLUG");
-    expect(text).not.toContain("claude-fable-5-1-thinking-max");
+    expect(text).not.toContain("claude-opus-5-5-max");
   });
 
   it("survives a simulated upstream slug rename with a one-line substitution-pattern edit, not a ledger edit", () => {
-    const body = skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model (default `claude-fable-5-9-future-max`) with a specific scope. Review the diff.\n");
+    const body = skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model (default `grok-5-0-future-fast`) with a specific scope.\n");
     const sites = new Map([["skills/bug-fix/SKILL.md", body]]);
     const patched = tables.substitutions.map((rule) =>
-      rule.id === "model-slug-1" ? { ...rule, pattern: "claude-fable-5-9-future-max" } : rule,
+      rule.id === "model-slug-3" ? { ...rule, pattern: "grok-5-0-future-fast" } : rule,
     );
     const { sites: substituted } = substitute(sites, patched);
     const { sites: rewritten, misses } = rewrite(substituted, [entryFor("configured bug-fix model")]);
     const text = rewritten.get("skills/bug-fix/SKILL.md") ?? "";
     expect(misses).toEqual([]);
-    expect(text).toBe(skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model with a specific scope. Review the diff.\n"));
+    expect(text).toBe(skill("bug-fix", "Delegate implementation to a subagent using your configured bug-fix model, or the `bug-fix` line of `~/.claude/pstack-models.md` when it names one, with a specific scope.\n"));
+    expect(text).not.toContain("PSTACK-MODEL-SLUG");
+    expect(text).not.toContain("grok-5-0-future-fast");
   });
 });
 
@@ -215,11 +217,11 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 3, 6, 16, 2, 1, 1, 22, 10, 28, 8, 1 in build-rule order", () => {
+  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 9, 6, 16, 2, 1, 23, 10, 26, 1, 1 in build-rule order", () => {
     expect(ground.report.scanned).toBe(131);
     expect(ground.report.teamKitScanned).toBe(7);
     expect(ground.report.teamKitCollisions).toEqual([]);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 3, 6, 16, 2, 1, 1, 22, 10, 28, 8, 1]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 9, 6, 16, 2, 1, 23, 10, 26, 1, 1]);
   });
 
   it("strips the key from 47 files and stamps exactly the 23 leaves", () => {
@@ -231,8 +233,8 @@ describe("the snapshot at the pinned sha", () => {
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(121);
-    expect(ground.report.rewriteApplied).toBe(133);
+    expect(ground.report.rewriteEntries).toBe(128);
+    expect(ground.report.rewriteApplied).toBe(141);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
@@ -386,7 +388,7 @@ describe("renderManifests", () => {
     expect(plugin).toEqual({
       name: "pstack",
       displayName: "pstack (Claude Code port)",
-      version: "0.15.2",
+      version: "0.15.5",
       description: `${upstream.description} Generated by tools/claude/apply.mjs from upstream/pstack at the pin in UPSTREAM.md.`,
       author: { name: "Lauren Tan" },
       license: "MIT",
@@ -404,7 +406,7 @@ describe("renderManifests", () => {
           name: "pstack",
           source: "./plugins/pstack",
           description: upstream.description,
-          version: "0.15.2",
+          version: "0.15.5",
           author: { name: "Lauren Tan (original)" },
           license: "MIT",
           keywords: upstream.keywords,
