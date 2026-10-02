@@ -128,7 +128,9 @@ pstack-port/
    (`sync/pstack-<version>` for resyncs, the unit name for follow-ups), the
    branch is pushed, and the work reaches `main` only through a merged PR
    (`gh pr create --base main`). The 0.15.2-era direct-to-main precedent
-   (`3e5eabe`, `7be721d`) is superseded as of 2026-10-02.
+   (`3e5eabe`, `7be721d`) is superseded as of 2026-10-02. `main` carries GitHub
+   branch protection with `enforce_admins`, so direct and force pushes are
+   rejected by the remote itself.
 
 ## OMP runtime facts (do not re-derive)
 
