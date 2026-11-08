@@ -11,10 +11,18 @@
       "mjs",
       "sh",
       "tsv",
-      "lock"
+      "lock",
+      "mmd",
+      "tla",
+      "dot",
+      "java",
+      "out",
+      "cfg",
+      "exit"
     ],
     "copy": [
-      "skills/poteto-mode/scripts/watch-pr/watch-pr"
+      "skills/poteto-mode/scripts/watch-pr/watch-pr",
+      "skills/statechart/scripts/statechart"
     ]
   },
   "teamKit": {
@@ -26,6 +34,60 @@
     }
   },
   "substitutions": [
+    {
+      "id": "subagent-type",
+      "pattern": "generalPurpose",
+      "replacement": "general-purpose",
+      "note": "Claude Code names its default subagent type with a hyphen."
+    },
+    {
+      "id": "control-pair",
+      "pattern": "`control-ui` or `control-cli` from `cursor-team-kit`",
+      "replacement": "`control-browser` or `control-terminal`",
+      "note": "The Claude Code target ships these skills with its own package."
+    },
+    {
+      "id": "control-ui",
+      "pattern": "`control-ui`",
+      "replacement": "`control-browser`",
+      "note": "The Claude Code target ships these skills with its own package."
+    },
+    {
+      "id": "control-cli",
+      "pattern": "`control-cli`",
+      "replacement": "`control-terminal`",
+      "note": "The Claude Code target ships these skills with its own package."
+    },
+    {
+      "id": "projects-dir-home",
+      "pattern": ".cursor/projects/",
+      "replacement": ".claude/projects/",
+      "note": "Claude Code writes each project’s transcripts under ~/.claude/projects/<slug>/, newest first."
+    },
+    {
+      "id": "control-ui",
+      "pattern": "`control-ui` from `cursor-team-kit`",
+      "replacement": "`control-browser`",
+      "note": "The Claude Code target ships these skills with its own package."
+    },
+    {
+      "id": "control-cli",
+      "pattern": "`control-cli` from `cursor-team-kit`",
+      "replacement": "`control-terminal`",
+      "note": "The Claude Code target ships these skills with its own package."
+    },
+    {
+      "id": "kit-paren",
+      "pattern": " (from `cursor-team-kit`)",
+      "replacement": "",
+      "note": "The Claude Code target ships the kit’s skills inside its own package."
+    },
+    {
+      "id": "deslop-kit",
+      "pattern": "(the `deslop` skill from the `cursor-team-kit` plugin (`/deslop`))",
+      "replacement": "(the **deslop** skill, `/deslop`)",
+      "note": "The Claude Code target ships deslop inside its own package."
+    },
     {
       "id": "task-tool-backticked",
       "pattern": "`Task`",
@@ -51,10 +113,10 @@
       "rationale": "Personal skills directory."
     },
     {
-      "id": "poteto-mode-tools-scope",
-      "pattern": "@cursor-skill/poteto-mode-tools",
-      "replacement": "@pstack-claude/poteto-mode-tools",
-      "rationale": "npm scope carried from the upstream Cursor snapshot. Renamed to this port's own scope; the same string appears once in package.json and once in bun.lock."
+      "id": "npm-scope",
+      "pattern": "@cursor-skill/",
+      "replacement": "@pstack-claude/",
+      "note": "npm scope for the shipped skills. The kit publishes under @pstack-claude."
     },
     {
       "id": "model-slug-4",
@@ -85,6 +147,12 @@
       "pattern": "grok-4.7-medium-fast",
       "replacement": "PSTACK-MODEL-SLUG",
       "rationale": "Upstream's step 3 budget-example prose names an effort-tiered form of a default slug, not a default itself. The same slug-erasure treatment as the four default rules: the literal token is erased to the placeholder before the rewrite ledger matches, so the budget example never ships a vendor slug."
+    },
+    {
+      "id": "model-slug-5",
+      "pattern": "claude-opus-5-5-xhigh",
+      "replacement": "PSTACK-MODEL-SLUG",
+      "rationale": "Upstream's 0.15.36 judge-family default; the panels' judge lines and the setup template name it. Same slug-erasure treatment as the other pinned defaults: the rewrite ledger matches the placeholder, so a future slug rename is a one-line edit here."
     },
     {
       "id": "deslop-skill-name",

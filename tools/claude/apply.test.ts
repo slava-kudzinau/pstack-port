@@ -60,7 +60,7 @@ describe("substitution", () => {
       ["skills/swarm/SKILL.md", skill("swarm", "The Task tool again.\n")],
     ]);
     const { counts } = substitute(sites, tables.substitutions);
-    expect(counts.map((count) => count.hits)).toEqual([1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0]);
+    expect(counts.map((count) => count.hits)).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]);
   });
 
   it("renames the tool without touching the deny-gate survivors", () => {
@@ -103,13 +103,13 @@ describe("model-slug placeholder normalization", () => {
   };
 
   it("substitute-then-rewrite erases the pinned default slugs with no placeholder surviving", () => {
-    const body = skill("poteto-mode", "architect runners: claude-opus-5-5-max, gpt-5.6-sol-max, grok-4.7-xhigh-fast\n");
+    const body = skill("poteto-mode", "architect runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast\n");
     const sites = new Map([["skills/poteto-mode/SKILL.md", body]]);
     const { sites: substituted } = substitute(sites, tables.substitutions);
     const { sites: rewritten, misses } = rewrite(substituted, [entryFor("architect runners: PSTACK-MODEL-SLUG")]);
     const text = rewritten.get("skills/poteto-mode/SKILL.md") ?? "";
     expect(misses).toEqual([]);
-    expect(text).toBe(skill("poteto-mode", "architect runners: <detected-judgment-slug>, <detected-tooling-slug>, <detected-fast-code-slug>\n"));
+    expect(text).toBe(skill("poteto-mode", "architect runners: <detected-judgment-slug>, <detected-fast-code-slug>\n"));
     expect(text).not.toContain("PSTACK-MODEL-SLUG");
     expect(text).not.toContain("claude-opus-5-5-max");
   });
@@ -217,24 +217,24 @@ describe("denylist", () => {
 });
 
 describe("the snapshot at the pinned sha", () => {
-  it("scans 131 files (124 pstack, 7 team-kit) and reports 10, 9, 6, 16, 2, 1, 23, 10, 26, 1, 1 in build-rule order", () => {
-    expect(ground.report.scanned).toBe(131);
+  it("scans 544 files (537 pstack, 7 team-kit) and reports 7, 3, 4, 4, 8, 0, 0, 1, 1, 11, 9, 6, 18, 3, 1, 1, 0, 30, 1, 21, 1 in build-rule order", () => {
+    expect(ground.report.scanned).toBe(544);
     expect(ground.report.teamKitScanned).toBe(7);
     expect(ground.report.teamKitCollisions).toEqual([]);
-    expect(ground.report.counts.map((count) => count.hits)).toEqual([10, 9, 6, 16, 2, 1, 23, 10, 26, 1, 1]);
+    expect(ground.report.counts.map((count) => count.hits)).toEqual([7, 3, 4, 4, 8, 0, 0, 1, 1, 11, 9, 6, 18, 3, 1, 1, 0, 30, 1, 21, 1]);
   });
 
-  it("strips the key from 47 files and stamps exactly the 23 leaves", () => {
-    expect(ground.report.stripped).toBe(47);
-    expect(ground.report.stamped).toBe(23);
-    expect(ground.report.leafGlob).toBe(23);
-    expect(ground.report.stampedPaths).toHaveLength(23);
+  it("strips the key from 58 files and stamps exactly the 24 leaves", () => {
+    expect(ground.report.stripped).toBe(58);
+    expect(ground.report.stamped).toBe(24);
+    expect(ground.report.leafGlob).toBe(24);
+    expect(ground.report.stampedPaths).toHaveLength(24);
     expect(ground.report.anomalies).toEqual([]);
   });
 
   it("closes every survivor through the rewrite ledger", () => {
-    expect(ground.report.rewriteEntries).toBe(128);
-    expect(ground.report.rewriteApplied).toBe(141);
+    expect(ground.report.rewriteEntries).toBe(119);
+    expect(ground.report.rewriteApplied).toBe(122);
     expect(ground.report.misses).toEqual([]);
     expect(ground.report.carried).toMatchObject({ hits: 0, files: 0 });
     expect(ground.report.added).toMatchObject({ hits: 0, files: 0 });
@@ -254,11 +254,11 @@ describe("the snapshot at the pinned sha", () => {
 
   it("keeps the Claude-native dispatch tokens the tree is meant to carry", () => {
     const merged = [...ground.tree.values()].join("");
-    expect((merged.match(/subagent_type/g) || []).length).toBe(13);
-    expect((merged.match(/`Agent`/g) || []).length).toBe(10);
+    expect((merged.match(/subagent_type/g) || []).length).toBe(9);
+    expect((merged.match(/`Agent`/g) || []).length).toBe(11);
     expect(merged).not.toContain("`Task`");
     const bareTask = [...merged.matchAll(/\bTask\b/g)];
-    expect(bareTask).toHaveLength(1);
+    expect(bareTask).toHaveLength(4);
     expect(/<Task as a verb phrase>/.test(merged)).toBeTrue();
     expect(merged).not.toContain("skill://");
     expect(merged).not.toContain("\r");
@@ -339,14 +339,14 @@ describe("the rewrite ledger at the pin", () => {
     expect(leaked).toEqual([]);
   });
 
-  it("keeps the hide key out of every generated frontmatter and stamps only the 23 leaves", () => {
+  it("keeps the hide key out of every generated frontmatter and stamps only the 24 leaves", () => {
     const kept: string[] = [];
     for (const [path, text] of ground.tree) {
       if (!text.startsWith("---\n")) continue;
       if (text.slice(4, text.indexOf("\n---", 4)).includes("disable-model-invocation")) kept.push(path);
     }
     expect(kept).toEqual([]);
-    expect(ground.report.stampedPaths).toHaveLength(23);
+    expect(ground.report.stampedPaths).toHaveLength(24);
     for (const path of ground.report.stampedPaths) expect(ground.tree.get(path)).toContain("user-invocable: false");
   });
 
@@ -388,7 +388,7 @@ describe("renderManifests", () => {
     expect(plugin).toEqual({
       name: "pstack",
       displayName: "pstack (Claude Code port)",
-      version: "0.15.5",
+      version: "0.15.36",
       description: `${upstream.description} Generated by tools/claude/apply.mjs from upstream/pstack at the pin in UPSTREAM.md.`,
       author: { name: "Lauren Tan" },
       license: "MIT",
@@ -406,7 +406,7 @@ describe("renderManifests", () => {
           name: "pstack",
           source: "./plugins/pstack",
           description: upstream.description,
-          version: "0.15.5",
+          version: "0.15.36",
           author: { name: "Lauren Tan (original)" },
           license: "MIT",
           keywords: upstream.keywords,
@@ -417,9 +417,9 @@ describe("renderManifests", () => {
 });
 
 describe("the emitted tree at the pin", () => {
-  it("carries zero disable-model-invocation keys and exactly 23 user-invocable keys", () => {
+  it("carries zero disable-model-invocation keys and exactly 24 user-invocable keys", () => {
     expect(frontmatterKeyCount(ground.tree, "disable-model-invocation")).toEqual([]);
-    expect(frontmatterKeyCount(ground.tree, "user-invocable")).toHaveLength(23);
+    expect(frontmatterKeyCount(ground.tree, "user-invocable")).toHaveLength(24);
   });
 
   it("contains no commands directory", () => {
@@ -511,7 +511,7 @@ describe("the emitted plan checker agrees with the emitted skeleton", () => {
 
   it("rejects the skeleton with the /loop marker removed", () => {
     expect(skeleton).toContain("/loop");
-    const result = run(skeleton.replace("a real terminal `/loop`", "a real terminal command"));
+    const result = run(skeleton.replace("/loop 1h", "an hourly audit tick"));
     expect(result.exitCode).toBe(1);
     expect(result.stdout.toString()).toContain("1 problems");
   });

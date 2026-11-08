@@ -13,6 +13,7 @@ The file `~/.omp/agent/pstack-models.md` maps roles to model selectors. One line
 # pstack model configuration. One line per role.
 # Delete a line to fall back to the skill default.
 # @default as a value: the role runs on the session's default model.
+# budget: unlimited (max)
 feature, refactoring: @default
 bug-fix: @default
 perf-issue: @default
@@ -26,9 +27,10 @@ why synthesizer: @default
 reflect tooling: @default
 reflect judgment, divergent, synthesizer: @default
 arena runners: @default, @default
-arena cross-judge pool: @default
+arena cross-judge pool: @default, @default
 swarm workers: @default
-interrogate reviewers: @default, @default, @smol, @smol
+architect runners: @default, @default
+interrogate reviewers: @default, @default
 ```
 
 ### Role aliases
@@ -45,7 +47,18 @@ Roles ending in a list spawn multiple parallel workers. The list length sets the
 - `arena runners` — 2-3 candidates for design alternatives
 - `arena cross-judge pool` — One value selected for the cross-judge scout
 - `swarm workers` — Default model for each swarm worker
-- `interrogate reviewers` — 4 reviewers by default, each on a different model
+- `architect runners` — 2 candidates for design alternatives
+- `interrogate reviewers` — One adversary per entry, run through arena's fan-out
+
+### Budget
+
+The `# budget` line sets the reasoning effort every role targets. `unlimited`
+keeps the effort each selector already carries; `large`, `medium`, and `small`
+set the effort token of every real selector, panel entries included, to
+`xhigh`, `high`, or `medium`. The effort token is the last token, or the one
+before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` >
+`low`. `/pstack:setup-pstack` rewrites the whole file, so re-runs stay
+idempotent.
 
 ### Model selectors
 

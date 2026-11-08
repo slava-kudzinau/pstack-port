@@ -72,7 +72,8 @@ export async function scanSnapshot(snapshotDir, scan) {
   paths.sort();
   const sites = new Map();
   for (const path of paths) {
-    sites.set(path, await Bun.file(`${snapshotDir}/${path}`).text());
+    const file = Bun.file(`${snapshotDir}/${path}`);
+    if (await file.exists()) sites.set(path, await file.text());
   }
   return sites;
 }

@@ -26,144 +26,200 @@ append-only history. Provenance never returns to shipped frontmatter.
 
 | Path | Upstream | Sync | Status |
 |---|---|---|---|
-| agents/comment-sicko.md | upstream/pstack/agents/comment-sicko.md | 12d587df | adapted |
-| agents/poteto-agent.md | upstream/pstack/agents/poteto-agent.md | 12d587df | adapted |
-| command-templates/architect.md | none | 12d587df | new |
-| command-templates/arena.md | none | 12d587df | new |
-| command-templates/automate-me.md | none | 12d587df | new |
-| command-templates/blast-radius.md | none | 12d587df | new |
-| command-templates/bro.md | none | 12d587df | new |
-| command-templates/create-verification-skill.md | none | 12d587df | new |
+| agents/comment-sicko.md | upstream/pstack/agents/comment-sicko.md | 6b030021 | adapted |
+| agents/poteto-agent.md | upstream/pstack/agents/poteto-agent.md | 6b030021 | adapted |
+| command-templates/architect.md | none | 6b030021 | new |
+| command-templates/arena.md | none | 6b030021 | new |
+| command-templates/automate-me.md | none | 6b030021 | new |
+| command-templates/benchmark-checklist.md | none | 6b030021 | new |
+| command-templates/blast-radius.md | none | 6b030021 | new |
+| command-templates/bro.md | none | 6b030021 | new |
+| command-templates/correct.md | none | 6b030021 | new |
+| command-templates/create-formal-verification-skill.md | none | 6b030021 | new |
+| command-templates/create-verification-skill.md | none | 6b030021 | new |
 | command-templates/de-slop.md | none | e46364b8 | new |
-| command-templates/figure-it-out.md | none | 12d587df | new |
+| command-templates/figure-it-out.md | none | 6b030021 | new |
 | command-templates/fix-ci.md | none | e46364b8 | new |
 | command-templates/fix-merge-conflicts.md | none | e46364b8 | new |
 | command-templates/get-pr-comments.md | none | e46364b8 | new |
-| command-templates/how.md | none | 12d587df | new |
-| command-templates/interrogate.md | none | 12d587df | new |
-| command-templates/maintain-verification-skill.md | none | 12d587df | new |
+| command-templates/how.md | none | 6b030021 | new |
+| command-templates/in-your-own-words.md | none | 6b030021 | new |
+| command-templates/interrogate.md | none | 6b030021 | new |
+| command-templates/ketchup-video.md | none | 6b030021 | new |
+| command-templates/ketchup.md | none | 6b030021 | new |
+| command-templates/maintain-formal-verification-skill.md | none | 6b030021 | new |
+| command-templates/maintain-verification-skill.md | none | 6b030021 | new |
+| command-templates/make-bot-ui.md | none | 6b030021 | new |
 | command-templates/make-pr-easy-to-review.md | none | e46364b8 | new |
-| command-templates/no-comments.md | none | 12d587df | new |
-| command-templates/poteto-mode.md | none | 12d587df | new |
-| command-templates/recall.md | none | 12d587df | new |
-| command-templates/reflect.md | none | 12d587df | new |
-| command-templates/setup-pstack.md | none | 12d587df | new |
-| command-templates/show-me-your-work.md | none | 12d587df | new |
-| command-templates/swarm.md | none | 12d587df | new |
-| command-templates/tdd.md | none | 12d587df | new |
-| command-templates/teach.md | none | 12d587df | new |
-| command-templates/technical-writing.md | none | 12d587df | new |
+| command-templates/no-comments.md | none | 6b030021 | new |
+| command-templates/poteto-help.md | none | 6b030021 | new |
+| command-templates/poteto-mode.md | none | 6b030021 | new |
+| command-templates/recall.md | none | 6b030021 | new |
+| command-templates/reflect.md | none | 6b030021 | new |
+| command-templates/setup-pstack.md | none | 6b030021 | new |
+| command-templates/sharpen.md | none | 6b030021 | new |
+| command-templates/show-me-your-work.md | none | 6b030021 | new |
+| command-templates/statechart.md | none | 6b030021 | new |
+| command-templates/swarm.md | none | 6b030021 | new |
+| command-templates/tdd.md | none | 6b030021 | new |
+| command-templates/teach.md | none | 6b030021 | new |
+| command-templates/technical-writing.md | none | 6b030021 | new |
 | command-templates/thermo-nuclear-code-quality-review.md | none | e46364b8 | new |
-| command-templates/typescript-best-practices.md | none | 12d587df | new |
-| command-templates/unslop.md | none | 12d587df | new |
+| command-templates/typescript-best-practices.md | none | 6b030021 | new |
+| command-templates/unslop.md | none | 6b030021 | new |
 | command-templates/what-did-i-get-done.md | none | e46364b8 | new |
-| command-templates/why.md | none | 12d587df | new |
+| command-templates/why.md | none | 6b030021 | new |
 | hooks/session-start-context.md | refs/ref-port/plugins/pstack/hooks/session-start-context.md | c2ade4bb | adapted |
-| skills/architect/SKILL.md | upstream/pstack/skills/architect/SKILL.md | 12d587df | adapted |
-| skills/architect/references/design-red-flags.md | upstream/pstack/skills/architect/references/design-red-flags.md | 12d587df | portable |
-| skills/architect/references/rationale-template.md | upstream/pstack/skills/architect/references/rationale-template.md | 12d587df | adapted |
-| skills/architect/references/runner-prompt.md | upstream/pstack/skills/architect/references/runner-prompt.md | 12d587df | adapted |
-| skills/arena/SKILL.md | upstream/pstack/skills/arena/SKILL.md | 12d587df | adapted |
-| skills/authoring-a-skill/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/authoring-a-skill.md | 12d587df | adapted |
-| skills/automate-me/SKILL.md | upstream/pstack/skills/automate-me/SKILL.md | 12d587df | adapted |
-| skills/autonomous-run/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md | 12d587df | adapted |
-| skills/autopilot-full/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-full.md | 12d587df | adapted |
-| skills/autopilot-stack/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-stack.md | 12d587df | adapted |
-| skills/babysit/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/babysit.md | 12d587df | adapted |
-| skills/babysit/references/bugbot-triage.md | none | 12d587df | new |
-| skills/blast-radius/SKILL.md | upstream/pstack/skills/blast-radius/SKILL.md | 12d587df | adapted |
-| skills/bro/SKILL.md | upstream/pstack/skills/bro/SKILL.md | 12d587df | portable |
-| skills/bug-fix/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md | 12d587df | adapted |
-| skills/create-verification-skill/SKILL.md | upstream/pstack/skills/create-verification-skill/SKILL.md | 12d587df | adapted |
-| skills/create-verification-skill/references/feature-map-example/README.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/README.md | 12d587df | adapted |
-| skills/create-verification-skill/references/feature-map-example/create-note.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md | 12d587df | portable |
-| skills/create-verification-skill/references/feature-map-example/search.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/search.md | 12d587df | portable |
+| skills/architect/SKILL.md | upstream/pstack/skills/architect/SKILL.md | 6b030021 | adapted |
+| skills/architect/references/design-red-flags.md | upstream/pstack/skills/architect/references/design-red-flags.md | 6b030021 | portable |
+| skills/architect/references/rationale-template.md | upstream/pstack/skills/architect/references/rationale-template.md | 6b030021 | adapted |
+| skills/architect/references/runner-prompt.md | upstream/pstack/skills/architect/references/runner-prompt.md | 6b030021 | adapted |
+| skills/arena/SKILL.md | upstream/pstack/skills/arena/SKILL.md | 6b030021 | adapted |
+| skills/authoring-a-skill/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/authoring-a-skill.md | 6b030021 | adapted |
+| skills/automate-me/SKILL.md | upstream/pstack/skills/automate-me/SKILL.md | 6b030021 | adapted |
+| skills/autonomous-run/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autonomous-run.md | 6b030021 | adapted |
+| skills/autopilot-full/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-full.md | 6b030021 | adapted |
+| skills/autopilot-stack/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/autopilot-stack.md | 6b030021 | adapted |
+| skills/babysit/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/babysit.md | 6b030021 | adapted |
+| skills/babysit/references/bugbot-triage.md | none | 6b030021 | new |
+| skills/benchmark-checklist/SKILL.md | upstream/pstack/skills/benchmark-checklist/SKILL.md | 6b030021 | portable |
+| skills/blast-radius/SKILL.md | upstream/pstack/skills/blast-radius/SKILL.md | 6b030021 | adapted |
+| skills/bro/SKILL.md | upstream/pstack/skills/bro/SKILL.md | 6b030021 | portable |
+| skills/bug-fix/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/bug-fix.md | 6b030021 | adapted |
+| skills/correct/SKILL.md | upstream/pstack/skills/correct/SKILL.md | 6b030021 | portable |
+| skills/create-formal-verification-skill/SKILL.md | upstream/pstack/skills/create-formal-verification-skill/SKILL.md | 6b030021 | adapted |
+| skills/create-verification-skill/SKILL.md | upstream/pstack/skills/create-verification-skill/SKILL.md | 6b030021 | adapted |
+| skills/create-verification-skill/references/feature-map-example/README.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/README.md | 6b030021 | adapted |
+| skills/create-verification-skill/references/feature-map-example/create-note.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md | 6b030021 | portable |
+| skills/create-verification-skill/references/feature-map-example/search.md | upstream/pstack/skills/create-verification-skill/references/feature-map-example/search.md | 6b030021 | portable |
 | skills/de-slop/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/deslop/SKILL.md | e46364b8 | portable |
-| skills/eval/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/eval.md | 12d587df | adapted |
-| skills/feature/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/feature.md | 12d587df | adapted |
-| skills/figure-it-out/SKILL.md | upstream/pstack/skills/figure-it-out/SKILL.md | 12d587df | adapted |
+| skills/eval/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/eval.md | 6b030021 | adapted |
+| skills/feature/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/feature.md | 6b030021 | adapted |
+| skills/figure-it-out/SKILL.md | upstream/pstack/skills/figure-it-out/SKILL.md | 6b030021 | adapted |
 | skills/fix-ci/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/fix-ci/SKILL.md | e46364b8 | portable |
 | skills/fix-merge-conflicts/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/fix-merge-conflicts/SKILL.md | e46364b8 | portable |
 | skills/get-pr-comments/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/get-pr-comments/SKILL.md | e46364b8 | portable |
-| skills/hillclimb/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/hillclimb.md | 12d587df | adapted |
-| skills/how/SKILL.md | upstream/pstack/skills/how/SKILL.md | 12d587df | adapted |
-| skills/how/references/explainer-prompt.md | upstream/pstack/skills/how/references/explainer-prompt.md | 12d587df | adapted |
-| skills/how/references/explorer-prompt.md | upstream/pstack/skills/how/references/explorer-prompt.md | 12d587df | adapted |
-| skills/interrogate/SKILL.md | upstream/pstack/skills/interrogate/SKILL.md | 12d587df | adapted |
-| skills/interrogate/references/code-quality-review.md | upstream/pstack/skills/interrogate/references/code-quality-review.md | 12d587df | adapted |
-| skills/interrogate/references/lead-judgment.md | upstream/pstack/skills/interrogate/references/lead-judgment.md | 12d587df | adapted |
-| skills/interrogate/references/reviewer-prompt.md | upstream/pstack/skills/interrogate/references/reviewer-prompt.md | 12d587df | portable |
-| skills/interrogate/references/rubric.md | upstream/pstack/skills/interrogate/references/rubric.md | 12d587df | adapted |
-| skills/investigation/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/investigation.md | 12d587df | adapted |
-| skills/maintain-verification-skill/SKILL.md | upstream/pstack/skills/maintain-verification-skill/SKILL.md | 12d587df | adapted |
+| skills/hillclimb/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/hillclimb.md | 6b030021 | adapted |
+| skills/how/SKILL.md | upstream/pstack/skills/how/SKILL.md | 6b030021 | adapted |
+| skills/how/references/explainer-prompt.md | upstream/pstack/skills/how/references/explainer-prompt.md | 6b030021 | adapted |
+| skills/how/references/explorer-prompt.md | upstream/pstack/skills/how/references/explorer-prompt.md | 6b030021 | adapted |
+| skills/in-your-own-words/SKILL.md | upstream/pstack/skills/in-your-own-words/SKILL.md | 6b030021 | portable |
+| skills/interrogate/SKILL.md | upstream/pstack/skills/interrogate/SKILL.md | 6b030021 | adapted |
+| skills/investigation/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/investigation.md | 6b030021 | adapted |
+| skills/ketchup-video/SKILL.md | upstream/pstack/skills/ketchup-video/SKILL.md | 6b030021 | adapted |
+| skills/ketchup/SKILL.md | upstream/pstack/skills/ketchup/SKILL.md | 6b030021 | adapted |
+| skills/maintain-formal-verification-skill/SKILL.md | upstream/pstack/skills/maintain-formal-verification-skill/SKILL.md | 6b030021 | portable |
+| skills/maintain-verification-skill/SKILL.md | upstream/pstack/skills/maintain-verification-skill/SKILL.md | 6b030021 | adapted |
+| skills/make-bot-ui/SKILL.md | upstream/pstack/skills/make-bot-ui/SKILL.md | 6b030021 | portable |
 | skills/make-pr-easy-to-review/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md | e46364b8 | portable |
-| skills/multi-phase-plan/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/multi-phase-plan.md | 12d587df | adapted |
-| skills/no-comments/SKILL.md | upstream/pstack/skills/no-comments/SKILL.md | 12d587df | adapted |
-| skills/opening-a-pr/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/opening-a-pr.md | 12d587df | adapted |
-| skills/orchestrate/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/orchestrate.md | 12d587df | adapted |
-| skills/pause-safely/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/pause-safely.md | 12d587df | adapted |
-| skills/perf-issue/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/perf-issue.md | 12d587df | adapted |
-| skills/poteto-mode/SKILL.md | upstream/pstack/skills/poteto-mode/SKILL.md | 12d587df | adapted |
-| skills/principle-attack-the-premise/SKILL.md | upstream/pstack/skills/principle-attack-the-premise/SKILL.md | 12d587df | adapted |
-| skills/principle-boundary-discipline/SKILL.md | upstream/pstack/skills/principle-boundary-discipline/SKILL.md | 12d587df | adapted |
-| skills/principle-build-the-lever/SKILL.md | upstream/pstack/skills/principle-build-the-lever/SKILL.md | 12d587df | adapted |
-| skills/principle-encode-lessons-in-structure/SKILL.md | upstream/pstack/skills/principle-encode-lessons-in-structure/SKILL.md | 12d587df | adapted |
-| skills/principle-exhaust-the-design-space/SKILL.md | upstream/pstack/skills/principle-exhaust-the-design-space/SKILL.md | 12d587df | portable |
-| skills/principle-experience-first/SKILL.md | upstream/pstack/skills/principle-experience-first/SKILL.md | 12d587df | adapted |
-| skills/principle-fix-root-causes/SKILL.md | upstream/pstack/skills/principle-fix-root-causes/SKILL.md | 12d587df | adapted |
-| skills/principle-foundational-thinking/SKILL.md | upstream/pstack/skills/principle-foundational-thinking/SKILL.md | 12d587df | adapted |
-| skills/principle-guard-the-context-window/SKILL.md | upstream/pstack/skills/principle-guard-the-context-window/SKILL.md | 12d587df | adapted |
-| skills/principle-laziness-protocol/SKILL.md | upstream/pstack/skills/principle-laziness-protocol/SKILL.md | 12d587df | adapted |
-| skills/principle-make-operations-idempotent/SKILL.md | upstream/pstack/skills/principle-make-operations-idempotent/SKILL.md | 12d587df | portable |
-| skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | upstream/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | 12d587df | adapted |
-| skills/principle-minimize-reader-load/SKILL.md | upstream/pstack/skills/principle-minimize-reader-load/SKILL.md | 12d587df | adapted |
-| skills/principle-model-the-domain/SKILL.md | upstream/pstack/skills/principle-model-the-domain/SKILL.md | 12d587df | adapted |
-| skills/principle-never-block-on-the-human/SKILL.md | upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md | 12d587df | adapted |
-| skills/principle-outcome-oriented-execution/SKILL.md | upstream/pstack/skills/principle-outcome-oriented-execution/SKILL.md | 12d587df | portable |
-| skills/principle-prove-it-works/SKILL.md | upstream/pstack/skills/principle-prove-it-works/SKILL.md | 12d587df | adapted |
-| skills/principle-redesign-from-first-principles/SKILL.md | upstream/pstack/skills/principle-redesign-from-first-principles/SKILL.md | 12d587df | adapted |
-| skills/principle-separate-before-serializing-shared-state/SKILL.md | upstream/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md | 12d587df | adapted |
-| skills/principle-sequence-verifiable-units/SKILL.md | upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md | 12d587df | adapted |
-| skills/principle-subtract-before-you-add/SKILL.md | upstream/pstack/skills/principle-subtract-before-you-add/SKILL.md | 12d587df | adapted |
-| skills/principle-test-behavior-not-implementation/SKILL.md | upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md | 12d587df | adapted |
-| skills/principle-type-system-discipline/SKILL.md | upstream/pstack/skills/principle-type-system-discipline/SKILL.md | 12d587df | adapted |
-| skills/prototype/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/prototype.md | 12d587df | adapted |
-| skills/recall/SKILL.md | upstream/pstack/skills/recall/SKILL.md | 12d587df | adapted |
-| skills/refactoring/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/refactoring.md | 12d587df | adapted |
-| skills/reflect/SKILL.md | upstream/pstack/skills/reflect/SKILL.md | 12d587df | adapted |
-| skills/reflect/references/divergent-reviewer.md | upstream/pstack/skills/reflect/references/divergent-reviewer.md | 12d587df | adapted |
-| skills/reflect/references/judgment-reviewer.md | upstream/pstack/skills/reflect/references/judgment-reviewer.md | 12d587df | adapted |
-| skills/reflect/references/synthesizer.md | upstream/pstack/skills/reflect/references/synthesizer.md | 12d587df | adapted |
-| skills/reflect/references/tooling-reviewer.md | upstream/pstack/skills/reflect/references/tooling-reviewer.md | 12d587df | adapted |
-| skills/runtime-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/runtime-forensics.md | 12d587df | adapted |
-| skills/session-pickup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/session-pickup.md | 12d587df | adapted |
-| skills/setup-pstack/SKILL.md | upstream/pstack/skills/setup-pstack/SKILL.md | 12d587df | adapted |
-| skills/shipping/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/shipping.md | 12d587df | adapted |
-| skills/show-me-your-work/SKILL.md | upstream/pstack/skills/show-me-your-work/SKILL.md | 12d587df | adapted |
-| skills/swarm/SKILL.md | upstream/pstack/skills/swarm/SKILL.md | 12d587df | adapted |
-| skills/tdd/SKILL.md | upstream/pstack/skills/tdd/SKILL.md | 12d587df | adapted |
-| skills/teach/SKILL.md | upstream/pstack/skills/teach/SKILL.md | 12d587df | adapted |
-| skills/technical-writing/SKILL.md | upstream/pstack/skills/technical-writing/SKILL.md | 12d587df | adapted |
+| skills/multi-phase-plan/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/multi-phase-plan.md | 6b030021 | adapted |
+| skills/no-comments/SKILL.md | upstream/pstack/skills/no-comments/SKILL.md | 6b030021 | adapted |
+| skills/opening-a-pr/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/opening-a-pr.md | 6b030021 | adapted |
+| skills/orchestrate/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/orchestrate.md | 6b030021 | adapted |
+| skills/pause-safely/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/pause-safely.md | 6b030021 | adapted |
+| skills/perf-issue/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/perf-issue.md | 6b030021 | adapted |
+| skills/poteto-help/SKILL.md | upstream/pstack/skills/poteto-help/SKILL.md | 6b030021 | adapted |
+| skills/poteto-help/references/prompting.md | upstream/pstack/skills/poteto-help/references/prompting.md | 6b030021 | adapted |
+| skills/poteto-help/references/recipes.md | upstream/pstack/skills/poteto-help/references/recipes.md | 6b030021 | adapted |
+| skills/poteto-mode/SKILL.md | upstream/pstack/skills/poteto-mode/SKILL.md | 6b030021 | adapted |
+| skills/principle-attack-the-premise/SKILL.md | upstream/pstack/skills/principle-attack-the-premise/SKILL.md | 6b030021 | adapted |
+| skills/principle-boundary-discipline/SKILL.md | upstream/pstack/skills/principle-boundary-discipline/SKILL.md | 6b030021 | adapted |
+| skills/principle-build-the-lever/SKILL.md | upstream/pstack/skills/principle-build-the-lever/SKILL.md | 6b030021 | adapted |
+| skills/principle-encode-lessons-in-structure/SKILL.md | upstream/pstack/skills/principle-encode-lessons-in-structure/SKILL.md | 6b030021 | adapted |
+| skills/principle-exhaust-the-design-space/SKILL.md | upstream/pstack/skills/principle-exhaust-the-design-space/SKILL.md | 6b030021 | portable |
+| skills/principle-experience-first/SKILL.md | upstream/pstack/skills/principle-experience-first/SKILL.md | 6b030021 | adapted |
+| skills/principle-explain-the-number/SKILL.md | upstream/pstack/skills/principle-explain-the-number/SKILL.md | 6b030021 | adapted |
+| skills/principle-fix-root-causes/SKILL.md | upstream/pstack/skills/principle-fix-root-causes/SKILL.md | 6b030021 | adapted |
+| skills/principle-foundational-thinking/SKILL.md | upstream/pstack/skills/principle-foundational-thinking/SKILL.md | 6b030021 | adapted |
+| skills/principle-guard-the-context-window/SKILL.md | upstream/pstack/skills/principle-guard-the-context-window/SKILL.md | 6b030021 | adapted |
+| skills/principle-laziness-protocol/SKILL.md | upstream/pstack/skills/principle-laziness-protocol/SKILL.md | 6b030021 | adapted |
+| skills/principle-make-operations-idempotent/SKILL.md | upstream/pstack/skills/principle-make-operations-idempotent/SKILL.md | 6b030021 | portable |
+| skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | upstream/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md | 6b030021 | adapted |
+| skills/principle-minimize-reader-load/SKILL.md | upstream/pstack/skills/principle-minimize-reader-load/SKILL.md | 6b030021 | adapted |
+| skills/principle-model-the-domain/SKILL.md | upstream/pstack/skills/principle-model-the-domain/SKILL.md | 6b030021 | adapted |
+| skills/principle-never-block-on-the-human/SKILL.md | upstream/pstack/skills/principle-never-block-on-the-human/SKILL.md | 6b030021 | adapted |
+| skills/principle-outcome-oriented-execution/SKILL.md | upstream/pstack/skills/principle-outcome-oriented-execution/SKILL.md | 6b030021 | portable |
+| skills/principle-prove-it-works/SKILL.md | upstream/pstack/skills/principle-prove-it-works/SKILL.md | 6b030021 | adapted |
+| skills/principle-redesign-from-first-principles/SKILL.md | upstream/pstack/skills/principle-redesign-from-first-principles/SKILL.md | 6b030021 | adapted |
+| skills/principle-separate-before-serializing-shared-state/SKILL.md | upstream/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md | 6b030021 | adapted |
+| skills/principle-sequence-verifiable-units/SKILL.md | upstream/pstack/skills/principle-sequence-verifiable-units/SKILL.md | 6b030021 | adapted |
+| skills/principle-subtract-before-you-add/SKILL.md | upstream/pstack/skills/principle-subtract-before-you-add/SKILL.md | 6b030021 | adapted |
+| skills/principle-test-behavior-not-implementation/SKILL.md | upstream/pstack/skills/principle-test-behavior-not-implementation/SKILL.md | 6b030021 | adapted |
+| skills/principle-type-system-discipline/SKILL.md | upstream/pstack/skills/principle-type-system-discipline/SKILL.md | 6b030021 | adapted |
+| skills/prototype/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/prototype.md | 6b030021 | adapted |
+| skills/recall/SKILL.md | upstream/pstack/skills/recall/SKILL.md | 6b030021 | adapted |
+| skills/refactoring/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/refactoring.md | 6b030021 | adapted |
+| skills/reflect/SKILL.md | upstream/pstack/skills/reflect/SKILL.md | 6b030021 | adapted |
+| skills/reflect/references/divergent-reviewer.md | upstream/pstack/skills/reflect/references/divergent-reviewer.md | 6b030021 | adapted |
+| skills/reflect/references/judgment-reviewer.md | upstream/pstack/skills/reflect/references/judgment-reviewer.md | 6b030021 | adapted |
+| skills/reflect/references/synthesizer.md | upstream/pstack/skills/reflect/references/synthesizer.md | 6b030021 | adapted |
+| skills/reflect/references/tooling-reviewer.md | upstream/pstack/skills/reflect/references/tooling-reviewer.md | 6b030021 | adapted |
+| skills/runtime-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/runtime-forensics.md | 6b030021 | adapted |
+| skills/session-pickup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/session-pickup.md | 6b030021 | adapted |
+| skills/setup-pstack/SKILL.md | upstream/pstack/skills/setup-pstack/SKILL.md | 6b030021 | adapted |
+| skills/sharpen/SKILL.md | upstream/pstack/skills/sharpen/SKILL.md | 6b030021 | portable |
+| skills/shipping/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/shipping.md | 6b030021 | adapted |
+| skills/show-me-your-work/SKILL.md | upstream/pstack/skills/show-me-your-work/SKILL.md | 6b030021 | adapted |
+| skills/statechart/SKILL.md | upstream/pstack/skills/statechart/SKILL.md | 6b030021 | adapted |
+| skills/statechart/references/render.md | upstream/pstack/skills/statechart/references/render.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/Counter/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/Counter/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterAction/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterAction/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterDeadlock/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterDeadlock/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterFan/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterFan/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterGuard/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterGuard/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterInitPast/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterInitPast/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterInitPastHolds/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterInitPastHolds/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterInstance/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterInstance/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterJump/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterJump/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterLoop/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterLoop/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterOrder/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterOrder/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterRules/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterRules/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterStart/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterStart/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterStop/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterStop/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterTie/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterTie/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterTieInGraph/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterTieInGraph/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/CounterView/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/CounterView/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/DieHard/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/DieHard/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/FirstRule/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/FirstRule/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/HiddenClock/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/HiddenClock/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/Login/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/Login/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/LoginGuarded/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/LoginGuarded/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/LoginParallel/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/LoginParallel/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/MediaPlayer/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/MediaPlayer/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/MediaPlayerFixed/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/MediaPlayerFixed/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/MediaPlayerProps/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/MediaPlayerProps/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/PickWorker/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/PickWorker/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/Shadow/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/Shadow/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/SpacedNames/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/SpacedNames/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/TwoPhase/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/TwoPhase/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/TwoPhaseFixed/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/TwoPhaseFixed/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/TypeGuard/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/TypeGuard/report.md | 6b030021 | portable |
+| skills/statechart/scripts/test/corpus/UserNoDeadlock/report.md | upstream/pstack/skills/statechart/scripts/test/corpus/UserNoDeadlock/report.md | 6b030021 | portable |
+| skills/swarm/SKILL.md | upstream/pstack/skills/swarm/SKILL.md | 6b030021 | adapted |
+| skills/tdd/SKILL.md | upstream/pstack/skills/tdd/SKILL.md | 6b030021 | adapted |
+| skills/teach/SKILL.md | upstream/pstack/skills/teach/SKILL.md | 6b030021 | adapted |
+| skills/technical-writing/SKILL.md | upstream/pstack/skills/technical-writing/SKILL.md | 6b030021 | adapted |
 | skills/thermo-nuclear-code-quality-review/SKILL.md | refs/ref-port/plugins/pstack/skills/thermo-nuclear-code-quality-review/SKILL.md | c2ade4bb | portable |
-| skills/trace-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/trace-forensics.md | 12d587df | adapted |
-| skills/typescript-best-practices/SKILL.md | upstream/pstack/skills/typescript-best-practices/SKILL.md | 12d587df | adapted |
-| skills/unslop/SKILL.md | upstream/pstack/skills/unslop/SKILL.md | 12d587df | adapted |
-| skills/visual-parity/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/visual-parity.md | 12d587df | adapted |
+| skills/trace-forensics/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/trace-forensics.md | 6b030021 | adapted |
+| skills/typescript-best-practices/SKILL.md | upstream/pstack/skills/typescript-best-practices/SKILL.md | 6b030021 | adapted |
+| skills/typescript-best-practices/references/patterns.md | upstream/pstack/skills/typescript-best-practices/references/patterns.md | 6b030021 | adapted |
+| skills/unslop/SKILL.md | upstream/pstack/skills/unslop/SKILL.md | 6b030021 | adapted |
+| skills/visual-parity/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/visual-parity.md | 6b030021 | adapted |
 | skills/what-did-i-get-done/SKILL.md | refs/cursor-plugins/cursor-team-kit/skills/what-did-i-get-done/SKILL.md | e46364b8 | portable |
-| skills/why/SKILL.md | upstream/pstack/skills/why/SKILL.md | 12d587df | adapted |
-| skills/why/references/epistemics.md | upstream/pstack/skills/why/references/epistemics.md | 12d587df | adapted |
-| skills/why/references/investigator-prompt.md | upstream/pstack/skills/why/references/investigator-prompt.md | 12d587df | adapted |
-| skills/why/references/source-playbook.md | upstream/pstack/skills/why/references/source-playbook.md | 12d587df | adapted |
-| skills/why/references/sources/code-archaeology.md | upstream/pstack/skills/why/references/sources/code-archaeology.md | 12d587df | portable |
-| skills/why/references/sources/databricks.md | upstream/pstack/skills/why/references/sources/databricks.md | 12d587df | adapted |
-| skills/why/references/sources/datadog.md | upstream/pstack/skills/why/references/sources/datadog.md | 12d587df | adapted |
-| skills/why/references/sources/incident-postmortem.md | upstream/pstack/skills/why/references/sources/incident-postmortem.md | 12d587df | adapted |
-| skills/why/references/sources/linear.md | upstream/pstack/skills/why/references/sources/linear.md | 12d587df | adapted |
-| skills/why/references/sources/notion.md | upstream/pstack/skills/why/references/sources/notion.md | 12d587df | adapted |
-| skills/why/references/sources/sentry.md | upstream/pstack/skills/why/references/sources/sentry.md | 12d587df | adapted |
-| skills/why/references/sources/slack.md | upstream/pstack/skills/why/references/sources/slack.md | 12d587df | adapted |
-| skills/why/references/synthesizer-prompt.md | upstream/pstack/skills/why/references/synthesizer-prompt.md | 12d587df | adapted |
-| skills/worktree-cleanup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/worktree-cleanup.md | 12d587df | adapted |
+| skills/why/SKILL.md | upstream/pstack/skills/why/SKILL.md | 6b030021 | adapted |
+| skills/why/references/epistemics.md | upstream/pstack/skills/why/references/epistemics.md | 6b030021 | adapted |
+| skills/why/references/investigator-prompt.md | upstream/pstack/skills/why/references/investigator-prompt.md | 6b030021 | adapted |
+| skills/why/references/source-playbook.md | upstream/pstack/skills/why/references/source-playbook.md | 6b030021 | adapted |
+| skills/why/references/sources/code-archaeology.md | upstream/pstack/skills/why/references/sources/code-archaeology.md | 6b030021 | portable |
+| skills/why/references/sources/databricks.md | upstream/pstack/skills/why/references/sources/databricks.md | 6b030021 | adapted |
+| skills/why/references/sources/datadog.md | upstream/pstack/skills/why/references/sources/datadog.md | 6b030021 | adapted |
+| skills/why/references/sources/incident-postmortem.md | upstream/pstack/skills/why/references/sources/incident-postmortem.md | 6b030021 | adapted |
+| skills/why/references/sources/linear.md | upstream/pstack/skills/why/references/sources/linear.md | 6b030021 | adapted |
+| skills/why/references/sources/notion.md | upstream/pstack/skills/why/references/sources/notion.md | 6b030021 | adapted |
+| skills/why/references/sources/sentry.md | upstream/pstack/skills/why/references/sources/sentry.md | 6b030021 | adapted |
+| skills/why/references/sources/slack.md | upstream/pstack/skills/why/references/sources/slack.md | 6b030021 | adapted |
+| skills/why/references/synthesizer-prompt.md | upstream/pstack/skills/why/references/synthesizer-prompt.md | 6b030021 | adapted |
+| skills/worktree-cleanup/SKILL.md | upstream/pstack/skills/poteto-mode/playbooks/worktree-cleanup.md | 6b030021 | adapted |
 
 ## Claude Code Catalog
 
@@ -209,13 +265,13 @@ leaves" rule strips it too, independently arriving at the same output.
 
 | Path | Upstream | Sync | Status |
 |---|---|---|---|
-| plugins/pstack/.claude-plugin/* | upstream/pstack/.cursor-plugin/plugin.json | 12d587df | adapted |
-| plugins/pstack/agents/** | upstream/pstack/agents | 12d587df | adapted |
-| plugins/pstack/assets/* | upstream/pstack/assets | 12d587df | adapted |
-| plugins/pstack/hooks/** | none | 12d587df | new |
-| plugins/pstack/models.json | none | 12d587df | new |
-| plugins/pstack/policy.json | none | 12d587df | new |
-| plugins/pstack/skills/** | upstream/pstack/skills | 12d587df | adapted |
+| plugins/pstack/.claude-plugin/* | upstream/pstack/.cursor-plugin/plugin.json | 6b030021 | adapted |
+| plugins/pstack/agents/** | upstream/pstack/agents | 6b030021 | adapted |
+| plugins/pstack/assets/* | upstream/pstack/assets | 6b030021 | adapted |
+| plugins/pstack/hooks/** | none | 6b030021 | new |
+| plugins/pstack/models.json | none | 6b030021 | new |
+| plugins/pstack/policy.json | none | 6b030021 | new |
+| plugins/pstack/skills/** | upstream/pstack/skills | 6b030021 | adapted |
 
 ## agents/comment-sicko.md
 
@@ -1812,3 +1868,1011 @@ Hand-carried policy re-pinned: arena runners/cross-judge and architect/interroga
 - sync: 12d587dfb20741cafc376c42c696c5f6e2a64487 (0.15.5)
 
 apply.mjs regenerated the tree from the 0.15.5 snapshot: upstream sentence moves land verbatim where the ledger already adapts dialect, the ledger's re-anchored entries re-applied clean, denylist 0 hits.
+
+## agents/comment-sicko.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream renamed the frontmatter `name` to the kebab form; the port already shipped `comment-sicko`, so the row flips with no file change.
+
+## agents/poteto-agent.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream redefined the agent as poteto-mode's delegate (chat is the runner): new description, `is_background: true`, and a body naming the plugin-cache search. Port keeps the task-tool spawn sentence, drops `is_background` (not an OMP agent key), and maps the cache search to `skill://poteto-mode` plus the `extensions:` path in `~/.omp/agent/config.yml`.
+
+## README.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Repo-root README refreshed upstream (0.15.6–0.15.36): new skill table entries and the harness pointer. Port's README is its own install doc; no port change beyond the pin.
+
+## docs/guide/README.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Guide index gained the new skills (ketchup, sharpen, correct, benchmark-checklist, statechart, poteto-help) and refreshed prompts.
+
+## docs/guide/01-setup.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Setup page mentions the formal-verification skills.
+
+## docs/guide/02-poteto-mode.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Subagents section rewritten to the chat-runs/poteto-agent-delegates model.
+
+## docs/guide/03-understand.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Adds `/ketchup` and `/sharpen` to the understand flow.
+
+## docs/guide/04-design.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Adds `/statechart` to the design flow.
+
+## docs/guide/05-build-and-clean.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Adds `/correct` and sharpen mentions.
+
+## docs/guide/06-verify-and-ship.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Formal-verification skills joined the verify page.
+
+## docs/guide/07-overnight.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Autopilot docs reflect the agentic-orchestrate rework.
+
+## docs/guide/08-principles.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Principles index carries `explain-the-number`.
+
+## docs/guide/09-make-it-yours.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Model-default prose updated (opus 4.5 xhigh, grok 4.2).
+
+## docs/guide/10-recipes-and-pitfalls.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Recipes picked up `/correct` and `/benchmark-checklist` entries.
+
+## docs/harness/claude-code.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream doc for the Claude Code harness (auto-update note #806). The port's `docs/claude-code.md` predates it; no port change.
+
+## .cursor-plugin/plugin.json
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Manifest version line bumped to 0.15.36; the generator maps it to `plugins/pstack/.claude-plugin/plugin.json`.
+
+## plugin.json
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New Agent Plugins v1 root manifest (name, version, skills/agents paths) shipped by upstream. The Claude target's manifest is generator-owned; `apply.mjs` picks the fields up on regen.
+
+## skills/statechart/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (statechart compiler, 0.15.23–0.15.32): Mermaid stateDiagram-v2 in, checked TLA+ model plus report out. Copied verbatim; port conventions: task tool.
+
+## skills/statechart/scripts/test/corpus/
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+TLC/SANY golden-output fixtures for the compiler tests, 400+ files. The port ships the compiler tree verbatim; goldens ride along.
+
+## skills/architect/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/architect/references/design-red-flags.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream reference grounding architect's design review. Copied verbatim; `skill://` asset pointers.
+
+## skills/architect/references/runner-prompt.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/arena/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/automate-me/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/autonomous-run/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/autopilot-full/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/autopilot-stack/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/babysit/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/benchmark-checklist/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill: vouches for a measured number. Copied verbatim.
+
+## skills/blast-radius/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/bug-fix/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/correct/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.31, #986): mines recurring agent misses and fixes the highest level that works. Copied verbatim.
+
+## skills/create-formal-verification-skill/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.23-era): generates a project-local formal-verification skill. Copied verbatim.
+
+## skills/create-verification-skill/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/eval/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/feature/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/figure-it-out/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/hillclimb/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/how/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/how/references/explorer-prompt.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/in-your-own-words/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill: the agent plays back the goal in its own words. Copied verbatim.
+
+## skills/interrogate/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/interrogate/references/code-quality-review.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/interrogate/references/lead-judgment.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/interrogate/references/reviewer-prompt.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/interrogate/references/rubric.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/ketchup-video/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.29): ketchup as a subtitled slide video. Copied verbatim.
+
+## skills/ketchup/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.25): recaps the current chat from the transcript. Copied verbatim; port reads `~/.omp/agent/sessions/` transcripts.
+
+## skills/maintain-formal-verification-skill/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill, pairs with create-formal-verification-skill. Copied verbatim.
+
+## skills/make-bot-ui/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.30, #982 era): build a webhook UI that wakes a Grok Bot. Copied verbatim (Grok is a product name, not a banned slug); frontmatter block-scalar description flattened to one line per the repo validator.
+
+## skills/multi-phase-plan/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/no-comments/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/opening-a-pr/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/orchestrate/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/perf-issue/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/poteto-help/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.5–0.15.36): answers pstack usage questions from the shipped skills. Port: `skill://` pointers, `~/.omp/agent/pstack-models.md`, the Claude Code adapter sentence de-branded to the generated `plugins/pstack` package.
+
+## skills/poteto-help/references/prompting.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream reference (0.15.36). Copied verbatim.
+
+## skills/poteto-help/references/recipes.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream reference (0.15.36). Copied verbatim.
+
+## skills/poteto-mode/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+0.15.6–0.15.36: Subagents reworked to chat-runs/poteto-agent-delegates (fresh spawn per task, strict resume), `correct`/`ketchup`/`sharpen` triggers, the explain-the-number principle in the index, orchestrate agentic (orch scripts deleted), Grok panel default. Ported: task tool with `agent:`/`isolated:`, `skill://` pointers, playbooks as top-level skills.
+
+## skills/poteto-mode/scripts/check-plan.mjs
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/check-plan.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/orch/orch.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/orch/orch.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/orch/store.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/package.json
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/fakes.test-helper.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/github.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/github.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/policy.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/policy.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/watch-pr/types.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/poteto-mode/scripts/worktree-audit.sh
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/principle-attack-the-premise/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-build-the-lever/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-encode-lessons-in-structure/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-exhaust-the-design-space/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-explain-the-number/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-fix-root-causes/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-guard-the-context-window/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-laziness-protocol/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-make-operations-idempotent/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-minimize-reader-load/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-model-the-domain/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-never-block-on-the-human/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-redesign-from-first-principles/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-subtract-before-you-add/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-test-behavior-not-implementation/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/principle-type-system-discipline/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP vocabulary preserved.
+
+## skills/recall/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/refactoring/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/reflect/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Reflect panel reworked (judgment/divergent/tooling reviewers as references).
+
+## skills/reflect/references/divergent-reviewer.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/reflect/references/judgment-reviewer.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/reflect/references/synthesizer.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/reflect/references/tooling-reviewer.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/runtime-forensics/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/session-pickup/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/setup-pstack/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Setup offers the formal-verification skill at the end; default panel prose updated. Port keeps `~/.omp/agent/pstack-models.md` targets.
+
+## skills/sharpen/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream skill (0.15.6-era): deepens the prompt before work. Copied verbatim.
+
+## skills/shipping/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/show-me-your-work/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/references/render.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/backends/cfg.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/backends/mermaid.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/backends/plain-text.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/backends/report.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/config.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/dot.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/marks.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/messages.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/spec.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/trace.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/value.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/verdict.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/frontends/view.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/ir.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/package.json
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/annotate.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/label.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/lift.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/loop-check.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/paths.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/reach.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/region-check.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/passes/regions.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/pipeline.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/run.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/statechart
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/statechart.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/ConfigOracle.java
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/chart.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/charts/Braces.mmd
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/charts/Escapes.mmd
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/charts/Phases.mmd
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/cli.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/config-fuzz.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/differential.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/grid/Grid.cfg
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/grid/Grid.tla
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/grid/sany.out
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/java.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/labels.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/messages.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/pipeline.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/plain-tlc.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/render.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/tlc-out.test.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/test/tlc.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/tsconfig.json
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/statechart/scripts/worker.ts
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/swarm/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Phase A renumbered and the dangling table reference fixed (#807).
+
+## skills/technical-writing/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/trace-forensics/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## skills/typescript-best-practices/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/typescript-best-practices/references/patterns.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+New upstream reference (brand types, type guards). The port previously shipped SKILL.md only; the reference joins the package.
+
+## skills/unslop/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Why's source set reworked; synthesizer prompt tightened.
+
+## skills/why/references/epistemics.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/investigator-prompt.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/sources/code-archaeology.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/sources/datadog.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/sources/incident-postmortem.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/sources/sentry.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/sources/slack.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/why/references/synthesizer-prompt.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's wording; OMP mechanics, pointer forms and configured-role vocabulary preserved.
+
+## skills/worktree-cleanup/SKILL.md
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Upstream 0.15.6–0.15.36 hunks resolved onto the port's playbook text; OMP mechanics preserved.
+
+## command-templates/ (new entries)
+
+- sync: 6b0300214a09fd6029cfb7077043125758cd1fd2 (0.15.36)
+
+Templates added for the eleven new user-facing skills (benchmark-checklist, correct, create-formal-verification-skill, in-your-own-words, ketchup, ketchup-video, maintain-formal-verification-skill, make-bot-ui, poteto-help, sharpen, statechart); the bridge registers each as `/pstack:<name>`.

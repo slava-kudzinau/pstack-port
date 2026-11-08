@@ -17,10 +17,13 @@ All commands are namespaced under `/pstack:` to avoid collisions with OMP's buil
 | `/pstack:autonomous-run` | Drive a long task to completion without stopping |
 | `/pstack:bug-fix` | Reproduce, root-cause, fix, verify a reported defect |
 | `/pstack:figure-it-out` | Design a bespoke playbook for complex, non-standard work |
+| `/pstack:in-your-own-words` | Play the goal back in your own words before starting |
 | `/pstack:hillclimb` | Sustained improvement of one metric against a target |
 | `/pstack:orchestrate` | Run a whole project with one coordinator chat |
 | `/pstack:perf-issue` | Trace and improve measured slowness against a baseline |
 | `/pstack:prototype` | Throwaway sketch to make a design decision cheaply |
+| `/pstack:sharpen` | Deepen the prompt — make it sharper, not longer |
+| `/pstack:statechart` | Draw the behavior as a checked statechart |
 | `/pstack:refactoring` | Behavior-preserving change to structure or shape |
 | `/pstack:runtime-forensics` | Diagnose a runtime symptom from live instrumentation |
 | `/pstack:session-pickup` | Resume or take over a prior agent's in-flight work |
@@ -34,6 +37,7 @@ All commands are namespaced under `/pstack:` to avoid collisions with OMP's buil
 | Command | What it does |
 |---|---|
 | `/pstack:interrogate` | Multi-perspective adversarial review from independent angles |
+| `/pstack:correct` | Mine recurring agent misses and fix the highest level that works |
 | `/pstack:thermo-nuclear-code-quality-review` | Deep maintainability review for abstraction quality and spaghetti |
 | `/pstack:review` | Standard code review with quality checks |
 
@@ -45,6 +49,8 @@ All commands are namespaced under `/pstack:` to avoid collisions with OMP's buil
 | `/pstack:why` | Why was this built this way? Traces historical decisions |
 | `/pstack:teach` | Explain a body of work so a person actually understands it |
 | `/pstack:recall` | Reconstruct recent working context from chat history |
+| `/pstack:ketchup` | Recap what has happened in this chat so far |
+| `/pstack:ketchup-video` | Recap the chat as a subtitled slide video |
 | `/pstack:blast-radius` | Find what a change could break somewhere else |
 
 ## PR workflow
@@ -67,6 +73,11 @@ All commands are namespaced under `/pstack:` to avoid collisions with OMP's buil
 | `/pstack:create-verification-skill` | Generate a project-local verification skill |
 | `/pstack:maintain-verification-skill` | Periodic pass to keep verification skills honest |
 | `/pstack:tdd` | Test-driven development: write failing test, implement, confirm |
+| `/pstack:benchmark-checklist` | Vouch for a measured number before reporting it |
+| `/pstack:create-formal-verification-skill` | Generate a project-local formal verification skill |
+| `/pstack:maintain-formal-verification-skill` | Update formal verification to match the code |
+| `/pstack:make-bot-ui` | Build a webhook UI that wakes a Grok Bot |
+| `/pstack:poteto-help` | Answer pstack usage questions |
 | `/pstack:show-me-your-work` | Keep a reviewable decision trail for autonomous work |
 | `/pstack:reflect` | Spawn reviewers to extract learnings from recent work |
 | `/pstack:automate-me` | Capture working style or preferences into a skill |
