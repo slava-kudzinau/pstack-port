@@ -47,7 +47,7 @@ const assetPaths: string[] = [];
 for (const file of SCAN.flatMap(files)) {
   const text = readFileSync(join(plugin, file), "utf-8");
 
-  for (const m of text.matchAll(/(skill|agent):\/\/([A-Za-z_][A-Za-z0-9_-]*)(\/[^\s`|)\]]*)?/g)) {
+  for (const m of text.matchAll(/(skill|agent):\/\/([A-Za-z_][A-Za-z0-9_<>*-]*)(\/[^\s`|)\]]*)?/g)) {
     const [, kind, target, sub] = m;
     const site = `${file}:${lineOf(text, m.index)}`;
     pointerSites.push(`${kind}://${target}${sub ?? ""}`);
@@ -57,6 +57,7 @@ for (const file of SCAN.flatMap(files)) {
         failures.add(`ORPHAN ${kind}://${target} (${site})`);
       continue;
     }
+    if (family(target) && sub === undefined) continue;
     const skillDir = join(plugin, "skills", target);
     if (!existsSync(join(skillDir, "SKILL.md"))) {
       failures.add(`ORPHAN skill://${target} (${site})`);

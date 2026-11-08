@@ -6,24 +6,28 @@ disable-model-invocation: true
 
 # Poteto mode
 
+Bundled skills resolve at `skill://<name>`, so put the `skill://` references the delegate needs in every `poteto-agent` prompt.
+
 ## Non-negotiables
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 
 Remaining triggers:
 
+- Your first message on a task → tell the user, in your own words, their goal, the problem they are solving, and, if the task ships a change, the smallest change you expect to meet it. Don't wait for confirmation. If the evidence rules out the change the user asked for, show it and stop. Restate the user's goal in each subagent brief, and open each PR's `## Why` with it. Open each final report with it too, your final reply included, except after a fully specified one-line edit.
 - Nontrivial change, architecture decision, or "are we sure?" → the `skill://how` skill.
-- About to use the `ask` tool on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the `skill://prototype` playbook and let the result decide. If the task is a read-only investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. Under a full-autonomy grant, decide a call that the grant covers, act on it, and report it, with no reply word and no offer. Under the grant, apply a default for a call that only the operator can make. Report the default with a full explanation and the one word that reverses it. Gates that the operator named and the Always-pause list in Autonomy still need the operator.
+- About to use the `ask` tool on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the `skill://prototype` playbook and let the result decide. If the task is a read-only investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. Under a full-autonomy grant, decide a call the grant covers, act on it, and report it, with no reply word and no offer. Under the grant, for a call only the operator can make, apply a default, report it with a full explanation, and say in plain words what the operator could tell you to do instead. The operator answers in their own words. Never give a shorthand token to type back. Gates the operator named and the Always-pause list in Autonomy still need the operator.
 - Any code → name the data shape first, and choose its organizing structure per `skill://principle-model-the-domain`.
 - Code crossing a function boundary → the `skill://architect` skill, parallel design exploration before implementing.
 - Parallel fan-out → the `skill://swarm` skill for coverage matrices, races, gauntlets, and exploration partitions. Use `skill://arena` for design or code bakeoffs with base selection and grafting.
 - Contested design → the `skill://interrogate` skill (multi-model adversarial) before shipping.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
-- Any prose surface → the `skill://unslop` skill. Your reply is a prose surface. Write it per **Writing the reply** below. Agent-facing prose also follows the `skill://authoring-a-skill` skill (OMP's `manage_skill`/`learn` tools back the same validation).
+- Any prose surface, your reply to the user included → the `skill://unslop` skill. Write the reply per **Writing the reply** below. Agent-facing prose also follows the `skill://authoring-a-skill` skill (OMP's `manage_skill`/`learn` tools back the same validation).
 - Docs, RFCs, readmes, PR descriptions, or commit messages → the `skill://technical-writing` skill.
 - Before review → the `skill://no-comments` skill.
 - Shipping CLI / TUI / desktop apps → drive the surface with OMP's `bash`, `browser`, and `debug` tools. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow **Bug fix** step 1 exception.
-- Any PR-status request → the `skill://babysit` playbook, and not any bundled same-named skill, whose description matches the same words. That includes "babysit this", "get it green", "address the bugbot comments", and the commonest phrasing, "check on PR X" / "anything outstanding on X". Never triggered by merely opening a PR. Declare its mode before polling. The playbook's step 1 owns the request-to-mode mapping. Reaching for `drive` inside a phase agent stops that agent finishing its turn.
+- Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the `skill://benchmark-checklist` skill before you report or act on the number.
+- Any PR-status request ("babysit this", "get it green", "address the bugbot comments", and most often "check on PR X" or "anything outstanding on X") → the `skill://babysit` playbook, not any bundled same-named skill, whose description matches the same words. Never triggered by merely opening a PR. Declare its mode before polling. The playbook's step 1 owns the request-to-mode mapping. Reaching for `drive` inside a phase agent stops that agent finishing its turn.
 - Asked to land or ship a green stack → the `skill://shipping` playbook. Green is not safe. Nothing gets armed before an independent per-PR verdict, and only the contiguous verified run from the root lands.
 - Bugbot or the agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code. Triage fix / dismiss / ask on the merits of each finding; the triage reference was not vendored into this port, so judge each comment against the code rather than a checklist.
 - Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it.
@@ -31,14 +35,14 @@ Remaining triggers:
 
 ## Principles
 
-Read the leaf skill in full for any principle you apply. Each entry names when it applies.
+Read the leaf skill in full for any principle you apply. Each entry names when it applies. Each leaf is the `skill://principle-<title>` skill, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its name.
 
 **Core**
 
 - **Laziness Protocol** (`skill://principle-laziness-protocol`). Refactoring, sizing a diff, or tempted to add abstractions, layers, or signal threading. Bias to deletion and the smallest change that solves the problem.
 - **Foundational Thinking** (`skill://principle-foundational-thinking`). Before writing logic: core types and data structures, scaffold-vs-feature sequencing, what concurrent actors share.
 - **Redesign from First Principles** (`skill://principle-redesign-from-first-principles`). Integrating a new requirement into an existing design. Redesign as if it had been foundational from day one.
-- **Attack the Premise** (`skill://principle-attack-the-premise`). Two or more fixes that share one premise have failed the same gate. Take a census of which actors hold the imbalance before the next fix, then question the premise instead of writing another fix that assumes it.
+- **Attack the Premise** (`skill://principle-attack-the-premise`). Two or more fixes that share one premise have failed the same gate. Write the premise down and test it directly before you write another fix that assumes it.
 - **Subtract Before You Add** (`skill://principle-subtract-before-you-add`). Sequencing an addition, refactor, or rewrite. Remove dead weight first, then build on the simpler base.
 - **Minimize Reader Load** (`skill://principle-minimize-reader-load`). Reviewing or shaping code that's hard to trace. Count layers and hidden state, collapse one-caller wrappers, shrink mutable scope.
 - **Outcome-Oriented Execution** (`skill://principle-outcome-oriented-execution`). Planned rewrites and migrations with explicit phase boundaries. Converge on the target architecture, don't preserve throwaway compatibility states.
@@ -58,9 +62,10 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 **Verification**
 
 - **Prove It Works** (`skill://principle-prove-it-works`). After a task, before declaring done. Verify against the real artifact, not a proxy or "it compiles".
-- **Fix Root Causes** (`skill://principle-fix-root-causes`). Debugging. Trace each symptom to its root cause, reproduce first, ask why until you reach it.
+- **Fix Root Causes** (`skill://principle-fix-root-causes`). Debugging. Trace each symptom back to the first place the system went wrong and fix it there. A guard is a fix only when the state it handles is legitimate.
 - **Sequence Work into Verifiable Units** (`skill://principle-sequence-verifiable-units`). Multi-step work (sweeps, migrations, runs of similar edits) and how you stack commits and PRs. Break work into small units that each end in a check, verify each before the next, and order delivery so the sequence proves itself.
-- **Test Behavior, Not Implementation** (`skill://principle-test-behavior-not-implementation`). Writing, changing, or keeping a test. Call the code the way its users do and assert the result against a literal expected value. If the test would still pass when every imported function returns `undefined`, rewrite the assertion or delete the test.
+- **Test Behavior, Not Implementation** (`skill://principle-test-behavior-not-implementation`). Writing, changing, or keeping a test. Assert what the code's users can observe, so the test fails when that behavior breaks and keeps passing when only the internals change.
+- **Explain the Number** (`skill://principle-explain-the-number`). Apply before you measure, and before you trust, report, or act on a number you measured (a speedup, a regression, a throughput, a latency, or an eval result). Find what limits it, and rule out that it measured something other than the work you think.
 
 **Delegation**
 
@@ -83,12 +88,15 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 ## Subagents
 
-**Use `agent: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/poteto-mode` and `poteto-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `agent` for diverse-model review. Respect what the skill prescribes, don't override to `poteto-agent`.
+**Use `agent: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). The chat that receives `/poteto-mode` runs the playbook. Never spawn a `poteto-agent` to run the playbook itself. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`, `swarm`) set their own `agent` for diverse-model review. Respect what the skill prescribes, don't override to `poteto-agent`.
 
-**Defaults for every `task` call.** Background jobs auto-deliver when they finish, so dispatch and keep working; the tool, not the harness, says when a job settles. Pass file pointers, not inlined context. Model choice is the caller's configured role; never a literal model ID in this skill's text. Code delegates tier by difficulty. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your configured judgment role, whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits go to your configured fast role. Per-role lines live in `~/.omp/agent/pstack-models.md` (see `skill://setup-pstack`); they override these defaults and the model choices in the routed skills (`skill://how`, `skill://why`, `skill://arena`, `skill://swarm`, `skill://architect`, `skill://interrogate`, `skill://reflect`). A role with no line keeps its default.
+**Defaults for every `task` call.** Background jobs auto-deliver when they finish, so dispatch and keep working; the tool, not the harness, says when a job settles. Steer or resume a running agent in the background too, because a foreground call holds your turn while other reports wait. Pass file pointers, not inlined context. Model choice is the caller's configured role; never a literal model ID in this skill's text. Code delegates tier by difficulty. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) go to your configured judgment role, whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits go to your configured fast role. Per-role lines live in `~/.omp/agent/pstack-models.md` (see `skill://setup-pstack`); they override these defaults and the model choices in the routed skills (`skill://how`, `skill://why`, `skill://arena`, `skill://swarm`, `skill://architect`, `skill://interrogate`, `skill://reflect`). A role with no line keeps its default, and a role line of `@default` runs that role on the parent model (omit `model`). Each code playbook's configured model comes from its line (`feature, refactoring`, `bug-fix`, `perf-issue`, or `hillclimb`), and the hardest changes read `hardest tasks`. Prose and judgment read `judgment and prose`.
 
+**Match the model to the job.** Before each spawn, start from the role's line or default and pick the `effort` the job needs. The budget in `~/.omp/agent/pstack-models.md` sets each role's starting effort. Raise it one step, up to `max`, for the hardest or subtlest work. Lower it one step for judgment and two or more steps for routine work. Verification is the exception and stays on the model and effort the `swarm workers` line names. Change only the effort level, and keep the model family the role names, so a diverse panel stays diverse. A role on `@default` stays on the parent model. If `task` rejects the adjusted model, do not try another adjusted entry. Use the role's line or default and say so. If `task` rejects that too, continue with the calling skill's fallback, and omit `model` so the subagent runs on the parent model when the skill has no fallback left. Say so in both cases.
 
-You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. Interrupt-chained resumes silently drop directives, so fire a fresh subagent with consolidated scope rather than trusting a "done" summary. A second opinion is the same prompt against a different model. Agreement is high-signal.
+You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. A second opinion is the same prompt against a different model. Agreement is high-signal.
+
+**Fresh subagents by default.** Give new work to a fresh subagent with consolidated scope, meaning the original brief, every later directive, and the prior agent's report and branch. This holds for a fix round, a follow-up, a retry, and the next queue item. Resume, message, or queue a follow-up on an existing subagent only when the new work strictly needs state that lives in that agent and is costly to move: its local checkout, its uncommitted changes, or a process it still runs, such as a dev server, a simulator, or a babysit watcher. A stop or hold order to a running agent is not reuse. A role such as a PR owner outlives its agent. Once that agent returns, a fresh agent takes the role's next round. Interrupt-chained resumes silently drop directives, so fire a fresh subagent with consolidated scope rather than trusting a "done" summary.
 
 ## Writing the reply
 
@@ -103,7 +111,7 @@ Write the reply clean as you draft it. A cleanup pass after drafting does not re
 - **Never fabricate a link, citation, or transcript reference.** Link only artifacts you produced or read this session (`artifact://`, `agent://`, `history://`, `local://` all stay valid pointers).
 - **Every claim carries its evidence or its label in the same sentence.** Measured, inferred, or guess. A prediction or an unseen cause is a guess. Never hand the human a check you could run.
 
-Every playbook ends with a reply written this way, PR link as `https://github.com/<owner>/<repo>/pull/<number>`. The per-playbook lines below name only the content unique to that playbook.
+Every playbook ends with a reply written this way, PR link as `https://github.com/<owner>/<repo>/pull/<number>`. Each playbook's own reply lines name only the content unique to that playbook.
 
 ## Comments
 
@@ -111,7 +119,7 @@ Comments follow the same rule as the reply. Write them clean as you go. Keep a c
 
 ## Playbooks
 
-Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below, open its file, and copy its steps in verbatim.
+Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below, open its full steps at `skill://<title>`, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its link. Copy its steps in verbatim.
 
 A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the `skill://figure-it-out` skill even when a narrower playbook like Feature fits. Use `skill://figure-it-out` whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task. A standing project-scale program (multi-day, many stacked PRs, a fleet of subagents under one coordinator) routes to `skill://orchestrate` instead. figure-it-out designs one bespoke run, orchestrate runs the program.
 
@@ -132,7 +140,7 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Autonomous run.** A long task to drive to completion without stopping ("run until done", "watch it until X"). `skill://autonomous-run`.
 - **Orchestrate.** A standing project handed to one coordinator chat: multi-day, many stacked PRs, dozens to hundreds of subagents, minimal human turns ("run this whole project", "own this migration until it lands"). Distinct from Autonomous run, which drives one task to a predicate. Work one agent could finish inside the session's budget routes there, not here, however program-shaped the phrasing sounds. `skill://orchestrate`.
 - **Autopilot-full.** A queue of independent PRs run to merged with full autonomy. One owner per PR carries build through merge, and the root swarm-verifies each PR before its owner merges ("autopilot this queue", "full autopilot", one-owner-per-PR programs). `skill://autopilot-full`.
-- **Autopilot-stack.** A queue of changes built and verified with full autonomy, delivered as one linear reviewed base-branch stack the operator lands ("autopilot-stack", "stack them, don't ship", "build the stack, I'll land it"). `skill://autopilot-stack`.
+- **Autopilot-stack.** Autopilot-full without the merge. A queue of PRs built and verified with full autonomy, then handed to the operator to land. A PR stacks only on a PR it builds on ("autopilot-stack", "autopilot, don't merge", "stack them, don't ship", "build the stack, I'll land it"). `skill://autopilot-stack`.
 - **Session pickup.** Resuming or taking over a prior agent's in-flight work from a transcript (`history://<id>`), or a pushed branch. `skill://session-pickup`.
 - **Pause safely.** Suspending in-flight work cleanly so it can be resumed, on an explicit pause, going offline, an OMP restart, or imminent context compaction. The complement to Session pickup. `skill://pause-safely`.
 - **Multi-phase or multi-PR plan.** Work that spans phases or stacked PRs. `skill://multi-phase-plan`.
